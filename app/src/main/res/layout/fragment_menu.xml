@@ -7,17 +7,273 @@
     android:layout_height="match_parent"
     tools:context=".menu">
 
-    <!-- TODO: Update blank fragment layout -->
+
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/titleText"
+        android:layout_width="77dp"
+        android:layout_height="49dp"
+        android:layout_centerHorizontal="true"
+        android:text="Menu"
+        android:textColor="#3e2723"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="167dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="368dp"
+        android:layout_height="56dp"
+        android:layout_below="@id/titleText"
+        android:background="#E0E0E0"
+        android:drawableEnd="@android:drawable/ic_menu_search"
+        android:hint="Search..."
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="73dp" /><![CDATA[
+
+    tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+
+
+
+
+
+    tools:layout_editor_absoluteX="198dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+
+    tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+
+
+
+
+
+
+
+
+
+
+    ]]>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#D6D6D6"
+        android:padding="8dp"
+        android:text="All"
+        android:textColor="#388e3c"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#D6D6D6"
+        android:padding="8dp"
+        android:text="All"
+        android:textColor="#388e3c"
+        tools:layout_editor_absoluteX="307dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#D6D6D6"
+        android:padding="8dp"
+        android:text="All"
+        android:textColor="#388e3c"
+        tools:layout_editor_absoluteX="210dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#D6D6D6"
+        android:padding="8dp"
+        android:text="All"
+        android:textColor="#388e3c"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        android:orientation="vertical"
+        android:paddingLeft="8dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Title -->
+
+        <!-- Description -->
+
+        <!-- Price -->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/itemDescription"
+        android:layout_width="279dp"
+        android:layout_height="60dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="257dp" />
+
+    <TextView
+        android:id="@+id/itemDescription4"
+        android:layout_width="279dp"
+        android:layout_height="60dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="339dp" />
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Myanmar"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="235dp" />
+
+    <TextView
+        android:id="@+id/itemTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Myanmar"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="317dp" />
+
+    <TextView
+        android:id="@+id/itemTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Myanmar"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="485dp" />
+
+    <TextView
+        android:id="@+id/itemTitle6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Myanmar"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="567dp" />
+
+    <TextView
+        android:id="@+id/itemTitle5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Myanmar"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="399dp" />
+
+    <TextView
+        android:id="@+id/itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱150.0"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="349dp"
+        tools:layout_editor_absoluteY="295dp" />
+
+    <TextView
+        android:id="@+id/itemPrice2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱150.0"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="349dp"
+        tools:layout_editor_absoluteY="387dp" />
+
+    <TextView
+        android:id="@+id/itemPrice5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱150.0"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="349dp"
+        tools:layout_editor_absoluteY="630dp" />
+
+    <TextView
+        android:id="@+id/itemPrice3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱150.0"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="349dp"
+        tools:layout_editor_absoluteY="561dp" />
+
+    <TextView
+        android:id="@+id/itemPrice4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱150.0"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="343dp"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <TextView
+        android:id="@+id/itemDescription5"
+        android:layout_width="279dp"
+        android:layout_height="60dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="507dp" />
+
+    <TextView
+        android:id="@+id/itemDescription9"
+        android:layout_width="279dp"
+        android:layout_height="60dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="589dp" />
+
+    <TextView
+        android:id="@+id/itemDescription8"
+        android:layout_width="271dp"
+        android:layout_height="64dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="421dp" />
+</LinearLayout>
