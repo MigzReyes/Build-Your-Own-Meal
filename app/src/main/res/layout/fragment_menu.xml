@@ -1,279 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu">
+    android:background="@drawable/menu_background"
+    android:orientation="vertical">
 
-
-
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="77dp"
-        android:layout_height="49dp"
-        android:layout_centerHorizontal="true"
-        android:text="Menu"
-        android:textColor="#3e2723"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="167dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <EditText
-        android:id="@+id/searchBar"
-        android:layout_width="368dp"
-        android:layout_height="56dp"
-        android:layout_below="@id/titleText"
-        android:background="#E0E0E0"
-        android:drawableEnd="@android:drawable/ic_menu_search"
-        android:hint="Search..."
-        android:padding="10dp"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="73dp" /><![CDATA[
-
-    tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="165dp" />
-
-
-
-
-
-
-    tools:layout_editor_absoluteX="198dp"
-        tools:layout_editor_absoluteY="165dp" />
-
-
-    tools:layout_editor_absoluteX="304dp"
-        tools:layout_editor_absoluteY="165dp" />
-
-    tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="165dp" />
-
-
-
-
-
-
-
-
-
-
-
-    ]]>
-
-    <Button
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="#D6D6D6"
-        android:padding="8dp"
-        android:text="All"
-        android:textColor="#388e3c"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="165dp" />
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="#D6D6D6"
-        android:padding="8dp"
-        android:text="All"
-        android:textColor="#388e3c"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="165dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="#D6D6D6"
-        android:padding="8dp"
-        android:text="All"
-        android:textColor="#388e3c"
-        tools:layout_editor_absoluteX="210dp"
-        tools:layout_editor_absoluteY="165dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:gravity="center"
+                    android:text="Menu"
+                    android:textSize="40dp"
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="#D6D6D6"
-        android:padding="8dp"
-        android:text="All"
-        android:textColor="#388e3c"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="165dp" />
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:text="Search2"
+                    android:textSize="20dp"/>
 
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="10dp">
 
-        <!-- Title -->
+                    <Button
+                        android:id="@+id/button6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="All" />
 
-        <!-- Description -->
+                    <Button
+                        android:id="@+id/button7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Burger" />
 
-        <!-- Price -->
-    </LinearLayout>
+                    <Button
+                        android:id="@+id/button8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Chicken" />
 
-    <TextView
-        android:id="@+id/itemDescription"
-        android:layout_width="279dp"
-        android:layout_height="60dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="257dp" />
+                    <Button
+                        android:id="@+id/button9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="FRies" />
 
-    <TextView
-        android:id="@+id/itemDescription4"
-        android:layout_width="279dp"
-        android:layout_height="60dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="339dp" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/itemTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Myanmar"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="235dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="15dp">
 
-    <TextView
-        android:id="@+id/itemTitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Myanmar"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="317dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/itemTitle3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Myanmar"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="485dp" />
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/itemTitle6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Myanmar"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="567dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/itemTitle5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Myanmar"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="399dp" />
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Myanmar"
+                                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/itemPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₱150.0"
-        android:textColor="#888888"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="349dp"
-        tools:layout_editor_absoluteY="295dp" />
+                            <TextView
+                                android:id="@+id/textView9"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="this is a  descriptio about a foood for myanmar"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/itemPrice2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₱150.0"
-        android:textColor="#888888"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="349dp"
-        tools:layout_editor_absoluteY="387dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="15dp">
 
-    <TextView
-        android:id="@+id/itemPrice5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₱150.0"
-        android:textColor="#888888"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="349dp"
-        tools:layout_editor_absoluteY="630dp" />
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/itemPrice3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₱150.0"
-        android:textColor="#888888"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="349dp"
-        tools:layout_editor_absoluteY="561dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/itemPrice4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₱150.0"
-        android:textColor="#888888"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="343dp"
-        tools:layout_editor_absoluteY="479dp" />
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Myanmar"
+                            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/itemDescription5"
-        android:layout_width="279dp"
-        android:layout_height="60dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="507dp" />
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="this is a  descriptio about a foood for myanmar"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/itemDescription9"
-        android:layout_width="279dp"
-        android:layout_height="60dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="589dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/itemDescription8"
-        android:layout_width="271dp"
-        android:layout_height="64dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Myanmar food blends Burmese, Indian, Chinese, and Thai flavors with rich curries, noodles, and bold spices."
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="421dp" />
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Myanmar"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="this is a  descriptio about a foood for myanmar"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageVie6"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Myanmar"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="this is a  descriptio about a foood for myanmar"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Myanmar"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="this is a  descriptio about a foood for myanmar"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Myanmar"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView24"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="this is a  descriptio about a foood for myanmar"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Myanmar"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="this is a  descriptio about a foood for myanmar"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
+
