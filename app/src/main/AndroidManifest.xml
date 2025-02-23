@@ -11,7 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BuildYourOwnMeal"
-        tools:targetApi="31">
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="33">
+        <activity
+            android:name=".termsAndCondition"
+            android:exported="false" />
+        <activity
+            android:name=".contactUs"
+            android:exported="false" />
+        <activity
+            android:name=".orderHistory"
+            android:exported="false" />
+        <activity
+            android:name=".account"
+            android:exported="false" />
         <activity
             android:name=".Navbar"
             android:exported="true">

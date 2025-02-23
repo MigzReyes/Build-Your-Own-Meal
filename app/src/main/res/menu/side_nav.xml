@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/account"
+            android:title="Account"/>
+
+        <item
+            android:id="@+id/orderHis"
+            android:title="Order History"/>
+
+        <item
+            android:id="@+id/contactUs"
+            android:title="Contact Us"/>
+
+        <item
+            android:id="@+id/termsAndCondition"
+            android:title="Terms and Condition"/>
+
+        <item
+            android:id="@+id/signoutbtn"
+            android:title="Sign Out"/>
+
+    </group>
+
+</menu>
