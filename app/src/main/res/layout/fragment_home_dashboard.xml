@@ -32,7 +32,7 @@
 
                 <!-- Image Background Section -->
                 <LinearLayout
-                    android:id="@+id/image_background"
+                    android:id="@+id/orderCon"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:background="#725D1029"
@@ -59,11 +59,11 @@
                                 android:textSize="25sp" />
 
                             <Button
-                                android:id="@+id/button"
+                                android:id="@+id/orderBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="ORDER" />
+                                android:text="@string/order" />
                         </LinearLayout>
 
                         <ImageView
@@ -103,13 +103,13 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Log in"
+                            android:text="@string/logIn"
                             android:textSize="13sp" />
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sign up"
+                            android:text="@string/signUp"
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -117,6 +117,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/orderCon1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -139,7 +140,7 @@
                             android:minWidth="48dp"
                             android:minHeight="48dp"
                             android:padding="10dp"
-                            android:text="MENU"
+                            android:text="@string/customerChoice"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="#000000"
                             android:textSize="20sp" />
@@ -152,6 +153,7 @@
 
                         <!-- VIEW ALL eme eme kasama mga foods at pwede na ma scroll -->
                         <Button
+                            android:id="@+id/orderBtn8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
@@ -161,7 +163,7 @@
                             android:minWidth="48dp"
                             android:minHeight="48dp"
                             android:padding="10dp"
-                            android:text="VIEW ALL"
+                            android:text="@string/viewAll"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -197,16 +199,17 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:paddingTop="5dp"
-                                    android:text="Burger"
+                                    android:text="@string/sisigBomb"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <Button
+                                    android:id="@+id/orderBtn1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/black"
                                     android:padding="5dp"
-                                    android:text="Order"
+                                    android:text="@string/order"
                                     android:textColor="@android:color/white"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -230,16 +233,17 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:paddingTop="5dp"
-                                    android:text="Pizza"
+                                    android:text="@string/veggieBomb"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <Button
+                                    android:id="@+id/orderBtn2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/black"
                                     android:padding="5dp"
-                                    android:text="Order"
+                                    android:text="@string/order"
                                     android:textColor="@android:color/white"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -263,16 +267,17 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:paddingTop="5dp"
-                                    android:text="Pasta"
+                                    android:text="@string/karaageBomb"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <Button
+                                    android:id="@+id/orderBtn3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/black"
                                     android:padding="5dp"
-                                    android:text="Order"
+                                    android:text="@string/order"
                                     android:textColor="@android:color/white"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -282,6 +287,7 @@
                 </LinearLayout>
                 <!-- HOTTEST DEALS Section (Vertical Layout) -->
                 <LinearLayout
+                    android:id="@+id/orderCon2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -304,7 +310,7 @@
                             android:minWidth="48dp"
                             android:minHeight="48dp"
                             android:padding="10dp"
-                            android:text="HOTTEST DEALS"
+                            android:text="@string/hottestDeals"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
@@ -317,6 +323,7 @@
 
                         <!-- "VIEW ALL" Button for Hottest Deals -->
                         <Button
+                            android:id="@+id/orderBtn4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
@@ -326,7 +333,7 @@
                             android:minWidth="48dp"
                             android:minHeight="48dp"
                             android:padding="10dp"
-                            android:text="VIEW ALL"
+                            android:text="@string/viewAll"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -367,7 +374,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="start"
-                                        android:text="Cheesy Burger"
+                                        android:text="@string/karaageBomb"
                                         android:textSize="16sp"
                                         android:textStyle="bold" />
 
@@ -375,16 +382,17 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:paddingBottom="5dp"
-                                        android:text="10% OFF/FOR STUDENT ONLY!"
+                                        android:text="@string/annSale"
                                         android:textColor="#D32F2F"
                                         android:textSize="14sp" />
 
                                     <Button
+                                        android:id="@+id/orderBtn5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:backgroundTint="#D32F2F"
                                         android:padding="5dp"
-                                        android:text="Order"
+                                        android:text="@string/order"
                                         android:textColor="@android:color/white"
                                         android:textSize="14sp" />
                                 </LinearLayout>
@@ -414,7 +422,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="start"
-                                        android:text="Hatdog"
+                                        android:text="@string/veggieBomb"
                                         android:textSize="16sp"
                                         android:textStyle="bold" />
 
@@ -422,16 +430,17 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:paddingBottom="5dp"
-                                        android:text="Buy 1 Get 1 Free!"
+                                        android:text="@string/buy1take1"
                                         android:textColor="#D32F2F"
                                         android:textSize="14sp" />
 
                                     <Button
+                                        android:id="@+id/orderBtn6"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:backgroundTint="#D32F2F"
                                         android:padding="5dp"
-                                        android:text="Order"
+                                        android:text="@string/order"
                                         android:textColor="@android:color/white"
                                         android:textSize="14sp" />
                                 </LinearLayout>
@@ -461,7 +470,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="start"
-                                        android:text="Spaghetti Meal"
+                                        android:text="@string/sisigBomb"
                                         android:textSize="16sp"
                                         android:textStyle="bold" />
 
@@ -469,16 +478,17 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:paddingBottom="5dp"
-                                        android:text="Only 50 peso!"
+                                        android:text="@string/offSale"
                                         android:textColor="#D32F2F"
                                         android:textSize="14sp" />
 
                                     <Button
+                                        android:id="@+id/orderBtn7"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:backgroundTint="#D32F2F"
                                         android:padding="5dp"
-                                        android:text="Order"
+                                        android:text="@string/order"
                                         android:textColor="@android:color/white"
                                         android:textSize="14sp" />
                                 </LinearLayout>

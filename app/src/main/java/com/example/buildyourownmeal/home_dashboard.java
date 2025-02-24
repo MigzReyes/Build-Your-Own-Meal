@@ -16,12 +16,15 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,6 +35,27 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+
+        LinearLayout orderCon = view.findViewById(R.id.orderCon);
+
+        int[] btnId = {R.id.orderCon, R.id.orderBtn, R.id.orderBtn1, R.id.orderBtn2,
+                        R.id.orderBtn3, R.id.orderBtn4, R.id.orderBtn5, R.id.orderBtn6,
+                        R.id.orderBtn7, R.id.orderBtn8};
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navcon = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navcon.popBackStack(R.id.home_dashboard, true);
+                navcon.navigate(R.id.menu);
+            }
+        };
+
+        for (int id : btnId) {
+            view.findViewById(id).setOnClickListener(clickListener);
+        }
+
+
 
         //SIDEBAR
         //HOOK

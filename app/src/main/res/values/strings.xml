@@ -3,4 +3,43 @@
     <string name="open_sidebar">open sidebar</string>
     <string name="close_sidebar">close sidebar</string>
 
+    //SIDE BAR ACTIVITY NAME
+    <string name="account">Account</string>
+    <string name="orderHis">Order History</string>
+    <string name="contactUs">Contact Us</string>
+    <string name="termsAndCon">Terms and Condition</string>
+
+    //BUTTONS
+    <string name="order">Order</string>
+    <string name="save">Save</string>
+    <string name="savePass">Save Password</string>
+    <string name="logIn">Log in</string>
+    <string name="signUp">Sign up</string>
+    <string name="craftYourMeal">Craft your meal</string>
+
+    //TEXT
+    <string name="username">Username</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="contact">Contact</string>
+    <string name="menu">Menu</string>
+    <string name="home">Home</string>
+    <string name="aboutUs">About us</string>
+    <string name="customerChoice">Customer Choice</string>
+    <string name="viewAll">View all</string>
+    <string name="hottestDeals">Hottest Deals</string>
+
+    //TEXT MENU
+    <string name="karaageBomb">Karaage Bomb</string>
+    <string name="sisigBomb">Sisig Bomb</string>
+    <string name="veggieBomb">Veggie Max</string>
+
+    //DISCOUNTS
+    <string name="buy1take1">Buy 1 Take 1</string>
+    <string name="offSale">10% OFF</string>
+    <string name="annSale">Anniversary Sale</string>
+
+
 </resources>

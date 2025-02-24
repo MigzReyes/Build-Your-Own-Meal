@@ -1,5 +1,6 @@
 package com.example.buildyourownmeal;
 
+import static android.app.PendingIntent.getActivity;
 import static com.example.buildyourownmeal.R.*;
 
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +30,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class Navbar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +42,16 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.navbar);
+
+        //CART
+        FloatingActionButton cartBtn = findViewById(R.id.floatBtn);
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Navbar.this, cart.class);
+                startActivity(intent);
+            }
+        });
 
 
         //BOTTOM NAVBAR
@@ -117,7 +131,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         }
 
     }
-
 
     //ACTION BAR ICON SIZE METHOD
     private void setToolbarIconSize(Toolbar toolbar, int iconRes, int size) {
