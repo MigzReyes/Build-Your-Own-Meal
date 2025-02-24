@@ -2,11 +2,75 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/actTermAndCon"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".termsAndCondition">
 
-    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="16dp"
+                    android:text="Terms and Conditions"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="20dp"
+                    android:text="Welcome to [Your App Name]! By using our app, you agree to these terms. Please read them carefully.\n\n1. Using Our App\n• You must be 18 years or older to place an order.\n• Do not use the app for illegal activities.\n• Keep your login details safe. You are responsible for your account.\n\n2. Ordering Food\n• Once an order is placed, you cannot cancel it.\n• Prices may change without notice.\n• Delivery times are estimates and may vary.\n\n3. Payments\n• We accept debit/credit cards and online payments.\n• No refunds unless the order is incorrect or missing.\n\n4. Your Data\n• We collect some personal data to improve your experience.\n• We do not share your data with third parties without your permission.\n\n5. App Updates and Changes\n• We may update the app or these terms at any time.\n• Continued use means you accept the changes.\n\n6. Contact Us\n• If you have any issues, contact us at [Support Email].\n\nThanks for using [Your App Name]!"
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
