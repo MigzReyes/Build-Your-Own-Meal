@@ -14,6 +14,12 @@
         android:theme="@style/Theme.BuildYourOwnMeal"
         tools:targetApi="33">
         <activity
+            android:name=".signUp"
+            android:exported="false" />
+        <activity
+            android:name=".logIn"
+            android:exported="false" />
+        <activity
             android:name=".cart"
             android:exported="false" />
         <activity
