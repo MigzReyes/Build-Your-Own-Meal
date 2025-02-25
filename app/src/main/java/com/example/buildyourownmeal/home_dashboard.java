@@ -24,18 +24,23 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class home_dashboard extends Fragment /*implements NavigationView.OnNavigationItemSelectedListener*/ {
 
+    //VARIABLES
     private DrawerLayout drawerLayout;
+    private Button logInBtn;
+    private Button signUpBtn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
+        //ORDER BUTTON LINK
         LinearLayout orderCon = view.findViewById(R.id.orderCon);
 
         int[] btnId = {R.id.orderCon, R.id.orderBtn, R.id.orderBtn1, R.id.orderBtn2,
@@ -54,6 +59,28 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         for (int id : btnId) {
             view.findViewById(id).setOnClickListener(clickListener);
         }
+
+        //LOG IN BUTTON LINK
+        //SET ID
+        logInBtn = view.findViewById(R.id.logInBtn);
+        logInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), logIn.class);
+                startActivity(intent);
+            }
+        });
+
+        //SIGN UP BUTTON LINK
+        //SET ID
+        signUpBtn = view.findViewById(R.id.signUpBtn);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), signUp.class);
+                startActivity(intent);
+            }
+        });
 
 
 
