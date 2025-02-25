@@ -9,4 +9,41 @@
 
     <include layout="@layout/toolbar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hi Miguel Perez Get the help you need!"
+            android:textSize="50dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView54"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We're here to help! If you have any questions, issues, or feedback, feel free to reach out to us. Contact Us
+
+Email:
+
+support@ [yourappname].com
+
+Phone: [Your Support Number]
+
+Live Chat: Available in the app"
+                android:textSize="30dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
