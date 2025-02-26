@@ -4,6 +4,7 @@ import static android.app.PendingIntent.getActivity;
 import static com.example.buildyourownmeal.R.*;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -37,11 +39,39 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
 
     private DrawerLayout drawerLayout;
 
+    //SIDE NAV USERNAME
+    private TextView sideNavUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.navbar);
+        //HOOK FOR SIDE BAR
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.navbar);
+        NavigationView navigationView = findViewById(R.id.sidebar);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //SIDE NAV USER DISPLAY
+        //GETTING THE ID FROM THE side_nav.xml
+        View headerView = navigationView.getHeaderView(0);
+
+        sideNavUsername = headerView.findViewById(R.id.helloUserSideNav);
+
+        //SHARED PREFERENCE CONNECTION
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+        String userName = userSession.getString("username", "No username");
+
+        if (isUserLoggedIn) {
+            String userWelcome = getString(string.hello) + " " + userName;
+            sideNavUsername.setText(userWelcome);
+        }
+
+
 
         //CART
         FloatingActionButton cartBtn = findViewById(R.id.floatBtn);
@@ -68,14 +98,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
 
 
         //SIDEBAR
-        //HOOK
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.navbar);
-        NavigationView navigationView = findViewById(R.id.sidebar);
-        navigationView.setNavigationItemSelectedListener(this);
-
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open_sidebar, R.string.close_sidebar);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         setToolbarIconSize(toolbar, drawable.baseline_account_circle_24, 110);
@@ -99,6 +121,11 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
 
     //LOGIC FOR SIDEBAR ITEMS
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //SHARED PREFERENCE CONNECTION
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+
         int id = item.getItemId();
         if (id == R.id.account) {
             Intent intent = new Intent(this, account.class);
@@ -112,6 +139,14 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         } else if (id == R.id.termsAndCondition) {
             Intent intent = new Intent(this, termsAndCondition.class);
             startActivity(intent);
+        } else if (id == R.id.signoutbtn) {
+            if (isUserLoggedIn) {
+                editor.clear();
+                editor.apply();
+
+                Intent intent = new Intent(this, Navbar.class);
+                startActivity(intent);
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

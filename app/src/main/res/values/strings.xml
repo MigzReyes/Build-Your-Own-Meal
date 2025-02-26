@@ -18,6 +18,8 @@
     <string name="craftYourMeal">Craft your meal</string>
 
     //TEXT
+    <string name="hello">Hello,</string>
+    <string name="startAPickUpOrder">Start a pick up order</string>
     <string name="username">Username</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
@@ -38,7 +40,7 @@
     <string name="forgotPass">Forgot Password?</string>
     <string name="dontHaveAccount">Don\'t have an account? <b>Sign up</b></string>
     <string name="alreadyHaveAccount">Already have a account? <b>Log in</b></string>
-    <string name="agreeToTermsAndCondi">I agree to the <b><u>Terms &amp; Conditions</u></b> and <b><u>Privacy Policy</u></b></string>
+    <string name="agreeToTermsAndCondition">I agree to the <b><u>Terms &amp; Conditions</u></b> and <b><u>Privacy Policy</u></b></string>
 
     //TEXT MENU
     <string name="karaageBomb">Karaage Bomb</string>
@@ -49,6 +51,15 @@
     <string name="buy1take1">Buy 1 Take 1</string>
     <string name="offSale">10% OFF</string>
     <string name="annSale">Anniversary Sale</string>
+
+    //ERRORS
+    <string name="fillUpAllInputFieldsError">Please fill up all input fields</string>
+    <string name="conPassAndPassDoesNotMatchError">Confirm password and password does not match</string>
+    <string name="agreeToTheTermsAndConError">Please agree to the Terms and Conditions</string>
+    <string name="emailDoesNotExistError">Email does not exist</string>
+    <string name="passwordIsWrongError">Password is wrong</string>
+    <string name="wrongPassworError">Wrong password</string>
+
 
 
 </resources>

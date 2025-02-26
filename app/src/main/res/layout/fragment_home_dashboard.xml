@@ -52,9 +52,10 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/userIntroduction"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Start a pick up order"
+                                android:text="@string/startAPickUpOrder"
                                 android:textColor="@color/black"
                                 android:textSize="25sp" />
 

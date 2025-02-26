@@ -1,6 +1,9 @@
 package com.example.buildyourownmeal;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,6 +39,12 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
     private DrawerLayout drawerLayout;
     private Button logInBtn;
     private Button signUpBtn;
+
+    //LOGIN WARNING
+    private LinearLayout logInWarning;
+
+    //USER INTRODUCTION/WELCOME
+    private TextView userIntro;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +69,31 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         for (int id : btnId) {
             view.findViewById(id).setOnClickListener(clickListener);
         }
+
+
+        //IF USER IS ALREADY LOGGED IN
+        //SET ID
+        logInWarning = view.findViewById(R.id.login_warning);
+        userIntro = view.findViewById(R.id.userIntroduction);
+
+
+        //SET CONNECTION TO SHARED PREFERENCE/USER SESSION
+        SharedPreferences userSession = getActivity().getSharedPreferences("userSession", MODE_PRIVATE);
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+        String loggedInUsername = userSession.getString("username", null);
+
+        //LOGIC STATEMENT FOR DISPLAYING ERROR "you are not logged in"
+        if (isUserLoggedIn) {
+            logInWarning.setVisibility(View.GONE);
+
+            String welcome = getString(R.string.hello) + " " + loggedInUsername + "!";
+            userIntro.setText(welcome);
+        } else {
+            logInWarning.setVisibility(View.VISIBLE);
+        }
+
+        //LOGIC STATEMENT FOR DISPLAYING USER NAME ON INTRODUCTION
+
 
         //LOG IN BUTTON LINK
         //SET ID
