@@ -206,6 +206,8 @@
                     android:id="@+id/button7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:backgroundTint="#DED8D8"
                     android:layout_weight="1"
                     android:layout_marginVertical="20dp"
                     android:layout_marginHorizontal="40dp"

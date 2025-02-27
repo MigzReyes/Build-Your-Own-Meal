@@ -126,6 +126,7 @@
             android:id="@+id/signUpBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#E66565"
             android:text="@string/signUp" />
     </LinearLayout>
 
