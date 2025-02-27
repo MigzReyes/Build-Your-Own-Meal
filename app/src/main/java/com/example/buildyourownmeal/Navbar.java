@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,6 +42,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
 
     //SIDE NAV USERNAME
     private TextView sideNavUsername;
+    private boolean isUserLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +64,15 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         sideNavUsername = headerView.findViewById(R.id.helloUserSideNav);
 
         //SHARED PREFERENCE CONNECTION
+        //SHARED PREFERENCE FOR USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
-        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+        isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
         String userName = userSession.getString("username", "No username");
 
         if (isUserLoggedIn) {
             String userWelcome = getString(string.hello) + " " + userName;
             sideNavUsername.setText(userWelcome);
         }
-
-
 
         //CART
         FloatingActionButton cartBtn = findViewById(R.id.floatBtn);
@@ -104,6 +105,15 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         toolbar.setNavigationOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+        //IF USER IS NOT LOGGED IN DO NOT DISPLAY ACCOUNT, ORDER HISTORY, AND SIGNOUT BUTTON
+        Menu menu = navigationView.getMenu();
+
+        if (!isUserLoggedIn) {
+            menu.findItem(R.id.account).setVisible(false);
+            menu.findItem(R.id.orderHis).setVisible(false);
+            menu.findItem(R.id.signoutbtn).setVisible(false);
+        }
     }
 
     //FOR DISPLAYING FRAGMENTS FOR MAIN ACTIVITY/navbar.xml
@@ -127,27 +137,38 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
 
         int id = item.getItemId();
-        if (id == R.id.account) {
-            Intent intent = new Intent(this, account.class);
-            startActivity(intent);
-        } else if (id == R.id.orderHis) {
-            Intent intent = new Intent(this, orderHistory.class);
-            startActivity(intent);
-        } else if (id == R.id.contactUs) {
-            Intent intent = new Intent(this, contactUs.class);
-            startActivity(intent);
-        } else if (id == R.id.termsAndCondition) {
-            Intent intent = new Intent(this, termsAndCondition.class);
-            startActivity(intent);
-        } else if (id == R.id.signoutbtn) {
-            if (isUserLoggedIn) {
-                editor.clear();
-                editor.apply();
+        if (isUserLoggedIn) {
+            if (id == R.id.account) {
+                Intent intent = new Intent(this, account.class);
+                startActivity(intent);
+            } else if (id == R.id.orderHis) {
+                Intent intent = new Intent(this, orderHistory.class);
+                startActivity(intent);
+            } else if (id == R.id.contactUs) {
+                Intent intent = new Intent(this, contactUs.class);
+                startActivity(intent);
+            } else if (id == R.id.termsAndCondition) {
+                Intent intent = new Intent(this, termsAndCondition.class);
+                startActivity(intent);
+            } else if (id == R.id.signoutbtn) {
+                if (isUserLoggedIn) {
+                    editor.clear();
+                    editor.apply();
 
-                Intent intent = new Intent(this, Navbar.class);
+                    Intent intent = new Intent(this, Navbar.class);
+                    startActivity(intent);
+                }
+            }
+        } else {
+            if (id == R.id.contactUs) {
+                Intent intent = new Intent(this, contactUs.class);
+                startActivity(intent);
+            } else if (id == R.id.termsAndCondition) {
+                Intent intent = new Intent(this, termsAndCondition.class);
                 startActivity(intent);
             }
         }
+
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

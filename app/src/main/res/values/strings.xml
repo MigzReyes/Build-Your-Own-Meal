@@ -71,6 +71,7 @@
     <string name="price">Price: </string>
     <string name="cart">Cart</string>
     <string name="optional">Optional</string>
+    <string name="orderIsProcessing">Your order is processing</string>
 
     //MENU PRICE
     <string name="two">2\u20B1</string>
@@ -115,6 +116,7 @@
     <string name="wrongPassworError">Wrong password</string>
     <string name="chooseAnAddOn">Please choose one Add on</string>
     <string name="logInSignUpFirst">Please log in/sign up to order</string>
+    <string name="choosePickUpOption">Please choose a pick up option</string>
 
 
 </resources>

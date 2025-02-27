@@ -91,6 +91,7 @@
                     android:padding="12dp">
 
                     <TextView
+                        android:id="@+id/loginWarningText"
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         android:text="You are not signed in/logged in: "
@@ -98,6 +99,7 @@
                         android:textSize="20sp" />
 
                     <LinearLayout
+                        android:id="@+id/logInWarningBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

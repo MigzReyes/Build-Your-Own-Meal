@@ -41,10 +41,10 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
     private Button signUpBtn;
 
     //LOGIN WARNING
-    private LinearLayout logInWarning;
+    private LinearLayout logInWarning, logInWarningBtn;
 
     //USER INTRODUCTION/WELCOME
-    private TextView userIntro;
+    private TextView userIntro, logInWarningText;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,6 +83,7 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         String loggedInUsername = userSession.getString("username", null);
 
         //LOGIC STATEMENT FOR DISPLAYING ERROR "you are not logged in"
+        //LOGIC STATEMENT FOR DISPLAYING USER NAME ON INTRODUCTION
         if (isUserLoggedIn) {
             logInWarning.setVisibility(View.GONE);
 
@@ -92,7 +93,19 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
             logInWarning.setVisibility(View.VISIBLE);
         }
 
-        //LOGIC STATEMENT FOR DISPLAYING USER NAME ON INTRODUCTION
+        //SHARED PREFERENCE FOR IF USER HAD ORDERED
+        SharedPreferences orderProcess = getActivity().getSharedPreferences("orderProcess", MODE_PRIVATE);
+        boolean ifUserHadOrdered = orderProcess.getBoolean("ifUserHadOrdered", false);
+
+        //SET ID
+        logInWarningBtn = view.findViewById(R.id.logInWarningBtn);
+        logInWarningText = view.findViewById(R.id.loginWarningText);
+
+        if (ifUserHadOrdered) {
+            String orderIsProcessing = getString(R.string.orderIsProcessing);
+            logInWarningText.setText(orderIsProcessing);
+            logInWarningBtn.setVisibility(View.GONE);
+        }
 
 
         //LOG IN BUTTON LINK

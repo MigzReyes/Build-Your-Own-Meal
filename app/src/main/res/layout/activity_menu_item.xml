@@ -54,9 +54,10 @@
 
                         <ImageView
                             android:id="@+id/imageView5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
+                            android:layout_gravity="center"
+                            tools:srcCompat="@drawable/img" />
 
                     </FrameLayout>
 

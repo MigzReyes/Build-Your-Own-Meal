@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,13 +46,49 @@ public class cart extends AppCompatActivity {
         orderCon = findViewById(R.id.orderCon);
         addItemBtn = findViewById(R.id.addItemBtn);
 
-        //SHARED PREFERENCE
+        //USER SESSION
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+
+        //SHARED PREFERENCE FOR MENU ITEM
         SharedPreferences menuItem = getSharedPreferences("menuItem", MODE_PRIVATE);
         boolean menuSession = menuItem.getBoolean("menuSession", false);
         String selectedItems = menuItem.getString("selectedItems", "No selected items");
         int dbItemCount = menuItem.getInt("itemCount", 0);
         String mealName = menuItem.getString("mealName", "No meal name");
         float totalPrice = menuItem.getFloat("totalPrice", 0);
+
+        //SHARED PREFERENCE FOR CART
+        SharedPreferences orderProcess = getSharedPreferences("orderProcess", MODE_PRIVATE);
+        SharedPreferences.Editor editor = orderProcess.edit();
+
+        if (isUserLoggedIn) {
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (priority.isChecked() || standard.isChecked()) {
+
+                        if (priority.isChecked()) {
+                            editor.putString("pickUpOption", "priority");
+                        } else if (standard.isChecked()) {
+                            editor.putString("pickUpOption", "standard");
+                        }
+                        String getPayment = payment.getText().toString();
+                        editor.putString("paymentMethod", getPayment);
+                        editor.putBoolean("ifUserHadOrdered", true);
+                        editor.apply();
+
+                        Intent intent = new Intent(cart.this, Navbar.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(cart.this, getString(R.string.choosePickUpOption), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(this, getString(R.string.logInSignUpFirst), Toast.LENGTH_SHORT).show();
+        }
+
 
         if (menuSession) {
             mealNameSummary.setText(mealName);
