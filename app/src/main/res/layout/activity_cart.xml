@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="35dp"
                             android:gravity="center_vertical"
-                            android:text="Cart"
+                            android:text="@string/cart"
                             android:textSize="23sp" />
                     </FrameLayout>
 
@@ -69,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#E66565"
-                        android:text="Pick up" />
+                        android:text="@string/pickUp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,7 +81,7 @@
                         android:id="@+id/textView31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pick up option"
+                        android:text="@string/pickUpOption"
                         android:textSize="20sp" />
 
                     <RadioGroup
@@ -89,16 +89,16 @@
                         android:layout_height="match_parent">
 
                         <RadioButton
-                            android:id="@+id/radioButton2"
+                            android:id="@+id/priorityFee"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Priority fee 10 mins" />
+                            android:text="@string/priority" />
 
                         <RadioButton
-                            android:id="@+id/radioButton"
+                            android:id="@+id/standardFee"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Standard fee" />
+                            android:text="@string/standard" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -118,20 +118,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Order summary"
+                            android:text="@string/orderSum"
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/textView33"
+                            android:id="@+id/addItemBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="Add items"
+                            android:text="@string/addItems"
                             android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/orderCon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="8dp"
@@ -139,26 +140,38 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView34"
+                            android:id="@+id/itemCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1x"
+                            android:text="@string/oneX"
                             android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/textView35"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:text="Crafted Meal"
-                            android:textSize="18sp" />
+                            android:layout_marginStart="12dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/mealName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/craftedMeal"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/addOn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/water" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/textView36"
+                            android:id="@+id/priceItem"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="600.00"
+                            android:text="@string/priceItem"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -174,13 +187,17 @@
                         android:id="@+id/textView37"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Payment details"
+                        android:text="@string/paymentDetail"
                         android:textSize="20sp" />
 
                     <LinearLayout
+                        android:id="@+id/paymentCon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginVertical="15dp"
+                        android:paddingVertical="10dp"
+                        android:focusable="true"
+                        android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -190,15 +207,15 @@
                             app:srcCompat="@drawable/baseline_attach_money_24" />
 
                         <TextView
-                            android:id="@+id/textView38"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/paymentMethod"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Cash"
+                            android:text="@string/cash"
                             android:textSize="18sp" />
 
                         <ImageView
-                            android:id="@+id/imageView8"
+                            android:id="@+id/otherPayment"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
@@ -214,7 +231,7 @@
                         android:id="@+id/textView39"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Subtotal"
+                        android:text="@string/subtotal"
                         android:textSize="20sp" />
 
                     <LinearLayout
@@ -225,20 +242,20 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView40"
+                            android:id="@+id/mealName1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Crafted Meal"
+                            android:text="@string/craftedMeal"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/textView41"
+                            android:id="@+id/priceItem1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="600.oo"
+                            android:text="@string/priceItem"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -274,19 +291,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total" />
+                    android:text="@string/Total" />
 
                 <TextView
-                    android:id="@+id/textView30"
+                    android:id="@+id/priceItem2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="600.00" />
+                    android:text="@string/priceItem" />
             </LinearLayout>
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/orderBtnCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#E66565"
