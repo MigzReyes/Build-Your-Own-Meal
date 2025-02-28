@@ -96,6 +96,7 @@
             android:id="@+id/logInBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#E66565"
             android:layout_marginTop="20dp"
             android:text="@string/logIn" />
 

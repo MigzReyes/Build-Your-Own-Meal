@@ -63,6 +63,7 @@
                                 android:id="@+id/orderBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:backgroundTint="#E66565"
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/order" />
                         </LinearLayout>
@@ -105,6 +106,7 @@
                             android:id="@+id/logInBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
                             android:text="@string/logIn"
                             android:textSize="13sp" />
 
@@ -112,6 +114,7 @@
                             android:id="@+id/signUpBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
                             android:text="@string/signUp"
                             android:textSize="13sp" />
 
@@ -210,7 +213,7 @@
                                     android:id="@+id/orderBtn1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/black"
+                                    android:backgroundTint="#E66565"
                                     android:padding="5dp"
                                     android:text="@string/order"
                                     android:textColor="@android:color/white"
@@ -244,7 +247,7 @@
                                     android:id="@+id/orderBtn2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/black"
+                                    android:backgroundTint="#E66565"
                                     android:padding="5dp"
                                     android:text="@string/order"
                                     android:textColor="@android:color/white"
@@ -278,7 +281,7 @@
                                     android:id="@+id/orderBtn3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/black"
+                                    android:backgroundTint="#E66565"
                                     android:padding="5dp"
                                     android:text="@string/order"
                                     android:textColor="@android:color/white"
@@ -393,7 +396,7 @@
                                         android:id="@+id/orderBtn5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:backgroundTint="#D32F2F"
+                                        android:backgroundTint="#E66565"
                                         android:padding="5dp"
                                         android:text="@string/order"
                                         android:textColor="@android:color/white"
@@ -441,7 +444,7 @@
                                         android:id="@+id/orderBtn6"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:backgroundTint="#D32F2F"
+                                        android:backgroundTint="#E66565"
                                         android:padding="5dp"
                                         android:text="@string/order"
                                         android:textColor="@android:color/white"
@@ -489,7 +492,7 @@
                                         android:id="@+id/orderBtn7"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:backgroundTint="#D32F2F"
+                                        android:backgroundTint="#E66565"
                                         android:padding="5dp"
                                         android:text="@string/order"
                                         android:textColor="@android:color/white"
