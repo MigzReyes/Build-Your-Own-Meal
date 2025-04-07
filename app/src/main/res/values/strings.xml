@@ -4,10 +4,18 @@
     <string name="close_sidebar">close sidebar</string>
 
     //SIDE BAR ACTIVITY NAME
-    <string name="account">Account</string>
+    <string name="helloUser">Hello! User</string>
+    <string name="profile">Profile</string>
     <string name="orderHis">Order History</string>
     <string name="contactUs">Contact Us</string>
     <string name="termsAndCon">Terms and Condition</string>
+    <string name="logOut">Log Out</string>
+
+    //NAVBAR NAME
+    <string name="home">Home</string>
+    <string name="menu">Menu</string>
+    <string name="cart">Cart</string>
+    <string name="aboutUs">About us</string>
 
     //BUTTONS
     <string name="order">Order</string>
@@ -15,10 +23,13 @@
     <string name="savePass">Save Password</string>
     <string name="logIn">Log in</string>
     <string name="signUp">Sign up</string>
-    <string name="craftYourMeal">Craft your meal</string>
+    <string name="craftYourFeast">Craft Your Feast</string>
 
     //TEXT
     <string name="hello">Hello,</string>
+    <string name="Welcome">Welcome,</string>
+    <string name="user">User</string>
+    <string name="craftNow">CRAFT NOW</string>
     <string name="startAPickUpOrder">Start a pick up order</string>
     <string name="username">Username</string>
     <string name="firstName">First Name</string>
@@ -28,11 +39,9 @@
     <string name="email">Email</string>
     <string name="emailEx">user@example.com</string>
     <string name="contact">Contact</string>
-    <string name="menu">Menu</string>
-    <string name="home">Home</string>
-    <string name="aboutUs">About us</string>
     <string name="customerChoice">Customer Choice</string>
     <string name="viewAll">View all</string>
+    <string name="bestSellingCombos">Best Selling Combos</string>
     <string name="hottestDeals">Hottest Deals</string>
     <string name="logIntoYourAccount">Log into \nyour account</string>
     <string name="CreateYourAccount">Create \nyour account</string>
@@ -69,7 +78,6 @@
     <string name="Total">Total</string>
     <string name="orderBtn">Order</string>
     <string name="price">Price: </string>
-    <string name="cart">Cart</string>
     <string name="optional">Optional</string>
     <string name="orderIsProcessing">Your order is processing</string>
 
@@ -102,12 +110,18 @@
     <string name="coffeeJelly">Coffee Jelly</string>
     <string name="cucumberLemon">Cucumber Lemon</string>
 
+    //MENU DESCRIPTION
+    <string name="chickenKaraageDescription">This bento box features crispy chicken karaage, fluffy rice, refreshing corn slaw, and a soft mochi for dessert, served with water.</string>
+    <string name="tunaSisigDescription">This bento box features flavorful tuna sisig, paired with rice, a crispy hashbrown, and a mochi for dessert, complemented by refreshing coffee jelly.</string>
+    <string name="veggieBallsDescription">This bento box includes savory veggie balls, sweet corn, and a delicate Japanese fruit cake for dessert, paired with refreshing cucumber lemon juice.</string>
     //DISCOUNTS
     <string name="buy1take1">Buy 1 Take 1</string>
     <string name="offSale">10% OFF</string>
     <string name="annSale">Anniversary Sale</string>
 
-    //ERRORS
+    //ERRORS/ALERT
+    <string name="pleaseLogInSignInUpToOrder">Please log in/sign up to order</string>
+    <string name="wantToCustomizeYourMealLogInOrSignUpToGetStarted">Want to customize your meal? Log in or sign up to get started!</string>
     <string name="fillUpAllInputFieldsError">Please fill up all input fields</string>
     <string name="conPassAndPassDoesNotMatchError">Confirm password and password does not match</string>
     <string name="agreeToTheTermsAndConError">Please agree to the Terms and Conditions</string>
@@ -117,6 +131,8 @@
     <string name="chooseAnAddOn">Please choose one Add on</string>
     <string name="logInSignUpFirst">Please log in/sign up to order</string>
     <string name="choosePickUpOption">Please choose a pick up option</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

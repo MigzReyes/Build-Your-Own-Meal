@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_menu"/>
 
     <fragment
+        android:id="@+id/cart"
+        android:name="com.example.buildyourownmeal.cart"
+        android:label="@string/cart"
+        tools:layout="@layout/fragment_cart"/>
+
+    <fragment
         android:id="@+id/aboutUs"
         android:name="com.example.buildyourownmeal.aboutUs"
         android:label="aboutUs"

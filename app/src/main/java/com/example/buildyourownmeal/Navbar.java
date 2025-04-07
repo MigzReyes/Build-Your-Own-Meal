@@ -25,16 +25,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHostKt;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.transition.MaterialArcMotion;
 
 public class Navbar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -74,16 +73,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
             sideNavUsername.setText(userWelcome);
         }
 
-        //CART
-        FloatingActionButton cartBtn = findViewById(R.id.floatBtn);
-        cartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Navbar.this, cart.class);
-                startActivity(intent);
-            }
-        });
-
 
         //BOTTOM NAVBAR
         //HOOK
@@ -101,7 +90,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         //SIDEBAR
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open_sidebar, R.string.close_sidebar);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        setToolbarIconSize(toolbar, drawable.baseline_account_circle_24, 110);
+        setToolbarIconSize(toolbar, drawable.bentosidebaricon, 150);
         toolbar.setNavigationOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -112,7 +101,19 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         if (!isUserLoggedIn) {
             menu.findItem(R.id.account).setVisible(false);
             menu.findItem(R.id.orderHis).setVisible(false);
-            menu.findItem(R.id.signoutbtn).setVisible(false);
+            menu.findItem(R.id.logOutBtn).setVisible(false);
+        }
+    }
+
+    //ACTION BAR ICON SIZE METHOD
+    private void setToolbarIconSize(Toolbar toolbar, int iconRes, int size) {
+        Drawable drawable = ContextCompat.getDrawable(this, iconRes);
+        if (drawable != null) {
+            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            toolbar.setNavigationIcon(new BitmapDrawable(getResources(), bitmap));
         }
     }
 
@@ -150,7 +151,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
             } else if (id == R.id.termsAndCondition) {
                 Intent intent = new Intent(this, termsAndCondition.class);
                 startActivity(intent);
-            } else if (id == R.id.signoutbtn) {
+            } else if (id == R.id.logOutBtn) {
                 if (isUserLoggedIn) {
                     editor.clear();
                     editor.apply();
@@ -186,17 +187,5 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
             super.getOnBackPressedDispatcher().onBackPressed();
         }
 
-    }
-
-    //ACTION BAR ICON SIZE METHOD
-    private void setToolbarIconSize(Toolbar toolbar, int iconRes, int size) {
-        Drawable drawable = ContextCompat.getDrawable(this, iconRes);
-        if (drawable != null) {
-            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-            toolbar.setNavigationIcon(new BitmapDrawable(getResources(), bitmap));
-        }
     }
 }

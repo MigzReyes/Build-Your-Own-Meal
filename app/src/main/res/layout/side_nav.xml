@@ -11,7 +11,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        app:srcCompat="@drawable/baseline_account_circle_24" />
+        app:srcCompat="@drawable/usericon" />
 
     <TextView
         android:id="@+id/helloUserSideNav"
@@ -20,5 +20,5 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="10dp"
         android:textSize="20sp"
-        android:text="Hello! User" />
+        android:text="@string/helloUser" />
 </LinearLayout>

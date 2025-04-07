@@ -23,7 +23,7 @@
             android:name=".logIn"
             android:exported="false" />
         <activity
-            android:name=".cart"
+            android:name=".checkout"
             android:exported="false" />
         <activity
             android:name=".menuItem"

@@ -6,23 +6,23 @@
 
         <item
             android:id="@+id/account"
-            android:title="Account"/>
+            android:title="@string/profile"/>
 
         <item
             android:id="@+id/orderHis"
-            android:title="Order History"/>
+            android:title="@string/orderHis"/>
 
         <item
             android:id="@+id/contactUs"
-            android:title="Contact Us"/>
+            android:title="@string/contactUs"/>
 
         <item
             android:id="@+id/termsAndCondition"
-            android:title="Terms and Condition"/>
+            android:title="@string/termsAndCon"/>
 
         <item
-            android:id="@+id/signoutbtn"
-            android:title="Sign Out"/>
+            android:id="@+id/logOutBtn"
+            android:title="@string/logOut"/>
 
     </group>
 

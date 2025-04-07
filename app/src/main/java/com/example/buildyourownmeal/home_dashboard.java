@@ -53,9 +53,9 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         //ORDER BUTTON LINK
         LinearLayout orderCon = view.findViewById(R.id.orderCon);
 
-        int[] btnId = {R.id.orderCon, R.id.orderBtn, R.id.orderBtn1, R.id.orderBtn2,
+        int[] btnId = {R.id.orderCon, /*R.id.orderBtn, R.id.orderBtn1, R.id.orderBtn2,
                         R.id.orderBtn3, R.id.orderBtn4, R.id.orderBtn5, R.id.orderBtn6,
-                        R.id.orderBtn7, R.id.orderBtn8};
+                        R.id.orderBtn7, R.id.orderBtn8*/};
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
@@ -98,8 +98,8 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         boolean ifUserHadOrdered = orderProcess.getBoolean("ifUserHadOrdered", false);
 
         //SET ID
-        logInWarningBtn = view.findViewById(R.id.logInWarningBtn);
-        logInWarningText = view.findViewById(R.id.loginWarningText);
+        /*logInWarningBtn = view.findViewById(R.id.logInBtn);
+        logInWarningText = view.findViewById(R.id.loginWarningText);*/
 
         if (ifUserHadOrdered) {
             String orderIsProcessing = getString(R.string.orderIsProcessing);

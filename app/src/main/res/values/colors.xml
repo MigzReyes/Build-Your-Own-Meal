@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //COLOR PALETTE
+    <color name="main_color">#FFA652</color>
     <color name="black">#090000</color>
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#F5F5F5</color>
-    <color name="dark_blue">#3F51B5</color>
-    <color name="clay">#725D1029</color>
+    <color name="wasabi_green">#B7CB69</color>
+    <color name="price_green">#008000</color>
+    <color name="light_red_cancel_order">#F24444</color>
+    <color name="maroon_cancelBtn">#B33333</color>
+    <color name="carrots_orange">#ED691E</color>
+    <color name="chopstick_light_orange">#E49127</color>
+    <color name="logo_letters_dark_orange">#C17D2A</color>
+    <color name="egg_roll_light_yellow">#DEA848</color>
+    <color name="bento_box_maroon">#8B0002</color>
+    <color name="bento_box_dark_maroon">#520004</color>
+
+    //BUTTONS
+    <color name="btnColor">#090000</color>
+
+    //TITLE
+    <color name="titleColor">#090000</color>
+
+    //BOLD LETTERS
+    <color name="blackBoldLetters">#090000</color>
+    <color name="whiteBoldLetters">#FFFFFF</color>
+
+
+    //GREY LETTERS
+    <color name="greyLetters">#8E8E93</color>
+    <color name="lightGreyLetters">#AEAEB2</color>
+
 </resources>

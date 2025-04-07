@@ -7,6 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".orderHistory">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/sidebartoolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

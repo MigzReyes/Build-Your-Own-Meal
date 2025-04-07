@@ -5,13 +5,13 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
     tools:context=".home_dashboard">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -28,16 +28,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Top Banner -->
-
-                <!-- Image Background Section -->
+                <!-- TOP SECTION-->
                 <LinearLayout
                     android:id="@+id/orderCon"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="#725D1029"
+                    android:layout_height="190dp"
+                    android:background="@drawable/bentomenubackground"
                     android:orientation="vertical"
-                    android:padding="1dp">
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -47,303 +46,185 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
                             android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/whiteBoldLetters"
+                                android:textSize="33sp"
+                                android:text="@string/Welcome" />
 
                             <TextView
                                 android:id="@+id/userIntroduction"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/startAPickUpOrder"
-                                android:textColor="@color/black"
-                                android:textSize="25sp" />
+                                android:textColor="@color/whiteBoldLetters"
+                                android:textSize="28sp"
+                                android:text="@string/user" />
 
-                            <Button
-                                android:id="@+id/orderBtn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="#E66565"
-                                android:layout_gravity="center_vertical"
-                                android:text="@string/order" />
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/bottom_banner"
-                            android:layout_width="139dp"
-                            android:layout_height="120dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="15dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/foods" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/craftNowBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/craft_btn"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="15dp"
+                                android:paddingVertical="30dp">
+
+                                <ImageView
+                                    android:id="@+id/imageView8"
+                                    android:layout_width="45dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/crafticon" />
+
+                                <TextView
+                                    android:id="@+id/textView23"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/craftNow"
+                                    android:textColor="@color/main_color"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <!-- Log in Warning -->
+                <!-- LOG IN/SIGN UP NOTIFICATION -->
+
                 <LinearLayout
                     android:id="@+id/login_warning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#A7FF0000"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/login_signup_notification_box"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp">
 
                     <TextView
-                        android:id="@+id/loginWarningText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="33dp"
-                        android:text="You are not signed in/logged in: "
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <LinearLayout
-                        android:id="@+id/logInWarningBtn"
+                        android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:gravity="center_horizontal"
+                        android:text="@string/pleaseLogInSignInUpToOrder"
+                        android:textColor="@color/black"
+                        android:textSize="19sp" />
 
-                        <Button
-                            android:id="@+id/logInBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/black"
-                            android:text="@string/logIn"
-                            android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/wantToCustomizeYourMealLogInOrSignUpToGetStarted"
+                        android:textColor="@color/greyLetters"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/signUpBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/black"
-                            android:text="@string/signUp"
-                            android:textSize="13sp" />
+                            android:layout_marginEnd="50dp"
+                            android:background="@drawable/small_btn"
+                            android:text="@string/signUp" />
 
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/orderCon1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <!-- Header ng "MENU" and "VIEW ALL" -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <!-- MENU -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="start"
-                            android:minWidth="48dp"
-                            android:minHeight="48dp"
-                            android:padding="10dp"
-                            android:text="@string/customerChoice"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="#000000"
-                            android:textSize="20sp" />
-
-                        <!-- Spacer ng para ma push "VIEW ALL" button papunta sa right -->
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
-
-                        <!-- VIEW ALL eme eme kasama mga foods at pwede na ma scroll -->
                         <Button
-                            android:id="@+id/orderBtn8"
+                            android:id="@+id/logInBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="end"
-                            android:minWidth="48dp"
-                            android:minHeight="48dp"
-                            android:padding="10dp"
-                            android:text="@string/viewAll"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
+                            android:background="@drawable/small_btn"
+                            android:text="@string/logIn" />
                     </LinearLayout>
-
-                    <!--  Scrollable na yung menu -->
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="none">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
-
-                            <!-- Item 1 -->
-                            <LinearLayout
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/foods" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:paddingTop="5dp"
-                                    android:text="@string/sisigBomb"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                                <Button
-                                    android:id="@+id/orderBtn1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="#E66565"
-                                    android:padding="5dp"
-                                    android:text="@string/order"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-
-                            <!-- Item 2 -->
-                            <LinearLayout
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/foods" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:paddingTop="5dp"
-                                    android:text="@string/veggieBomb"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                                <Button
-                                    android:id="@+id/orderBtn2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="#E66565"
-                                    android:padding="5dp"
-                                    android:text="@string/order"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-
-                            <!--  Item 3 -->
-                            <LinearLayout
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/foods" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:paddingTop="5dp"
-                                    android:text="@string/karaageBomb"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                                <Button
-                                    android:id="@+id/orderBtn3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="#E66565"
-                                    android:padding="5dp"
-                                    android:text="@string/order"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </HorizontalScrollView>
                 </LinearLayout>
+
+
+                <!-- ADVERTISEMENT  -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="15dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="300dp"
+                            android:layout_height="200dp"
+                            android:src="@drawable/advertisement1" />
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="300dp"
+                            android:layout_height="200dp"
+                            android:src="@drawable/advertisement2" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
                 <!-- HOTTEST DEALS Section (Vertical Layout) -->
                 <LinearLayout
                     android:id="@+id/orderCon2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="20dp">
 
                     <!-- Header for "Hottest Deals" -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
+                        android:layout_marginVertical="10dp"
                         android:orientation="horizontal">
 
-                        <!-- Hottest Deals Title -->
+                        <!-- BEST SELLING COMBOS -->
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="start"
-                            android:minWidth="48dp"
-                            android:minHeight="48dp"
-                            android:padding="10dp"
-                            android:text="@string/hottestDeals"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                        <!-- Spacer to Push "VIEW ALL" Button to the Right -->
-                        <View
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:text="@string/bestSellingCombos"
+                            android:textColor="@color/greyLetters"
+                            android:textSize="18sp" />
 
-                        <!-- "VIEW ALL" Button for Hottest Deals -->
-                        <Button
-                            android:id="@+id/orderBtn4"
+                        <!-- VIEW ALL BUTTON -->
+                        <TextView
+                            android:id="@+id/viewAllBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="end"
-                            android:minWidth="48dp"
-                            android:minHeight="48dp"
-                            android:padding="10dp"
-                            android:text="@string/viewAll"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
+                            android:textColor="@color/greyLetters"
+                            android:text="@string/viewAll" />
+
+
                     </LinearLayout>
 
                     <!-- Scrollable Vertical List -->
@@ -355,152 +236,74 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="5dp">
+                            android:orientation="vertical">
 
-                            <!-- Deal 1 -->
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
+                                android:orientation="horizontal">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/foods" />
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardMenuItem"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:paddingStart="10dp">
+                                    app:cardCornerRadius="10dp">
 
-                                    <TextView
+                                    <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="start"
-                                        android:text="@string/karaageBomb"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold" />
+                                        android:layout_marginHorizontal="10dp"
+                                        android:layout_marginVertical="12dp"
+                                        android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingBottom="5dp"
-                                        android:text="@string/annSale"
-                                        android:textColor="#D32F2F"
-                                        android:textSize="14sp" />
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/image_card"
+                                            android:layout_width="100dp"
+                                            android:layout_height="80dp"
+                                            app:cardCornerRadius="15dp">
 
-                                    <Button
-                                        android:id="@+id/orderBtn5"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:backgroundTint="#E66565"
-                                        android:padding="5dp"
-                                        android:text="@string/order"
-                                        android:textColor="@android:color/white"
-                                        android:textSize="14sp" />
-                                </LinearLayout>
+                                            <ImageView
+                                                android:id="@+id/news_image"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/veggieballsmeal" />
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginStart="10dp"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="start"
+                                                android:text="@string/veggieBomb"
+                                                android:fontFamily="@font/inter_28pt_bold"
+                                                android:textColor="@color/black"
+                                                android:textSize="16sp" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingBottom="5dp"
+                                                android:text="@string/veggieBallsDescription"
+                                                android:textColor="@color/greyLetters"
+                                                android:textSize="12sp" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
                             </LinearLayout>
 
-                            <!-- Deal 2 -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/foods" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:paddingStart="10dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="start"
-                                        android:text="@string/veggieBomb"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingBottom="5dp"
-                                        android:text="@string/buy1take1"
-                                        android:textColor="#D32F2F"
-                                        android:textSize="14sp" />
-
-                                    <Button
-                                        android:id="@+id/orderBtn6"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:backgroundTint="#E66565"
-                                        android:padding="5dp"
-                                        android:text="@string/order"
-                                        android:textColor="@android:color/white"
-                                        android:textSize="14sp" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <!-- Deal 3 -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/foods" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:paddingStart="10dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="start"
-                                        android:text="@string/sisigBomb"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingBottom="5dp"
-                                        android:text="@string/offSale"
-                                        android:textColor="#D32F2F"
-                                        android:textSize="14sp" />
-
-                                    <Button
-                                        android:id="@+id/orderBtn7"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:backgroundTint="#E66565"
-                                        android:padding="5dp"
-                                        android:text="@string/order"
-                                        android:textColor="@android:color/white"
-                                        android:textSize="14sp" />
-                                </LinearLayout>
-                            </LinearLayout>
 
                         </LinearLayout>
                     </ScrollView>

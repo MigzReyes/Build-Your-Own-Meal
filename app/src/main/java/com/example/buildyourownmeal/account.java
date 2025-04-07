@@ -30,7 +30,7 @@ public class account extends AppCompatActivity {
 
         //ACTIVITY TITLE
         TextView activityName = findViewById(R.id.actName);
-        activityName.setText(R.string.account);
+        activityName.setText(R.string.profile);
     }
 
     public void handleBackPress() {
