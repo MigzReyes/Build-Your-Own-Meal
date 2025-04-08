@@ -17,7 +17,7 @@ public class menu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        int[] menuBtn = {R.id.craftBtn, R.id.menuCon,};
+        int[] menuBtn = {R.id.craftNowBtn, R.id.menuCon,};
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
