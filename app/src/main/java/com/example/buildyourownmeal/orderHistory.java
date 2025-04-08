@@ -29,8 +29,8 @@ public class orderHistory extends AppCompatActivity {
         });
 
         //ACTIVITY TITLE
-        TextView activityName = findViewById(R.id.actName);
-        activityName.setText(R.string.orderHis);
+        TextView sideFragName = findViewById(R.id.sideFragName);
+        sideFragName.setText(R.string.orderHis);
     }
 
     public void handleBackPress() {

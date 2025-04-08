@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/backicon" />
 
         <TextView
-            android:id="@+id/actName"
+            android:id="@+id/sideFragName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="129dp"

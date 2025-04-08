@@ -29,8 +29,8 @@ public class contactUs extends AppCompatActivity {
         });
 
         //ACTIVITY TITLE
-        TextView activityName = findViewById(R.id.actName);
-        activityName.setText(R.string.contactUs);
+        TextView sideFragName = findViewById(R.id.sideFragName);
+        sideFragName.setText(R.string.contactUs);
     }
 
     public void handleBackPress() {

@@ -29,8 +29,8 @@ public class termsAndCondition extends AppCompatActivity {
         });
 
         //ACTIVITY TITLE
-        TextView activityName = findViewById(R.id.actName);
-        activityName.setText(R.string.termsAndCon);
+        TextView sideFragName = findViewById(R.id.sideFragName);
+        sideFragName.setText(R.string.termsAndCon);
     }
 
     public void handleBackPress() {
