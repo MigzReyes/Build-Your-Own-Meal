@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class menuItem extends AppCompatActivity {
+public class craftedMeal extends AppCompatActivity {
 
     //VARIABLE DECLARATION
     private Button addBtn, plusBtn, minusBtn;
@@ -34,7 +34,7 @@ public class menuItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_menu_item);
+        setContentView(R.layout.activity_crafted_meal);
 
         //NAME MEAL
         mealName = findViewById(R.id.mealName);
@@ -76,7 +76,7 @@ public class menuItem extends AppCompatActivity {
         cucumberLemonPrice = findViewById(R.id.cucumberPrice);
 
         //SHARED PREFERENCE
-        menuItem = getSharedPreferences("menuItem", MODE_PRIVATE);
+        menuItem = getSharedPreferences("craftedMeal", MODE_PRIVATE);
         editor = menuItem.edit();
 
         //SHARED PREFERENCE LOG IN SESSION
@@ -90,13 +90,13 @@ public class menuItem extends AppCompatActivity {
                 if (isUserLoggedIn) {
                     if (isAnyItemChecked()) {
                         saveSelectedItems();
-                        Intent intent = new Intent(menuItem.this, Navbar.class);
+                        Intent intent = new Intent(craftedMeal.this, Navbar.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(menuItem.this, getString(R.string.chooseAnAddOn), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(craftedMeal.this, getString(R.string.chooseAnAddOn), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(menuItem.this, getString(R.string.logInSignUpFirst), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(craftedMeal.this, getString(R.string.logInSignUpFirst), Toast.LENGTH_SHORT).show();
                 }
             } 
         });

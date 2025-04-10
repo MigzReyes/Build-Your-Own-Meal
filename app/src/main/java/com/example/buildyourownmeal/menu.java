@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 public class menu extends Fragment {
 
@@ -22,7 +21,7 @@ public class menu extends Fragment {
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), menuItem.class);
+                Intent intent = new Intent(getActivity(), craftedMeal.class);
                 startActivity(intent);
             }
         };

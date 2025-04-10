@@ -14,5 +14,10 @@
         <item name="cornerSize">20dp</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.MyApp.CornerSize" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
     <style name="Theme.BuildYourOwnMeal" parent="Base.Theme.BuildYourOwnMeal" />
 </resources>

@@ -47,7 +47,7 @@ public class checkout extends AppCompatActivity {
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
 
         //SHARED PREFERENCE FOR MENU ITEM
-        SharedPreferences menuItem = getSharedPreferences("menuItem", MODE_PRIVATE);
+        SharedPreferences menuItem = getSharedPreferences("craftedMeal", MODE_PRIVATE);
         boolean menuSession = menuItem.getBoolean("menuSession", false);
         String selectedItems = menuItem.getString("selectedItems", "No selected items");
         int dbItemCount = menuItem.getInt("itemCount", 0);
