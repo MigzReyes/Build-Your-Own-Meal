@@ -23,6 +23,9 @@
             android:name=".logIn"
             android:exported="false" />
         <activity
+            android:name=".cart"
+            android:exported="false" />
+        <activity
             android:name=".checkout"
             android:exported="false" />
         <activity

@@ -2,6 +2,8 @@ package com.example.buildyourownmeal;
 
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,27 +12,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class cart extends Fragment {
+public class cart extends AppCompatActivity {
 
     //LOCAL VARIABLE
     ImageView backBtn;
     TextView fragName;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_account);
+
 
         //VARIABLE REFERENCE
-        backBtn = view.findViewById(R.id.backBtn);
-        fragName = view.findViewById(R.id.sideFragName);
+        backBtn = findViewById(R.id.backBtn);
+        fragName = findViewById(R.id.sideFragName);
 
         //BACK BUTTON LISTENER
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getParentFragmentManager().getBackStackEntryCount() > 0) {
-                    getParentFragmentManager().popBackStack();
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
                 }
             }
         });
@@ -38,7 +42,5 @@ public class cart extends Fragment {
         //SET TEXT FOR APPBAR
         fragName.setText(R.string.cart);
 
-
-        return view;
     }
 }

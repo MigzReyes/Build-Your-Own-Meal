@@ -17,11 +17,11 @@
         android:label="menu"
         tools:layout="@layout/fragment_menu"/>
 
-    <fragment
+    <activity
         android:id="@+id/cart"
         android:name="com.example.buildyourownmeal.cart"
         android:label="@string/cart"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/activity_cart"/>
 
     <fragment
         android:id="@+id/aboutUs"
