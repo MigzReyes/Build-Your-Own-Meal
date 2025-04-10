@@ -22,7 +22,7 @@ public class cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_cart);
 
 
         //VARIABLE REFERENCE
