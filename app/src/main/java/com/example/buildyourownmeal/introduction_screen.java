@@ -56,6 +56,5 @@ public class introduction_screen extends AppCompatActivity {
             }
         });
 
-        finish();
     }
 }
