@@ -17,7 +17,7 @@ public class splashscreen extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splashscreen);
 
-        Intent intent = new Intent(splashscreen.this, Navbar.class);
+        Intent intent = new Intent(splashscreen.this, introduction_screen.class);
         startActivity(intent);
 
         //THIS WILL REMOVE IT FROM THE BACKSTACK
