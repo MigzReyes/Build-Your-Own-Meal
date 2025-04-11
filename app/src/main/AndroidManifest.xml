@@ -14,6 +14,19 @@
         android:theme="@style/Theme.BuildYourOwnMeal"
         tools:targetApi="33">
         <activity
+            android:name=".introduction_screen"
+            android:exported="false" />
+        <activity
+            android:name=".splashscreen"
+            android:exported="true"
+            android:theme="@style/splashscreenBackground">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".paymentMethod"
             android:exported="false" />
         <activity
@@ -45,13 +58,7 @@
             android:exported="false" />
         <activity
             android:name=".Navbar"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

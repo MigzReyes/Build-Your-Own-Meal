@@ -21,8 +21,12 @@
     <string name="order">Order</string>
     <string name="save">Save</string>
     <string name="savePass">Save Password</string>
-    <string name="logIn">Log in</string>
-    <string name="signUp">Sign up</string>
+    <string name="logIn">LOG IN</string>
+    <string name="signUp">SIGNUP</string>
+    <string name="guest">GUEST</string>
+    <string name="smallLogIn">Log in</string>
+    <string name="smallSignUp">Sign up</string>
+    <string name="smallGuest">Guest</string>
     <string name="craftYourFeast">Craft Your Feast</string>
 
     //TEXT
@@ -31,6 +35,7 @@
     <string name="user">User</string>
     <string name="craftNow">CRAFT NOW</string>
     <string name="craft">Craft</string>
+    <string name="continueAs">Continue as</string>
     <string name="yourOwnMeal">Your own meal</string>
     <string name="includedFees">(incl. fees)</string>
     <string name="standardTime">(15–20 mins)</string>
@@ -64,6 +69,14 @@
     <string name="locatedAt">Located at</string>
     <string name="locationCYF">CV55+2F3, STI Bldg, Gen. Trias Dr, Rosario, 4106 Cavite</string>
     <string name="checkOut">CHECK OUT</string>
+    <string name="emailHint">name@example.com</string>
+    <string name="usernameHint">username</string>
+    <string name="passwordHint">min. 8 characters</string>
+    <string name="passwordStrength">Password Strength</string>
+    <string name="atLeastSixCharacters">At least 8 characters</string>
+    <string name="atLeastOneUppercaseLetter">At least one uppercase letter (A–Z)</string>
+    <string name="atLeastOneLowercaseLetter">At least one lowercase letter (A–Z)</string>
+    <string name="atLeastOneNumber">At least one number (0–9)</string>
     <string name="pickUpTime">Pick-up time</string>
     <string name="startAPickUpOrder">Start a pick up order</string>
     <string name="username">Username</string>
@@ -81,10 +94,12 @@
     <string name="logIntoYourAccount">Log into \nyour account</string>
     <string name="CreateYourAccount">Create \nyour account</string>
     <string name="rememberMe">Remember me</string>
-    <string name="forgotPass">Forgot Password?</string>
-    <string name="dontHaveAccount">Don\'t have an account? <b>Sign up</b></string>
-    <string name="alreadyHaveAccount">Already have a account? <b>Log in</b></string>
-    <string name="agreeToTermsAndCondition">I agree to the <b><u>Terms &amp; Conditions</u></b> and <b><u>Privacy Policy</u></b></string>
+    <string name="forgotPass">Forgot password?</string>
+    <string name="dontHaveAccount">Don\'t have an account?</string>
+    <string name="alreadyHaveAccount">Already have a account?</string>
+    <string name="agreeToTermsAndCondition">I agree to the<b><u>Terms and Condition</u></b></string>
+    <string name="agreeTermAndCon"><u>Terms &amp; Conditions</u></string>
+    <string name="agreePrivacyPolicy">Privacy Policy</string>
     <string name="nameOfMeal">Name: </string>
     <string name="addOn">Add on</string>
     <string name="mainDish">MAIN DISH</string>

@@ -151,7 +151,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="50dp"
-                            android:background="@drawable/small_btn"
+                            android:background="@drawable/small_btn_main_color"
+                            android:textColor="@color/whiteBoldLetters"
                             android:text="@string/signUp" />
 
                         <Button
@@ -159,6 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/small_btn"
+                            android:textColor="@color/whiteBoldLetters"
                             android:text="@string/logIn" />
                     </LinearLayout>
                 </LinearLayout>

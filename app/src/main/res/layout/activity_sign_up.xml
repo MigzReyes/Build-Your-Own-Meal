@@ -5,137 +5,278 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="15dp"
-    android:paddingVertical="15dp"
+    android:fitsSystemWindows="true"
     tools:context=".signUp">
 
-    <TextView
-        android:id="@+id/textView52"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:text="@string/CreateYourAccount"
-        android:textSize="30sp"
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bentologinsignup" />
 
     <LinearLayout
-        android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="20dp"
         android:orientation="vertical"
-        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView52">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView58"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/username" />
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/CreateYourAccount"
+                    android:textSize="30sp"
+                    android:textColor="@color/whiteBoldLetters"/>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView58"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/username"
+                            android:textSize="16sp"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:fontFamily="@font/inter_18pt_bold" />
+
+                        <EditText
+                            android:id="@+id/username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="@string/usernameHint"
+                            android:textSize="15sp"
+                            android:textColor="@color/lightGreyLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:paddingVertical="15dp"
+                            android:paddingHorizontal="10dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView59"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/inter_18pt_bold"
+                            android:textColor="@color/whiteBoldLetters"/>
+
+                        <EditText
+                            android:id="@+id/signUpEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="@string/emailHint"
+                            android:textSize="15sp"
+                            android:textColor="@color/lightGreyLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:paddingVertical="15dp"
+                            android:paddingHorizontal="10dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView60"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/password"
+                            android:textSize="16sp"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:fontFamily="@font/inter_18pt_bold"/>
+
+                        <EditText
+                            android:id="@+id/signUpPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="@string/passwordHint"
+                            android:textSize="15sp"
+                            android:textColor="@color/lightGreyLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="15dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView61"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/conPassword"
+                            android:textSize="16sp"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:fontFamily="@font/inter_18pt_bold"/>
+
+                        <EditText
+                            android:id="@+id/conPass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="@string/passwordHint"
+                            android:textColor="@color/lightGreyLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"
+                            android:paddingVertical="15dp"
+                            android:paddingHorizontal="10dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/passwordStrength"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_18pt_semibold"
+                            android:textColor="@color/whiteBoldLetters"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView28"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/atLeastSixCharacters"
+                                android:textColor="@color/whiteBoldLetters"
+                                android:fontFamily="@font/inter_18pt_semibold"/>
+
+                            <TextView
+                                android:id="@+id/textView35"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/atLeastOneUppercaseLetter"
+                                android:textColor="@color/greyLetters"
+                                android:fontFamily="@font/inter_18pt_semibold"/>
+
+                            <TextView
+                                android:id="@+id/textView42"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/atLeastOneLowercaseLetter"
+                                android:textColor="@color/greyLetters"
+                                android:fontFamily="@font/inter_18pt_semibold"/>
+
+                            <TextView
+                                android:id="@+id/textView68"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/atLeastOneNumber"
+                                android:textColor="@color/greyLetters"
+                                android:fontFamily="@font/inter_18pt_semibold"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/AgreeTermsAndCon"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/whiteBoldLetters"
+                        android:text="@string/agreeToTermsAndCondition"
+                        android:textColor="@color/whiteBoldLetters"
+                        android:fontFamily="@font/inter_18pt_medium"
+                        android:textSize="15sp"/>
+
+                    <Button
+                        android:id="@+id/signUpBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/large_btn_main_color"
+                        android:text="@string/signUp"
+                        android:textSize="16sp"
+                        android:textColor="@color/whiteBoldLetters"
+                        android:fontFamily="@font/inter_18pt_bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"/>
-        </LinearLayout>
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp">
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/alreadyHaveAccount"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inter_18pt_medium"
+                    android:textColor="@color/whiteBoldLetters"/>
 
-            <TextView
-                android:id="@+id/textView59"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/email" />
-
-            <EditText
-                android:id="@+id/signUpEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:id="@+id/textView60"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/password" />
-
-            <EditText
-                android:id="@+id/signUpPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:id="@+id/textView61"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/conPassword" />
-
-            <EditText
-                android:id="@+id/conPass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/AgreeTermsAndCon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/agreeToTermsAndCondition" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/signUpBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#E66565"
-            android:text="@string/signUp" />
+                <TextView
+                    android:id="@+id/alreadyHaveAcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/smallLogIn"
+                    android:textSize="16sp"
+                    android:textColor="@color/main_color"
+                    android:fontFamily="@font/inter_18pt_bold"/>
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/alreadyHaveAcc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="@string/alreadyHaveAccount"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

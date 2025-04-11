@@ -360,6 +360,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/large_btn"
             android:textSize="12sp"
+            android:textColor="@color/whiteBoldLetters"
             android:text="@string/checkOut" />
     </LinearLayout>
 

@@ -208,10 +208,10 @@
                     <ImageView
                         android:id="@+id/imageView17"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginEnd="50dp"
-                        android:layout_marginBottom="20dp"
-                        android:src="@drawable/logo" />
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="14dp"
+                        android:src="@drawable/about_us_logo" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

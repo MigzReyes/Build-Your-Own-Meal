@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".introduction_screen">
+
+    <ImageView
+        android:id="@+id/logoImg"
+        android:layout_width="600dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoImg">
+
+        <Button
+            android:id="@+id/logInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_18pt_black"
+            android:textColor="@color/whiteBoldLetters"
+            android:background="@drawable/large_btn"
+            android:text="@string/logIn" />
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_18pt_black"
+            android:textColor="@color/whiteBoldLetters"
+            android:background="@drawable/large_btn_main_color"
+            android:text="@string/signUp" />
+
+        <Button
+            android:id="@+id/guestBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_18pt_black"
+            android:textColor="@color/blackBoldLetters"
+            android:background="@drawable/large_btn_transparent"
+            android:text="@string/guest" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
