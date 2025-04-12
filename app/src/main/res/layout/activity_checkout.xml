@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/bot_border"
-                            android:paddingVertical="5dp"
+                            android:paddingVertical="15dp"
                             android:orientation="horizontal">
 
                             <RadioButton
@@ -90,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/bot_border"
-                            android:paddingVertical="5dp"
+                            android:paddingVertical="15dp"
                             android:orientation="horizontal">
 
                             <RadioButton
@@ -115,6 +115,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
+                            android:paddingTop="15dp"
                             android:orientation="horizontal">
 
                             <RadioButton
@@ -732,7 +733,7 @@
                     android:background="@drawable/small_btn"
                     android:fontFamily="@font/inter_18pt_bold"
                     android:paddingHorizontal="60dp"
-                    android:paddingVertical="20dp"
+                    android:paddingVertical="10dp"
                     android:text="@string/placeOrder"
                     android:textColor="@color/whiteBoldLetters"
                     android:textSize="18sp" />

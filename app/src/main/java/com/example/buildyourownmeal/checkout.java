@@ -16,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class checkout extends AppCompatActivity {
 
-    private RadioButton priority, standard;
-    private TextView sideFragName, itemCount, mealNameSummary, mealNameSubtotal, addOn, mealPriceSum, mealPriceSubtotal, mealPriceTotal, payment, addItemBtn;
+    private RadioButton priority, standard, scheduledDate;
+    private TextView sideActName, itemCount, mealNameSummary, mealNameSubtotal, addOn, mealPriceSum, mealPriceSubtotal, mealPriceTotal, payment, addItemBtn;
     private Button orderBtn;
     private ImageView backBtn;
     private LinearLayout paymentMethodBtn, orderCon;
@@ -29,10 +29,11 @@ public class checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         //SET ID
-        sideFragName = findViewById(R.id.sideFragName);
+        sideActName = findViewById(R.id.sideFragName);
         backBtn = findViewById(R.id.backBtn);
         priority = findViewById(R.id.priorityFee);
         standard = findViewById(R.id.standardFee);
+        scheduledDate = findViewById(R.id.scheduledDate);
         itemCount = findViewById(R.id.quantityValue);
         mealNameSummary = findViewById(R.id.mealName);
         addOn = findViewById(R.id.addOn);
@@ -45,7 +46,7 @@ public class checkout extends AppCompatActivity {
         addItemBtn = findViewById(R.id.addItemBtn);
 
         //SET TOOLBAR NAME
-        sideFragName.setText(getString(R.string.smallCheckOut));
+        sideActName.setText(getString(R.string.smallCheckOut));
 
         //BACK BUTTON
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,34 @@ public class checkout extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(checkout.this, cart.class);
                 startActivity(intent);
+            }
+        });
+
+        //RADIO BUTTON
+        standard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                standard.setChecked(true);
+                priority.setChecked(false);
+                scheduledDate.setChecked(false);
+            }
+        });
+
+        priority.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                standard.setChecked(false);
+                priority.setChecked(true);
+                scheduledDate.setChecked(false);
+            }
+        });
+
+        scheduledDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                standard.setChecked(false);
+                priority.setChecked(false);
+                scheduledDate.setChecked(true);
             }
         });
 
