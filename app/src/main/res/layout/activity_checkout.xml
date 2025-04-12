@@ -32,21 +32,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
+                android:layout_marginHorizontal="15dp"
                 android:orientation="vertical">
 
                 <!-- PICK UP OPTION -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_margin="20dp">
+                    android:layout_marginVertical="25dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginVertical="15dp"
                         android:text="@string/pickUpOption"
                         android:textSize="22sp"
                         android:textColor="@color/blackBoldLetters"
@@ -138,9 +138,11 @@
                     </RadioGroup>
                 </LinearLayout>
 
+                <!-- ORDER SUMMARY -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="25dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -155,7 +157,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/orderSum"
-                            android:textSize="20sp" />
+                            android:textSize="22sp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_bold"/>
 
                         <TextView
                             android:id="@+id/addItemBtn"
@@ -164,135 +168,403 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:text="@string/addItems"
-                            android:textSize="14sp" />
+                            android:fontFamily="@font/inter_18pt_bold"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/orderCon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginVertical="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/itemCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/oneX"
-                            android:textSize="16sp" />
+                        android:background="@drawable/order_summary_bg"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:orientation="vertical">
+                            android:id="@+id/orderCon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bot_border"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginVertical="10dp"
+                            android:paddingBottom="15dp"
+                            android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/mealName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/craftedMeal"
-                                android:textSize="18sp" />
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="100dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center_vertical"
+                                app:cardCornerRadius="15dp">
 
-                            <TextView
-                                android:id="@+id/addOn"
-                                android:layout_width="match_parent"
+                                <ImageView
+                                    android:id="@+id/imageView20"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    app:srcCompat="@drawable/chickenkaraagemeal" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/water" />
+                                android:layout_marginStart="12dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/mealName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chickenKaraage"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/blackBoldLetters" />
+
+                                <TextView
+                                    android:id="@+id/addOn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chickenKaraage"
+                                    android:textColor="@color/lightGreyLetters"
+                                    android:fontFamily="@font/inter_18pt_bold"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:gravity="end">
+
+                                    <TextView
+                                        android:id="@+id/pesoSign"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="2dp"
+                                        android:textColor="@color/blackBoldLetters"
+                                        android:fontFamily="@font/inter_18pt_semibold"
+                                        android:text="@string/pesoSign" />
+
+                                    <TextView
+                                        android:id="@+id/price"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/blackBoldLetters"
+                                        android:fontFamily="@font/inter_18pt_semibold"
+                                        android:text="@string/priceItem" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:background="@drawable/quantity_background"
+                                    android:orientation="horizontal"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="3dp">
+
+                                    <!-- MINUS TO TRASH -->
+                                    <!--<TextView
+                                        android:id="@+id/minusBtn"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/minusSign"
+                                        android:textSize="13sp" />-->
+
+                                    <ImageView
+                                        android:id="@+id/trashIcon"
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:src="@drawable/trashicon"/>
+
+                                    <TextView
+                                        android:id="@+id/quantityValue"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginHorizontal="10dp"
+                                        android:text="@string/one"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/addBtn"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/plusSign"
+                                        android:textSize="13sp" />
+                                </LinearLayout>
+                            </LinearLayout>
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/priceItem"
+                        <LinearLayout
+                            android:id="@+id/orderCon1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/priceItem"
-                            android:textSize="16sp" />
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bot_border"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginVertical="10dp"
+                            android:paddingBottom="15dp"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="100dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center_vertical"
+                                app:cardCornerRadius="15dp">
+
+                                <ImageView
+                                    android:id="@+id/imageView21"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    app:srcCompat="@drawable/tunasisigmeal" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/mealName2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/tunaSisig"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/blackBoldLetters" />
+
+                                <LinearLayout
+                                    android:id="@+id/addO1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_18pt_bold"
+                                        android:text="@string/tunaSisig"
+                                        android:textColor="@color/lightGreyLetters" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_18pt_bold"
+                                        android:text="@string/coleSlaw"
+                                        android:textColor="@color/lightGreyLetters" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_18pt_bold"
+                                        android:text="@string/gravy"
+                                        android:textColor="@color/lightGreyLetters" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_18pt_bold"
+                                        android:text="@string/mochi"
+                                        android:textColor="@color/lightGreyLetters" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_18pt_bold"
+                                        android:text="@string/coleSlaw"
+                                        android:textColor="@color/lightGreyLetters" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_18pt_bold"
+                                        android:text="@string/water"
+                                        android:textColor="@color/lightGreyLetters" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/editBtn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/edit"
+                                    android:fontFamily="@font/inter_18pt_bold"
+                                    android:textColor="@color/main_color"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:gravity="end">
+
+                                    <TextView
+                                        android:id="@+id/pesoSign1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="2dp"
+                                        android:textColor="@color/blackBoldLetters"
+                                        android:fontFamily="@font/inter_18pt_semibold"
+                                        android:text="@string/pesoSign" />
+
+                                    <TextView
+                                        android:id="@+id/price1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/blackBoldLetters"
+                                        android:fontFamily="@font/inter_18pt_semibold"
+                                        android:text="@string/priceItem" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:background="@drawable/quantity_background"
+                                    android:orientation="horizontal"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="3dp">
+
+                                    <!-- MINUS TO TRASH -->
+                                    <TextView
+                                        android:id="@+id/minusBtn"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/minusSign"
+                                        android:textSize="13sp" />
+
+                                    <!--<ImageView
+                                        android:id="@+id/trashIcon1"
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:src="@drawable/trashicon"/>-->
+
+                                    <TextView
+                                        android:id="@+id/quantityValue1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginHorizontal="10dp"
+                                        android:text="@string/one"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/addBtn1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/plusSign"
+                                        android:textSize="13sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
 
+                <!-- CONTACT NUMBER -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginVertical="8dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView40"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contactNumber"
+                        android:textColor="@color/blackBoldLetters"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/inter_18pt_bold"/>
+
+                    <EditText
+                        android:id="@+id/editTextPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="15dp"
+                        android:inputType="phone"
+                        android:background="@drawable/edit_text_background_black_border"
+                        android:textSize="15sp"
+                        android:hint="@string/contactNumberHint"
+                        android:fontFamily="@font/inter_18pt_bold"/>
+
+                    <TextView
+                        android:id="@+id/textView79"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/contactNumberIsRequired"
+                        android:fontFamily="@font/inter_18pt_bold"
+                        android:textColor="@color/maroon_cancelBtn"/>
+                </LinearLayout>
+
+
+                <!-- PAYMENT DETAILS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView37"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/paymentDetail"
-                        android:textSize="20sp" />
+                        android:text="@string/paymentMethod"
+                        android:textSize="22sp"
+                        android:textColor="@color/blackBoldLetters"
+                        android:fontFamily="@font/inter_18pt_bold"/>
 
                     <LinearLayout
                         android:id="@+id/paymentCon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/payment_method_bg"
                         android:layout_marginVertical="15dp"
                         android:paddingVertical="10dp"
+                        android:paddingHorizontal="10dp"
                         android:focusable="true"
                         android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/imageView7"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/cashicon" />
 
                         <TextView
                             android:id="@+id/paymentMethod"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="30dp"
                             android:layout_weight="1"
                             android:text="@string/cash"
-                            android:textSize="18sp" />
+                            android:fontFamily="@font/inter_18pt_bold"
+                            android:textSize="20sp"
+                            android:textColor="@color/blackBoldLetters"/>
 
                         <ImageView
                             android:id="@+id/otherPayment"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/rightarrowicon" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/subtotal"
-                        android:textSize="20sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginVertical="8dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/mealName1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/craftedMeal"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/priceItem1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/priceItem"
-                            android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -303,47 +575,168 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bot_navbar_border"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toBottomOf="@id/scrollView2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/scrollView2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scrollView2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="15dp"
+                android:orientation="vertical"
+                android:paddingVertical="15dp">
 
-                <TextView
-                    android:id="@+id/textView29"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView29"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter_18pt_bold"
+                            android:text="@string/Total"
+                            android:textColor="@color/blackBoldLetters"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="end">
+
+                            <TextView
+                                android:id="@+id/pesoSign2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="2dp"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/pesoSign"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/totalPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/priceItem"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView75"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter_18pt_bold"
+                            android:text="@string/subtotal"
+                            android:textColor="@color/lightGreyLetters"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="end">
+
+                            <TextView
+                                android:id="@+id/pesoSign3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="2dp"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/pesoSign"
+                                android:textColor="@color/lightGreyLetters"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/subtotalPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/priceItem"
+                                android:textColor="@color/lightGreyLetters"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView77"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter_18pt_bold"
+                            android:text="@string/priorityPickUp"
+                            android:textColor="@color/lightGreyLetters"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="end">
+
+                            <TextView
+                                android:id="@+id/pesoSign4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="2dp"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/pesoSign"
+                                android:textColor="@color/lightGreyLetters"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/priorityPickUpPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/priceItem"
+                                android:textColor="@color/lightGreyLetters"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/orderBtnCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/Total" />
-
-                <TextView
-                    android:id="@+id/priceItem2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="@string/priceItem" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/small_btn"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="60dp"
+                    android:paddingVertical="20dp"
+                    android:text="@string/placeOrder"
+                    android:textColor="@color/whiteBoldLetters"
+                    android:textSize="18sp" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/orderBtnCart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#E66565"
-                android:text="@string/order" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

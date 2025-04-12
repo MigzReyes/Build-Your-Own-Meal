@@ -17,8 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class checkout extends AppCompatActivity {
 
     private RadioButton priority, standard;
-    private TextView itemCount, mealNameSummary, mealNameSubtotal, addOn, mealPriceSum, mealPriceSubtotal, mealPriceTotal, payment, addItemBtn;
+    private TextView sideFragName, itemCount, mealNameSummary, mealNameSubtotal, addOn, mealPriceSum, mealPriceSubtotal, mealPriceTotal, payment, addItemBtn;
     private Button orderBtn;
+    private ImageView backBtn;
     private LinearLayout paymentMethodBtn, orderCon;
 
     @Override
@@ -28,19 +29,32 @@ public class checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         //SET ID
+        sideFragName = findViewById(R.id.sideFragName);
+        backBtn = findViewById(R.id.backBtn);
         priority = findViewById(R.id.priorityFee);
         standard = findViewById(R.id.standardFee);
-        itemCount = findViewById(R.id.itemCount);
+        itemCount = findViewById(R.id.quantityValue);
         mealNameSummary = findViewById(R.id.mealName);
-        mealNameSubtotal = findViewById(R.id.mealName1);
         addOn = findViewById(R.id.addOn);
-        mealPriceSum = findViewById(R.id.priceItem);
-        mealPriceSubtotal = findViewById(R.id.priceItem1);
-        mealPriceTotal = findViewById(R.id.priceItem2);
+        mealPriceSum = findViewById(R.id.price);
+        mealPriceSubtotal = findViewById(R.id.subtotalPrice);
+        mealPriceTotal = findViewById(R.id.totalPrice);
         payment = findViewById(R.id.paymentMethod);
         orderBtn = findViewById(R.id.orderBtnCart);
         orderCon = findViewById(R.id.orderCon);
         addItemBtn = findViewById(R.id.addItemBtn);
+
+        //SET TOOLBAR NAME
+        sideFragName.setText(getString(R.string.smallCheckOut));
+
+        //BACK BUTTON
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(checkout.this, cart.class);
+                startActivity(intent);
+            }
+        });
 
         //USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
@@ -86,7 +100,7 @@ public class checkout extends AppCompatActivity {
         }
 
 
-        if (menuSession) {
+        /*if (menuSession) {
             mealNameSummary.setText(mealName);
             mealNameSubtotal.setText(mealName);
             addOn.setText(selectedItems);
@@ -101,7 +115,7 @@ public class checkout extends AppCompatActivity {
 
         } else {
             orderCon.setVisibility(View.GONE);
-        }
+        }*/
 
         //ADD ITEM BUTTON
         addItemBtn.setOnClickListener(new View.OnClickListener() {
