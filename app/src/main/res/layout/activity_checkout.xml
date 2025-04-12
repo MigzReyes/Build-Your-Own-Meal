@@ -35,6 +35,7 @@
                 android:layout_marginHorizontal="12dp"
                 android:orientation="vertical">
 
+                <!-- PICK UP OPTION -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -45,71 +46,93 @@
                         android:id="@+id/textView31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="15dp"
                         android:text="@string/pickUpOption"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textColor="@color/blackBoldLetters"
                         android:fontFamily="@font/inter_18pt_bold"/>
 
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
                         android:background="@drawable/pick_up_options_bg">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bot_border"
+                            android:paddingVertical="5dp"
                             android:orientation="horizontal">
 
                             <RadioButton
                                 android:id="@+id/standardFee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:buttonTint="@color/black"
                                 android:text="@string/standard"
-                                android:textSize="15sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/textView27"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="TextView" />
+                                android:layout_marginStart="20dp"
+                                android:text="@string/standardTime"
+                                android:textColor="@color/lightGreyLetters"
+                                android:fontFamily="@font/inter_18pt_bold"/>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bot_border"
+                            android:paddingVertical="5dp"
                             android:orientation="horizontal">
 
                             <RadioButton
                                 android:id="@+id/priorityFee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/priority" />
+                                android:text="@string/priority"
+                                android:buttonTint="@color/black"
+                                android:textSize="18sp"/>
 
                             <TextView
                                 android:id="@+id/textView74"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="TextView" />
+                                android:layout_marginStart="20dp"
+                                android:text="@string/priorityTime"
+                                android:textColor="@color/lightGreyLetters"
+                                android:fontFamily="@font/inter_18pt_bold"/>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
                             android:orientation="horizontal">
 
                             <RadioButton
-                                android:id="@+id/radioButton"
+                                android:id="@+id/scheduledDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="RadioButton" />
+                                android:buttonTint="@color/black"
+                                android:text="@string/scheduled"
+                                android:textSize="18sp"/>
 
                             <TextView
                                 android:id="@+id/textView69"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="TextView" />
+                                android:layout_marginStart="20dp"
+                                android:text="@string/scheduledDate"
+                                android:textColor="@color/lightGreyLetters"
+                                android:fontFamily="@font/inter_18pt_bold"/>
                         </LinearLayout>
 
                     </RadioGroup>

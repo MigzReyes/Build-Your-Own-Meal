@@ -38,8 +38,10 @@
     <string name="continueAs">Continue as</string>
     <string name="yourOwnMeal">Your own meal</string>
     <string name="includedFees">(incl. fees)</string>
-    <string name="standardTime">(15–20 mins)</string>
-    <string name="priorityTime">(5–10 mins)</string>
+    <string name="standardTime">25–35 mins</string>
+    <string name="priorityTime">10–15 mins</string>
+    <string name="scheduled">Scheduled</string>
+    <string name="scheduledDate">Select a date and time</string>
     <string name="change">Change</string>
     <string name="addMoreItems">+ Add More Items</string>
     <string name="welcomeToCraftYourFeast">Welcome to Craft Your Feast:</string>
@@ -117,7 +119,7 @@
     <string name="minusSign">-</string>
     <string name="plusSign">+</string>
     <string name="pickUp">Pick Up</string>
-    <string name="pickUpOption">Pick up option</string>
+    <string name="pickUpOption">Pick Up Options</string>
     <string name="priority">Priority</string>
     <string name="standard">Standard</string>
     <string name="orderSum">Order summary</string>
