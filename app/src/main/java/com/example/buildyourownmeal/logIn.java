@@ -92,6 +92,14 @@ public class logIn extends AppCompatActivity {
             }
         });
 
+        //BUTTON LINK "FORGOT PASSWORD"
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(logIn.this, forgot_password.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
