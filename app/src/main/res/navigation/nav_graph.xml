@@ -11,11 +11,11 @@
         android:label="home_dashboard"
         tools:layout="@layout/fragment_home_dashboard"/>
 
-    <fragment
+    <activity
         android:id="@+id/menu"
         android:name="com.example.buildyourownmeal.menu"
         android:label="menu"
-        tools:layout="@layout/fragment_menu"/>
+        tools:layout="@layout/activity_menu"/>
 
     <activity
         android:id="@+id/cart"
@@ -23,10 +23,10 @@
         android:label="@string/cart"
         tools:layout="@layout/activity_cart"/>
 
-    <fragment
+    <activity
         android:id="@+id/aboutUs"
         android:name="com.example.buildyourownmeal.aboutUs"
         android:label="aboutUs"
-        tools:layout="@layout/fragment_about_us"/>
+        tools:layout="@layout/activity_about_us"/>
 
 </navigation>

@@ -3,34 +3,50 @@ package com.example.buildyourownmeal;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
-public class menu extends Fragment {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class menu extends AppCompatActivity {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_menu);
+
+        //BOTTOM NAVBAR
+        //HOOK
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        if (navHostFragment != null) {
+            NavController navCon = navHostFragment.getNavController();
+            NavigationUI.setupWithNavController(bottomNav, navCon);
+        } else {
+            Log.e("Navbar", "NavHostFragment is empty, Check your layout xml");
+        }
 
         int[] menuBtn = {R.id.craftNowBtn, R.id.menuCon,};
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), craftedMeal.class);
+                Intent intent = new Intent(menu.this, craftedMeal.class);
                 startActivity(intent);
             }
         };
 
         for (int id : menuBtn) {
-            view.findViewById(id).setOnClickListener(clickListener);
+            findViewById(id).setOnClickListener(clickListener);
         }
 
-
-        return view;
     }
 }

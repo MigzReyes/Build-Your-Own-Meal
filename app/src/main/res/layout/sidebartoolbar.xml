@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/profile"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/blackBoldLetters"/>
 
 
 </FrameLayout>

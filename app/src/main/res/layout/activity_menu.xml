@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
     <include
-        layout="@layout/subtoolbar" />
+        android:id="@+id/appBarCon"
+        layout="@layout/subtoolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:id="@+id/scrollView5"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/appBarCon"
+        app:layout_constraintBottom_toTopOf="@id/botNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="89dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,17 +42,17 @@
                 <ImageView
                     android:id="@+id/imageView6"
                     android:layout_width="match_parent"
-                    android:scaleType="fitXY"
                     android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
                     app:srcCompat="@drawable/bentomenubackground" />
 
                 <LinearLayout
                     android:id="@+id/craftYourMeal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginVertical="10dp"
                     android:orientation="horizontal"
-                    android:layout_marginHorizontal="15dp"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="20dp">
 
@@ -56,17 +67,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_extrabold"
+                            android:text="@string/craft"
                             android:textColor="@color/whiteBoldLetters"
-                            android:textSize="30sp"
-                            android:text="@string/craft" />
+                            android:textSize="30sp" />
 
                         <TextView
                             android:id="@+id/textView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_extrabold"
-                            android:textColor="@color/whiteBoldLetters"
                             android:text="@string/yourOwnMeal"
+                            android:textColor="@color/whiteBoldLetters"
                             android:textSize="25sp" />
                     </LinearLayout>
 
@@ -116,13 +127,13 @@
                     android:id="@+id/textView25"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/inter_18pt_extrabold"
-                    android:textSize="15sp"
-                    android:textColor="@color/greyLetters"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/craftedMeal" />
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_18pt_extrabold"
+                    android:text="@string/craftedMeal"
+                    android:textColor="@color/greyLetters"
+                    android:textSize="15sp" />
 
 
                 <!-- MENU ITEM -->
@@ -130,8 +141,8 @@
                     android:id="@+id/menuCon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
                     android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="10dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical">
@@ -159,16 +170,16 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="5dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/textView8"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/chickenKaraage"
                                 android:fontFamily="@font/inter_28pt_bold"
+                                android:text="@string/chickenKaraage"
                                 android:textColor="@color/black"
                                 android:textSize="16sp" />
 
@@ -176,9 +187,9 @@
                                 android:id="@+id/textView9"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:text="@string/chickenKaraageDescription"
                                 android:textColor="@color/greyLetters"
-                                android:textSize="12sp"
-                                android:text="@string/chickenKaraageDescription" />
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <!-- ITEM PRICE -->
@@ -186,13 +197,13 @@
                             android:id="@+id/menuItemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/price_tag_background"
                             android:layout_gravity="center_vertical"
-                            android:textColor="@color/whiteBoldLetters"
+                            android:background="@drawable/price_tag_background"
                             android:paddingHorizontal="4dp"
                             android:paddingVertical="3dp"
-                            android:textSize="10sp"
                             android:text="@string/priceItem"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:textSize="10sp"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -201,5 +212,19 @@
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/botNavbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include layout="@layout/bottom_navigation_layout" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
