@@ -33,6 +33,8 @@ public class introduction_screen extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(introduction_screen.this, logIn.class);
                 startActivity(intent);
+
+                finish();
             }
         });
 
@@ -42,7 +44,7 @@ public class introduction_screen extends AppCompatActivity {
                 Intent intent = new Intent(introduction_screen.this, signUp.class);
                 startActivity(intent);
 
-
+                finish();
             }
         });
 
@@ -52,7 +54,7 @@ public class introduction_screen extends AppCompatActivity {
                 Intent intent = new Intent(introduction_screen.this, Navbar.class);
                 startActivity(intent);
 
-
+                finish();
             }
         });
 
