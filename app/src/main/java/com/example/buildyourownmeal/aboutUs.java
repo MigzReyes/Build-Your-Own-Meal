@@ -1,14 +1,17 @@
 package com.example.buildyourownmeal;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +38,23 @@ public class aboutUs extends AppCompatActivity {
         } else {
             Log.e("Navbar", "NavHostFragment is empty, Check your layout xml");
         }
+
+        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.menu) {
+                    Intent intent = new Intent(aboutUs.this, menu.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.aboutUs) {
+                    Intent intent = new Intent(aboutUs.this, aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         //VARIABLE REFERENCE
         fragName = findViewById(R.id.fragName);

@@ -77,7 +77,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         //BOTTOM NAVBAR
         //HOOK
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             NavController navCon = navHostFragment.getNavController();
@@ -85,6 +84,24 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         } else {
             Log.e("Navbar", "NavHostFragment is empty, Check your layout xml");
         }
+
+        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.menu) {
+                    Intent intent = new Intent(Navbar.this, menu.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.aboutUs) {
+                    Intent intent = new Intent(Navbar.this, aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
 
         //SIDEBAR
