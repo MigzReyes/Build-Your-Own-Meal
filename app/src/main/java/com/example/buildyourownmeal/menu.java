@@ -1,6 +1,8 @@
 package com.example.buildyourownmeal;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -27,7 +29,8 @@ public class menu extends AppCompatActivity {
         //BOTTOM NAVBAR
         //HOOK
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-
+        bottomNav.setAnimation(null);
+        bottomNav.setItemRippleColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             NavController navCon = navHostFragment.getNavController();
@@ -42,6 +45,10 @@ public class menu extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.menu) {
                     Intent intent = new Intent(menu.this, menu.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.cart) {
+                    Intent intent = new Intent(menu.this, cart.class);
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.aboutUs) {

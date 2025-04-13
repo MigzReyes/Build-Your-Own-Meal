@@ -5,8 +5,10 @@ import static com.example.buildyourownmeal.R.*;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -77,6 +79,8 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         //BOTTOM NAVBAR
         //HOOK
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setAnimation(null);
+        bottomNav.setItemRippleColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             NavController navCon = navHostFragment.getNavController();
@@ -91,6 +95,10 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                 int itemId = item.getItemId();
                 if (itemId == R.id.menu) {
                     Intent intent = new Intent(Navbar.this, menu.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.cart) {
+                    Intent intent = new Intent(Navbar.this, cart.class);
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.aboutUs) {
