@@ -70,6 +70,13 @@
     <string name="emailCYF">craftyourfeast@gmail.com</string>
     <string name="phoneNumberCYF">0994–6456–114</string>
     <string name="connectAndFollow">Connect &amp; Follow</string>
+    <string name="personalDetail">Personal Details</string>
+    <string name="verifyEmail">Verify email</string>
+    <string name="thisIsHowWeWillAddressYou">This is how we will address you</string>
+    <string name="changingPassword">Changing password?</string>
+    <string name="currentPassword">Current password</string>
+    <string name="newPassword">New password</string>
+    <string name="confirmPassword">Confirm Password</string>
     <string name="priorityPickUp">Priority Pick up</string>
     <string name="standardPickUp">Standard Pick up</string>
     <string name="scheduledPickUp">Scheduled Pick up</string>
@@ -83,7 +90,9 @@
     <string name="usernameHint">username</string>
     <string name="passwordHint">min. 8 characters</string>
     <string name="passwordStrength">Password Strength</string>
-    <string name="atLeastSixCharacters">At least 8 characters</string>
+    <string name="atLeastEightCharacters">At least 8 characters</string>
+    <string name="makeSureWeCanReachYouAtYourNewEmail">Make sure we can reach you at your new email</string>
+    <string name="ifYouChangeYourPhoneNumber">If you change your phone number, we will take you through a verification process at checkout the next time you order.</string>
     <string name="atLeastOneUppercaseLetter">At least one uppercase letter (A–Z)</string>
     <string name="atLeastOneLowercaseLetter">At least one lowercase letter (A–Z)</string>
     <string name="atLeastOneNumber">At least one number (0–9)</string>
@@ -99,6 +108,8 @@
     <string name="lastName">Last Name</string>
     <string name="password">Password</string>
     <string name="conPassword">Confirm Password</string>
+    <string name="deleteMyAccount">Delete my account</string>
+    <string name="passwordSample">************</string>
     <string name="email">Email</string>
     <string name="emailEx">user@example.com</string>
     <string name="contact">Contact</string>

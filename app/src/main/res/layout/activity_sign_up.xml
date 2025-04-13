@@ -194,7 +194,7 @@
                                 android:id="@+id/textView28"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/atLeastSixCharacters"
+                                android:text="@string/atLeastEightCharacters"
                                 android:textColor="@color/whiteBoldLetters"
                                 android:fontFamily="@font/inter_18pt_semibold"/>
 

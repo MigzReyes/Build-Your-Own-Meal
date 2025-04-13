@@ -5,7 +5,8 @@
     android:id="@+id/actAccount"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/grey"
+    android:fitsSystemWindows="true"
     tools:context=".account">
 
     <LinearLayout
@@ -34,36 +35,43 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <LinearLayout
+            android:id="@+id/linearLayout10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintVertical_bias="1.0">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView43"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp"
-                    android:text="Personal detail"
-                    android:textSize="20dp" />
+                    android:layout_marginVertical="10dp"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/personalDetail"
+                    android:textColor="@color/blackBoldLetters"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:orientation="vertical">
+                    android:background="@drawable/personal_detail_bg"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -72,25 +80,31 @@
 
                         <TextView
                             android:id="@+id/textView44"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="Name:"
-                            android:textSize="18dp" />
+                            android:fontFamily="@font/inriasans_regular"
+                            android:text="@string/username"
+                            android:textColor="@color/blackBoldLetters"
+                            android:textSize="18sp" />
 
                         <ImageView
-                            android:id="@+id/imageView13"
+                            android:id="@+id/editUsername"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/editicon" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView45"
+                        android:id="@+id/usernameProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="User, user"
-                        android:textSize="16dp" />
+                        android:fontFamily="@font/inter_18pt_semibold"
+                        android:text="@string/usernameHint"
+                        android:textColor="@color/blackBoldLetters"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -98,7 +112,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:orientation="vertical">
+                    android:background="@drawable/personal_detail_bg"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -107,24 +124,29 @@
 
                         <TextView
                             android:id="@+id/textView47"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="Email"
+                            android:fontFamily="@font/inriasans_regular"
+                            android:text="@string/password"
+                            android:textColor="@color/blackBoldLetters"
                             android:textSize="18sp" />
 
                         <ImageView
-                            android:id="@+id/imageView14"
+                            android:id="@+id/editPassword"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/editicon" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView46"
+                        android:id="@+id/passwordProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="user@gmail.com"
+                        android:text="@string/passwordSample"
+                        android:textColor="@color/lightGreyLetters"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -132,7 +154,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:orientation="vertical">
+                    android:background="@drawable/personal_detail_bg"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -141,32 +166,55 @@
 
                         <TextView
                             android:id="@+id/textView49"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="Contact:"
+                            android:fontFamily="@font/inriasans_regular"
+                            android:text="@string/email"
+                            android:textColor="@color/blackBoldLetters"
                             android:textSize="18sp" />
 
                         <ImageView
-                            android:id="@+id/imageView15"
+                            android:id="@+id/editEmail"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/editicon" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView48"
+                        android:id="@+id/emailProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0999292492"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/inter_18pt_semibold"
+                        android:text="@string/emailHint"
+                        android:textColor="@color/blackBoldLetters"
                         android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/verifyEmailBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/small_btn"
+                        android:fontFamily="@font/inter_18pt_bold"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/verifyEmail"
+                        android:textAllCaps="false"
+                        android:textColor="@color/whiteBoldLetters"
+                        android:textSize="12sp"
+                        tools:ignore="SmallSp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:orientation="vertical">
+                    android:background="@drawable/personal_detail_bg"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -175,16 +223,20 @@
 
                         <TextView
                             android:id="@+id/textView51"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="Password"
+                            android:fontFamily="@font/inriasans_regular"
+                            android:text="@string/contactNumber"
+                            android:textColor="@color/blackBoldLetters"
                             android:textSize="18sp" />
 
                         <ImageView
-                            android:id="@+id/imageView16"
+                            android:id="@+id/editContactNumber"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/editicon" />
                     </LinearLayout>
 
@@ -192,30 +244,27 @@
                         android:id="@+id/textView50"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="***************"
-                        android:textSize="16sp" />
+                        android:fontFamily="@font/inter_18pt_semibold"
+                        android:text="@string/contactNumberHint"
+                        android:textColor="@color/blackBoldLetters"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:backgroundTint="#DED8D8"
-                    android:layout_weight="1"
-                    android:layout_marginVertical="20dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:text="Delete account" />
-            </LinearLayout>
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/deleteAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="45dp"
+            android:fontFamily="@font/inter_18pt_semibold"
+            android:text="@string/deleteMyAccount"
+            android:textColor="@color/blackBoldLetters"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

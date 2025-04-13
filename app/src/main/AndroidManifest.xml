@@ -14,11 +14,23 @@
         android:theme="@style/Theme.BuildYourOwnMeal"
         tools:targetApi="33">
         <activity
+            android:name=".editContactNumber"
+            android:exported="false" />
+        <activity
+            android:name=".editEmail"
+            android:exported="false" />
+        <activity
+            android:name=".editPassword"
+            android:exported="false" />
+        <activity
+            android:name=".editUsername"
+            android:exported="false" />
+        <activity
             android:name=".aboutUs"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".menu"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".forgot_password"
             android:exported="false" />
