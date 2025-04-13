@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".termsAndCondition">
 
 
@@ -27,6 +29,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/main_color"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,25 +52,695 @@
 
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingBottom="16dp"
-                    android:text="Terms and Conditions"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="30dp"
+                    android:layout_gravity="start"
+                    android:text="@string/termsAndCon"
+                    android:textColor="@color/blackBoldLetters"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/inter_18pt_bold" />
 
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:lineSpacingExtra="20dp"
-                    android:text="Welcome to [Your App Name]! By using our app, you agree to these terms. Please read them carefully.\n\n1. Using Our App\n• You must be 18 years or older to place an order.\n• Do not use the app for illegal activities.\n• Keep your login details safe. You are responsible for your account.\n\n2. Ordering Food\n• Once an order is placed, you cannot cancel it.\n• Prices may change without notice.\n• Delivery times are estimates and may vary.\n\n3. Payments\n• We accept debit/credit cards and online payments.\n• No refunds unless the order is incorrect or missing.\n\n4. Your Data\n• We collect some personal data to improve your experience.\n• We do not share your data with third parties without your permission.\n\n5. App Updates and Changes\n• We may update the app or these terms at any time.\n• Continued use means you accept the changes.\n\n6. Contact Us\n• If you have any issues, contact us at [Support Email].\n\nThanks for using [Your App Name]!"
-                    android:textAlignment="viewStart"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp"
+                    android:background="@drawable/terms_and_conditions_bg"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView45"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:text="@string/termsAndConDescription1"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/blackBoldLetters"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/textView46"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:text="@string/termsAndConDescription2"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/blackBoldLetters"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:text="@string/termsAndConDescription3"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/blackBoldLetters"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/textView85"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/territoriesCovered"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView84"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/territoriesCoveredDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView78"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/territoriesCoveredPickUpArea"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView76"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/territoriesCoveredDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView86"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/territoriesCoveredDescription3"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView91"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountCreation"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView90"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountCreationDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView89"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountCreationDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView88"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountCreationDescription3"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView87"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountCreationDescription4"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView93"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fullfillmentOfOrder"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView92"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fullfillmentOfOrderDescription"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView96"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/submissionOfOrder"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView95"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/submissionOfOrderDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView94"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/submissionOfOrderDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView102"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regularOrder"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView101"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regularOrderDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView100"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regularOrderDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView99"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regularOrderDescription3"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView98"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regularOrderDescription4"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView97"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regularOrderDescription5"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView104"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/advanceOrderPickUp"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView103"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/advanceOrderPickUpDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView109"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orderAcceptanceAndConfirmation"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView108"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orderAcceptanceAndConfirmationDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView107"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orderAcceptanceAndConfirmationDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView106"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orderAcceptanceAndConfirmationDescription3"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView105"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orderAcceptanceAndConfirmationDescription4"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView114"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancellationOfOrders"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView113"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancellationOfOrdersDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView112"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancellationOfOrdersDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView111"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancellationOfOrdersDescription3"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView110"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancellationOfOrdersDescription4"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView122"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPayment"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView121"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView120"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView119"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription3"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView118"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription4"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView117"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription5"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView116"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription6"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView115"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription7"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView124"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pricesAndPaymentDescription8"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView127"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/refund"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView126"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/refundDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView130"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/limitationOfLiability"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView129"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/limitationOfLiabilityDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView128"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/limitationOfLiabilityDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView132"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/privacyPolicy"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView131"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/privacyPolicyDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView134"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/userDataDeletion"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView133"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/userDataDeletionDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView136"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/updatingTheseTermsAndConditions"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView135"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/updatingTheseTermsAndConditionsDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView139"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/miscellaneousProvisions"
+                            android:textSize="17sp"
+                            android:textColor="@color/blackBoldLetters"/>
+
+                        <TextView
+                            android:id="@+id/textView138"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/miscellaneousProvisionsDescription1"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView137"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/miscellaneousProvisionsDescription2"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/textView140"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/miscellaneousProvisionsDescription3"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackBoldLetters"
+                            android:fontFamily="@font/inter_18pt_medium"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
         </ScrollView>

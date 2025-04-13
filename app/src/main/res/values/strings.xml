@@ -93,6 +93,96 @@
     <string name="atLeastEightCharacters">At least 8 characters</string>
     <string name="makeSureWeCanReachYouAtYourNewEmail">Make sure we can reach you at your new email</string>
     <string name="ifYouChangeYourPhoneNumber">If you change your phone number, we will take you through a verification process at checkout the next time you order.</string>
+
+    <string name="termsAndConDescription1">These Terms and Conditions shall apply to all orders of Craft Your Feast products (“Products”) of a customer through this Craft Your Feast Pick–up Mobile application. </string>
+    <string name="termsAndConDescription2">By placing an order for Products through this Mobile application, you understand, agree with, and accept: (i) these Terms and Conditions and any corresponding changes there to which we may implement from time to time; and (ii) our Privacy Policy in connection with how we process your personal information collected from this Site </string>
+    <string name="termsAndConDescription3">  For purposes of these Terms and Conditions, “Craft Your Feast”, “our” or “we” shall refer to Craft Your Feast Corporation, while “customer” or “you” shall refer to the customer who intends to purchase the Products from this Mobile application. </string>
+
+    <string name="territoriesCovered">I. Territories Covered</string>
+    <string name="territoriesCoveredDescription1">You understand and agree that this Mobile application can only service the following areas, depending on the Order Fulfillment Option chosen. If your area is not within the Pick–up Area below, you may visit the nearest Craft Your Feast booth. </string>
+    <string name="territoriesCoveredPickUpArea">Pick Up Area</string>
+    <string name="territoriesCoveredDescription2">Craft Your Feast offers Pick–up services only within Metro Manila, Bulacan, Pampanga, Bataan, Tarlac, Nueva Ecija, Cavite, Laguna, Batangas, Rizal (Cainta, Antipolo, Taytay, Angono and San Mateo), Cebu, Bacolod, Iloilo, Davao, Cagayan de Oro and selected areas of Baguio, Ilocos Norte, Ilocos Sur, Nueva Vizcaya, Zambales, La Union, Quezon Province, Bicol, Mindoro, Palawan, Tagbilaran, Calbayog, Tacloban/Ormoc, Dumaguete, Antique, General Santos, Zamboanga, Bukidnon, Butuan, Surigao, and Iligan.</string>
+    <string name="territoriesCoveredDescription3">The customer selects the store where order will be picked up. You cannot change the pick up store once transaction is confirmed.</string>
+
+    <string name="accountCreation">II. Account Creation</string>
+    <string name="accountCreationDescription1">If you decide to place an order through this Mobile application, you will be asked to register/sign up by creating an account which requires your personal information such as username, email address and a password. Creating an account allows you to automatically fill–up all the necessary pick–up details in your next order. Inputting and confirming a password on the “Create an Account” section of the Mobile application, along with other information, allows you to make an account. You must keep this password confidential and must not disclose it to anyone. If you believe someone else knows your password, please change your password immediately.</string>
+    <string name="accountCreationDescription2">We reserve the right to suspend your registration if you violate any of these Terms and Conditions.</string>
+    <string name="accountCreationDescription3">If you wish to order as guest, the Mobile application will require you to sign up/log in on every use of the ordering platform. The information you provide will only be used for purpose of the pertinent pick–up and for any subsequent issues on payment.</string>
+    <string name="accountCreationDescription4">If another person used your account to order Products on your behalf, with or without your knowledge, such order shall be subject to these Terms and Conditions, and you agree that the order shall be considered your own and will be charged to you.</string>
+
+    <string name="fullfillmentOfOrder">III. Fulfillment of Order</string>
+    <string name="fullfillmentOfOrderDescription">The online order submitted through this ordering platform will be fulfilled via pick–up only. The pick–up order is fulfilled either through Craft Your Feast pick–up services which we may engage. We reserve the right to revise or add order fulfillment options in the future.</string>
+
+    <string name="submissionOfOrder">IV. Submission of Order</string>
+    <string name="submissionOfOrderDescription1">Upon submission of your online order, you are authorizing us to process your online order and preparation of the Products you have specified on your order form. However, we reserve the right to refuse the processing of your order without any notification should we find any incorrect or incomplete details, or any previous spurious transactions with the given personal information.</string>
+    <string name="submissionOfOrderDescription2">Also, non–response to SMS and calls from either store may result to late or non–processing of the Products and should not be taken against us. Additional verification call or confirmation call may be required to proceed with your order.</string>
+
+    <string name="regularOrder">V. Regular Order (Pick–up)</string>
+    <string name="regularOrderDescription1">By submitting your order via pick–up through this website, you understand and agree that the processing of your order is subject to the following conditions:</string>
+    <string name="regularOrderDescription2">The minimum food purchase for a pick–up transaction is P10.00.</string>
+    <string name="regularOrderDescription3">For Orders amounting to P1,101.00 and up you will receive a call from our store to verify your identity and your order details. Due to the volume of the Products ordered, we do not guarantee that orders will be ready within the 45–minute processing period and the store will coordinate with you on the pick–up serving time.</string>
+    <string name="regularOrderDescription4">Excessive requests of items such as main dish, sides, sauce, and desserts are subject to store discretion.</string>
+    <string name="regularOrderDescription5">Orders above P5,500.00, are considered bulk orders and will not be accepted by the Mobile application.</string>
+
+    <string name="advanceOrderPickUp">VI. Advance Order (Pick–up)</string>
+    <string name="advanceOrderPickUpDescription1">You may order in advance through this website by choosing your preferred date and time.</string>
+
+    <string name="orderAcceptanceAndConfirmation">VII. Order Acceptance and Confirmation</string>
+    <string name="orderAcceptanceAndConfirmationDescription1">The acceptance of orders for the Products made through the Mobile application shall be at the entire discretion of Craft Your Feast. We reserve the right to decline to accept the order of the Products without giving any reason.</string>
+    <string name="orderAcceptanceAndConfirmationDescription2">For Pick–up, our acceptance of an order occurs when you receive an on–screen message pop up confirming that your order has been placed (“Order Confirmation”). The Delivery Order Confirmation is a record of our agreement to deliver the Products you ordered and your obligation to pay the price of the Products in full. The Order Confirmation for Pick–up will contain the following information:</string>
+    <string name="orderAcceptanceAndConfirmationDescription3">Pick–up:</string>
+    <string name="orderAcceptanceAndConfirmationDescription4">
+        Your pertinent order number;
+        The date and time of your order;
+        The total amount payable;
+        The Craft Your Feast booth that has received and will process your order; and
+        The contact number of the Craft Your Feast booth that has received your order.
+    </string>
+
+    <string name="cancellationOfOrders">VIII. Cancellation of Orders</string>
+    <string name="cancellationOfOrdersDescription1">Orders may be cancelled within the "Preparing your order" stage from the time that the order was placed by placing your order to the Craft Your Feast Mobile application that received your order. Cancellation immediately after the "Preparing your order" stage from the time that the Order Confirmation was received will no longer be valid. You understand and agree that cancellation beyond the 5th minute will require you to pay the full amount of the order placed by you.</string>
+    <string name="cancellationOfOrdersDescription2">We reserve the right to refuse any cancellation in case the order has already been dispatched for delivery prior to receipt of your request for cancellation.</string>
+    <string name="cancellationOfOrdersDescription3">We reserve the right to refuse any cancellation in case the order has already been prepared for pick up to receipt of your request for cancellation.</string>
+    <string name="cancellationOfOrdersDescription4">If payment is made via E–payment and the cancellation of order was successful, it will be your responsibility to contact the issuing bank to cancel the payment made.</string>
+
+    <string name="pricesAndPayment">IX. Prices and Payment</string>
+    <string name="pricesAndPaymentDescription1">Unless otherwise stated in writing, the Product prices quoted on this Mobile application are inclusive of value–added taxes, any other applicable taxes and delivery charge. The Product prices on this Mobile application are subject to change with prior notice.</string>
+    <string name="pricesAndPaymentDescription2">To check the price/s of the Product you want to order, please click the Checkout button to see the breakdown and total amount due.</string>
+    <string name="pricesAndPaymentDescription3">You can pay by any of the following methods:</string>
+    <string name="pricesAndPaymentDescription4">
+        Cash upon pick–up
+        Cash mode of payment on–site.
+    </string>
+    <string name="pricesAndPaymentDescription5">Cashless upon pick–up</string>
+    <string name="pricesAndPaymentDescription6">Cashless mode of payment on–site (Gcash), subject to the condition that onsite Gcash payment may not be available 24 hours. Cashless payment on–site will involve a redirection to a third–party payment gateway. You acknowledge that Craft Your Feast will not be responsible for any information provided in the payment gateway.</string>
+    <string name="pricesAndPaymentDescription7">If your order is placed using a E–payment, the receipt should be valid on the date of delivery of your order.</string>
+    <string name="pricesAndPaymentDescription8">We reserve our right to refuse to prepare any order if for whatever reason we believe that payment will be refused at any stage.</string>
+
+    <string name="refund">X. Refund</string>
+    <string name="refundDescription1">In case of a refund, any refund for payments made in cash would need to be processed by our Customer Services team. Refunds for orders paid online via E–payment must be processed by you through your issuing bank.</string>
+
+    <string name="limitationOfLiability">XI. Limitation of Liability</string>
+    <string name="limitationOfLiabilityDescription1">We shall not be liable for any loss, expense, cost or damage arising directly or indirectly out of or in connection with: (i) your use of this Mobile application; or (ii) the delay beyond the estimated time of pick up; or (iii) availability of product/s at any given time; or (iv) force majeure; or (v) any circumstances beyond our control, and over which we could not have avoided even with the exercise of reasonable care, or any indirect or unforeseeable loss suffered or incurred by customers or third parties. In any event, our liability for any given transaction shall not exceed the total price charged for the relevant items.</string>
+    <string name="limitationOfLiabilityDescription2">The Products ordered should be consumed within one (1) hour from their actual receipt. We will not be liable for any event that may arise as a result/consequence of consuming the Products beyond the specified time.</string>
+
+    <string name="intellectualProperty">XII. Intellectual Property</string>
+    <string name="intellectualPropertyDescription1">This website and/or application contains the CRAFT YOUR FEAST, logos, and other trademarks, service marks, product names, designs, titles, words or phrases, graphics and logos used in connection with the Mobile application (Collectively, the “Trademarks”), including, all text, images, photographs, illustrations, data, and/or other related information, and other materials featured, displayed, contained and available in and on the Mobile application (collectively, the “Content”), are owned by or licensed to Craft Your Feast. The Trademarks, Content and related proprietary property are protected from copying and imitation under national and international laws and are not to be used, reproduced, adapted (whether in its original form or derivations thereof), or copied, in whole or in part, without the express written permission of Craft Your Feast. Third parties are not allowed to use the Trademarks and Content in any manner, of for any other purposes, commercial or otherwise, without Craft Your Feast prior express written consent.</string>
+
+    <string name="privacyPolicy">XIII. Privacy Policy</string>
+    <string name="privacyPolicyDescription1">Our Privacy Policy, and any changes there to which we may implement from time to time, in connection with how we process your personal information collected from this Mobile application may be found in the Privacy Policy. You agree that with your acceptance of these Terms and Conditions, you have read, understood and accepted our Privacy Policy.</string>
+
+    <string name="userDataDeletion">XIV. User Data Deletion</string>
+    <string name="userDataDeletionDescription1">You may delete your personal information in our secured internal database, by going to your profile.</string>
+
+    <string name="updatingTheseTermsAndConditions">XV. Updating these Terms and Conditions</string>
+    <string name="updatingTheseTermsAndConditionsDescription1">Whenever necessary, we may, from time to time, update and/or revise these Terms and Conditions. We shall inform you of any update or revision by placing the date of the latest version on top of these Terms and Conditions.</string>
+
+    <string name="miscellaneousProvisions">XVI. Miscellaneous Provisions</string>
+    <string name="miscellaneousProvisionsDescription1">These Terms and Conditions shall be governed by and interpreted in accordance with Philippine law. In case of disputes, the venue for any action shall be the proper courts of Pasig City to the exclusions of all other venues.</string>
+    <string name="miscellaneousProvisionsDescription2">Failure of Craft Your Feast Corporation to enforce a particular term or condition does not constitute a waiver of that term or condition by Craft Your Feast, and shall not be construed as a waiver or variation of it or preclude its exercise at any subsequent time.</string>
+    <string name="miscellaneousProvisionsDescription3">If any of the terms and conditions is held to be invalid or unenforceable, then such terms or condition shall, so far as it is invalid or unenforceable, be given no effect and shall be deemed not to be included in these Terms and Conditions, but without invalidating any of the remaining provisions.</string>
+
+
     <string name="atLeastOneUppercaseLetter">At least one uppercase letter (A–Z)</string>
     <string name="atLeastOneLowercaseLetter">At least one lowercase letter (A–Z)</string>
     <string name="atLeastOneNumber">At least one number (0–9)</string>
@@ -101,7 +191,7 @@
     <string name="enterEmailAddress">Enter email address</string>
     <string name="requestResetLink">REQUEST RESET LINK</string>
     <string name="backToLogin">Back to log in</string>
-    <string name="pickUpTime">Pick-up time</string>
+    <string name="pickUpTime">Pick–up time</string>
     <string name="startAPickUpOrder">Start a pick up order</string>
     <string name="username">Username</string>
     <string name="firstName">First Name</string>
@@ -135,7 +225,7 @@
     <string name="Juice">DRINKS</string>
     <string name="addBtn">ADD TO CART</string>
     <string name="one">1</string>
-    <string name="minusSign">-</string>
+    <string name="minusSign">–</string>
     <string name="plusSign">+</string>
     <string name="pickUp">Pick Up</string>
     <string name="pickUpOption">Pick Up Options</string>
@@ -148,7 +238,7 @@
     <string name="addItems">Add items</string>
     <string name="paymentMethod">Payment Method</string>
     <string name="cash">Cash</string>
-    <string name="ePay">E-payment</string>
+    <string name="ePay">E–payment</string>
     <string name="gcash">Gcash</string>
     <string name="subtotal">Subtotal</string>
     <string name="priceItem">00.00</string>
