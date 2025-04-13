@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
-    android:background="@color/grey"
     tools:context=".editUsername">
 
     <include
@@ -15,55 +15,63 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="20dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/saveBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
-            android:id="@+id/textView46"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inriasans_regular"
-            android:text="@string/thisIsHowWeWillAddressYou"
-            android:textColor="@color/lightGreyLetters"
-            android:textSize="16sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="20dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView48"
+                android:id="@+id/textView46"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/inriasans_regular"
-                android:text="@string/username"
-                android:textColor="@color/blackBoldLetters"
-                android:textSize="18sp" />
+                android:text="@string/thisIsHowWeWillAddressYou"
+                android:textColor="@color/lightGreyLetters"
+                android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/editUsername"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_bg_transparent_border"
-                android:inputType="text"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="15dp"
-                android:textColor="@color/blackBoldLetters"
-                android:textSize="17sp" />
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView48"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/inriasans_regular"
+                    android:text="@string/username"
+                    android:textColor="@color/blackBoldLetters"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_bg_transparent_border"
+                    android:inputType="text"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="15dp"
+                    android:textColor="@color/blackBoldLetters"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
 
     <include
+        android:id="@+id/saveBtn"
         layout="@layout/bottom_save_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
