@@ -291,7 +291,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="3dp"
                                 android:fontFamily="@font/inriasans_regular"
-                                android:text="@string/facebook"
+                                android:text="@string/facebookCYF"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 
@@ -300,7 +300,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inriasans_regular"
-                                android:text="@string/instagram"
+                                android:text="@string/instagramCYF"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </LinearLayout>

@@ -35,6 +35,8 @@
     <string name="user">User</string>
     <string name="craftNow">CRAFT NOW</string>
     <string name="craft">Craft</string>
+    <string name="yourResponseIsImportantToUs">Your response is important to us! If you want to give us some much–appreciated feedback you may reach us at:</string>
+    <string name="contactSupport">Contact Support</string>
     <string name="contactNumber">Contact Number</string>
     <string name="contactNumberHint">+63 9XX–XXX–XXXX</string>
     <string name="continueAs">Continue as</string>
@@ -80,8 +82,11 @@
     <string name="priorityPickUp">Priority Pick up</string>
     <string name="standardPickUp">Standard Pick up</string>
     <string name="scheduledPickUp">Scheduled Pick up</string>
+    <string name="facebookCYF">craft.yf</string>
     <string name="facebook">Facebook</string>
+    <string name="instagramCYF">craft.yf</string>
     <string name="instagram">Instagram</string>
+    <string name="socialMedia">Social Media</string>
     <string name="locatedAt">Located at</string>
     <string name="locationCYF">CV55+2F3, STI Bldg, Gen. Trias Dr, Rosario, 4106 Cavite</string>
     <string name="checkOut">CHECK OUT</string>
@@ -189,6 +194,7 @@
     <string name="forgotYourPassword">Forgot your password?</string>
     <string name="emailAddressForForgotPassword">Please enter the email address you\'d like your password reset information sent to</string>
     <string name="enterEmailAddress">Enter email address</string>
+    <string name="emailAddress">Email Address</string>
     <string name="requestResetLink">REQUEST RESET LINK</string>
     <string name="backToLogin">Back to log in</string>
     <string name="pickUpTime">Pick–up time</string>
