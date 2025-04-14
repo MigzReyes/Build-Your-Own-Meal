@@ -67,6 +67,7 @@ public class cart extends AppCompatActivity {
                 View popUpLayout = LayoutInflater.from(cart.this).inflate(R.layout.pop_up_pick_up, null);
                 popUpSched.setContentView(popUpLayout);
                 popUpSched.getWindow().setBackgroundDrawableResource(R.drawable.bottom_sheet_dialog_bg);
+                popUpSched.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 popUpSched.setCancelable(true);
                 popUpSched.show();
             }
