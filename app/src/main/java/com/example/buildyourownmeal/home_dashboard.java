@@ -140,16 +140,6 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         SharedPreferences orderProcess = getActivity().getSharedPreferences("orderProcess", MODE_PRIVATE);
         boolean ifUserHadOrdered = orderProcess.getBoolean("ifUserHadOrdered", false);
 
-        //SET ID
-        /*logInWarningBtn = view.findViewById(R.id.logInBtn);
-        logInWarningText = view.findViewById(R.id.loginWarningText);*/
-
-        if (ifUserHadOrdered) {
-            String orderIsProcessing = getString(R.string.orderIsProcessing);
-            logInWarningText.setText(orderIsProcessing);
-            logInWarningBtn.setVisibility(View.GONE);
-        }
-
 
         //LOG IN BUTTON LINK
         //SET ID
