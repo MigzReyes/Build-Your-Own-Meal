@@ -46,16 +46,16 @@ public class aboutUs extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if (itemId == R.id.menu) {
+                if (itemId == R.id.home_dashboard) {
+                    Intent intent = new Intent(aboutUs.this, Navbar.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.menu) {
                     Intent intent = new Intent(aboutUs.this, menu.class);
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.cart) {
                     Intent intent = new Intent(aboutUs.this, cart.class);
-                    startActivity(intent);
-                    return true;
-                } else if (itemId == R.id.aboutUs) {
-                    Intent intent = new Intent(aboutUs.this, aboutUs.class);
                     startActivity(intent);
                     return true;
                 }

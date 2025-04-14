@@ -43,8 +43,8 @@ public class menu extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if (itemId == R.id.menu) {
-                    Intent intent = new Intent(menu.this, menu.class);
+                if (itemId == R.id.home_dashboard) {
+                    Intent intent = new Intent(menu.this, Navbar.class);
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.cart) {
