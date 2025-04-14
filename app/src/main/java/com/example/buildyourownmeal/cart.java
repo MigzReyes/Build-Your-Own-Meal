@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class cart extends AppCompatActivity {
                 popUpSched.setContentView(popUpLayout);
                 popUpSched.setCancelable(true);
 
-                LinearLayout bottomSheet = popUpSched.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                FrameLayout bottomSheet = popUpSched.findViewById(com.google.android.material.R.id.design_bottom_sheet);
                 if (bottomSheet != null) {
                     bottomSheet.setBackground(null);
                 }
