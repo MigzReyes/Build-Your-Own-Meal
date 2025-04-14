@@ -67,9 +67,9 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
         popUpLogInWarning.setCancelable(true);
 
+        craftNowBtn = view.findViewById(R.id.craftNowBtn);
         craftNowBtn.setClickable(true);
         craftNowBtn.setFocusable(true);
-        craftNowBtn = view.findViewById(R.id.craftNowBtn);
 
         logInPopUp = popUpLogInWarning.findViewById(R.id.popUpLogInBtn);
         signUpPopUp = popUpLogInWarning.findViewById(R.id.popUpSignUpBtn);
