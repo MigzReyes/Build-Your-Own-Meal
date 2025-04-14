@@ -96,16 +96,6 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
             }
         });
 
-        //LOG IN/SIGN UP NOTIFICATION BOX
-        logInBtn = view.findViewById(R.id.logInBtn);
-        signUpBtn = view.findViewById(R.id.signUpBtn);
-
-        logInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popUpLogInWarning.show();
-            }
-        });
 
 
 
@@ -166,8 +156,7 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), logIn.class);
-                startActivity(intent);
+                popUpLogInWarning.show();
             }
         });
 
