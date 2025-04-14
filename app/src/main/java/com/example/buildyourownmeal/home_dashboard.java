@@ -66,6 +66,9 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
         popUpLogInWarning.setCancelable(true);
+
+        craftNowBtn.setClickable(true);
+        craftNowBtn.setFocusable(true);
         craftNowBtn = view.findViewById(R.id.craftNowBtn);
 
         logInPopUp = popUpLogInWarning.findViewById(R.id.popUpLogInBtn);
@@ -156,7 +159,8 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpLogInWarning.show();
+                Intent intent = new Intent(getActivity(), logIn.class);
+                startActivity(intent);
             }
         });
 
