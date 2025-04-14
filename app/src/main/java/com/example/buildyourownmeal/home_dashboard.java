@@ -68,8 +68,8 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         popUpLogInWarning.setCancelable(true);
         craftNowBtn = view.findViewById(R.id.craftNowBtn);
 
-        logInPopUp = popUpLogInWarning.findViewById(R.id.logInBtn);
-        signUpPopUp = popUpLogInWarning.findViewById(R.id.signUpBtn);
+        logInPopUp = popUpLogInWarning.findViewById(R.id.popUpLogInBtn);
+        signUpPopUp = popUpLogInWarning.findViewById(R.id.popUpSignUpBtn);
 
         craftNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
