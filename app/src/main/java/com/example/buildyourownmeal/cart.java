@@ -1,5 +1,6 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -65,9 +66,9 @@ public class cart extends AppCompatActivity {
                 BottomSheetDialog popUpSched = new BottomSheetDialog(cart.this);
                 View popUpLayout = LayoutInflater.from(cart.this).inflate(R.layout.pop_up_pick_up, null);
                 popUpSched.setContentView(popUpLayout);
+                popUpSched.getWindow().setBackgroundDrawableResource(R.drawable.bottom_sheet_dialog_bg);
                 popUpSched.setCancelable(true);
                 popUpSched.show();
-
             }
         });
 
