@@ -36,14 +36,12 @@ import com.google.android.material.navigation.NavigationView;
 
 public class home_dashboard extends Fragment /*implements NavigationView.OnNavigationItemSelectedListener*/ {
 
-    //VARIABLE DECRLARATION
+    //VARIABLE DECLARATION
     private DrawerLayout drawerLayout;
-    private Button logInBtn;
-    private Button signUpBtn;
+    private Button logInBtn, signUpBtn, logInPopUpAlert, signUpPopUpAlert;
 
     //LOGIN WARNING
     private Dialog popUpLogInWarning;
-    private Button logInPopUp, signUpPopUp;
     private LinearLayout logInWarning, logInWarningBtn, craftNowBtn;
 
     //USER INTRODUCTION/WELCOME
@@ -71,8 +69,8 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         craftNowBtn.setClickable(true);
         craftNowBtn.setFocusable(true);
 
-        logInPopUp = popUpLogInWarning.findViewById(R.id.popUpLogInBtn);
-        signUpPopUp = popUpLogInWarning.findViewById(R.id.popUpSignUpBtn);
+        logInPopUpAlert = popUpLogInWarning.findViewById(R.id.popUpAlertLogInBtn);
+        signUpPopUpAlert = popUpLogInWarning.findViewById(R.id.popUpAlertSignUpBtn);
 
         craftNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +79,7 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
             }
         });
 
-        logInPopUp.setOnClickListener(new View.OnClickListener() {
+        logInPopUpAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), logIn.class);
@@ -90,7 +88,7 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
             }
         });
 
-        signUpPopUp.setOnClickListener(new View.OnClickListener() {
+        signUpPopUpAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), signUp.class);

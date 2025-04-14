@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="25dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="25dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView154"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/logOut"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:textColor="@color/blackBoldLetters"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/textView155"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/areYouSureYouWantToLogOut"
+                android:fontFamily="@font/inter_18pt_medium"
+                android:textColor="@color/blackBoldLetters"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cancelLogOutBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:text="@string/cancel"
+                    android:textAllCaps="false"
+                    android:background="@drawable/large_btn_transparent"
+                    android:fontFamily="@font/inter_18pt_bold" />
+
+                <Button
+                    android:id="@+id/logOutBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:text="@string/logOut"
+                    android:textAllCaps="false"
+                    android:textColor="@color/whiteBoldLetters"
+                    android:background="@drawable/small_btn_main_color"
+                    android:fontFamily="@font/inter_18pt_bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

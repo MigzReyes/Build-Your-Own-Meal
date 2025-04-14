@@ -38,22 +38,26 @@
             app:layout_constraintTop_toBottomOf="@+id/textView149">
 
             <Button
-                android:id="@+id/popUpLogInBtn"
+                android:id="@+id/popUpAlertLogInBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="60dp"
                 android:background="@drawable/small_btn"
+                android:textAllCaps="false"
+                android:textSize="16sp"
                 android:backgroundTint="@color/grey"
                 android:fontFamily="@font/inter_18pt_bold"
                 android:text="@string/smallLogIn" />
 
             <Button
-                android:id="@+id/popUpSignUpBtn"
+                android:id="@+id/popUpAlertSignUpBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/small_btn"
+                android:background="@drawable/small_btn_main_color"
                 android:fontFamily="@font/inter_18pt_bold"
                 android:text="@string/smallSignUp"
+                android:textAllCaps="false"
+                android:textSize="16sp"
                 android:textColor="@color/whiteBoldLetters" />
 
         </LinearLayout>
