@@ -9,12 +9,7 @@
 
     <include
         android:id="@+id/appBarCon"
-        layout="@layout/subtoolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        layout="@layout/subtoolbar"/>
 
     <ScrollView
         android:id="@+id/scrollView5"
