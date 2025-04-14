@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Build Your Own Meal</string>
+    <string name="appName">Craft Your Feast</string>
     <string name="open_sidebar">open sidebar</string>
     <string name="close_sidebar">close sidebar</string>
 
