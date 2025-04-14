@@ -62,7 +62,16 @@
     <string name="yourOrderIsProcessing">Your order is processing</string>
     <string name="yourOrderIsCurrently">Your order is currently being processed and will be ready for pick–up once completed</string>
     <string name="orderIsReady">Order is ready</string>
-    <string name="yourOrderIsReady">Your order is ready ofr pick–up</string>
+    <string name="yourOrderIsReady">Your order is ready for pick–up</string>
+    <string name="sampleDay">1</string>
+    <string name="sampleMonth">Jan</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="sampleDayMonday">Monday</string>
+    <string name="sampleHour">06:00</string>
+    <string name="sampleMinute">06:15</string>
+    <string name="timePM">PM</string>
+    <string name="timeAM">AM</string>
     <string name="scheduledDate">Select a date and time</string>
     <string name="change">Change</string>
     <string name="addMoreItems">+ Add More Items</string>
