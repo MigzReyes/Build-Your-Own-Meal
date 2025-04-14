@@ -2,6 +2,7 @@ package com.example.buildyourownmeal;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -35,12 +36,14 @@ import com.google.android.material.navigation.NavigationView;
 
 public class home_dashboard extends Fragment /*implements NavigationView.OnNavigationItemSelectedListener*/ {
 
-    //VARIABLES
+    //VARIABLE DECRLARATION
     private DrawerLayout drawerLayout;
     private Button logInBtn;
     private Button signUpBtn;
 
     //LOGIN WARNING
+    private Dialog popUpLogInWarning;
+    private Button logInPopUp, signUpPopUp;
     private LinearLayout logInWarning, logInWarningBtn, craftNowBtn;
 
     //USER INTRODUCTION/WELCOME
@@ -57,14 +60,42 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
                         R.id.orderBtn3, R.id.orderBtn4, R.id.orderBtn5, R.id.orderBtn6,
                         R.id.orderBtn7, R.id.orderBtn8};*/
 
+        // POP LOG IN WARNING
+        popUpLogInWarning = new Dialog(requireContext());
+        popUpLogInWarning.setContentView(R.layout.pop_up_login_signup_alert);
+        popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpLogInWarning.setCancelable(true);
         craftNowBtn = view.findViewById(R.id.craftNowBtn);
+
+        logInPopUp = popUpLogInWarning.findViewById(R.id.logInBtn);
+        signUpPopUp = popUpLogInWarning.findViewById(R.id.signUpBtn);
+
         craftNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), craftedMeal.class);
+                popUpLogInWarning.show();
+            }
+        });
+
+        logInPopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpLogInWarning.dismiss();
+                Intent intent = new Intent(getActivity(), logIn.class);
                 startActivity(intent);
             }
         });
+
+        signUpPopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpLogInWarning.dismiss();
+                Intent intent = new Intent(getActivity(), signUp.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         View.OnClickListener clickListener = new View.OnClickListener() {

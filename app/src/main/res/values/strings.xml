@@ -312,6 +312,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="logInToCustomizeYourMeal">Log in to customize your meal!</string>
     <string name="pleaseLogInSignInUpToOrder">Please log in/sign up to order</string>
     <string name="wantToCustomizeYourMealLogInOrSignUpToGetStarted">Want to customize your meal? Log in or sign up to get started!</string>
     <string name="fillUpAllInputFieldsError">Please fill up all input fields</string>
