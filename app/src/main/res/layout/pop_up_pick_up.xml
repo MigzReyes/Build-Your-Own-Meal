@@ -9,7 +9,8 @@
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_sheet_dialog_bg"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
