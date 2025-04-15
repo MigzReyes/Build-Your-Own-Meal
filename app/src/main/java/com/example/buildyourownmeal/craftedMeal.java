@@ -20,6 +20,7 @@ public class craftedMeal extends AppCompatActivity {
 
     //VARIABLE DECLARATION
     private Button addBtn, plusBtn, minusBtn;
+    private CardView backBtn;
     private TextView itemCount;
     private String getMealNameText;
     private TextView karaage, sisig, veggie, corn, coleslaw, hashBrown, gravy, vinegar,
@@ -130,11 +131,11 @@ public class craftedMeal extends AppCompatActivity {
         });*/
 
         //BACK BUTTON
-        CardView backBtn = findViewById(R.id.fabBackBtn);
+        backBtn = findViewById(R.id.fabBackBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleBackPress();
+                finish();
             }
         });
 
@@ -151,13 +152,5 @@ public class craftedMeal extends AppCompatActivity {
     private double getPrice(TextView priceView) {
         String priceText = priceView.getText().toString();
         return priceText.isEmpty() ? 0.0 : Double.parseDouble(priceText);
-    }
-
-    public void handleBackPress() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager();
-        } else {
-            finish();
-        }
     }
 }

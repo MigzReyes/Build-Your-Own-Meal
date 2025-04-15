@@ -52,7 +52,10 @@ public class checkout extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleBackPress();
+                Intent intent = new Intent(checkout.this, cart.class);
+                startActivity(intent);
+
+                finish();
             }
         });
 
@@ -166,13 +169,5 @@ public class checkout extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void handleBackPress() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager();
-        } else {
-            finish();
-        }
     }
 }

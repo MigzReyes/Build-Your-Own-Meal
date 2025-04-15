@@ -30,6 +30,7 @@
 
             <!-- PICK UP SCHEDULE -->
             <LinearLayout
+                android:id="@+id/changeSchedCon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/border_pickup_schedule"

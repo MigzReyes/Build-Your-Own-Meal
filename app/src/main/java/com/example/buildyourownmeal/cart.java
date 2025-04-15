@@ -23,8 +23,9 @@ public class cart extends AppCompatActivity {
 
     //LOCAL VARIABLE
     ImageView backBtn;
-    TextView fragName, changeSchedBtn;
+    TextView fragName;
     Button checkOutBtn;
+    LinearLayout changeSchedCon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +38,13 @@ public class cart extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         fragName = findViewById(R.id.sideFragName);
         checkOutBtn = findViewById(R.id.checkOutBtn);
-        changeSchedBtn = findViewById(R.id.changeSchedBtn);
+        changeSchedCon = findViewById(R.id.changeSchedCon);
 
         //BACK BUTTON LISTENER
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                }
+                finish();
             }
         });
 
@@ -56,12 +55,11 @@ public class cart extends AppCompatActivity {
          checkOutBtn.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 handleBackPress();
              }
          });
 
         //POP UP DIALOG CHANGE SCHEDULE
-        changeSchedBtn.setOnClickListener(new View.OnClickListener() {
+        changeSchedCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BottomSheetDialog popUpSched = new BottomSheetDialog(cart.this);
@@ -77,13 +75,5 @@ public class cart extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void handleBackPress() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager();
-        } else {
-            finish();
-        }
     }
 }
