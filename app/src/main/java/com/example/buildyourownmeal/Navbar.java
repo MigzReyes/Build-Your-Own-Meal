@@ -116,7 +116,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open_sidebar, R.string.close_sidebar);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         toolbar.setTitleTextColor(getColor(color.main_color));
-        setToolbarIconSize(toolbar, drawable.bentosidebaricon, 100);
+        setToolbarIconSize(toolbar, drawable.bentosidebaricon, 125);
         toolbar.setNavigationOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
