@@ -75,7 +75,8 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         craftNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpLogInWarning.show();
+                Intent intent = new Intent(getActivity(), craftedMeal.class);
+                startActivity(intent);
             }
         });
 
