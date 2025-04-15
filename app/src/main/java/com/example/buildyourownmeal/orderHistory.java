@@ -24,20 +24,12 @@ public class orderHistory extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleBackPress();
+                finish();
             }
         });
 
         //ACTIVITY TITLE
         TextView sideFragName = findViewById(R.id.sideFragName);
         sideFragName.setText(R.string.orderHis);
-    }
-
-    public void handleBackPress() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager();
-        } else {
-            finish();
-        }
     }
 }

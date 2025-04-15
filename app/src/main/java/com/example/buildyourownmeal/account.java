@@ -36,8 +36,7 @@ public class account extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(account.this, Navbar.class);
-                startActivity(intent);
+                finish();
             }
         });
 

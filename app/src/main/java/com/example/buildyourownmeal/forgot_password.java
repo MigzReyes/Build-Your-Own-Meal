@@ -54,8 +54,7 @@ public class forgot_password extends AppCompatActivity {
         fabBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(forgot_password.this, logIn.class);
-                startActivity(intent);
+                finish();
             }
         });
 
