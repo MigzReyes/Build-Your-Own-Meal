@@ -20,7 +20,7 @@ public class craftedMeal extends AppCompatActivity {
 
     //VARIABLE DECLARATION
     private Button addBtn, plusBtn, minusBtn;
-    private CardView backBtn;
+    private Button backBtn;
     private TextView itemCount;
     private String getMealNameText;
     private TextView karaage, sisig, veggie, corn, coleslaw, hashBrown, gravy, vinegar,
