@@ -22,21 +22,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingHorizontal="15dp"
         android:paddingVertical="20dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
@@ -44,10 +47,10 @@
                     android:id="@+id/textView52"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="25dp"
                     android:text="@string/CreateYourAccount"
-                    android:textSize="30sp"
-                    android:textColor="@color/whiteBoldLetters"/>
+                    android:textColor="@color/whiteBoldLetters"
+                    android:textSize="30sp" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout7"
@@ -64,23 +67,23 @@
                             android:id="@+id/textView58"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/username"
-                            android:textSize="16sp"
                             android:textColor="@color/whiteBoldLetters"
-                            android:fontFamily="@font/inter_18pt_bold" />
+                            android:textSize="16sp" />
 
                         <EditText
                             android:id="@+id/username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
                             android:background="@drawable/edit_text_background"
-                            android:hint="@string/usernameHint"
-                            android:textSize="15sp"
-                            android:textColor="@color/lightGreyLetters"
                             android:fontFamily="@font/inter_18pt_medium"
+                            android:hint="@string/usernameHint"
+                            android:inputType="text"
+                            android:paddingHorizontal="10dp"
                             android:paddingVertical="15dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:textColor="@color/lightGreyLetters"
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -93,23 +96,23 @@
                             android:id="@+id/textView59"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/email"
-                            android:textSize="16sp"
                             android:fontFamily="@font/inter_18pt_bold"
-                            android:textColor="@color/whiteBoldLetters"/>
+                            android:text="@string/email"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:textSize="16sp" />
 
                         <EditText
                             android:id="@+id/signUpEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
                             android:background="@drawable/edit_text_background"
-                            android:hint="@string/emailHint"
-                            android:textSize="15sp"
-                            android:textColor="@color/lightGreyLetters"
                             android:fontFamily="@font/inter_18pt_medium"
+                            android:hint="@string/emailHint"
+                            android:inputType="textEmailAddress"
+                            android:paddingHorizontal="10dp"
                             android:paddingVertical="15dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:textColor="@color/lightGreyLetters"
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -122,23 +125,23 @@
                             android:id="@+id/textView60"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/password"
-                            android:textSize="16sp"
                             android:textColor="@color/whiteBoldLetters"
-                            android:fontFamily="@font/inter_18pt_bold"/>
+                            android:textSize="16sp" />
 
                         <EditText
                             android:id="@+id/signUpPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
                             android:background="@drawable/edit_text_background"
-                            android:hint="@string/passwordHint"
-                            android:textSize="15sp"
-                            android:textColor="@color/lightGreyLetters"
                             android:fontFamily="@font/inter_18pt_medium"
+                            android:hint="@string/passwordHint"
+                            android:inputType="textPassword"
                             android:paddingHorizontal="10dp"
-                            android:paddingVertical="15dp"/>
+                            android:paddingVertical="15dp"
+                            android:textColor="@color/lightGreyLetters"
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -151,23 +154,23 @@
                             android:id="@+id/textView61"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/conPassword"
-                            android:textSize="16sp"
                             android:textColor="@color/whiteBoldLetters"
-                            android:fontFamily="@font/inter_18pt_bold"/>
+                            android:textSize="16sp" />
 
                         <EditText
                             android:id="@+id/conPass"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
                             android:background="@drawable/edit_text_background"
-                            android:hint="@string/passwordHint"
-                            android:textColor="@color/lightGreyLetters"
                             android:fontFamily="@font/inter_18pt_medium"
-                            android:textSize="15sp"
+                            android:hint="@string/passwordHint"
+                            android:inputType="textPassword"
+                            android:paddingHorizontal="10dp"
                             android:paddingVertical="15dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:textColor="@color/lightGreyLetters"
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -179,10 +182,10 @@
                             android:id="@+id/textView16"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/passwordStrength"
-                            android:textSize="15sp"
                             android:fontFamily="@font/inter_18pt_semibold"
-                            android:textColor="@color/whiteBoldLetters"/>
+                            android:text="@string/passwordStrength"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:textSize="15sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -191,36 +194,36 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textView28"
+                                android:id="@+id/atLeastEightLetter"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastEightCharacters"
-                                android:textColor="@color/whiteBoldLetters"
-                                android:fontFamily="@font/inter_18pt_semibold"/>
+                                android:textColor="@color/whiteBoldLetters" />
 
                             <TextView
-                                android:id="@+id/textView35"
+                                android:id="@+id/atLeastOneUpperCaseLetter"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastOneUppercaseLetter"
-                                android:textColor="@color/greyLetters"
-                                android:fontFamily="@font/inter_18pt_semibold"/>
+                                android:textColor="@color/whiteBoldLetters" />
 
                             <TextView
-                                android:id="@+id/textView42"
+                                android:id="@+id/atLeastOneLowerCaseLetter"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastOneLowercaseLetter"
-                                android:textColor="@color/greyLetters"
-                                android:fontFamily="@font/inter_18pt_semibold"/>
+                                android:textColor="@color/whiteBoldLetters" />
 
                             <TextView
-                                android:id="@+id/textView68"
+                                android:id="@+id/atLeastOneNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastOneNumber"
-                                android:textColor="@color/greyLetters"
-                                android:fontFamily="@font/inter_18pt_semibold"/>
+                                android:textColor="@color/whiteBoldLetters" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -232,28 +235,28 @@
                         android:layout_marginVertical="10dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/whiteBoldLetters"
+                        android:fontFamily="@font/inter_18pt_medium"
                         android:text="@string/agreeToTermsAndCondition"
                         android:textColor="@color/whiteBoldLetters"
-                        android:fontFamily="@font/inter_18pt_medium"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/signUpBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/large_btn_main_color"
+                        android:fontFamily="@font/inter_18pt_bold"
                         android:text="@string/signUp"
-                        android:textSize="16sp"
                         android:textColor="@color/whiteBoldLetters"
-                        android:fontFamily="@font/inter_18pt_bold"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
                 android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -261,22 +264,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/alreadyHaveAccount"
-                    android:textSize="16sp"
                     android:fontFamily="@font/inter_18pt_medium"
-                    android:textColor="@color/whiteBoldLetters"/>
+                    android:text="@string/alreadyHaveAccount"
+                    android:textColor="@color/whiteBoldLetters"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/alreadyHaveAcc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:fontFamily="@font/inter_18pt_bold"
                     android:text="@string/smallLogIn"
-                    android:textSize="16sp"
                     android:textColor="@color/main_color"
-                    android:fontFamily="@font/inter_18pt_bold"/>
+                    android:textSize="16sp" />
             </LinearLayout>
-        </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

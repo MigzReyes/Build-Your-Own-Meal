@@ -27,7 +27,7 @@ public class signUp extends AppCompatActivity {
 
     //VARIABLES
     private Button signUpBtn;
-    private TextView logInLink;
+    private TextView logInLink, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber;
 
     //SIGN UP VARIABLES
     public EditText username;
@@ -55,6 +55,10 @@ public class signUp extends AppCompatActivity {
         password = findViewById(R.id.signUpPassword);
         conPassword = findViewById(R.id.conPass);
         termsAndCon = findViewById(R.id.AgreeTermsAndCon);
+        atLeastEightLetter = findViewById(R.id.atLeastEightLetter);
+        atLeastOneUpperCaseLetter = findViewById(R.id.atLeastOneUpperCaseLetter);
+        atLeastOneLowerCaseLetter = findViewById(R.id.atLeastOneLowerCaseLetter);
+        atLeastOneNumber = findViewById(R.id.atLeastOneNumber);
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +78,17 @@ public class signUp extends AppCompatActivity {
                     popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
                 } else if (!checkBox) {
                     popUpAlert(getString(R.string.agreeToTheTermsAndConError));
-                }else {
+                } else if (pass.length() >= 8) {
+                    atLeastEightLetter.setTextColor(getColor(R.color.greyLetters));
+
+                    boolean checkPass = databaseFunctions.isPasswordValid(pass);
+
+                    if (checkPass) {
+                        atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
+                        atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
+                        atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
+                    }
+                } else {
                     boolean checkUserEmail = databaseFunctions.checkEmail(email);
 
                     if (checkUserEmail) {
