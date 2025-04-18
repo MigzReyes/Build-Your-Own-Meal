@@ -61,8 +61,19 @@ public class logIn extends AppCompatActivity {
             logInBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String getEmail = email.getText().toString().trim();
+                    String getPass = password.getText().toString().trim();
+                    boolean checkBox = rememberMe.isChecked();
+
                     editor.putBoolean("isUserLoggedIn", true);
                     editor.apply();
+                    if (checkBox) {
+                        editor.putString("email", getEmail);
+                        editor.putString("password", getPass);
+                        editor.putBoolean("rememberMe", true);
+                    } else {
+                        editor.clear();
+                    }
                     Intent intent = new Intent(logIn.this, Navbar.class);
                     startActivity(intent);
                     finish();
