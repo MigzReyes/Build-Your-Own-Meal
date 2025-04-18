@@ -65,18 +65,22 @@ public class logIn extends AppCompatActivity {
                     String getPass = password.getText().toString().trim();
                     boolean checkBox = rememberMe.isChecked();
 
-                    editor.putBoolean("isUserLoggedIn", true);
                     editor.apply();
                     if (checkBox) {
                         editor.putString("email", getEmail);
                         editor.putString("password", getPass);
                         editor.putBoolean("rememberMe", true);
+                        editor.putBoolean("isUserLoggedIn", true);
+                        Intent intent = new Intent(logIn.this, Navbar.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         editor.clear();
+                        editor.putBoolean("isUserLoggedIn", true);
+                        Intent intent = new Intent(logIn.this, Navbar.class);
+                        startActivity(intent);
+                        finish();
                     }
-                    Intent intent = new Intent(logIn.this, Navbar.class);
-                    startActivity(intent);
-                    finish();
                 }
             });
         } else {
