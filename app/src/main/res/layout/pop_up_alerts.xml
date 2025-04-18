@@ -42,7 +42,7 @@
                 app:cardCornerRadius="15dp">
 
                 <Button
-                    android:id="@+id/closeBtn2"
+                    android:id="@+id/closeBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/black"
