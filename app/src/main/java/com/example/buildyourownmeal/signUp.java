@@ -136,15 +136,26 @@ public class signUp extends AppCompatActivity {
 
         if (password.length() >= 8) {
             atLeastEightLetter.setTextColor(getColor(R.color.greyLetters));
+        } else {
+            atLeastEightLetter.setTextColor(getColor(R.color.whiteBoldLetters));
         }
+
         if (password.matches(".*[A-Z].*")) {
             atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
+        } else {
+            atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.whiteBoldLetters));
         }
+
         if (password.matches(".*[a-z].*")) {
             atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
+        } else {
+            atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.whiteBoldLetters));
         }
+
         if (password.matches(".*\\d.*")) {
             atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
+        } else {
+            atLeastOneNumber.setTextColor(getColor(R.color.whiteBoldLetters));
         }
     }
 
