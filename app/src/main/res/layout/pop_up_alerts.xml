@@ -35,21 +35,21 @@
                 android:textSize="18sp" />
 
 
-            <LinearLayout
-                android:layout_width="290dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
+                app:cardCornerRadius="15dp">
 
                 <Button
-                    android:id="@+id/closeBtn"
+                    android:id="@+id/closeBtn2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/large_btn"
+                    android:background="@color/black"
                     android:text="@string/close"
                     android:textAllCaps="false"
                     android:textColor="@color/whiteBoldLetters" />
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
