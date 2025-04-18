@@ -39,6 +39,7 @@
     <string name="thisActionCanNotBeUndone">This action can not be undone. Are you sure you want to continue?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
     <string name="areYouSureYouWantToLogOut">Are you sure you want to log out?</string>
     <string name="areYouSure">Are you sure?</string>
     <string name="makeSureAllTheInformationIsCorrect">Make sure all the information is correct</string>
@@ -344,6 +345,7 @@
     <string name="conPassAndPassDoesNotMatchError">Confirm password and password does not match</string>
     <string name="agreeToTheTermsAndConError">Please agree to the Terms and Conditions</string>
     <string name="emailDoesNotExistError">Email does not exist</string>
+    <string name="emailAlreadyExist">Email already exist</string>
     <string name="passwordIsWrongError">Password is wrong</string>
     <string name="wrongPassworError">Wrong password</string>
     <string name="chooseAnAddOn">Please choose one Add on</string>

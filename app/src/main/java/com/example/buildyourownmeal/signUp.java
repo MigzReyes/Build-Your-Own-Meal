@@ -2,10 +2,13 @@ package com.example.buildyourownmeal;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,6 +22,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class signUp extends AppCompatActivity {
+
+    private databaseFunctions databaseFunctions;
+    private Dialog popUpAlert;
 
     //VARIABLES
     private Button signUpBtn;
@@ -37,6 +43,9 @@ public class signUp extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
+        //DATABASE DECLARATION;
+        databaseFunctions = new databaseFunctions(this);
+
         //SET ID
         signUpBtn = findViewById(R.id.signUpBtn);
         logInLink = findViewById(R.id.alreadyHaveAcc);
@@ -48,10 +57,6 @@ public class signUp extends AppCompatActivity {
         conPassword = findViewById(R.id.conPass);
         termsAndCon = findViewById(R.id.AgreeTermsAndCon);
 
-        //SHARED PREFERENCE/DATABASE SIGN UP
-        SharedPreferences myDb = getSharedPreferences("myDb", MODE_PRIVATE);
-        SharedPreferences.Editor editor = myDb.edit();
-
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,24 +66,30 @@ public class signUp extends AppCompatActivity {
                 String email = signUpEmail.getText().toString().trim();
                 String pass = password.getText().toString().trim();
                 String conPass = conPassword.getText().toString().trim();
-                Boolean checkBox = termsAndCon.isChecked();
+                boolean checkBox = termsAndCon.isChecked();
 
                 //LOGIC STATEMENT FOR CHECKING IF THE USER HAS INPUT THE TEXT FIELD
                 if (name.isBlank() || email.isBlank() || pass.isBlank() || conPass.isBlank()){
-                    Toast.makeText(signUp.this, getString(R.string.fillUpAllInputFieldsError), Toast.LENGTH_SHORT).show();
+                    popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                 } else if (!pass.equals(conPass)) {
-                    Toast.makeText(signUp.this,  getString(R.string.conPassAndPassDoesNotMatchError), Toast.LENGTH_SHORT).show();
+                    popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
                 } else if (!checkBox) {
-                    Toast.makeText(signUp.this, getString(R.string.agreeToTheTermsAndConError), Toast.LENGTH_LONG).show();
+                    popUpAlert(getString(R.string.agreeToTheTermsAndConError));
                 }else {
-                    //STORE THE VALUE TO THE SHARED PREFERENCE
-                    editor.putString("username", name);
-                    editor.putString("email", email);
-                    editor.putString("password", pass);
-                    editor.apply();
-                    //AFTER STORING IT REDIRECTS THE USER TO THE LOG IN LAYOUT
-                    Intent intent = new Intent(signUp.this, logIn.class);
-                    startActivity(intent);
+                    boolean checkUserEmail = databaseFunctions.checkEmail(email);
+
+                    if (checkUserEmail) {
+                        popUpAlert(getString(R.string.emailAlreadyExist));
+                    } else {
+                        Boolean insertData = databaseFunctions.insertData(name, email, pass);
+
+                        if (insertData) {
+                            Intent intent = new Intent(signUp.this, logIn.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
                 }
             }
         });
@@ -93,6 +104,32 @@ public class signUp extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void popUpAlert(String alertMessage) {
+        Button close;
+        TextView alertText;
+
+        popUpAlert = new Dialog(this);
+        popUpAlert.setContentView(R.layout.pop_up_alerts);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        alertText = popUpAlert.findViewById(R.id.alertText);
+        close = popUpAlert.findViewById(R.id.closeBtn);
+
+        //ALERT TEXT
+        alertText.setText(alertMessage);
+
+        //CLOSE
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
+            }
+        });
 
     }
 }

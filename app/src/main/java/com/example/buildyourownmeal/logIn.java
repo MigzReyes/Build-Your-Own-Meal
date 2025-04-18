@@ -18,6 +18,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class logIn extends AppCompatActivity {
 
+    databaseFunctions databaseFunctions;
+
     //VARIABLES
     private Button logInBtn;
     private TextView signUpLink;
@@ -33,20 +35,15 @@ public class logIn extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
 
+        //DATABASE DECLARATION
+        databaseFunctions = new databaseFunctions(this);
+
         //LOG IN VARIABLES CONNECTION TO LAYOUT BUTTONS
         email = findViewById(R.id.logInEmail);
         password = findViewById(R.id.logInPass);
         logInBtn = findViewById(R.id.logInBtn);
         rememberMe = findViewById(R.id.rememberMe);
         forgotPass = findViewById(R.id.forgotPassword);
-
-        //SHARED PREFERENCE CONNECTION TO SIGN UP "myDb"
-        SharedPreferences myDb = getSharedPreferences("myDb", MODE_PRIVATE);
-
-        //GET THE EMAIL AND PASSWORD FROM THE SHARED PREFERENCE/DATABASE
-        String dbUsername = myDb.getString("username", "No username found");
-        String dbEmail = myDb.getString("email", "No email found");
-        String dbPassword = myDb.getString("password", "No password found");
 
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,26 +52,18 @@ public class logIn extends AppCompatActivity {
                 String getPass = password.getText().toString().trim();
                 Boolean checkBox = rememberMe.isChecked();
 
+
                 if (getEmail.isBlank() || getPass.isBlank()) {
                     Toast.makeText(logIn.this, getString(R.string.fillUpAllInputFieldsError), Toast.LENGTH_SHORT).show();
                 } else {
-                    if (getEmail.equals(dbEmail)) {
-                        if (getPass.equals(dbPassword)) {
+                    Boolean checkUserEmailPassword = databaseFunctions.checkEmailPassword(getEmail, getPass);
 
-                            SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = userSession.edit();
-                            editor.putBoolean("isUserLoggedIn", true);
-                            editor.putString("username", dbUsername);
-                            editor.putString("email", dbEmail);
-                            editor.apply();
-
-                            Intent intent = new Intent(logIn.this, Navbar.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(logIn.this, getString(R.string.wrongPassworError), Toast.LENGTH_SHORT).show();
-                        }
+                    if (checkUserEmailPassword) {
+                        Intent intent = new Intent(logIn.this, Navbar.class);
+                        startActivity(intent);
+                        finish();
                     } else {
-                        Toast.makeText(logIn.this, getString(R.string.emailDoesNotExistError), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(logIn.this, getString(R.string.emailDoesNotExistError), Toast.LENGTH_LONG).show();
                     }
                 }
             }
