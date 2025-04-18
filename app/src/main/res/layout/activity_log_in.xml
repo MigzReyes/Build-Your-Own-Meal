@@ -100,6 +100,13 @@
                             android:textColor="@color/whiteBoldLetters"
                             android:fontFamily="@font/inter_18pt_bold"/>
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleDrawable="@drawable/eye_icon">
+
                         <EditText
                             android:id="@+id/logInPass"
                             android:layout_width="match_parent"
@@ -112,6 +119,8 @@
                             android:paddingVertical="15dp"
                             android:textColor="@color/lightGreyLetters"
                             android:textSize="15sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
