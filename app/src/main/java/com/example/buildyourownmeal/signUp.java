@@ -81,6 +81,9 @@ public class signUp extends AppCompatActivity {
             }
         });
 
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +113,8 @@ public class signUp extends AppCompatActivity {
                         Boolean insertData = databaseFunctions.insertData(name, email, pass);
 
                         if (insertData) {
+                            editor.putString("username", name);
+                            editor.apply();
                             Intent intent = new Intent(signUp.this, logIn.class);
                             startActivity(intent);
                             finish();

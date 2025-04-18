@@ -62,6 +62,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
+
+
     public Boolean checkEmail(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("Select * from account where email = ?", new String[]{email});

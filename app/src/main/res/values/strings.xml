@@ -338,6 +338,8 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="youMustLogInTo">You must log in</string>
+    <string name="ToCraftAMeal">to craft a meal!</string>
     <string name="passwordIsWeak">Password is weak</string>
     <string name="invalidEmail">Invalid email</string>
     <string name="logInToCustomizeYourMeal">Log in to customize your meal!</string>
