@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Layout;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -96,7 +97,7 @@ public class signUp extends AppCompatActivity {
                     popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                 } else if (databaseFunctions.checkEmail(email)) {
                     popUpAlert(getString(R.string.emailAlreadyExist));
-                } else if (!email.contains("@")) {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     popUpAlert(getString(R.string.invalidEmail));
                 } else if (!pass.equals(conPass)) {
                     popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
