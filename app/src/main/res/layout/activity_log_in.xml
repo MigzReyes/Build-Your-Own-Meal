@@ -70,7 +70,7 @@
                             android:textColor="@color/whiteBoldLetters"
                             android:fontFamily="@font/inter_18pt_bold"/>
 
-                        <EditText
+                        <AutoCompleteTextView
                             android:id="@+id/logInEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

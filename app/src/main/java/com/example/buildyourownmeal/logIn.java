@@ -1,11 +1,16 @@
 package com.example.buildyourownmeal;
 
 import android.app.Dialog;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,6 +23,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class logIn extends AppCompatActivity {
 
     databaseFunctions databaseFunctions;
@@ -27,7 +35,8 @@ public class logIn extends AppCompatActivity {
     private TextView signUpLink;
 
     //LOG IN VARIABLES
-    private EditText email, password;
+    private EditText password;
+    private AutoCompleteTextView email;
     private CheckBox rememberMe;
     private TextView forgotPass;
 
@@ -50,14 +59,25 @@ public class logIn extends AppCompatActivity {
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         SharedPreferences.Editor editor = userSession.edit();
 
-        if (userSession.getBoolean("rememberMe", false)) {
-            String rememberMeEmail = userSession.getString("email", null);
-            String rememberMePass = userSession.getString("password", null);
+        Map<String, ?> allEntries = userSession.getAll();
 
-            email.setText(rememberMeEmail);
-            password.setText(rememberMePass);
-            rememberMe.setChecked(true);
-        }
+        List<String> emailList = new ArrayList<>(allEntries.keySet());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                emailList
+        );
+
+        email.setAdapter(adapter);
+
+        email.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedEmail = (String) parent.getItemAtPosition(position);
+            String savedPassword = userSession.getString(selectedEmail, "");
+
+            password.setText(savedPassword);
+        });
+
 
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +98,7 @@ public class logIn extends AppCompatActivity {
                             if (checkBox) {
                                 editor.putString("email", getEmail);
                                 editor.putString("password", getPass);
+                                editor.putString(getEmail, getPass);
                                 editor.putBoolean("rememberMe", true);
                             } else {
                                 editor.clear();
