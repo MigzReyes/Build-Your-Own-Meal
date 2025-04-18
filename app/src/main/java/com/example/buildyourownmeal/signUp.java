@@ -87,23 +87,22 @@ public class signUp extends AppCompatActivity {
                         atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
                         atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
                         atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
-                    }
-                } else {
-                    boolean checkUserEmail = databaseFunctions.checkEmail(email);
 
-                    if (checkUserEmail) {
-                        popUpAlert(getString(R.string.emailAlreadyExist));
+                        boolean checkUserEmail = databaseFunctions.checkEmail(email);
 
-                    } else {
-                        Boolean insertData = databaseFunctions.insertData(name, email, pass);
+                        if (checkUserEmail) {
+                            popUpAlert(getString(R.string.emailAlreadyExist));
 
-                        if (insertData) {
-                            Intent intent = new Intent(signUp.this, logIn.class);
-                            startActivity(intent);
-                            finish();
+                        } else {
+                            Boolean insertData = databaseFunctions.insertData(name, email, pass);
+
+                            if (insertData) {
+                                Intent intent = new Intent(signUp.this, logIn.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
                     }
-
                 }
             }
         });
