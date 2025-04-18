@@ -1,13 +1,17 @@
 package com.example.buildyourownmeal;
 
+import static androidx.core.app.NotificationCompat.getColor;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.sql.SQLClientInfoException;
 
@@ -15,10 +19,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     private static final String LOG_ALERT_TAG = "database";
     private static final String DATABASE_NAME = "myDb";
+    private final Context context;
 
 
     public databaseFunctions(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
+        this.context = context;
     }
 
     @Override

@@ -6,7 +6,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Layout;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -60,6 +62,24 @@ public class signUp extends AppCompatActivity {
         atLeastOneLowerCaseLetter = findViewById(R.id.atLeastOneLowerCaseLetter);
         atLeastOneNumber = findViewById(R.id.atLeastOneNumber);
 
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkPasswordStrength(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,34 +94,27 @@ public class signUp extends AppCompatActivity {
                 //LOGIC STATEMENT FOR CHECKING IF THE USER HAS INPUT THE TEXT FIELD
                 if (name.isBlank() || email.isBlank() || pass.isBlank() || conPass.isBlank()){
                     popUpAlert(getString(R.string.fillUpAllInputFieldsError));
+                } else if (databaseFunctions.checkEmail(email)) {
+                    popUpAlert(getString(R.string.emailAlreadyExist));
+                } else if (!email.contains("@")) {
+                    popUpAlert(getString(R.string.invalidEmail));
                 } else if (!pass.equals(conPass)) {
                     popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
                 } else if (!checkBox) {
                     popUpAlert(getString(R.string.agreeToTheTermsAndConError));
-                } else if (pass.length() >= 8) {
-                    atLeastEightLetter.setTextColor(getColor(R.color.greyLetters));
+                } else {
+                    boolean checkUserPass = databaseFunctions.isPasswordValid(pass);
 
-                    boolean checkPass = databaseFunctions.isPasswordValid(pass);
+                    if (checkUserPass) {
+                        Boolean insertData = databaseFunctions.insertData(name, email, pass);
 
-                    if (checkPass) {
-                        atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
-                        atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
-                        atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
-
-                        boolean checkUserEmail = databaseFunctions.checkEmail(email);
-
-                        if (checkUserEmail) {
-                            popUpAlert(getString(R.string.emailAlreadyExist));
-
-                        } else {
-                            Boolean insertData = databaseFunctions.insertData(name, email, pass);
-
-                            if (insertData) {
-                                Intent intent = new Intent(signUp.this, logIn.class);
-                                startActivity(intent);
-                                finish();
-                            }
+                        if (insertData) {
+                            Intent intent = new Intent(signUp.this, logIn.class);
+                            startActivity(intent);
+                            finish();
                         }
+                    } else {
+                        popUpAlert(getString(R.string.passwordIsWeak));
                     }
                 }
             }
@@ -118,6 +131,23 @@ public class signUp extends AppCompatActivity {
         });
 
     }
+
+    private void checkPasswordStrength(String password) {
+
+        if (password.length() >= 8) {
+            atLeastEightLetter.setTextColor(getColor(R.color.greyLetters));
+        }
+        if (password.matches(".*[A-Z].*")) {
+            atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
+        }
+        if (password.matches(".*[a-z].*")) {
+            atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
+        }
+        if (password.matches(".*\\d.*")) {
+            atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
+        }
+    }
+
 
     public void popUpAlert(String alertMessage) {
         Dialog popUpAlert;
