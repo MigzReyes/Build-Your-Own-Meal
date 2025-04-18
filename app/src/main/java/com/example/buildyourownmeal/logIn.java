@@ -130,7 +130,7 @@ public class logIn extends AppCompatActivity {
 
         popUpAlert = new Dialog(this);
         popUpAlert.setContentView(R.layout.pop_up_alerts);
-        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
         popUpAlert.setCancelable(true);
         popUpAlert.show();
