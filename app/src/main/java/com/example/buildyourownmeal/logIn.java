@@ -75,6 +75,7 @@ public class logIn extends AppCompatActivity {
             String selectedEmail = (String) parent.getItemAtPosition(position);
             String savedPassword = userSession.getString(selectedEmail, "");
 
+            rememberMe.setChecked(true);
             password.setText(savedPassword);
         });
 
