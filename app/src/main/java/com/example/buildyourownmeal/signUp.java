@@ -24,7 +24,6 @@ import androidx.core.view.WindowInsetsCompat;
 public class signUp extends AppCompatActivity {
 
     private databaseFunctions databaseFunctions;
-    private Dialog popUpAlert;
 
     //VARIABLES
     private Button signUpBtn;
@@ -108,6 +107,7 @@ public class signUp extends AppCompatActivity {
     }
 
     public void popUpAlert(String alertMessage) {
+        Dialog popUpAlert;
         Button close;
         TextView alertText;
 

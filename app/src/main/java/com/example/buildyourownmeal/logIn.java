@@ -1,9 +1,11 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -54,16 +56,16 @@ public class logIn extends AppCompatActivity {
 
 
                 if (getEmail.isBlank() || getPass.isBlank()) {
-                    Toast.makeText(logIn.this, getString(R.string.fillUpAllInputFieldsError), Toast.LENGTH_SHORT).show();
+                    popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                 } else {
                     Boolean checkUserEmailPassword = databaseFunctions.checkEmailPassword(getEmail, getPass);
 
                     if (checkUserEmailPassword) {
+                        popUpAlert(getString(R.string.emailDoesNotExistError));
+                    } else {
                         Intent intent = new Intent(logIn.this, Navbar.class);
                         startActivity(intent);
                         finish();
-                    } else {
-                        Toast.makeText(logIn.this, getString(R.string.emailDoesNotExistError), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -87,6 +89,34 @@ public class logIn extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(logIn.this, forgot_password.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+
+    public void popUpAlert(String alertMessage) {
+        Dialog popUpAlert;
+        Button close;
+        TextView alertText;
+
+        popUpAlert = new Dialog(this);
+        popUpAlert.setContentView(R.layout.pop_up_alerts);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        alertText = popUpAlert.findViewById(R.id.alertText);
+        close = popUpAlert.findViewById(R.id.closeBtn);
+
+        //ALERT TEXT
+        alertText.setText(alertMessage);
+
+        //CLOSE
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
             }
         });
 
