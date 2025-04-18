@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/alertText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/inter_18pt_bold"
@@ -36,8 +36,9 @@
 
             <Button
                 android:id="@+id/closeBtn"
-                android:layout_width="match_parent"
+                android:layout_width="290dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/large_btn"
                 android:text="@string/close"
                 android:textAllCaps="false"
