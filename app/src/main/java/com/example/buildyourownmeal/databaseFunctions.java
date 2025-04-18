@@ -60,9 +60,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("Select * from account where email = ?", new String[]{email});
 
-        if (cursor.getCount() == 0) {
+        if (cursor.getCount() > 0) {
+            cursor.close();
             return true;
         } else {
+            cursor.close();
             return false;
         }
     }
