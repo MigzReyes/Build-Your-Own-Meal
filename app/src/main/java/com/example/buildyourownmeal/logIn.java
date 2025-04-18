@@ -47,36 +47,68 @@ public class logIn extends AppCompatActivity {
         rememberMe = findViewById(R.id.rememberMe);
         forgotPass = findViewById(R.id.forgotPassword);
 
-        logInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String getEmail = email.getText().toString().trim();
-                String getPass = password.getText().toString().trim();
-                Boolean checkBox = rememberMe.isChecked();
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
 
+        if (userSession.getBoolean("rememberMe", false)) {
+            String rememberMeEmail = userSession.getString("email", null);
+            String rememberMePass = userSession.getString("password", null);
 
-                if (getEmail.isBlank() || getPass.isBlank()) {
-                    popUpAlert(getString(R.string.fillUpAllInputFieldsError));
-                } else {
-                    Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
+            email.setText(rememberMeEmail);
+            password.setText(rememberMePass);
+            rememberMe.setChecked(true);
 
-                    if (checkUserEmail) {
-                        boolean checkPassword = databaseFunctions.checkPassword(getPass);
+            logInBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editor.putBoolean("isUserLoggedIn", true);
+                    editor.apply();
+                    Intent intent = new Intent(logIn.this, Navbar.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        } else {
+            logInBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String getEmail = email.getText().toString().trim();
+                    String getPass = password.getText().toString().trim();
+                    boolean checkBox = rememberMe.isChecked();
 
-                        if (checkPassword) {
-                            Intent intent = new Intent(logIn.this, Navbar.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            popUpAlert(getString(R.string.wrongPassworError));
-                        }
-
+                    if (getEmail.isBlank() || getPass.isBlank()) {
+                        popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                     } else {
-                        popUpAlert(getString(R.string.emailDoesNotExistError));
+                        Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
+
+                        if (checkUserEmail) {
+                            boolean checkPassword = databaseFunctions.checkPassword(getPass);
+
+                            if (checkPassword) {
+                                if (checkBox) {
+                                    editor.putString("email", getEmail);
+                                    editor.putString("password", getPass);
+                                    editor.putBoolean("rememberMe", true);
+                                } else {
+                                    editor.clear();
+                                }
+                                editor.putBoolean("isUserLoggedIn", true);
+                                editor.apply();
+
+                                Intent intent = new Intent(logIn.this, Navbar.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                popUpAlert(getString(R.string.wrongPassworError));
+                            }
+
+                        } else {
+                            popUpAlert(getString(R.string.emailDoesNotExistError));
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
 
         //SIGN UP LINK
@@ -108,7 +140,7 @@ public class logIn extends AppCompatActivity {
 
         popUpAlert = new Dialog(this);
         popUpAlert.setContentView(R.layout.pop_up_alerts);
-        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
         popUpAlert.setCancelable(true);
         popUpAlert.show();
