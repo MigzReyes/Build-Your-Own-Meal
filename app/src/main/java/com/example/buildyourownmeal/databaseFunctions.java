@@ -69,9 +69,9 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean checkEmailPassword(String email, String password) {
+    public Boolean checkPassword(String password) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("Select * from account where email = ? and password = ?", new String[]{email, password});
+        Cursor cursor = myDb.rawQuery("Select * from account where email = ? and password = ?", new String[]{password});
 
         if (cursor.getCount() > 0) {
             cursor.close();

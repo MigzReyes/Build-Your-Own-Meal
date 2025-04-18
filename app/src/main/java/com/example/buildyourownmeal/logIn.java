@@ -58,12 +58,19 @@ public class logIn extends AppCompatActivity {
                 if (getEmail.isBlank() || getPass.isBlank()) {
                     popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                 } else {
-                    Boolean checkUserEmailPassword = databaseFunctions.checkEmailPassword(getEmail, getPass);
+                    Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
 
-                    if (checkUserEmailPassword) {
-                        Intent intent = new Intent(logIn.this, Navbar.class);
-                        startActivity(intent);
-                        finish();
+                    if (checkUserEmail) {
+                        boolean checkPassword = databaseFunctions.checkPassword(getPass);
+
+                        if (checkPassword) {
+                            Intent intent = new Intent(logIn.this, Navbar.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            popUpAlert(getString(R.string.wrongPassworError));
+                        }
+
                     } else {
                         popUpAlert(getString(R.string.emailDoesNotExistError));
                     }
