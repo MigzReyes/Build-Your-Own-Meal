@@ -80,7 +80,7 @@
                             android:inputType="textEmailAddress"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="15dp"
-                            android:textColor="@color/lightGreyLetters"
+                            android:textColor="@color/blackBoldLetters"
                             android:textSize="15sp" />
                     </LinearLayout>
 
@@ -117,7 +117,7 @@
                             android:inputType="textPassword"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="15dp"
-                            android:textColor="@color/lightGreyLetters"
+                            android:textColor="@color/blackBoldLetters"
                             android:textSize="15sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
