@@ -57,73 +57,48 @@ public class logIn extends AppCompatActivity {
             email.setText(rememberMeEmail);
             password.setText(rememberMePass);
             rememberMe.setChecked(true);
-
-            logInBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String getEmail = email.getText().toString().trim();
-                    String getPass = password.getText().toString().trim();
-                    boolean checkBox = rememberMe.isChecked();
-
-                    editor.apply();
-                    if (checkBox) {
-                        editor.putString("email", getEmail);
-                        editor.putString("password", getPass);
-                        editor.putBoolean("rememberMe", true);
-                        editor.putBoolean("isUserLoggedIn", true);
-                        Intent intent = new Intent(logIn.this, Navbar.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        editor.clear();
-                        editor.putBoolean("isUserLoggedIn", true);
-                        Intent intent = new Intent(logIn.this, Navbar.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            });
-        } else {
-            logInBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String getEmail = email.getText().toString().trim();
-                    String getPass = password.getText().toString().trim();
-                    boolean checkBox = rememberMe.isChecked();
-
-                    if (getEmail.isBlank() || getPass.isBlank()) {
-                        popUpAlert(getString(R.string.fillUpAllInputFieldsError));
-                    } else {
-                        Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
-
-                        if (checkUserEmail) {
-                            boolean checkPassword = databaseFunctions.checkPassword(getPass);
-
-                            if (checkPassword) {
-                                if (checkBox) {
-                                    editor.putString("email", getEmail);
-                                    editor.putString("password", getPass);
-                                    editor.putBoolean("rememberMe", true);
-                                } else {
-                                    editor.clear();
-                                }
-                                editor.putBoolean("isUserLoggedIn", true);
-                                editor.apply();
-
-                                Intent intent = new Intent(logIn.this, Navbar.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                popUpAlert(getString(R.string.wrongPassworError));
-                            }
-
-                        } else {
-                            popUpAlert(getString(R.string.emailDoesNotExistError));
-                        }
-                    }
-                }
-            });
         }
+
+        logInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getEmail = email.getText().toString().trim();
+                String getPass = password.getText().toString().trim();
+                boolean checkBox = rememberMe.isChecked();
+
+                if (getEmail.isBlank() || getPass.isBlank()) {
+                    popUpAlert(getString(R.string.fillUpAllInputFieldsError));
+                } else {
+                    Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
+
+                    if (checkUserEmail) {
+                        boolean checkPassword = databaseFunctions.checkPassword(getPass);
+
+                        if (checkPassword) {
+                            if (checkBox) {
+                                editor.putString("email", getEmail);
+                                editor.putString("password", getPass);
+                                editor.putBoolean("rememberMe", true);
+                            } else {
+                                editor.clear();
+                            }
+                            editor.putBoolean("isUserLoggedIn", true);
+                            editor.apply();
+
+                            Intent intent = new Intent(logIn.this, Navbar.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            popUpAlert(getString(R.string.wrongPassworError));
+                        }
+
+                    } else {
+                        popUpAlert(getString(R.string.emailDoesNotExistError));
+                    }
+                }
+            }
+    });
+
 
 
         //SIGN UP LINK
