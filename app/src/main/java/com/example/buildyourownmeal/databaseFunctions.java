@@ -62,11 +62,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getUsername() {
+    /*public Cursor getUsername() {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("SELECT * from account where username = ? and userId = ?", null);
 
-    }
+    }*/
 
     public Boolean checkEmail(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
