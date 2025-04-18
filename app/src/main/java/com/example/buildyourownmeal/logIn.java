@@ -61,11 +61,11 @@ public class logIn extends AppCompatActivity {
                     Boolean checkUserEmailPassword = databaseFunctions.checkEmailPassword(getEmail, getPass);
 
                     if (checkUserEmailPassword) {
-                        popUpAlert(getString(R.string.emailDoesNotExistError));
-                    } else {
                         Intent intent = new Intent(logIn.this, Navbar.class);
                         startActivity(intent);
                         finish();
+                    } else {
+                        popUpAlert(getString(R.string.emailDoesNotExistError));
                     }
                 }
             }
