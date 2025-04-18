@@ -49,15 +49,19 @@ public class logIn extends AppCompatActivity {
         //DATABASE DECLARATION
         databaseFunctions = new databaseFunctions(this);
 
+        //SHARED PREFERENCE
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
+
         //LOG IN VARIABLES CONNECTION TO LAYOUT BUTTONS
+        String username = userSession.getString("username", null);
         email = findViewById(R.id.logInEmail);
         password = findViewById(R.id.logInPass);
         logInBtn = findViewById(R.id.logInBtn);
         rememberMe = findViewById(R.id.rememberMe);
         forgotPass = findViewById(R.id.forgotPassword);
 
-        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
-        SharedPreferences.Editor editor = userSession.edit();
+
 
         Map<String, ?> allEntries = userSession.getAll();
 
@@ -104,6 +108,7 @@ public class logIn extends AppCompatActivity {
                             } else {
                                 editor.clear();
                             }
+                            editor.putString("username", username);
                             editor.putBoolean("isUserLoggedIn", true);
                             editor.apply();
 

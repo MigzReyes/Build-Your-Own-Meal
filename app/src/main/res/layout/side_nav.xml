@@ -20,5 +20,5 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="10dp"
         android:textSize="20sp"
-        android:text="@string/helloUser" />
+        android:text="@string/guest" />
 </LinearLayout>

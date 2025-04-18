@@ -68,7 +68,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         //SHARED PREFERENCE FOR USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
-        String userName = userSession.getString("username", "No username");
+        String userName = userSession.getString("username", "Guest");
 
         if (isUserLoggedIn) {
             String userWelcome = getString(string.hello) + " " + userName;
