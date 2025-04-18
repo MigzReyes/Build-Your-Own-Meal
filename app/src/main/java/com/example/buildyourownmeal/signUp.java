@@ -78,7 +78,7 @@ public class signUp extends AppCompatActivity {
                 }else {
                     boolean checkUserEmail = databaseFunctions.checkEmail(email);
 
-                    if (checkUserEmail) {
+                    if (!checkUserEmail) {
                         popUpAlert(getString(R.string.emailAlreadyExist));
                     } else {
                         Boolean insertData = databaseFunctions.insertData(name, email, pass);
