@@ -36,7 +36,7 @@
     <string name="craftNow">CRAFT NOW</string>
     <string name="craft">Craft</string>
     <string name="deleteAccount">Delete account</string>
-    <string name="thisActionCanNotBeUndone">This action can not be undone. Are you sure you want to continue?</string>
+    <string name="thisActionCanNotBeUndone">This action cannot be undone. Are you sure you want to continue?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
@@ -338,6 +338,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="sorryCanNotGetUserInfo">Sorry cannot get user info</string>
     <string name="youMustLogInTo">You must log in</string>
     <string name="ToCraftAMeal">to craft a meal!</string>
     <string name="passwordIsWeak">Password is weak</string>

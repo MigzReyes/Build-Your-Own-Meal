@@ -3,6 +3,7 @@ package com.example.buildyourownmeal;
 import static android.app.PendingIntent.getActivity;
 import static com.example.buildyourownmeal.R.*;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -16,6 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +43,7 @@ import com.google.android.material.transition.MaterialArcMotion;
 public class Navbar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private Button cancelLogOutBtn, logOutBtn;
 
     //SIDE NAV USERNAME
     private TextView sideNavUsername;
@@ -68,11 +72,13 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         //SHARED PREFERENCE FOR USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
-        String userName = userSession.getString("username", "Guest");
+        String userRole = userSession.getString("role", "guest");
+        String userName = userSession.getString("username", null);
 
         if (isUserLoggedIn) {
-            String userWelcome = getString(string.hello) + " " + userName;
-            sideNavUsername.setText(userWelcome);
+            sideNavUsername.setText(userName);
+        } else if (userRole.equals("guest")) {
+            sideNavUsername.setText(getString(string.guest));
         }
 
 
@@ -121,10 +127,10 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        //IF USER IS NOT LOGGED IN DO NOT DISPLAY ACCOUNT, ORDER HISTORY, AND SIGNOUT BUTTON
+        //IF USER IS NOT LOGGED IN DO NOT DISPLAY ACCOUNT, ORDER HISTORY, AND LOGOUT BUTTON
         Menu menu = navigationView.getMenu();
 
-        if (!isUserLoggedIn) {
+        if (!isUserLoggedIn || userRole.equals("guest")) {
             menu.findItem(R.id.account).setVisible(false);
             menu.findItem(R.id.orderHis).setVisible(false);
             menu.findItem(R.id.logOutBtn).setVisible(false);
@@ -144,11 +150,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
     }
 
     //FOR DISPLAYING FRAGMENTS FOR MAIN ACTIVITY/navbar.xml
-    private void hideMainLayout() {
-        findViewById(R.id.toolbar).setVisibility(NavigationView.GONE);
-        findViewById(R.id.sidebar).setVisibility(NavigationView.GONE);
-        findViewById(R.id.bottom_navigation).setVisibility(NavigationView.GONE);
-    }
 
     private void showMainLayout() {
         findViewById(R.id.toolbar).setVisibility(NavigationView.VISIBLE);
@@ -178,13 +179,32 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                 Intent intent = new Intent(this, termsAndCondition.class);
                 startActivity(intent);
             } else if (id == R.id.logOutBtn) {
-                if (isUserLoggedIn) {
-                    editor.clear();
-                    editor.apply();
+                Dialog popUpLogInWarning = new Dialog(this);
+                popUpLogInWarning.setContentView(layout.pop_up_logout);
+                popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                popUpLogInWarning.setCancelable(true);
 
-                    Intent intent = new Intent(this, Navbar.class);
-                    startActivity(intent);
-                }
+                cancelLogOutBtn = popUpLogInWarning.findViewById(R.id.cancelLogOutBtn);
+                logOutBtn = popUpLogInWarning.findViewById(R.id.logOutBtn);
+
+                cancelLogOutBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popUpLogInWarning.dismiss();
+                    }
+                });
+
+                logOutBtn.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       editor.clear();
+                       editor.apply();
+                       Intent intent = new Intent(Navbar.this, introduction_screen.class);
+                       startActivity(intent);
+                       finish();
+                   }
+                });
             }
         } else {
             if (id == R.id.contactUs) {

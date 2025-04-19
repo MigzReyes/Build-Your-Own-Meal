@@ -45,12 +45,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("drop Table if exists account");
     }
 
-    public Boolean insertData(String username, String email, String password) {
+    public Boolean insertData(String username, String email, String password, String role) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
         contentValues.put("email", email);
         contentValues.put("password", password);
+        contentValues.put("role", role);
         long result = myDb.insert("account", null, contentValues);
 
 
@@ -62,11 +63,10 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    /*public Cursor getUsername() {
+    public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("SELECT * from account where username = ? and userId = ?", null);
-
-    }*/
+        return myDb.rawQuery("SELECT * from account where email = ?", new String[]{email});
+    }
 
     public Boolean checkEmail(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();

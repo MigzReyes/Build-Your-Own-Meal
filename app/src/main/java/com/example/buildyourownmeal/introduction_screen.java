@@ -1,6 +1,7 @@
 package com.example.buildyourownmeal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,9 +49,15 @@ public class introduction_screen extends AppCompatActivity {
             }
         });
 
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
+
         guestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editor.putString("role", "guest");
+                editor.putBoolean("isUserLoggedIn", false);
+                editor.apply();
                 Intent intent = new Intent(introduction_screen.this, Navbar.class);
                 startActivity(intent);
 

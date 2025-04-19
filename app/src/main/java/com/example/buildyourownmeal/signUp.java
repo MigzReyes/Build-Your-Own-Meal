@@ -110,11 +110,9 @@ public class signUp extends AppCompatActivity {
                     boolean checkUserPass = databaseFunctions.isPasswordValid(pass);
 
                     if (checkUserPass) {
-                        Boolean insertData = databaseFunctions.insertData(name, email, pass);
+                        Boolean insertData = databaseFunctions.insertData(name, email, pass, "user");
 
                         if (insertData) {
-                            editor.putString("username", name);
-                            editor.apply();
                             Intent intent = new Intent(signUp.this, logIn.class);
                             startActivity(intent);
                             finish();

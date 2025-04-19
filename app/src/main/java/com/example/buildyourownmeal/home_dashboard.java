@@ -103,6 +103,7 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         //SET CONNECTION TO SHARED PREFERENCE/USER SESSION
         SharedPreferences userSession = getActivity().getSharedPreferences("userSession", MODE_PRIVATE);
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+        String userRole = userSession.getString("role", "guest");
         String loggedInUsername = userSession.getString("username", null);
 
         //LOGIC STATEMENT FOR DISPLAYING ERROR "you are not logged in"
@@ -113,7 +114,7 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
             userIntroduction.setVisibility(View.VISIBLE);
 
             userIntroductionName.setText(loggedInUsername);
-        } else {
+        } else if (userRole.equals("guest")) {
             logInWarning.setVisibility(View.VISIBLE);
             logInTextAlert.setVisibility(View.VISIBLE);
             userIntroduction.setVisibility(View.GONE);

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,6 @@ public class logIn extends AppCompatActivity {
         SharedPreferences.Editor editor = userSession.edit();
 
         //LOG IN VARIABLES CONNECTION TO LAYOUT BUTTONS
-        String username = userSession.getString("username", null);
         email = findViewById(R.id.logInEmail);
         password = findViewById(R.id.logInPass);
         logInBtn = findViewById(R.id.logInBtn);
@@ -94,27 +94,50 @@ public class logIn extends AppCompatActivity {
                 if (getEmail.isBlank() || getPass.isBlank()) {
                     popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                 } else {
+                    //EMAIL VALIDATION
                     Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
 
                     if (checkUserEmail) {
+                        //PASSWORD VALIDATION
                         boolean checkPassword = databaseFunctions.checkPassword(getPass);
 
                         if (checkPassword) {
                             if (checkBox) {
-                                editor.putString("email", getEmail);
-                                editor.putString("password", getPass);
                                 editor.putString(getEmail, getPass);
                                 editor.putBoolean("rememberMe", true);
                             } else {
-                                editor.clear();
+                                editor.remove(getEmail);
+                                editor.remove("rememberMe");
                             }
-                            editor.putString("username", username);
-                            editor.putBoolean("isUserLoggedIn", true);
-                            editor.apply();
+                            Cursor cursor = databaseFunctions.getUserInfo(getEmail);
 
-                            Intent intent = new Intent(logIn.this, Navbar.class);
-                            startActivity(intent);
-                            finish();
+                            if (cursor != null && cursor.moveToFirst()) {
+                                int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
+                                String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+                                String dbEmail = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+                                String dbPass = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+                                String dbContactNumber = cursor.getString(cursor.getColumnIndexOrThrow("contactNumber"));
+                                String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+
+                                if (dbRole.equals("user")) {
+                                    //STORE TO USER SESSION SHARED PREFERENCE
+                                    editor.putInt("userId", dbUserId);
+                                    editor.putString("username", dbUsername);
+                                    editor.putString("email", dbEmail);
+                                    editor.putString("password", dbPass);
+                                    editor.putString("contactNumber", dbContactNumber);
+                                    editor.putBoolean("isUserLoggedIn", true);
+                                    editor.apply();
+                                    Intent intent = new Intent(logIn.this, Navbar.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    popUpAlert("Debug: You Are An Admin");
+                                }
+
+                            } else {
+                                popUpAlert(getString(R.string.sorryCanNotGetUserInfo));
+                            }
                         } else {
                             popUpAlert(getString(R.string.wrongPassworError));
                         }
