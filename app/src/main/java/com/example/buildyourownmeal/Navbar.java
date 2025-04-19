@@ -188,6 +188,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                 popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
                 popUpLogInWarning.setCancelable(true);
+                popUpLogInWarning.show();
 
                 cancelLogOutBtn = popUpLogInWarning.findViewById(R.id.cancelLogOutBtn);
                 logOutBtn = popUpLogInWarning.findViewById(R.id.logOutBtn);
