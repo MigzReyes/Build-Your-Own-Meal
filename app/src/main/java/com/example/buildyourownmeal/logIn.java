@@ -29,7 +29,7 @@ import java.util.List;
 
 public class logIn extends AppCompatActivity {
 
-    databaseFunctions databaseFunctions;
+    private databaseFunctions databaseFunctions;
 
     //VARIABLES
     private Button logInBtn;
@@ -39,7 +39,7 @@ public class logIn extends AppCompatActivity {
     private EditText password;
     private AutoCompleteTextView email;
     private CheckBox rememberMe;
-    private TextView forgotPass;
+    private TextView forgotPass, guestBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +124,7 @@ public class logIn extends AppCompatActivity {
                                     editor.putString("username", dbUsername);
                                     editor.putString("email", getEmail);
                                     editor.putString("password", getPass);
+                                    editor.putString("role", "user");
                                     editor.putBoolean("isUserLoggedIn", true);
                                     editor.apply();
                                     Intent intent = new Intent(logIn.this, Navbar.class);
@@ -147,6 +148,22 @@ public class logIn extends AppCompatActivity {
             }
     });
 
+        //GUEST BUTTON
+        guestBtn = findViewById(R.id.guestBtn);
+        guestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userSession.edit();
+                editor.putString("role", "guest");
+                editor.putBoolean("isUserLoggedIn", false);
+                editor.apply();
+                Intent intent = new Intent(logIn.this, Navbar.class);
+                startActivity(intent);
+
+                finish();
+            }
+        });
 
 
         //SIGN UP LINK

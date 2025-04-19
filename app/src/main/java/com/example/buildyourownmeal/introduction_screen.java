@@ -49,12 +49,13 @@ public class introduction_screen extends AppCompatActivity {
             }
         });
 
-        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
-        SharedPreferences.Editor editor = userSession.edit();
+
 
         guestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userSession.edit();
                 editor.putString("role", "guest");
                 editor.putBoolean("isUserLoggedIn", false);
                 editor.apply();
