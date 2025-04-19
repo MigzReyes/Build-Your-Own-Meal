@@ -23,6 +23,17 @@ public class introduction_screen extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_introduction_screen);
 
+        //SHARED PREFERENCE
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+
+        //SHARED PREFERENCE GETTERS
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+
+        if (isUserLoggedIn) {
+            Intent intent = new Intent(introduction_screen.this, Navbar.class);
+            startActivity(intent);
+        }
+
         //REFERENCE
         logInBtn = findViewById(R.id.logInBtn);
         signUpBtn = findViewById(R.id.signUpBtn);
