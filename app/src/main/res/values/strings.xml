@@ -35,6 +35,7 @@
     <string name="user">User</string>
     <string name="craftNow">CRAFT NOW</string>
     <string name="craft">Craft</string>
+    <string name="saveChangesToYourAccount">Save changes to your account information?</string>
     <string name="deleteAccount">Delete account</string>
     <string name="thisActionCanNotBeUndone">This action cannot be undone. Are you sure you want to continue?</string>
     <string name="delete">Delete</string>

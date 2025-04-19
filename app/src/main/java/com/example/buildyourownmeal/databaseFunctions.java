@@ -62,6 +62,43 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean insertUsername(String username) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username", username);
+        long result = myDb.insert("account", null, contentValues);
+
+        return result != 0;
+    }
+
+    public Boolean insertEmail(String email) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("email", email);
+        long result = myDb.insert("account", null, contentValues);
+
+        return result != 0;
+    }
+
+    public Boolean insertPassword(String password) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("password", password);
+        long result = myDb.insert("account", null, contentValues);
+
+        return result != 0;
+    }
+
+    public Boolean insertContactNumber(String contactNumber) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("contactNumber", contactNumber);
+        long result = myDb.insert("account", null, contentValues);
+
+        return result != 0;
+    }
+
+
     public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * from account where email = ? LIMIT 1", new String[]{email});
