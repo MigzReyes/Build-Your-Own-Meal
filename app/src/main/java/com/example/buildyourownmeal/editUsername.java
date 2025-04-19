@@ -2,6 +2,7 @@ package com.example.buildyourownmeal;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,14 +35,25 @@ public class editUsername extends AppCompatActivity {
         //DATABASE INSTANTIATION
         databaseFunctions = new databaseFunctions(this);
 
+        //SHARED PREFERENCE
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
+
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
         sideActname = findViewById(R.id.sideFragName);
         editUsername = findViewById(R.id.editUsername);
         saveBtn = findViewById(R.id.saveBtn);
 
+        //SHARED PREFERENCE GETTERS
+        String showUsername = userSession.getString("username", null);
+
+        //SET TEXT CURRENT USERNAME
+        editUsername.setText(showUsername);
+
         Dialog popUpAlert;
 
+        //POP UP ALERT
         popUpAlert = new Dialog(this);
         popUpAlert.setContentView(R.layout.pop_up_save_changes);
         popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -61,6 +73,8 @@ public class editUsername extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         databaseFunctions.insertUsername(getUsername);
+                        editor.putString("username", getUsername);
+                        editor.apply();
                         Intent intent = new Intent(editUsername.this, account.class);
                         startActivity(intent);
                         finish();
