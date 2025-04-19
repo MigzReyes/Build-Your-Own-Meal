@@ -64,7 +64,7 @@ public class account extends AppCompatActivity {
                 emailProfile.setText(dbEmail);
 
                 if (dbContactNumber.isBlank()) {
-                    contactNumberProfile.setText("");
+                    contactNumberProfile.setText(null);
                 } else {
                     contactNumberProfile.setText(dbContactNumber);
                 }

@@ -134,10 +134,10 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
             menu.findItem(R.id.account).setVisible(false);
             menu.findItem(R.id.orderHis).setVisible(false);
             menu.findItem(R.id.logOutBtn).setVisible(false);
-        } else if (isUserLoggedIn || userRole.equals("user")) {
-            menu.findItem(R.id.account).setVisible(true);
-            menu.findItem(R.id.orderHis).setVisible(true);
-            menu.findItem(R.id.logOutBtn).setVisible(true);
+        } else {
+            menu.findItem(id.account).setVisible(true);
+            menu.findItem(id.orderHis).setVisible(true);
+            menu.findItem(id.logOutBtn).setVisible(true);
         }
     }
 
@@ -166,7 +166,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         //SHARED PREFERENCE CONNECTION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         SharedPreferences.Editor editor = userSession.edit();
-
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
 
         int id = item.getItemId();
