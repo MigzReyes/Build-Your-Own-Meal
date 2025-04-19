@@ -203,7 +203,12 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                 logOutBtn.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
-                       editor.clear();
+                       editor.remove("userId");
+                       editor.remove("username");
+                       editor.remove("email");
+                       editor.remove("password");
+                       editor.remove("role");
+                       editor.remove("isUserLoggedIn");
                        editor.apply();
                        Intent intent = new Intent(Navbar.this, introduction_screen.class);
                        startActivity(intent);
