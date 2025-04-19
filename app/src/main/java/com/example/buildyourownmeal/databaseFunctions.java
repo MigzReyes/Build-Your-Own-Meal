@@ -37,7 +37,6 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 " contactNumber TEXT UNIQUE," +
                 " role TEXT)");
 
-
     }
 
     @Override
@@ -65,7 +64,34 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        return myDb.rawQuery("SELECT * from account where email = ?", new String[]{email});
+        return myDb.rawQuery("SELECT * from account where email = ? LIMIT 1", new String[]{email});
+    }
+
+    public Boolean checkUserId(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT userId from account where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            return true;
+        } else {
+            Log.d(LOG_ALERT_TAG, "No id found");
+            return false;
+        }
+    }
+
+    public Boolean isUserInfoValid(String email, int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor checkEmail = myDb.rawQuery("SELECT email from account where email = ? LIMIT 1", new String[]{email});
+        Cursor checkUserId = myDb.rawQuery("SELECT userId from account where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
+
+        if (checkUserId != null && checkUserId.moveToFirst()) {
+            return true;
+        } else if (checkEmail != null && checkEmail.moveToFirst()) {
+            return true;
+        } else {
+            Log.d(LOG_ALERT_TAG, "No id");
+            return false;
+        }
     }
 
     public Boolean checkEmail(String email) {
@@ -112,5 +138,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return hasUppercase && hasLowercase && hasNumber;
     }
 
+    public void cannotRetrieveData() {
+        Log.d(LOG_ALERT_TAG, "Database error: Cannot get data from table");
+    }
 
 }

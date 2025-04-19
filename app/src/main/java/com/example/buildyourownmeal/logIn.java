@@ -112,20 +112,18 @@ public class logIn extends AppCompatActivity {
                             Cursor cursor = databaseFunctions.getUserInfo(getEmail);
 
                             if (cursor != null && cursor.moveToFirst()) {
+                                //DATABASE GETTER
                                 int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
                                 String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
-                                String dbEmail = cursor.getString(cursor.getColumnIndexOrThrow("email"));
-                                String dbPass = cursor.getString(cursor.getColumnIndexOrThrow("password"));
-                                String dbContactNumber = cursor.getString(cursor.getColumnIndexOrThrow("contactNumber"));
                                 String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
 
+                                //AUTHENTICATION
                                 if (dbRole.equals("user")) {
                                     //STORE TO USER SESSION SHARED PREFERENCE
                                     editor.putInt("userId", dbUserId);
                                     editor.putString("username", dbUsername);
-                                    editor.putString("email", dbEmail);
-                                    editor.putString("password", dbPass);
-                                    editor.putString("contactNumber", dbContactNumber);
+                                    editor.putString("email", getEmail);
+                                    editor.putString("password", getPass);
                                     editor.putBoolean("isUserLoggedIn", true);
                                     editor.apply();
                                     Intent intent = new Intent(logIn.this, Navbar.class);

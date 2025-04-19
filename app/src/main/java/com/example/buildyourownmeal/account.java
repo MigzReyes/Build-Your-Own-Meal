@@ -1,6 +1,8 @@
 package com.example.buildyourownmeal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,8 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class account extends AppCompatActivity {
 
     //VARIABLE DECLARATION
+    databaseFunctions databaseFunctions;
     ImageView backBtn, editUsername, editPassword, editEmail, editContactNumber;
-    TextView sideActName;
+    TextView sideActName, usernameProfile, passwordProfile, emailProfile, contactNumberProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,46 @@ public class account extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         editEmail = findViewById(R.id.editEmail);
         editContactNumber = findViewById(R.id.editContactNumber);
+        usernameProfile = findViewById(R.id.usernameProfile);
+        passwordProfile = findViewById(R.id.passwordProfile);
+        emailProfile = findViewById(R.id.emailProfile);
+        contactNumberProfile = findViewById(R.id.contactNumberProfile);
+
+
+        //DATABASE INSTANTIATION
+        databaseFunctions = new databaseFunctions(this);
+
+        //SHARED PREFERENCE
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+
+        //SHARED PREFERENCE GETTERS
+        int getUserId = userSession.getInt("userId", 0);
+        String getEmail = userSession.getString("email", null);
+
+        //DATABASE GETTERS
+        Cursor dbGetEmail  = databaseFunctions.getUserInfo(getEmail);
+        boolean dbCheckUserId = databaseFunctions.checkUserId(getUserId);
+
+        if (dbCheckUserId) {
+            if (dbGetEmail != null && dbGetEmail.moveToFirst()) {
+                String dbUsername = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("username"));
+                String dbEmail = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("email"));
+                String dbContactNumber = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("contactNumber"));
+
+                usernameProfile.setText(dbUsername);
+                emailProfile.setText(dbEmail);
+
+                if (dbContactNumber.isBlank()) {
+                    contactNumberProfile.setText("");
+                } else {
+                    contactNumberProfile.setText(dbContactNumber);
+                }
+            } else {
+                databaseFunctions.cannotRetrieveData();
+            }
+        }
+
+
 
         //BACK BUTTON
         backBtn.setOnClickListener(new View.OnClickListener() {
