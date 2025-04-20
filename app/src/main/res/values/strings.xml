@@ -352,7 +352,7 @@
     <string name="agreeToTheTermsAndConError">Please agree to the Terms and Conditions</string>
     <string name="emailDoesNotExistError">Email does not exist</string>
     <string name="emailAlreadyExist">Email already exist</string>
-    <string name="confirmPasswordIsWrong">Confirm password if wrong</string>
+    <string name="currentPasswordIsWrong">Current password is wrong</string>
     <string name="passwordIsWrongError">Password is wrong</string>
     <string name="wrongPassworError">Wrong password</string>
     <string name="chooseAnAddOn">Please choose one Add on</string>

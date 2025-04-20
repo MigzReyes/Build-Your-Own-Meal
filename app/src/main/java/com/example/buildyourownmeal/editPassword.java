@@ -99,8 +99,6 @@ public class editPassword extends AppCompatActivity {
                                 databaseFunctions.insertPassword(getNewPassword);
                                 editor.putString("password", getNewPassword);
                                 editor.apply();
-                                Intent intent = new Intent(editPassword.this, account.class);
-                                startActivity(intent);
                                 finish();
                             }
                         });
@@ -116,7 +114,7 @@ public class editPassword extends AppCompatActivity {
                         popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
                     }
                 } else {
-                    popUpAlert(getString(R.string.confirmPasswordIsWrong));
+                    popUpAlert(getString(R.string.currentPasswordIsWrong));
                 }
 
             }
@@ -138,27 +136,27 @@ public class editPassword extends AppCompatActivity {
     private void checkPasswordStrength(String password) {
 
         if (password.length() >= 8) {
-            atLeastEightLetter.setTextColor(getColor(R.color.greyLetters));
+            atLeastEightLetter.setTextColor(getColor(R.color.blackBoldLetters));
         } else {
-            atLeastEightLetter.setTextColor(getColor(R.color.whiteBoldLetters));
+            atLeastEightLetter.setTextColor(getColor(R.color.greyLetters));
         }
 
         if (password.matches(".*[A-Z].*")) {
-            atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
+            atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.blackBoldLetters));
         } else {
-            atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.whiteBoldLetters));
+            atLeastOneUpperCaseLetter.setTextColor(getColor(R.color.greyLetters));
         }
 
         if (password.matches(".*[a-z].*")) {
-            atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
+            atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.blackBoldLetters));
         } else {
-            atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.whiteBoldLetters));
+            atLeastOneLowerCaseLetter.setTextColor(getColor(R.color.greyLetters));
         }
 
         if (password.matches(".*\\d.*")) {
-            atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
+            atLeastOneNumber.setTextColor(getColor(R.color.blackBoldLetters));
         } else {
-            atLeastOneNumber.setTextColor(getColor(R.color.whiteBoldLetters));
+            atLeastOneNumber.setTextColor(getColor(R.color.greyLetters));
         }
     }
 

@@ -75,8 +75,6 @@ public class editUsername extends AppCompatActivity {
                         databaseFunctions.insertUsername(getUsername);
                         editor.putString("username", getUsername);
                         editor.apply();
-                        Intent intent = new Intent(editUsername.this, account.class);
-                        startActivity(intent);
                         finish();
                     }
                 });

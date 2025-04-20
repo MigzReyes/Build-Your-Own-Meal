@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -69,6 +70,8 @@ public class editEmail extends AppCompatActivity {
 
                 if (checkEmail) {
                     popUpAlert(getString(R.string.emailAlreadyExist));
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmail).matches()) {
+                    popUpAlert(getString(R.string.invalidEmail));
                 } else {
                     popUpAlert.show();
 
@@ -79,8 +82,6 @@ public class editEmail extends AppCompatActivity {
                             databaseFunctions.insertEmail(getEmail);
                             editor.putString("email", getEmail);
                             editor.apply();
-                            Intent intent = new Intent(editEmail.this, account.class);
-                            startActivity(intent);
                             finish();
                         }
                     });

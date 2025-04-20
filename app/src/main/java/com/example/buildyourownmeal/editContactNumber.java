@@ -74,8 +74,6 @@ public class editContactNumber extends AppCompatActivity {
                         databaseFunctions.insertContactNumber(getContactNumber);
                         editor.putString("contactNumber", getContactNumber);
                         editor.apply();
-                        Intent intent =  new Intent(editContactNumber.this, account.class);
-                        startActivity(intent);
                         finish();
                     }
                 });
