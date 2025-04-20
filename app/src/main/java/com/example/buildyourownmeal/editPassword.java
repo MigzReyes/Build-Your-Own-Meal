@@ -42,6 +42,9 @@ public class editPassword extends AppCompatActivity {
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         SharedPreferences.Editor editor = userSession.edit();
 
+        //SHARED PREFERENCE GETTERS
+        int userId = userSession.getInt("userId", 0);
+
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
         sideBarActName = findViewById(R.id.sideFragName);
@@ -102,7 +105,7 @@ public class editPassword extends AppCompatActivity {
                                 saveChangesBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        databaseFunctions.insertPassword(getNewPassword);
+                                        databaseFunctions.updatePassword(userId, getNewPassword);
                                         editor.putString("password", getNewPassword);
                                         editor.apply();
                                         finish();

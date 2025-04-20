@@ -48,6 +48,7 @@ public class editEmail extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
 
         //SHARED PREFERENCE GETTERS
+        int userId = userSession.getInt("userId", 0);
         String showEmail = userSession.getString("email", null);
 
         //SET TEXT CURRENT EMAIL
@@ -79,7 +80,7 @@ public class editEmail extends AppCompatActivity {
                     saveChangesBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            databaseFunctions.insertEmail(getEmail);
+                            databaseFunctions.updateEmail(userId, getEmail);
                             editor.putString("email", getEmail);
                             editor.apply();
                             finish();

@@ -63,38 +63,38 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertUsername(String username) {
+    public Boolean updateUsername(int userId, String username) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
-        long result = myDb.update("account", contentValues, "username = ?", new String[]{username});
+        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
 
-    public Boolean insertEmail(String email) {
+    public Boolean updateEmail(int userId , String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
-        long result = myDb.insert("account", null, contentValues);
+        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
 
-    public Boolean insertPassword(String password) {
+    public Boolean updatePassword(int userId, String password) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("password", password);
-        long result = myDb.insert("account", null, contentValues);
+        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
 
-    public Boolean insertContactNumber(String contactNumber) {
+    public Boolean updateContactNumber(int userId, String contactNumber) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("contactNumber", contactNumber);
-        long result = myDb.insert("account", null, contentValues);
+        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }

@@ -51,14 +51,14 @@ public class account extends AppCompatActivity {
         String getEmail = userSession.getString("email", null);
 
         //DATABASE GETTERS
-        Cursor dbGetEmail  = databaseFunctions.getUserInfo(getEmail);
+        Cursor dbGetUserInfo  = databaseFunctions.getUserInfo(getEmail);
         boolean dbCheckUserId = databaseFunctions.checkUserId(getUserId);
 
         if (dbCheckUserId) {
-            if (dbGetEmail != null && dbGetEmail.moveToFirst()) {
-                String dbUsername = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("username"));
-                String dbEmail = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("email"));
-                String dbContactNumber = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("contactNumber"));
+            if (dbGetUserInfo != null && dbGetUserInfo.moveToFirst()) {
+                String dbUsername = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("username"));
+                String dbEmail = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("email"));
+                String dbContactNumber = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("contactNumber"));
 
                 usernameProfile.setText(dbUsername);
                 emailProfile.setText(dbEmail);

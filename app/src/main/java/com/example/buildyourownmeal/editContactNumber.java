@@ -47,6 +47,7 @@ public class editContactNumber extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
 
         //SHARED PREFERENCE GETTERS
+        int userId = userSession.getInt("userId", 0);
         String showContactNumber = userSession.getString("contactNumber", null);
 
         //SET TEXT CURRENT CONTACT NUMBER
@@ -71,7 +72,7 @@ public class editContactNumber extends AppCompatActivity {
                 saveChangesBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        databaseFunctions.insertContactNumber(getContactNumber);
+                        databaseFunctions.updateContactNumber(userId, getContactNumber);
                         editor.putString("contactNumber", getContactNumber);
                         editor.apply();
                         finish();

@@ -46,6 +46,7 @@ public class editUsername extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
 
         //SHARED PREFERENCE GETTERS
+        int userId = userSession.getInt("userId", 0);
         String showUsername = userSession.getString("username", null);
 
         //SET TEXT CURRENT USERNAME
@@ -72,7 +73,7 @@ public class editUsername extends AppCompatActivity {
                 saveChangesBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        databaseFunctions.insertUsername(getUsername);
+                        databaseFunctions.updateUsername(userId, getUsername);
                         editor.putString("username", getUsername);
                         editor.apply();
                         finish();
