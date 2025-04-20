@@ -320,6 +320,36 @@
 
     //TEXT MENU
     <string name="whiteRice">White Rice</string>
+
+    <string-array name="mainDish">
+        <item>Chicken Karaage</item>
+        <item>Tuna Sisig</item>
+        <item>Veggie Balls</item>
+    </string-array>
+
+    <string-array name="sideDish">
+        <item>Corn</item>
+        <item>Coleslaw</item>
+        <item>Hash brown</item>
+    </string-array>
+
+    <string-array name="sauces">
+        <item>Gravy</item>
+        <item>Vinegar</item>
+        <item>Soy Sauce</item>
+    </string-array>
+
+    <string-array name="desserts">
+        <item>Mochi</item>
+        <item>Japanese Fruit Sandwich</item>
+    </string-array>
+
+    <string-array name="drinks">
+        <item>Water</item>
+        <item>Coffe Jelly</item>
+        <item>Cucumber Lemon</item>
+    </string-array>
+
     <string name="corn">Corn</string>
     <string name="coleSlaw">Coleslaw</string>
     <string name="hashBrown">Hash Brown</string>

@@ -28,62 +28,6 @@
             android:layout_marginVertical="20dp"
             android:orientation="vertical">
 
-            <!-- PICK UP SCHEDULE -->
-            <LinearLayout
-                android:id="@+id/changeSchedCon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/border_pickup_schedule"
-                android:paddingVertical="25dp"
-                android:paddingHorizontal="15dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_28pt_bold"
-                    android:textSize="15sp"
-                    android:textColor="@color/greyLetters"
-                    android:text="@string/pickUpTime" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:fontFamily="@font/inter_18pt_extrabold"
-                        android:textSize="18sp"
-                        android:textColor="@color/blackBoldLetters"
-                        android:text="@string/standard" />
-
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:fontFamily="@font/inter_18pt_extrabold"
-                        android:textSize="16sp"
-                        android:textColor="@color/blackBoldLetters"
-                        android:text="@string/standardTime" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/changeSchedBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_28pt_bold"
-                    android:textColor="@color/greyLetters"
-                    android:textSize="14sp"
-                    android:text="@string/change" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

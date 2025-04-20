@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/orderCon1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/bot_border"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/checkoutMealImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/tunasisigmeal" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/checkoutMealName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tunaSisig"
+                android:textColor="@color/blackBoldLetters"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/addO1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/checkoutMainDish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/tunaSisig"
+                    android:textColor="@color/lightGreyLetters" />
+
+                <TextView
+
+                    android:id="@+id/checkoutSideDish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/coleSlaw"
+                    android:textColor="@color/lightGreyLetters" />
+
+                <TextView
+
+                    android:id="@+id/checkoutSauces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/gravy"
+                    android:textColor="@color/lightGreyLetters" />
+
+                <TextView
+                    android:id="@+id/checkoutDesserts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/mochi"
+                    android:textColor="@color/lightGreyLetters" />
+
+
+                <TextView
+                    android:id="@+id/checkoutDrinks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/water"
+                    android:textColor="@color/lightGreyLetters" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/editBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:text="@string/edit"
+                android:textColor="@color/main_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/pesoSign1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:fontFamily="@font/inter_18pt_semibold"
+                    android:text="@string/pesoSign"
+                    android:textColor="@color/blackBoldLetters" />
+
+                <TextView
+                    android:id="@+id/checkoutMealPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_semibold"
+                    android:text="@string/priceItem"
+                    android:textColor="@color/blackBoldLetters" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/quantity_background"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp">
+
+                <!-- MINUS TO TRASH -->
+                <TextView
+                    android:id="@+id/minusBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minusSign"
+                    android:textSize="13sp" />
+
+                <!--<ImageView
+                        android:id="@+id/trashIcon1"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/trashicon"/>-->
+
+                <TextView
+                    android:id="@+id/quantityValue1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/one"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/addBtn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/plusSign"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

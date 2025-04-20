@@ -162,7 +162,7 @@ public class home_dashboard extends Fragment {
         return view;
     }
 
-    private void setUpHomeCombosModel() {
+    private void setUpHomeCombosModel () {
         String[] comboMealNames = getResources().getStringArray(R.array.comboMealName);
         String[] comboMealDescriptions = getResources().getStringArray(R.array.comboMealDescription);
 

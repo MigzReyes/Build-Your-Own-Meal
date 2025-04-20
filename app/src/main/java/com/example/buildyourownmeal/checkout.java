@@ -13,8 +13,19 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class checkout extends AppCompatActivity {
+
+    //RECYCLER VIEW
+    private ArrayList<recyclerCheckoutModel> recyclerCheckoutModelArrayList = new ArrayList<>();
+    private int[] checkoutMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
+            R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+
+    private RecyclerView recyclerViewCheckout;
 
     private RadioButton priority, standard, scheduledDate;
     private TextView sideActName, itemCount, mealNameSummary, mealNameSubtotal, addOn, mealPriceSum, mealPriceSubtotal, mealPriceTotal, payment, addItemBtn;
@@ -28,18 +39,27 @@ public class checkout extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_checkout);
 
+        //RECYCLER
+        recyclerViewCheckout = findViewById(R.id.recyclerViewCheckout);
+
+        setUpCheckoutModel();
+
+        recyclerViewAdapterCheckout recyclerViewAdapterCheckout = new recyclerViewAdapterCheckout(this, recyclerCheckoutModelArrayList);
+        recyclerViewCheckout.setAdapter(recyclerViewAdapterCheckout);
+        recyclerViewCheckout.setLayoutManager(new LinearLayoutManager(this));
+
         //SET ID
         sideActName = findViewById(R.id.sideFragName);
         backBtn = findViewById(R.id.backBtn);
         priority = findViewById(R.id.priorityFee);
         standard = findViewById(R.id.standardFee);
         scheduledDate = findViewById(R.id.scheduledDate);
-        itemCount = findViewById(R.id.quantityValue);
+        /*itemCount = findViewById(R.id.quantityValue);
         mealNameSummary = findViewById(R.id.mealName);
         addOn = findViewById(R.id.addOn);
         mealPriceSum = findViewById(R.id.price);
         mealPriceSubtotal = findViewById(R.id.subtotalPrice);
-        mealPriceTotal = findViewById(R.id.totalPrice);
+        mealPriceTotal = findViewById(R.id.totalPrice);*/
         payment = findViewById(R.id.paymentMethod);
         orderBtn = findViewById(R.id.orderBtnCart);
         orderCon = findViewById(R.id.orderCon);
@@ -166,5 +186,18 @@ public class checkout extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setUpCheckoutModel () {
+        String[] checkoutMealName = getResources().getStringArray(R.array.comboMealName);
+        String[] checkoutMealMainDish = getResources().getStringArray(R.array.mainDish);
+        String[] checkoutMealSideDish = getResources().getStringArray(R.array.sideDish);
+        String[] checkoutSauces = getResources().getStringArray(R.array.sauces);
+        String[] checkoutDesserts = getResources().getStringArray(R.array.desserts);
+        String[] checkoutDrinks = getResources().getStringArray(R.array.drinks);
+
+        for (int i = 0; i < checkoutMealName.length; i++) {
+            recyclerCheckoutModelArrayList.add(new recyclerCheckoutModel(checkoutMealImg[i], checkoutMealName[i], checkoutMealMainDish[i], checkoutMealSideDish[i], checkoutSauces[i], checkoutDesserts[i], checkoutDrinks[i]));
+        }
     }
 }
