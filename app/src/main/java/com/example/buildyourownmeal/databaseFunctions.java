@@ -47,7 +47,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean deleteQuery(String tableName, int id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        long result = myDb.delete(tableName, "where id = ?", new String[]{String.valueOf(id)});
+        long result = myDb.delete(tableName, "id = ?", new String[]{String.valueOf(id)});
 
         return result != 0;
     }
