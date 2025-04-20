@@ -215,7 +215,7 @@
                                     android:id="@+id/mealName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Chicken Karaage"
+                                    android:text="@string/chickenKaraage"
                                     android:textSize="18sp"
                                     android:textColor="@color/blackBoldLetters" />
 
@@ -223,7 +223,7 @@
                                     android:id="@+id/addOn"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Chicken Karaage"
+                                    android:text="@string/chickenKaraage"
                                     android:textColor="@color/lightGreyLetters"
                                     android:fontFamily="@font/inter_18pt_bold"/>
                             </LinearLayout>
@@ -335,7 +335,7 @@
                                     android:id="@+id/mealName2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Tuna Sisig"
+                                    android:text="@string/tunaSisig"
                                     android:textSize="18sp"
                                     android:textColor="@color/blackBoldLetters" />
 
@@ -349,7 +349,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/inter_18pt_bold"
-                                        android:text="Tuna Sisig"
+                                        android:text="@string/tunaSisig"
                                         android:textColor="@color/lightGreyLetters" />
 
                                     <TextView

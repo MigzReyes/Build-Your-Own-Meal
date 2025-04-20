@@ -69,31 +69,37 @@ public class editEmail extends AppCompatActivity {
 
                 boolean checkEmail = databaseFunctions.checkEmail(getEmail);
 
-                if (checkEmail) {
-                    popUpAlert(getString(R.string.emailAlreadyExist));
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmail).matches()) {
-                    popUpAlert(getString(R.string.invalidEmail));
+                if (getEmail.isBlank()) {
+                    popUpAlert(getString(R.string.pleaseFillUpTheInputField));
                 } else {
-                    popUpAlert.show();
+                    if (checkEmail) {
+                        popUpAlert(getString(R.string.emailAlreadyExist));
+                    } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmail).matches()) {
+                        popUpAlert(getString(R.string.invalidEmail));
+                    } else {
+                        popUpAlert.show();
 
-                    saveChangesBtn = popUpAlert.findViewById(R.id.saveChangesBtn);
-                    saveChangesBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            databaseFunctions.updateEmail(userId, getEmail);
-                            editor.putString("email", getEmail);
-                            editor.apply();
-                            finish();
-                        }
-                    });
+                        saveChangesBtn = popUpAlert.findViewById(R.id.saveChangesBtn);
+                        saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                databaseFunctions.updateEmail(userId, getEmail);
+                                editor.putString("email", getEmail);
+                                editor.apply();
+                                Intent intent = new Intent(editEmail.this, account.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
 
-                    cancelChangesBtn = popUpAlert.findViewById(R.id.cancelChangesBtn);
-                    cancelChangesBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            popUpAlert.dismiss();
-                        }
-                    });
+                        cancelChangesBtn = popUpAlert.findViewById(R.id.cancelChangesBtn);
+                        cancelChangesBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                popUpAlert.dismiss();
+                            }
+                        });
+                    }
                 }
             }
         });

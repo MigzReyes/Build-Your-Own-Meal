@@ -322,6 +322,9 @@
     <string name="water">Water</string>
     <string name="coffeeJelly">Coffee Jelly</string>
     <string name="cucumberLemon">Cucumber Lemon</string>
+    <string name="chickenKaraage">Chicken Karaage</string>
+    <string name="tunaSisig">Tuna Sisig</string>
+    <string name="veggieBalls">Veggie Balls</string>
 
     //COMBO MEALS NAME
     <string-array name="comboMealName">
@@ -334,6 +337,9 @@
     </string-array>
 
     //MENU DESCRIPTION
+    <string name="chickenKaraageDescription">This bento box features crispy chicken karaage, fluffy rice, refreshing corn slaw, and a soft mochi for dessert, served with water.</string>
+    <string name="tunaSisigDescription">This bento box features flavorful tuna sisig, paired with rice, a crispy hashbrown, and a mochi for dessert, complemented by refreshing coffee jelly.</string>
+    <string name="veggieBallsDescription">This bento box includes savory veggie balls, sweet corn, and a delicate Japanese fruit cake for dessert, paired with refreshing cucumber lemon juice.</string>
     <string-array name="comboMealDescription">
         <item>This bento box features crispy chicken karaage, fluffy rice, refreshing corn slaw, and a soft mochi for dessert, served with water.</item>
         <item>This bento box features flavorful tuna sisig, paired with rice, a crispy hashbrown, and a mochi for dessert, complemented by refreshing coffee jelly.</item>
@@ -360,6 +366,8 @@
     <string name="pleaseLogInSignInUpToOrder">Please log in/sign up to order</string>
     <string name="wantToCustomizeYourMealLogInOrSignUpToGetStarted">Want to customize your meal? Log in or sign up to get started!</string>
     <string name="fillUpAllInputFieldsError">Please fill up all input fields</string>
+    <string name="pleaseFillUpTheInputField">Please fill up the input field</string>
+    <string name="invalidPhoneNumber">Invalid phone number</string>
     <string name="conPassAndPassDoesNotMatchError">Confirm password and password does not match</string>
     <string name="agreeToTheTermsAndConError">Please agree to the Terms and Conditions</string>
     <string name="emailDoesNotExistError">Email does not exist</string>

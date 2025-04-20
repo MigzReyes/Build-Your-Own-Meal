@@ -66,26 +66,35 @@ public class editContactNumber extends AppCompatActivity {
                 String getContactNumber = editContactNumber.getText().toString().trim();
                 Button saveChangesBtn, cancelChangesBtn;
 
-                popUpAlert.show();
+                if (getContactNumber.isEmpty()) {
+                    popUpAlert(getString(R.string.pleaseFillUpTheInputField));
+                } else if (getContactNumber.length() <= 11) {
+                    popUpAlert(getString(R.string.invalidPhoneNumber));
+                } else {
+                    popUpAlert.show();
 
-                saveChangesBtn = popUpAlert.findViewById(R.id.saveChangesBtn);
-                saveChangesBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        databaseFunctions.updateContactNumber(userId, getContactNumber);
-                        editor.putString("contactNumber", getContactNumber);
-                        editor.apply();
-                        finish();
-                    }
-                });
+                    saveChangesBtn = popUpAlert.findViewById(R.id.saveChangesBtn);
+                    saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            databaseFunctions.updateContactNumber(userId, getContactNumber);
+                            editor.putString("contactNumber", getContactNumber);
+                            editor.apply();
+                            Intent intent = new Intent(editContactNumber.this, account.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
 
-                cancelChangesBtn = popUpAlert.findViewById(R.id.cancelChangesBtn);
-                cancelChangesBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        popUpAlert.dismiss();
-                    }
-                });
+                    cancelChangesBtn = popUpAlert.findViewById(R.id.cancelChangesBtn);
+                    cancelChangesBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popUpAlert.dismiss();
+                        }
+                    });
+                }
+
             }
         });
 
@@ -99,5 +108,34 @@ public class editContactNumber extends AppCompatActivity {
 
         //ACTIVITY NAME
         sideActname.setText(getString(R.string.contactNumber));
+    }
+
+
+    public void popUpAlert(String alertMessage) {
+        Dialog popUpAlert;
+        Button close;
+        TextView alertText;
+
+        popUpAlert = new Dialog(this);
+        popUpAlert.setContentView(R.layout.pop_up_alerts);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        alertText = popUpAlert.findViewById(R.id.alertText);
+        close = popUpAlert.findViewById(R.id.closeBtn);
+
+        //ALERT TEXT
+        alertText.setText(alertMessage);
+
+        //CLOSE
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
+            }
+        });
+
     }
 }

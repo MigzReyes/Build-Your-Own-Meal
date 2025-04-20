@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_28pt_bold"
                         android:gravity="start"
-                        android:text="Veggie Bomb"
+                        android:text="@string/veggieBalls"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -64,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="Sample Description"
+                        android:text="@string/veggieBallsDescription"
                         android:textColor="@color/greyLetters"
                         android:textSize="12sp" />
 

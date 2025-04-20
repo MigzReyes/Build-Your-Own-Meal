@@ -30,13 +30,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase myDb) {
         myDb.execSQL("create Table account(" +
-                "userId INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " username TEXT," +
-                " email TEXT UNIQUE," +
-                " password TEXT," +
-                " contactNumber TEXT UNIQUE," +
-                " role TEXT, " +
-                " creationDate DATETIME  DEFAULT CURRENT_TIMESTAMP)");
+                "userId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "username TEXT, " +
+                "email TEXT UNIQUE, " +
+                "password TEXT, " +
+                "contactNumber TEXT UNIQUE, " +
+                "role TEXT, " +
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
     }
 

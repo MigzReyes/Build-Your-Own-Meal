@@ -174,7 +174,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_28pt_bold"
-                                android:text="Chicken Karaage"
+                                android:text="@string/chickenKaraage"
                                 android:textColor="@color/black"
                                 android:textSize="16sp" />
 
@@ -182,7 +182,7 @@
                                 android:id="@+id/textView9"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Gagawin kong recycler to wait lang"
+                                android:text="@string/chickenKaraageDescription"
                                 android:textColor="@color/greyLetters"
                                 android:textSize="12sp" />
                         </LinearLayout>

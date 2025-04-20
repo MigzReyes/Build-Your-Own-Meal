@@ -89,48 +89,53 @@ public class editPassword extends AppCompatActivity {
                 String getConPassword = confirmPassword.getText().toString().trim();
                 boolean getPass = databaseFunctions.checkPassword(getCurrentPassword);
 
-                if (getPass) {
-                    if (getNewPassword.equals(getCurrentPassword)) {
-                        popUpAlert(getString(R.string.currentPasswordCannotBeTheSameAsNewPassword));
-                    } else {
-                        if (getNewPassword.equals(getConPassword)) {
-                            boolean checkUserPass = databaseFunctions.isPasswordValid(getNewPassword);
-
-                            if (checkUserPass) {
-                                Button saveChangesBtn, cancelChangesBtn;
-
-                                popUpAlert.show();
-
-                                saveChangesBtn = popUpAlert.findViewById(R.id.saveChangesBtn);
-                                saveChangesBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        databaseFunctions.updatePassword(userId, getNewPassword);
-                                        editor.putString("password", getNewPassword);
-                                        editor.apply();
-                                        finish();
-                                    }
-                                });
-
-                                cancelChangesBtn = popUpAlert.findViewById(R.id.cancelChangesBtn);
-                                cancelChangesBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        popUpAlert.dismiss();
-                                    }
-                                });
-                            } else {
-                                popUpAlert(getString(R.string.passwordIsWeak));
-                            }
-
-                        } else {
-                            popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
-                        }
-                    }
+                if (getCurrentPassword.isBlank() || getNewPassword.isBlank() || getConPassword.isBlank()) {
+                    popUpAlert(getString(R.string.fillUpAllInputFieldsError));
                 } else {
-                    popUpAlert(getString(R.string.currentPasswordIsWrong));
-                }
+                    if (getPass) {
+                        if (getNewPassword.equals(getCurrentPassword)) {
+                            popUpAlert(getString(R.string.currentPasswordCannotBeTheSameAsNewPassword));
+                        } else {
+                            if (getNewPassword.equals(getConPassword)) {
+                                boolean checkUserPass = databaseFunctions.isPasswordValid(getNewPassword);
 
+                                if (checkUserPass) {
+                                    Button saveChangesBtn, cancelChangesBtn;
+
+                                    popUpAlert.show();
+
+                                    saveChangesBtn = popUpAlert.findViewById(R.id.saveChangesBtn);
+                                    saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            databaseFunctions.updatePassword(userId, getNewPassword);
+                                            editor.putString("password", getNewPassword);
+                                            editor.apply();
+                                            Intent intent = new Intent(editPassword.this, account.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+
+                                    cancelChangesBtn = popUpAlert.findViewById(R.id.cancelChangesBtn);
+                                    cancelChangesBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popUpAlert.dismiss();
+                                        }
+                                    });
+                                } else {
+                                    popUpAlert(getString(R.string.passwordIsWeak));
+                                }
+
+                            } else {
+                                popUpAlert(getString(R.string.conPassAndPassDoesNotMatchError));
+                            }
+                        }
+                    } else {
+                        popUpAlert(getString(R.string.currentPasswordIsWrong));
+                    }
+                }
             }
         });
 
