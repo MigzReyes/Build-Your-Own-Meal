@@ -68,7 +68,7 @@ public class editContactNumber extends AppCompatActivity {
 
                 if (getContactNumber.isEmpty()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
-                } else if (getContactNumber.length() <= 11) {
+                } else if (getContactNumber.length() < 11) {
                     popUpAlert(getString(R.string.invalidPhoneNumber));
                 } else {
                     popUpAlert.show();

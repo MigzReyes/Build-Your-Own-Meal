@@ -80,6 +80,7 @@ public class editUsername extends AppCompatActivity {
                             editor.putString("username", getUsername);
                             editor.apply();
                             Intent intent = new Intent(editUsername.this, account.class);
+                            startActivity(intent);
                             finish();
                         }
                     });

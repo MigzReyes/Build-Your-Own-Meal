@@ -32,6 +32,7 @@ public class introduction_screen extends AppCompatActivity {
         if (isUserLoggedIn) {
             Intent intent = new Intent(introduction_screen.this, Navbar.class);
             startActivity(intent);
+            finish();
         }
 
         //REFERENCE
