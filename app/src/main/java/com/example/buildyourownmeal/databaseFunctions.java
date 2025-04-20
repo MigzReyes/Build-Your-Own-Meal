@@ -19,6 +19,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     private static final String LOG_ALERT_TAG = "database";
     private static final String DATABASE_NAME = "myDb";
+    private static final String TABLE_ACCOUNT = "account";
     private final Context context;
 
 
@@ -29,20 +30,20 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase myDb) {
-        myDb.execSQL("create Table account(" +
+        myDb.execSQL("create Table " +  TABLE_ACCOUNT + " (" +
                 "userId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username TEXT, " +
                 "email TEXT UNIQUE, " +
                 "password TEXT, " +
                 "contactNumber TEXT UNIQUE, " +
-                "role TEXT, " +
-                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                "role TEXT)");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase myDb, int oldVersion, int newVersion) {
-        myDb.execSQL("drop Table if exists account");
+        myDb.execSQL("drop Table if exists " + TABLE_ACCOUNT);
     }
 
     public Boolean insertData(String username, String email, String password, String role) {
@@ -52,7 +53,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("password", password);
         contentValues.put("role", role);
-        long result = myDb.insert("account", null, contentValues);
+        long result = myDb.insert(TABLE_ACCOUNT, null, contentValues);
 
 
         if (result == 1) {
@@ -67,7 +68,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
-        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
@@ -76,7 +77,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
-        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
@@ -85,7 +86,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("password", password);
-        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
@@ -94,7 +95,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("contactNumber", contactNumber);
-        long result = myDb.update("account", contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
 
         return result != 0;
     }
@@ -102,12 +103,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        return myDb.rawQuery("SELECT * from account where email = ? LIMIT 1", new String[]{email});
+        return myDb.rawQuery("SELECT * from " + TABLE_ACCOUNT + " where email = ? LIMIT 1", new String[]{email});
     }
 
     public Boolean checkUserId(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("SELECT userId from account where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
+        Cursor cursor = myDb.rawQuery("SELECT userId from " + TABLE_ACCOUNT + " where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
 
         if (cursor != null && cursor.moveToFirst()) {
             return true;
@@ -119,8 +120,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean isUserInfoValid(String email, int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor checkEmail = myDb.rawQuery("SELECT email from account where email = ? LIMIT 1", new String[]{email});
-        Cursor checkUserId = myDb.rawQuery("SELECT userId from account where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
+        Cursor checkEmail = myDb.rawQuery("SELECT email from " + TABLE_ACCOUNT + " where email = ? LIMIT 1", new String[]{email});
+        Cursor checkUserId = myDb.rawQuery("SELECT userId from " + TABLE_ACCOUNT + " where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
 
         if (checkUserId != null && checkUserId.moveToFirst()) {
             return true;
@@ -134,7 +135,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean checkEmail(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("Select * from account where email = ?", new String[]{email});
+        Cursor cursor = myDb.rawQuery("Select * from " + TABLE_ACCOUNT + " where email = ?", new String[]{email});
 
         if (cursor.getCount() > 0) {
             cursor.close();
@@ -147,7 +148,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean checkPassword(String password) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("Select * from account where password = ?", new String[]{password});
+        Cursor cursor = myDb.rawQuery("Select * from " + TABLE_ACCOUNT + " where password = ?", new String[]{password});
 
         if (cursor.getCount() > 0) {
             cursor.close();

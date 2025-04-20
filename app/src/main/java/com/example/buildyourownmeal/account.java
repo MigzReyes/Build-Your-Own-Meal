@@ -19,7 +19,7 @@ public class account extends AppCompatActivity {
     //VARIABLE DECLARATION
     databaseFunctions databaseFunctions;
     ImageView backBtn, editUsername, editPassword, editEmail, editContactNumber;
-    TextView sideActName, usernameProfile, passwordProfile, emailProfile, contactNumberProfile;
+    TextView sideActName, usernameProfile, passwordProfile, emailProfile, contactNumberProfile, deleteAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class account extends AppCompatActivity {
         passwordProfile = findViewById(R.id.passwordProfile);
         emailProfile = findViewById(R.id.emailProfile);
         contactNumberProfile = findViewById(R.id.contactNumberProfile);
+        deleteAccount = findViewById(R.id.deleteAccount);
 
 
         //DATABASE INSTANTIATION
