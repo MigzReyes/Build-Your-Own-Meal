@@ -207,7 +207,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                        editor.remove("username");
                        editor.remove("email");
                        editor.remove("password");
-                       editor.remove("role");
                        editor.remove("isUserLoggedIn");
                        editor.apply();
                        Intent intent = new Intent(Navbar.this, introduction_screen.class);
