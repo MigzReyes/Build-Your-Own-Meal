@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,13 +20,32 @@ import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class menu extends AppCompatActivity {
+
+    //FOR RECYCLER VIEW
+    private ArrayList<recyclerMenuCombosModel> recyclerMenuCombosModelArrayList = new ArrayList<>();
+    private int[] comboMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
+            R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+
+    private RecyclerView recyclerViewMenuCombos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu);
+
+        //RECYCLER VIEW
+        recyclerViewMenuCombos = findViewById(R.id.recyclerViewMenuCombos);
+
+        setUpMenuCombosModel();
+
+        recyclerViewAdapterMenuCombos recyclerViewAdapterMenuCombos = new recyclerViewAdapterMenuCombos(this, recyclerMenuCombosModelArrayList);
+        recyclerViewMenuCombos.setAdapter(recyclerViewAdapterMenuCombos);
+        recyclerViewMenuCombos.setLayoutManager(new LinearLayoutManager(this));
+
 
         //BOTTOM NAVBAR
         //HOOK
@@ -74,5 +95,14 @@ public class menu extends AppCompatActivity {
             findViewById(id).setOnClickListener(clickListener);
         }
 
+    }
+
+    private void setUpMenuCombosModel() {
+        String[] comboMealNames = getResources().getStringArray(R.array.comboMealName);
+        String[] comboMealDescription = getResources().getStringArray(R.array.comboMealDescription);
+
+        for (int i = 0; i < comboMealNames.length; i++) {
+            recyclerMenuCombosModelArrayList.add(new recyclerMenuCombosModel(comboMealNames[i], comboMealDescription[i], comboMealImg[i]));
+        }
     }
 }

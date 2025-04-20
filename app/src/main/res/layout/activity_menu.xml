@@ -142,65 +142,12 @@
                     android:focusable="true"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewMenuCombos"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/image_card"
-                            android:layout_width="100dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="center_vertical"
-                            app:cardCornerRadius="15dp">
-
-                            <ImageView
-                                android:id="@+id/news_image"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/veggieballsmeal" />
-                        </androidx.cardview.widget.CardView>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="5dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/textView8"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/inter_28pt_bold"
-                                android:text="@string/chickenKaraage"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/textView9"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/chickenKaraageDescription"
-                                android:textColor="@color/greyLetters"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <!-- ITEM PRICE -->
-                        <TextView
-                            android:id="@+id/menuItemPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/price_tag_background"
-                            android:paddingHorizontal="4dp"
-                            android:paddingVertical="3dp"
-                            android:text="@string/priceItem"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                    </LinearLayout>
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
 
             </LinearLayout>
