@@ -35,7 +35,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 " email TEXT UNIQUE," +
                 " password TEXT," +
                 " contactNumber TEXT UNIQUE," +
-                " role TEXT)");
+                " role TEXT, " +
+                " creationDate DATETIME  DEFAULT CURRENT_TIMESTAMP)");
 
     }
 
