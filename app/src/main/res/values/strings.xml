@@ -311,12 +311,6 @@
 
     //TEXT MENU
     <string name="whiteRice">White Rice</string>
-    <string name="karaageBomb">Karaage Bomb</string>
-    <string name="sisigBomb">Sisig Bomb</string>
-    <string name="veggieBomb">Veggie Max</string>
-    <string name="chickenKaraage">Chicken Karaage</string>
-    <string name="tunaSisig">Tuna Sisig</string>
-    <string name="veggieBall">Veggie Ball</string>
     <string name="corn">Corn</string>
     <string name="coleSlaw">Coleslaw</string>
     <string name="hashBrown">Hash Brown</string>
@@ -329,16 +323,34 @@
     <string name="coffeeJelly">Coffee Jelly</string>
     <string name="cucumberLemon">Cucumber Lemon</string>
 
+    //COMBO MEALS NAME
+    <string-array name="comboMealName">
+        <item>Karaage Bomb</item>
+        <item>Sisig Bomb</item>
+        <item>Veggie Max</item>
+        <item>Chicken Karaage</item>
+        <item>Tuna Sisig</item>
+        <item>Veggie Ball</item>
+    </string-array>
+
     //MENU DESCRIPTION
-    <string name="chickenKaraageDescription">This bento box features crispy chicken karaage, fluffy rice, refreshing corn slaw, and a soft mochi for dessert, served with water.</string>
-    <string name="tunaSisigDescription">This bento box features flavorful tuna sisig, paired with rice, a crispy hashbrown, and a mochi for dessert, complemented by refreshing coffee jelly.</string>
-    <string name="veggieBallsDescription">This bento box includes savory veggie balls, sweet corn, and a delicate Japanese fruit cake for dessert, paired with refreshing cucumber lemon juice.</string>
-    //DISCOUNTS
+    <string-array name="comboMealDescription">
+        <item>This bento box features crispy chicken karaage, fluffy rice, refreshing corn slaw, and a soft mochi for dessert, served with water.</item>
+        <item>This bento box features flavorful tuna sisig, paired with rice, a crispy hashbrown, and a mochi for dessert, complemented by refreshing coffee jelly.</item>
+        <item>This bento box includes savory veggie balls, sweet corn, and a delicate Japanese fruit cake for dessert, paired with refreshing cucumber lemon juice.</item>
+        <item>This bento box features crispy chicken karaage, fluffy rice, refreshing corn slaw, and a soft mochi for dessert, served with water.</item>
+        <item>This bento box features flavorful tuna sisig, paired with rice, a crispy hashbrown, and a mochi for dessert, complemented by refreshing coffee jelly.</item>
+        <item>This bento box includes savory veggie balls, sweet corn, and a delicate Japanese fruit cake for dessert, paired with refreshing cucumber lemon juice.</item>
+    </string-array>
+
+
+    //COMBOS
     <string name="buy1take1">Buy 1 Take 1</string>
     <string name="offSale">10% OFF</string>
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="currentPasswordCannotBeTheSameAsNewPassword">Current password cannot be the same as the new password</string>
     <string name="sorryCanNotGetUserInfo">Sorry cannot get user info</string>
     <string name="youMustLogInTo">You must log in</string>
     <string name="ToCraftAMeal">to craft a meal!</string>

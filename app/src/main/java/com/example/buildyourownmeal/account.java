@@ -58,12 +58,10 @@ public class account extends AppCompatActivity {
             if (dbGetEmail != null && dbGetEmail.moveToFirst()) {
                 String dbUsername = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("username"));
                 String dbEmail = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("email"));
-                String dbPass = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("password"));
                 String dbContactNumber = dbGetEmail.getString(dbGetEmail.getColumnIndexOrThrow("contactNumber"));
 
                 usernameProfile.setText(dbUsername);
                 emailProfile.setText(dbEmail);
-                passwordProfile.setText(dbPass);
 
                 if (dbContactNumber == null || dbContactNumber.trim().isEmpty()) {
                     contactNumberProfile.setText(null);

@@ -126,7 +126,7 @@
                             android:fontFamily="@font/inriasans_bold"
                             android:textSize="15sp"
                             android:textColor="@color/blackBoldLetters"
-                            android:text="@string/chickenKaraage" />
+                            android:text="Chicken Karaage" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -237,7 +237,7 @@
                             android:fontFamily="@font/inriasans_bold"
                             android:textSize="15sp"
                             android:textColor="@color/blackBoldLetters"
-                            android:text="@string/tunaSisig" />
+                            android:text="Tuna sisig" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -347,7 +347,7 @@
                             android:fontFamily="@font/inriasans_bold"
                             android:textSize="15sp"
                             android:textColor="@color/blackBoldLetters"
-                            android:text="@string/veggieBall" />
+                            android:text="Veggie Balls" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

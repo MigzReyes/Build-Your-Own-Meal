@@ -22,6 +22,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +36,16 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class home_dashboard extends Fragment /*implements NavigationView.OnNavigationItemSelectedListener*/ {
+import java.util.ArrayList;
+
+public class home_dashboard extends Fragment {
+
+    //FOR RECYCLER VIEW
+    private ArrayList<recyclerHomeCombosModel> recyclerHomeCombosModelArrayList = new ArrayList<>();
+    private int[] comboMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
+                        R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+
+    RecyclerView recyclerViewHomeCombos;
 
     //VARIABLE DECLARATION
     private Button logInBtn, signUpBtn, logInPopUpAlert, signUpPopUpAlert;
@@ -50,8 +61,14 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
+        //RECYCLER VIEW
+        recyclerViewHomeCombos = view.findViewById(R.id.recyclerViewHomeCombo);
 
+        setUpHomeCombosModel();
 
+        recyclerViewAdapterHomeCombos recyclerViewAdapterHomeCombos = new recyclerViewAdapterHomeCombos(requireContext(), recyclerHomeCombosModelArrayList);
+        recyclerViewHomeCombos.setAdapter(recyclerViewAdapterHomeCombos);
+        recyclerViewHomeCombos.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         //IF USER IS ALREADY LOGGED IN / ALERT IF USER HAD NOT LOGGED IN
         //SET ID
@@ -143,5 +160,15 @@ public class home_dashboard extends Fragment /*implements NavigationView.OnNavig
         });
 
         return view;
+    }
+
+    private void setUpHomeCombosModel() {
+        String[] comboMealNames = getResources().getStringArray(R.array.comboMealName);
+        String[] comboMealDescriptions = getResources().getStringArray(R.array.comboMealDescription);
+
+
+        for (int i = 0; i < comboMealNames.length; i++) {
+            recyclerHomeCombosModelArrayList.add(new recyclerHomeCombosModel(comboMealNames[i], comboMealDescriptions[i], comboMealImg[i]));
+        }
     }
 }

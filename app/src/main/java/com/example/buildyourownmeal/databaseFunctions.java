@@ -66,7 +66,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
-        long result = myDb.insert("account", null, contentValues);
+        long result = myDb.update("account", contentValues, "username = ?", new String[]{username});
 
         return result != 0;
     }
