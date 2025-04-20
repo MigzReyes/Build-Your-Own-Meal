@@ -87,7 +87,7 @@ public class editPassword extends AppCompatActivity {
                 boolean getPass = databaseFunctions.checkPassword(getCurrentPassword);
 
                 if (getPass) {
-                    if (getNewPassword.equals(getPass)) {
+                    if (getNewPassword.equals(getCurrentPassword)) {
                         popUpAlert(getString(R.string.currentPasswordCannotBeTheSameAsNewPassword));
                     } else {
                         if (getNewPassword.equals(getConPassword)) {
