@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +21,37 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
+
 public class cart extends AppCompatActivity {
 
+    //RECYCLER
+    private ArrayList<recyclerCartModel> recyclerCartModelArrayList = new ArrayList<>();
+    private int[] cartItemImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
+            R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+
+    private RecyclerView recyclerViewCart;
+
     //LOCAL VARIABLE
-    ImageView backBtn;
-    TextView fragName;
-    Button checkOutBtn;
-    LinearLayout changeSchedCon;
+    private ImageView backBtn;
+    private TextView fragName;
+    private Button checkOutBtn;
+    private LinearLayout changeSchedCon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
+
+        //REYCLER VIEW
+        recyclerViewCart = findViewById(R.id.recyclerViewCart);
+
+        setUpCartModel();
+
+        recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, recyclerCartModelArrayList);
+        recyclerViewCart.setAdapter(recyclerViewAdapterCart);
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
 
 
         //VARIABLE REFERENCE
@@ -75,5 +95,14 @@ public class cart extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setUpCartModel () {
+        String[] cartItemName = getResources().getStringArray(R.array.comboMealName);
+        String[] cartItemPrice = getResources().getStringArray(R.array.cartItemPrices);
+
+        for (int i = 0; i < cartItemName.length; i++) {
+            recyclerCartModelArrayList.add(new recyclerCartModel(cartItemImg[i], cartItemPrice[i], cartItemName[i]));
+        }
     }
 }
