@@ -1,10 +1,13 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ public class account extends AppCompatActivity {
 
     //VARIABLE DECLARATION
     databaseFunctions databaseFunctions;
+    Dialog popUpAlert;
     ImageView backBtn, editUsername, editPassword, editEmail, editContactNumber;
     TextView sideActName, usernameProfile, passwordProfile, emailProfile, contactNumberProfile, deleteAccount;
 
@@ -46,6 +50,7 @@ public class account extends AppCompatActivity {
 
         //SHARED PREFERENCE
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userSession.edit();
 
         //SHARED PREFERENCE GETTERS
         int getUserId = userSession.getInt("userId", 0);
@@ -73,6 +78,43 @@ public class account extends AppCompatActivity {
                 databaseFunctions.cannotRetrieveData();
             }
         }
+
+        popUpAlert = new Dialog(this);
+        popUpAlert.setContentView(R.layout.pop_up_delete_account);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+
+        //DELETE ACCOUNT
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button deleteAccBtn, cancelAccDeleteBtn;
+
+                popUpAlert.show();
+
+                deleteAccBtn = popUpAlert.findViewById(R.id.deleteAccBtn);
+                deleteAccBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseFunctions.deleteQuery("account", getUserId);
+                        editor.clear();
+                        editor.apply();
+                        Intent intent = new Intent(account.this, introduction_screen.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+                cancelAccDeleteBtn = popUpAlert.findViewById(R.id.cancelAccDeleteBtn);
+                cancelAccDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popUpAlert.dismiss();
+                    }
+                });
+            }
+        });
 
 
 

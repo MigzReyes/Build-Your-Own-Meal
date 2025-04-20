@@ -36,14 +36,20 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "email TEXT UNIQUE, " +
                 "password TEXT, " +
                 "contactNumber TEXT UNIQUE, " +
-                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP, " +
-                "role TEXT)");
-
+                "role TEXT, " +
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase myDb, int oldVersion, int newVersion) {
         myDb.execSQL("drop Table if exists " + TABLE_ACCOUNT);
+    }
+
+    public Boolean deleteQuery(String tableName, int id) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(tableName, "where id = ?", new String[]{String.valueOf(id)});
+
+        return result != 0;
     }
 
     public Boolean insertData(String username, String email, String password, String role) {
