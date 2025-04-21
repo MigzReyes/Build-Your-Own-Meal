@@ -31,11 +31,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase myDb) {
         myDb.execSQL("create Table " +  TABLE_ACCOUNT + " (" +
-                "userId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username TEXT, " +
                 "email TEXT UNIQUE, " +
                 "password TEXT, " +
-                "contactNumber TEXT UNIQUE, " +
+                "contact_number TEXT UNIQUE, " +
                 "role TEXT, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
@@ -48,7 +48,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
     public Boolean deleteQuery(String tableName, int id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         //FIX THIS CUASE IT ONLY WORKS FOR ACCOUNT TABLE
-        long result = myDb.delete(tableName, "userId = ?", new String[]{String.valueOf(id)});
+        long result = myDb.delete(tableName, "user_id = ?", new String[]{String.valueOf(id)});
 
         return result != 0;
     }
@@ -71,38 +71,38 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean updateUsername(int userId, String username) {
+    public Boolean updateUsername(int user_id, String username) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
-        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "user_id = ?", new String[]{String.valueOf(user_id)});
 
         return result != 0;
     }
 
-    public Boolean updateEmail(int userId , String email) {
+    public Boolean updateEmail(int user_id , String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
-        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "user_id = ?", new String[]{String.valueOf(user_id)});
 
         return result != 0;
     }
 
-    public Boolean updatePassword(int userId, String password) {
+    public Boolean updatePassword(int user_id, String password) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("password", password);
-        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "user_id = ?", new String[]{String.valueOf(user_id)});
 
         return result != 0;
     }
 
-    public Boolean updateContactNumber(int userId, String contactNumber) {
+    public Boolean updateContactNumber(int user_id, String contact_number) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("contactNumber", contactNumber);
-        long result = myDb.update(TABLE_ACCOUNT, contentValues, "userId = ?", new String[]{String.valueOf(userId)});
+        contentValues.put("contact_number", contact_number);
+        long result = myDb.update(TABLE_ACCOUNT, contentValues, "user_id = ?", new String[]{String.valueOf(user_id)});
 
         return result != 0;
     }
@@ -113,9 +113,9 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return myDb.rawQuery("SELECT * from " + TABLE_ACCOUNT + " where email = ? LIMIT 1", new String[]{email});
     }
 
-    public Boolean checkUserId(int userId) {
+    public Boolean checkUserId(int user_id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("SELECT userId from " + TABLE_ACCOUNT + " where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
+        Cursor cursor = myDb.rawQuery("SELECT user_id from " + TABLE_ACCOUNT + " where user_id = ? LIMIT 1", new String[]{String.valueOf(user_id)});
 
         if (cursor != null && cursor.moveToFirst()) {
             return true;
@@ -125,10 +125,10 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean isUserInfoValid(String email, int userId) {
+    public Boolean isUserInfoValid(String email, int user_id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor checkEmail = myDb.rawQuery("SELECT email from " + TABLE_ACCOUNT + " where email = ? LIMIT 1", new String[]{email});
-        Cursor checkUserId = myDb.rawQuery("SELECT userId from " + TABLE_ACCOUNT + " where userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
+        Cursor checkUserId = myDb.rawQuery("SELECT user_id from " + TABLE_ACCOUNT + " where user_id = ? LIMIT 1", new String[]{String.valueOf(user_id)});
 
         if (checkUserId != null && checkUserId.moveToFirst()) {
             return true;
