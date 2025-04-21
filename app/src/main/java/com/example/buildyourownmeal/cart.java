@@ -77,24 +77,6 @@ public class cart extends AppCompatActivity {
              public void onClick(View v) {
              }
          });
-
-        //POP UP DIALOG CHANGE SCHEDULE
-        changeSchedCon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialog popUpSched = new BottomSheetDialog(cart.this);
-                View popUpLayout = LayoutInflater.from(cart.this).inflate(R.layout.pop_up_pick_up, null);
-                popUpSched.setContentView(popUpLayout);
-                popUpSched.setCancelable(true);
-
-                FrameLayout bottomSheet = popUpSched.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-                if (bottomSheet != null) {
-                    bottomSheet.setBackground(null);
-                }
-                popUpSched.show();
-            }
-        });
-
     }
 
     private void setUpCartModel () {

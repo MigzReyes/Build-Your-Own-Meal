@@ -3,8 +3,10 @@ package com.example.buildyourownmeal;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -15,6 +17,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
@@ -101,6 +105,17 @@ public class checkout extends AppCompatActivity {
                 standard.setChecked(false);
                 priority.setChecked(false);
                 scheduledDate.setChecked(true);
+
+                BottomSheetDialog popUpSched = new BottomSheetDialog(checkout.this);
+                View popUpLayout = LayoutInflater.from(checkout.this).inflate(R.layout.pop_up_pick_up, null);
+                popUpSched.setContentView(popUpLayout);
+                popUpSched.setCancelable(true);
+
+                FrameLayout bottomSheet = popUpSched.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                if (bottomSheet != null) {
+                    bottomSheet.setBackground(null);
+                }
+                popUpSched.show();
             }
         });
 
