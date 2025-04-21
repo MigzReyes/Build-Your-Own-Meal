@@ -64,7 +64,7 @@ public class account extends AppCompatActivity {
             if (dbGetUserInfo != null && dbGetUserInfo.moveToFirst()) {
                 String dbUsername = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("username"));
                 String dbEmail = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("email"));
-                String dbContactNumber = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("contactNumber"));
+                String dbContactNumber = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("contact_number"));
 
                 usernameProfile.setText(dbUsername);
                 emailProfile.setText(dbEmail);

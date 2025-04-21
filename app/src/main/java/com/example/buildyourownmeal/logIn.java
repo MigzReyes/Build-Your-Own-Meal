@@ -113,7 +113,7 @@ public class logIn extends AppCompatActivity {
 
                             if (cursor != null && cursor.moveToFirst()) {
                                 //DATABASE GETTER
-                                int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
+                                int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
                                 String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
                                 String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
 
