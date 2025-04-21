@@ -47,7 +47,6 @@ public class menu extends AppCompatActivity {
         recyclerViewMenuCombos.setAdapter(recyclerViewAdapterMenuCombos);
         recyclerViewMenuCombos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewMenuCombos.setNestedScrollingEnabled(false);
-        //recyclerViewMenuCombos.canScrollVertically(false);
 
 
         //BOTTOM NAVBAR
