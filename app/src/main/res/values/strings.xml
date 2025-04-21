@@ -60,6 +60,7 @@
     <string name="contactNumberIsRequired">Contact number is required</string>
     <string name="standardTime">25–35 mins</string>
     <string name="priorityTime">10–15 mins</string>
+    <string name="generalMealTime">15 mins</string>
     <string name="scheduled">Scheduled</string>
     <string name="yourOrderIsProcessing">Your order is processing</string>
     <string name="yourOrderIsCurrently">Your order is currently being processed and will be ready for pick–up once completed</string>

@@ -14,6 +14,9 @@
         android:theme="@style/Theme.BuildYourOwnMeal"
         tools:targetApi="33">
         <activity
+            android:name=".preMadeMeal"
+            android:exported="false" />
+        <activity
             android:name=".editContactNumber"
             android:exported="false" />
         <activity
