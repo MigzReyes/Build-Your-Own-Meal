@@ -28,11 +28,9 @@ public class account extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(account.this, account.class);
-        startActivity(intent);
-        finish();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_account);
+        recreate();
 
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
