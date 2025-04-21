@@ -3,6 +3,7 @@ package com.example.buildyourownmeal;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,14 @@ public class editContactNumber extends AppCompatActivity {
 
         //SHARED PREFERENCE GETTERS
         int userId = userSession.getInt("userId", 0);
-        String showContactNumber = userSession.getString("contactNumber", null);
+        String email = userSession.getString("email", null);
+
+        //DATABASE GETTERS
+        Cursor getUserInfoDb = databaseFunctions.getUserInfo(email);
+        String getContactNumberDb = getUserInfoDb.getString(getUserInfoDb.getColumnIndexOrThrow("contactNumber"));
 
         //SET TEXT CURRENT CONTACT NUMBER
-        editContactNumber.setText(showContactNumber);
+        editContactNumber.setText(getContactNumberDb);
 
         //POP UP ALERT
         popUpAlert = new Dialog(this);
