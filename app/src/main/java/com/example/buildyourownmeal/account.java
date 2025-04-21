@@ -137,7 +137,6 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editUsername.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -146,7 +145,6 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editPassword.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -155,7 +153,6 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editEmail.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -164,7 +161,6 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editContactNumber.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
