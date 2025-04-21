@@ -40,11 +40,14 @@ public class menu extends AppCompatActivity {
         //RECYCLER VIEW
         recyclerViewMenuCombos = findViewById(R.id.recyclerViewMenuCombos);
 
+
         setUpMenuCombosModel();
 
         recyclerViewAdapterMenuCombos recyclerViewAdapterMenuCombos = new recyclerViewAdapterMenuCombos(this, recyclerMenuCombosModelArrayList);
         recyclerViewMenuCombos.setAdapter(recyclerViewAdapterMenuCombos);
         recyclerViewMenuCombos.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewMenuCombos.setNestedScrollingEnabled(false);
+        //recyclerViewMenuCombos.canScrollVertically(false);
 
 
         //BOTTOM NAVBAR

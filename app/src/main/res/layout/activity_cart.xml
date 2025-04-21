@@ -28,26 +28,18 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:overScrollMode="never">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewCart"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overScrollMode="never">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
-                </LinearLayout>
+                </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
                     android:id="@+id/addMoreItems"
@@ -59,7 +51,6 @@
                     android:text="@string/addMoreItems" />
             </LinearLayout>
 
-
         </LinearLayout>
     </ScrollView>
 
@@ -68,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginHorizontal="15dp"
+        android:paddingHorizontal="15dp"
         android:paddingVertical="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
