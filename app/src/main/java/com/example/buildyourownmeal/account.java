@@ -30,7 +30,6 @@ public class account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_account);
-        recreate();
 
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
@@ -125,7 +124,6 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, Navbar.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -138,6 +136,7 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editUsername.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -146,6 +145,7 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editPassword.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -154,6 +154,7 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editEmail.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -162,6 +163,7 @@ public class account extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(account.this, editContactNumber.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
