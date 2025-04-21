@@ -130,25 +130,14 @@
                     android:textColor="@color/greyLetters"
                     android:textSize="15sp" />
 
-
-                <!-- MENU ITEM -->
-                <LinearLayout
-                    android:id="@+id/menuCon"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewMenuCombos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
-                    android:layout_marginVertical="10dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
+                    android:layout_marginVertical="10dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewMenuCombos"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
+                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
 

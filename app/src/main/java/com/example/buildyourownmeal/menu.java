@@ -81,7 +81,7 @@ public class menu extends AppCompatActivity {
             }
         });
 
-        int[] menuBtn = {R.id.craftNowBtn, R.id.menuCon,};
+        int[] menuBtn = {R.id.craftNowBtn};
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override

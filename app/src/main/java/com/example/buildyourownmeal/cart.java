@@ -75,6 +75,8 @@ public class cart extends AppCompatActivity {
          checkOutBtn.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 Intent intent = new Intent(cart.this, checkout.class);
+                 startActivity(intent);
              }
          });
     }
