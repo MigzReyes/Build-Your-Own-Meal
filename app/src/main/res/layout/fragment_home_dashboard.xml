@@ -13,595 +13,585 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- TOP SECTION-->
-                <LinearLayout
-                    android:id="@+id/orderCon"
-                    android:layout_width="match_parent"
-                    android:layout_height="190dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bentomenubackground"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="15dp"
-                    android:paddingVertical="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="15dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:id="@+id/logInTextAlert"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/whiteBoldLetters"
-                                    android:textSize="28sp"
-                                    android:text="@string/youMustLogInTo" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/whiteBoldLetters"
-                                    android:textSize="28sp"
-                                    android:text="@string/ToCraftAMeal" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/userIntroduction"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/textView20"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/whiteBoldLetters"
-                                    android:textSize="33sp"
-                                    android:text="@string/Welcome" />
-
-                                <TextView
-                                    android:id="@+id/userIntroductionName"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/whiteBoldLetters"
-                                    android:textSize="28sp"
-                                    android:text="@string/user" />
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/craftNowBtn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/craft_btn"
-                                android:orientation="vertical"
-                                android:paddingHorizontal="15dp"
-                                android:paddingVertical="30dp">
-
-                                <ImageView
-                                    android:id="@+id/imageView8"
-                                    android:layout_width="45dp"
-                                    android:layout_height="40dp"
-                                    android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/crafticon" />
-
-                                <TextView
-                                    android:id="@+id/textView23"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/craftNow"
-                                    android:textColor="@color/main_color"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- LOG IN/SIGN UP NOTIFICATION -->
 
                 <LinearLayout
-                    android:id="@+id/login_warning"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/notification_box"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="20dp">
-
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="@string/pleaseLogInSignInUpToOrder"
-                        android:textColor="@color/black"
-                        android:textSize="19sp" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="10dp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/wantToCustomizeYourMealLogInOrSignUpToGetStarted"
-                        android:textColor="@color/greyLetters"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/signUpBtn"
-                            android:layout_width="90dp"
-                            android:layout_height="45dp"
-                            android:layout_marginEnd="50dp"
-                            android:background="@drawable/small_btn_main_color"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textAllCaps="false"
-                            android:textSize="15sp"
-                            android:text="@string/smallSignUp" />
-
-                        <Button
-                            android:id="@+id/logInBtn"
-                            android:layout_width="90dp"
-                            android:layout_height="45dp"
-                            android:background="@drawable/small_btn"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textAllCaps="false"
-                            android:textSize="15sp"
-                            android:text="@string/smallLogIn" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- ORDER PROCESS -->
-
-                <LinearLayout
-                    android:id="@+id/orderProcessCon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/notification_box"
-                        android:layout_marginHorizontal="15dp"
-                        android:layout_marginTop="15dp"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="20dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView160"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/readyIn"
-                            android:fontFamily="@font/inter_18pt_semibold"
-                            android:textColor="@color/lightGreyLetters"/>
-
-                        <TextView
-                            android:id="@+id/textView161"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/priorityTime"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="17sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslineorange" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                android:layout_marginHorizontal="5dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslinegray" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine3"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslinegray" />
-
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/orderProcess"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/preparingYourOder"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:id="@+id/orderProcessDescription"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/whenItsReady"
-                            android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/lightGreyLetters"/>
-
-                        <Button
-                            android:id="@+id/cancelOrder"
-                            android:layout_width="90dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="end"
-                            android:text="@string/cancel"
-                            android:textSize="14sp"
-                            android:textAllCaps="false"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:background="@drawable/small_btn_cancel"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/orderProcessCon2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/notification_box"
-                        android:layout_marginHorizontal="15dp"
-                        android:layout_marginTop="15dp"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="20dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView212"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/readyIn"
-                            android:fontFamily="@font/inter_18pt_semibold"
-                            android:textColor="@color/lightGreyLetters"/>
-
-                        <TextView
-                            android:id="@+id/textView213"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/priorityTime"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="17sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslineorange"
-                                    tools:ignore="DuplicateIds" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                android:layout_marginHorizontal="5dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslineorange"
-                                    tools:ignore="DuplicateIds" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine3"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslinegray"
-                                    tools:ignore="DuplicateIds" />
-
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/orderProcess2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/preparingYourOder"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:id="@+id/orderProcessDescription2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="25dp"
-                            android:text="@string/whenItsReady"
-                            android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/lightGreyLetters"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/orderProcessCon3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/notification_box"
-                        android:layout_marginHorizontal="15dp"
-                        android:layout_marginTop="15dp"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="20dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView214"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/readyIn"
-                            android:fontFamily="@font/inter_18pt_semibold"
-                            android:textColor="@color/lightGreyLetters"/>
-
-                        <TextView
-                            android:id="@+id/textView215"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/priorityTime"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="17sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslineorange"
-                                    tools:ignore="DuplicateIds" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                android:layout_marginHorizontal="5dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslineorange"
-                                    tools:ignore="DuplicateIds" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="20dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:id="@+id/ProgressLine3"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/progresslineorange"
-                                    tools:ignore="DuplicateIds" />
-
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/orderProcess3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/orderIsReady"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:id="@+id/orderProcessDescription3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="25dp"
-                            android:text="@string/yourOrderIsReady"
-                            android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/lightGreyLetters"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <!-- ADVERTISEMENT  -->
-                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginVertical="15dp">
+                    android:orientation="vertical">
 
+                    <!-- TOP SECTION-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal" >
-
-                        <ImageView
-                            android:id="@+id/imageView9"
-                            android:layout_width="300dp"
-                            android:layout_height="200dp"
-                            android:src="@drawable/advertisement1" />
-
-                        <ImageView
-                            android:id="@+id/imageView10"
-                            android:layout_width="300dp"
-                            android:layout_height="200dp"
-                            android:src="@drawable/advertisement2" />
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-
-                <!-- HOTTEST DEALS Section (Vertical Layout) -->
-                <LinearLayout
-                    android:id="@+id/orderCon2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginVertical="10dp">
-
-                    <!-- Header for "Hottest Deals" -->
-                    <LinearLayout
+                        android:id="@+id/orderCon"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="10dp"
-                        android:orientation="horizontal">
+                        android:layout_height="190dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bentomenubackground"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="20dp">
 
-                        <!-- BEST SELLING COMBOS -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="@string/bestSellingCombos"
-                            android:textColor="@color/greyLetters"
-                            android:textSize="18sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="15dp"
+                            android:orientation="horizontal">
 
-                        <!-- VIEW ALL BUTTON -->
-                        <TextView
-                            android:id="@+id/viewAllBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/viewAll"
-                            android:textColor="@color/greyLetters" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
 
+                                <LinearLayout
+                                    android:id="@+id/logInTextAlert"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/youMustLogInTo"
+                                        android:textColor="@color/whiteBoldLetters"
+                                        android:textSize="28sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/ToCraftAMeal"
+                                        android:textColor="@color/whiteBoldLetters"
+                                        android:textSize="28sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/userIntroduction"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/textView20"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/Welcome"
+                                        android:textColor="@color/whiteBoldLetters"
+                                        android:textSize="33sp" />
+
+                                    <TextView
+                                        android:id="@+id/userIntroductionName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/user"
+                                        android:textColor="@color/whiteBoldLetters"
+                                        android:textSize="28sp" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/craftNowBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/craft_btn"
+                                    android:orientation="vertical"
+                                    android:paddingHorizontal="15dp"
+                                    android:paddingVertical="30dp">
+
+                                    <ImageView
+                                        android:id="@+id/imageView8"
+                                        android:layout_width="45dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:src="@drawable/crafticon" />
+
+                                    <TextView
+                                        android:id="@+id/textView23"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/craftNow"
+                                        android:textColor="@color/main_color"
+                                        android:textSize="14sp" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
+                    <!-- LOG IN/SIGN UP NOTIFICATION -->
+
                     <LinearLayout
+                        android:id="@+id/login_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/notification_box"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="20dp">
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/pleaseLogInSignInUpToOrder"
+                            android:textColor="@color/black"
+                            android:textSize="19sp" />
+
+                        <TextView
+                            android:id="@+id/textView24"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/wantToCustomizeYourMealLogInOrSignUpToGetStarted"
+                            android:textColor="@color/greyLetters"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/signUpBtn"
+                                android:layout_width="90dp"
+                                android:layout_height="45dp"
+                                android:layout_marginEnd="50dp"
+                                android:background="@drawable/small_btn_main_color"
+                                android:text="@string/smallSignUp"
+                                android:textAllCaps="false"
+                                android:textColor="@color/whiteBoldLetters"
+                                android:textSize="15sp" />
+
+                            <Button
+                                android:id="@+id/logInBtn"
+                                android:layout_width="90dp"
+                                android:layout_height="45dp"
+                                android:background="@drawable/small_btn"
+                                android:text="@string/smallLogIn"
+                                android:textAllCaps="false"
+                                android:textColor="@color/whiteBoldLetters"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- ORDER PROCESS -->
+
+                    <LinearLayout
+                        android:id="@+id/orderProcessCon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/notification_box"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="20dp">
+
+                            <TextView
+                                android:id="@+id/textView160"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/readyIn"
+                                android:textColor="@color/lightGreyLetters" />
+
+                            <TextView
+                                android:id="@+id/textView161"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/priorityTime"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="17sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslineorange" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslinegray" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslinegray" />
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/orderProcess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/preparingYourOder"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/orderProcessDescription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_medium"
+                                android:text="@string/whenItsReady"
+                                android:textColor="@color/lightGreyLetters" />
+
+                            <Button
+                                android:id="@+id/cancelOrder"
+                                android:layout_width="90dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="end"
+                                android:background="@drawable/small_btn_cancel"
+                                android:text="@string/cancel"
+                                android:textAllCaps="false"
+                                android:textColor="@color/whiteBoldLetters"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/orderProcessCon2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/notification_box"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="20dp">
+
+                            <TextView
+                                android:id="@+id/textView212"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/readyIn"
+                                android:textColor="@color/lightGreyLetters" />
+
+                            <TextView
+                                android:id="@+id/textView213"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/priorityTime"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="17sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslineorange"
+                                        tools:ignore="DuplicateIds" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslineorange"
+                                        tools:ignore="DuplicateIds" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslinegray"
+                                        tools:ignore="DuplicateIds" />
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/orderProcess2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/preparingYourOder"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/orderProcessDescription2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="25dp"
+                                android:fontFamily="@font/inter_18pt_medium"
+                                android:text="@string/whenItsReady"
+                                android:textColor="@color/lightGreyLetters" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/orderProcessCon3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/notification_box"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="20dp">
+
+                            <TextView
+                                android:id="@+id/textView214"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_18pt_semibold"
+                                android:text="@string/readyIn"
+                                android:textColor="@color/lightGreyLetters" />
+
+                            <TextView
+                                android:id="@+id/textView215"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/priorityTime"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="17sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslineorange"
+                                        tools:ignore="DuplicateIds" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslineorange"
+                                        tools:ignore="DuplicateIds" />
+
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ProgressLine3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/progresslineorange"
+                                        tools:ignore="DuplicateIds" />
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/orderProcess3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/orderIsReady"
+                                android:textColor="@color/blackBoldLetters"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/orderProcessDescription3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="25dp"
+                                android:fontFamily="@font/inter_18pt_medium"
+                                android:text="@string/yourOrderIsReady"
+                                android:textColor="@color/lightGreyLetters" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <!-- ADVERTISEMENT  -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="15dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView9"
+                                android:layout_width="300dp"
+                                android:layout_height="200dp"
+                                android:src="@drawable/advertisement1" />
+
+                            <ImageView
+                                android:id="@+id/imageView10"
+                                android:layout_width="300dp"
+                                android:layout_height="200dp"
+                                android:src="@drawable/advertisement2" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+
+                    <!-- HOTTEST DEALS Section (Vertical Layout) -->
+                    <LinearLayout
+                        android:id="@+id/orderCon2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <!-- Header for "Hottest Deals" -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginVertical="10dp"
+                            android:orientation="horizontal">
+
+                            <!-- BEST SELLING COMBOS -->
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="start"
+                                android:text="@string/bestSellingCombos"
+                                android:textColor="@color/greyLetters"
+                                android:textSize="18sp" />
+
+                            <!-- VIEW ALL BUTTON -->
+                            <TextView
+                                android:id="@+id/viewAllBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/viewAll"
+                                android:textColor="@color/greyLetters" />
+
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recyclerViewHomeCombo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:overScrollMode="never">
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recyclerViewHomeCombo"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                            </androidx.recyclerview.widget.RecyclerView>
+                                </androidx.recyclerview.widget.RecyclerView>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
-
-            </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
