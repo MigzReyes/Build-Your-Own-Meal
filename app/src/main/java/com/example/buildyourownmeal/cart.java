@@ -52,6 +52,7 @@ public class cart extends AppCompatActivity {
         recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, recyclerCartModelArrayList);
         recyclerViewCart.setAdapter(recyclerViewAdapterCart);
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewCart.setNestedScrollingEnabled(false);
 
 
         //VARIABLE REFERENCE

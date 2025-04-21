@@ -11,20 +11,24 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/sidebartoolbar"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
+        layout="@layout/sidebartoolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
+            android:paddingHorizontal="15dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -36,7 +40,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewCart"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:overScrollMode="never">
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -46,13 +50,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_18pt_extrabold"
+                    android:text="@string/addMoreItems"
                     android:textColor="@color/greyLetters"
-                    android:textSize="14sp"
-                    android:text="@string/addMoreItems" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout11"
