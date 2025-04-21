@@ -108,6 +108,8 @@ public class editEmail extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(editEmail.this, account.class);
+                startActivity(intent);
                 finish();
             }
         });
