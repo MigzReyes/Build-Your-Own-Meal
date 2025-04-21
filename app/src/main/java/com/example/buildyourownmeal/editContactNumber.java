@@ -53,10 +53,14 @@ public class editContactNumber extends AppCompatActivity {
 
         //DATABASE GETTERS
         Cursor getUserInfoDb = databaseFunctions.getUserInfo(email);
-        String getContactNumberDb = getUserInfoDb.getString(getUserInfoDb.getColumnIndexOrThrow("contactNumber"));
 
         //SET TEXT CURRENT CONTACT NUMBER
-        editContactNumber.setText(getContactNumberDb);
+        if (getUserInfoDb != null && getUserInfoDb.moveToFirst()) {
+            String getContactNumberDb = getUserInfoDb.getString(getUserInfoDb.getColumnIndexOrThrow("contactNumber"));
+            editContactNumber.setText(getContactNumberDb);
+        } else {
+            popUpAlert(getString(R.string.sorryCanNotGetUserInfo));
+        }
 
         //POP UP ALERT
         popUpAlert = new Dialog(this);
