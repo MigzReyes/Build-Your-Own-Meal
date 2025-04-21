@@ -110,12 +110,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        return myDb.rawQuery("SELECT * from " + TABLE_ACCOUNT + " where email = ? LIMIT 1", new String[]{email});
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
     }
 
     public Boolean checkUserId(int user_id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("SELECT user_id from " + TABLE_ACCOUNT + " where user_id = ? LIMIT 1", new String[]{String.valueOf(user_id)});
+        Cursor cursor = myDb.rawQuery("SELECT user_id FROM " + TABLE_ACCOUNT + " WHERE user_id = ? LIMIT 1", new String[]{String.valueOf(user_id)});
 
         if (cursor != null && cursor.moveToFirst()) {
             return true;
@@ -127,8 +127,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean isUserInfoValid(String email, int user_id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor checkEmail = myDb.rawQuery("SELECT email from " + TABLE_ACCOUNT + " where email = ? LIMIT 1", new String[]{email});
-        Cursor checkUserId = myDb.rawQuery("SELECT user_id from " + TABLE_ACCOUNT + " where user_id = ? LIMIT 1", new String[]{String.valueOf(user_id)});
+        Cursor checkEmail = myDb.rawQuery("SELECT email FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
+        Cursor checkUserId = myDb.rawQuery("SELECT user_id FROM " + TABLE_ACCOUNT + " WHERE user_id = ? LIMIT 1", new String[]{String.valueOf(user_id)});
 
         if (checkUserId != null && checkUserId.moveToFirst()) {
             return true;
@@ -142,7 +142,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean checkEmail(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("Select * from " + TABLE_ACCOUNT + " where email = ?", new String[]{email});
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ?", new String[]{email});
 
         if (cursor.getCount() > 0) {
             cursor.close();
@@ -155,7 +155,20 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean checkPassword(String password) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("Select * from " + TABLE_ACCOUNT + " where password = ?", new String[]{password});
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE password = ?", new String[]{password});
+
+        if (cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    public Boolean checkContactNumber(String contactNumber) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE contact_number = ?", new String[]{contactNumber});
 
         if (cursor.getCount() > 0) {
             cursor.close();
@@ -185,7 +198,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     public void cannotRetrieveData() {
-        Log.d(LOG_ALERT_TAG, "Database error: Cannot get data from table");
+        Log.d(LOG_ALERT_TAG, "Database error: Cannot get data FROM table");
     }
 
 }

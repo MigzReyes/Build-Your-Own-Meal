@@ -65,11 +65,14 @@ public class editContactNumber extends AppCompatActivity {
             public void onClick(View v) {
                 String getContactNumber = editContactNumber.getText().toString().trim();
                 Button saveChangesBtn, cancelChangesBtn;
+                boolean checkContactNumber = databaseFunctions.checkContactNumber(getContactNumber);
 
                 if (getContactNumber.isEmpty()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
                 } else if (getContactNumber.length() < 11) {
                     popUpAlert(getString(R.string.invalidPhoneNumber));
+                } else if (checkContactNumber) {
+                    popUpAlert(getString(R.string.contactNumberIsAlreadyInUsed));
                 } else {
                     popUpAlert.show();
 

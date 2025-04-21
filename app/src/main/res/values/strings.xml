@@ -397,6 +397,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="contactNumberIsAlreadyInUsed">Contact number is already in used</string>
     <string name="currentPasswordCannotBeTheSameAsNewPassword">Current password cannot be the same as the new password</string>
     <string name="sorryCanNotGetUserInfo">Sorry cannot get user info</string>
     <string name="youMustLogInTo">You must log in</string>
