@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
 
@@ -41,7 +42,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewCart"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never">
 
                     </androidx.recyclerview.widget.RecyclerView>
 

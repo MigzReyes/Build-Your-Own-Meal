@@ -26,8 +26,7 @@ public class checkout extends AppCompatActivity {
 
     //RECYCLER VIEW
     private ArrayList<recyclerCheckoutModel> recyclerCheckoutModelArrayList = new ArrayList<>();
-    private int[] checkoutMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
-            R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+    private int[] checkoutMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
 
     private RecyclerView recyclerViewCheckout;
 
@@ -204,7 +203,7 @@ public class checkout extends AppCompatActivity {
     }
 
     private void setUpCheckoutModel () {
-        String[] checkoutMealName = getResources().getStringArray(R.array.comboMealName);
+        String[] checkoutMealName = getResources().getStringArray(R.array.mainDish);
         String[] checkoutMealMainDish = getResources().getStringArray(R.array.mainDish);
         String[] checkoutMealSideDish = getResources().getStringArray(R.array.sideDish);
         String[] checkoutSauces = getResources().getStringArray(R.array.sauces);
