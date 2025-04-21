@@ -342,6 +342,7 @@
     <string-array name="desserts">
         <item>Mochi</item>
         <item>Japanese Fruit Sandwich</item>
+        <item>Sample Dessert (debug this)</item>
     </string-array>
 
     <string-array name="drinks">
