@@ -14,6 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,9 +31,13 @@ public class aboutUs extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_about_us);
 
+        //VARIABLE REFERENCE
+        fragName = findViewById(R.id.fragName);
+        fragName.setText(R.string.aboutUs);
+
         //BOTTOM NAVBAR
         //HOOK
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setAnimation(null);
         bottomNav.setItemRippleColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -61,11 +67,43 @@ public class aboutUs extends AppCompatActivity {
                 }
                 return false;
             }
+        });*/
+
+
+        //BOTTOM NAVBAR
+        //HOOK
+        ImageView home, menu, cart, aboutUs;
+
+        home = findViewById(R.id.navHome);
+        menu = findViewById(R.id.navMenu);
+        cart = findViewById(R.id.navCart);
+        aboutUs = findViewById(R.id.navAboutUs);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(aboutUs.this, Navbar.class);
+                startActivity(intent);
+            }
         });
 
-        //VARIABLE REFERENCE
-        fragName = findViewById(R.id.fragName);
-        fragName.setText(R.string.aboutUs);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(aboutUs.this, menu.class);
+                startActivity(intent);
+            }
+        });
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(aboutUs.this, cart.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutUs.setImageResource(R.drawable.aboutusiconorange);
 
     }
 }

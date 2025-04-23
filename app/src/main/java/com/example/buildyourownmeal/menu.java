@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -51,7 +52,40 @@ public class menu extends AppCompatActivity {
 
         //BOTTOM NAVBAR
         //HOOK
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        ImageView home, menu, cart, aboutUs;
+
+        home = findViewById(R.id.navHome);
+        menu = findViewById(R.id.navMenu);
+        cart = findViewById(R.id.navCart);
+        aboutUs = findViewById(R.id.navAboutUs);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(menu.this, Navbar.class);
+                startActivity(intent);
+            }
+        });
+
+        menu.setImageResource(R.drawable.menuorange);
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(menu.this, cart.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(menu.this, aboutUs.class);
+                startActivity(intent);
+            }
+        });
+
+        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setAnimation(null);
         bottomNav.setItemRippleColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -81,7 +115,7 @@ public class menu extends AppCompatActivity {
                 }
                 return false;
             }
-        });
+        });*/
 
         int[] menuBtn = {R.id.craftNowBtn};
 

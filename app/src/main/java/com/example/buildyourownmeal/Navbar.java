@@ -3,6 +3,7 @@ package com.example.buildyourownmeal;
 import static android.app.PendingIntent.getActivity;
 import static com.example.buildyourownmeal.R.*;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,6 +50,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
     private TextView sideNavUsername;
     private boolean isUserLoggedIn;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,42 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
 
         //BOTTOM NAVBAR
         //HOOK
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        //BOTTOM NAVBAR
+        //HOOK
+        ImageView navHome, navMenu, navCart, navAboutUs;
+
+        navHome = findViewById(id.navHome);
+        navMenu = findViewById(id.navMenu);
+        navCart = findViewById(id.navCart);
+        navAboutUs = findViewById(id.navAboutUs);
+
+        navHome.setImageResource(drawable.homeiconorange);
+
+        navMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Navbar.this, menu.class);
+                startActivity(intent);
+            }
+        });
+
+        navCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Navbar.this, cart.class);
+                startActivity(intent);
+            }
+        });
+
+        navAboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Navbar.this, aboutUs.class);
+                startActivity(intent);
+            }
+        });
+
+        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setAnimation(null);
         bottomNav.setItemRippleColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -114,7 +151,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                 }
                 return false;
             }
-        });
+        });*/
 
 
 
