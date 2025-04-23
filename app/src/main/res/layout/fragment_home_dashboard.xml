@@ -62,14 +62,14 @@
                                         android:layout_height="wrap_content"
                                         android:text="@string/youMustLogInTo"
                                         android:textColor="@color/whiteBoldLetters"
-                                        android:textSize="28sp" />
+                                        android:textSize="26sp" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="@string/ToCraftAMeal"
                                         android:textColor="@color/whiteBoldLetters"
-                                        android:textSize="28sp" />
+                                        android:textSize="26sp" />
 
                                 </LinearLayout>
 

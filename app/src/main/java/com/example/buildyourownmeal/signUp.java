@@ -114,8 +114,8 @@ public class signUp extends AppCompatActivity {
 
                         if (insertData) {
                             Intent intent = new Intent(signUp.this, logIn.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
                         }
                     } else {
                         popUpAlert(getString(R.string.passwordIsWeak));

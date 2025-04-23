@@ -1,9 +1,11 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,23 +21,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class craftedMeal extends AppCompatActivity {
 
     //VARIABLE DECLARATION
-    private Button addBtn, plusBtn, minusBtn;
-    private Button backBtn;
-    private TextView itemCount;
+    private Dialog popUpLogInWarning;
+    private Button backBtn, addBtn, plusBtn, minusBtn;
     private String getMealNameText;
-    private TextView karaage, sisig, veggie, corn, coleslaw, hashBrown, gravy, vinegar,
+    private TextView itemCount, karaage, sisig, veggie, corn, coleslaw, hashBrown, gravy, vinegar,
             soySauce, mochi, japFruitSand, water, coffeeJelly, cucumberLemon;
     private TextView karaagePrice, sisigPrice, veggiePrice, cornPrice, coleslawPrice, hashPrice, gravyPrice, vinegarPrice,
             soySaucePrice, mochiPrice, japFruitSandPrice, waterPrice, coffeeJellyPrice, cucumberLemonPrice;
     private int count = 1; // Initialize count to 1
-    private SharedPreferences menuItem;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_crafted_meal);
+
+        //SHARE PREFERENCES USER SESSION
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        String userRole = userSession.getString("role", "guest");
 
         //ORDER BTN
         addBtn = findViewById(R.id.addBtn);
@@ -72,20 +75,49 @@ public class craftedMeal extends AppCompatActivity {
         coffeeJellyPrice = findViewById(R.id.priceCoffeeJelly);
         cucumberLemonPrice = findViewById(R.id.priceCucumberLemon);
 
-        //SHARED PREFERENCE
-        menuItem = getSharedPreferences("craftedMeal", MODE_PRIVATE);
-        editor = menuItem.edit();
 
-        //SHARED PREFERENCE LOG IN SESSION
-        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
-        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+
+        //POP UP ALERT
+        popUpLogInWarning = new Dialog(this);
+        popUpLogInWarning.setContentView(R.layout.pop_up_login_signup_alert);
+        popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpLogInWarning.setCancelable(true);
 
         //LOGIC STATEMENT
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(craftedMeal.this, cart.class);
-                startActivity(intent);
+                Button popUpAlertLogInBtn, popUpAlertSignUpBtn;
+
+                if (userRole.equals("guest")) {
+
+                    popUpLogInWarning.show();
+
+                    popUpAlertLogInBtn = popUpLogInWarning.findViewById(R.id.popUpAlertLogInBtn);
+                    popUpAlertLogInBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(craftedMeal.this, logIn.class);
+                            popUpLogInWarning.dismiss();
+                            startActivity(intent);
+                        }
+                    });
+
+                    popUpAlertSignUpBtn = popUpLogInWarning.findViewById(R.id.popUpAlertSignUpBtn);
+
+                    popUpAlertSignUpBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(craftedMeal.this, signUp.class);
+                            popUpLogInWarning.dismiss();
+                            startActivity(intent);
+                        }
+                    });
+                } else if (userRole.equals("user")) {
+                    Intent intent = new Intent(craftedMeal.this, cart.class);
+                    startActivity(intent);
+                }
             }
         });
         /*addBtn.setOnClickListener(new View.OnClickListener() {

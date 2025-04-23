@@ -48,11 +48,11 @@ public class home_dashboard extends Fragment {
     RecyclerView recyclerViewHomeCombos;
 
     //VARIABLE DECLARATION
-    private Button logInBtn, signUpBtn, logInPopUpAlert, signUpPopUpAlert;
+    private Button logInBtn, signUpBtn;
 
     //LOGIN WARNING
     private Dialog popUpLogInWarning;
-    private LinearLayout logInWarning, craftNowBtn, logInTextAlert, userIntroduction;
+    private LinearLayout logInWarning, craftNowBtn, logInTextAlert, userIntroduction, orderProcessCon, orderProcessCon2, orderProcessCon3;
 
     //USER INTRODUCTION/WELCOME
     private TextView userIntroductionName;
@@ -60,6 +60,12 @@ public class home_dashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+
+        //SET CONNECTION TO SHARED PREFERENCE/USER SESSION
+        SharedPreferences userSession = getActivity().getSharedPreferences("userSession", MODE_PRIVATE);
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+        String userRole = userSession.getString("role", "guest");
+        String loggedInUsername = userSession.getString("username", null);
 
         //RECYCLER VIEW
         recyclerViewHomeCombos = view.findViewById(R.id.recyclerViewHomeCombo);
@@ -70,6 +76,15 @@ public class home_dashboard extends Fragment {
         recyclerViewHomeCombos.setAdapter(recyclerViewAdapterHomeCombos);
         recyclerViewHomeCombos.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        //ORDER PROCESS CONTAINER
+        orderProcessCon = view.findViewById(R.id.orderProcessCon);
+        orderProcessCon2 = view.findViewById(R.id.orderProcessCon2);
+        orderProcessCon3 = view.findViewById(R.id.orderProcessCon3);
+
+        orderProcessCon.setVisibility(View.GONE);
+        orderProcessCon2.setVisibility(View.GONE);
+        orderProcessCon3.setVisibility(View.GONE);
+
         //IF USER IS ALREADY LOGGED IN / ALERT IF USER HAD NOT LOGGED IN
         //SET ID
         logInTextAlert = view.findViewById(R.id.logInTextAlert);
@@ -77,19 +92,9 @@ public class home_dashboard extends Fragment {
         logInWarning = view.findViewById(R.id.login_warning);
         userIntroductionName = view.findViewById(R.id.userIntroductionName);
 
-        // POP LOG IN WARNING
-        popUpLogInWarning = new Dialog(requireContext());
-        popUpLogInWarning.setContentView(R.layout.pop_up_login_signup_alert);
-        popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
-        popUpLogInWarning.setCancelable(true);
-
         craftNowBtn = view.findViewById(R.id.craftNowBtn);
         craftNowBtn.setClickable(true);
         craftNowBtn.setFocusable(true);
-
-        logInPopUpAlert = popUpLogInWarning.findViewById(R.id.popUpAlertLogInBtn);
-        signUpPopUpAlert = popUpLogInWarning.findViewById(R.id.popUpAlertSignUpBtn);
 
         craftNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,29 +104,6 @@ public class home_dashboard extends Fragment {
             }
         });
 
-        logInPopUpAlert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), logIn.class);
-                startActivity(intent);
-                popUpLogInWarning.dismiss();
-            }
-        });
-
-        signUpPopUpAlert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), signUp.class);
-                startActivity(intent);
-                popUpLogInWarning.dismiss();
-            }
-        });
-
-        //SET CONNECTION TO SHARED PREFERENCE/USER SESSION
-        SharedPreferences userSession = getActivity().getSharedPreferences("userSession", MODE_PRIVATE);
-        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
-        String userRole = userSession.getString("role", "guest");
-        String loggedInUsername = userSession.getString("username", null);
 
         //LOGIC STATEMENT FOR DISPLAYING ERROR "you are not logged in"
         //LOGIC STATEMENT FOR DISPLAYING USER NAME ON INTRODUCTION

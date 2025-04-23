@@ -211,8 +211,8 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                        editor.remove("isUserLoggedIn");
                        editor.apply();
                        Intent intent = new Intent(Navbar.this, introduction_screen.class);
+                       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                        startActivity(intent);
-                       finish();
                    }
                 });
             }

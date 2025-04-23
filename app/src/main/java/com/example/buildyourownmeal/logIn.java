@@ -128,8 +128,8 @@ public class logIn extends AppCompatActivity {
                                     editor.putBoolean("isUserLoggedIn", true);
                                     editor.apply();
                                     Intent intent = new Intent(logIn.this, Navbar.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
-                                    finish();
                                 } else {
                                     popUpAlert("Debug: You Are An Admin");
                                 }

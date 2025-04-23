@@ -2,6 +2,7 @@ package com.example.buildyourownmeal;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +32,7 @@ public class cart extends AppCompatActivity {
             R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
 
     private RecyclerView recyclerViewCart;
+    private Dialog popUpLogInWarning;
 
     //LOCAL VARIABLE
     private ImageView backBtn;
@@ -54,6 +56,10 @@ public class cart extends AppCompatActivity {
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCart.setNestedScrollingEnabled(false);
 
+        //SHARED PREFERENCE USER SESSION
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        String userRole = userSession.getString("role", "guest");
+
 
         //VARIABLE REFERENCE
         backBtn = findViewById(R.id.backBtn);
@@ -72,12 +78,46 @@ public class cart extends AppCompatActivity {
         //SET TEXT FOR APPBAR
         fragName.setText(R.string.cart);
 
+        //POP UP ALERT
+        popUpLogInWarning = new Dialog(this);
+        popUpLogInWarning.setContentView(R.layout.pop_up_login_signup_alert);
+        popUpLogInWarning.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpLogInWarning.setCancelable(true);
+
         //CHECK OUT INTENT
          checkOutBtn.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent intent = new Intent(cart.this, checkout.class);
-                 startActivity(intent);
+                 Button popUpAlertLogInBtn, popUpAlertSignUpBtn;
+
+                 if (userRole.equals("guest")) {
+
+                     popUpLogInWarning.show();
+
+                     popUpAlertLogInBtn = popUpLogInWarning.findViewById(R.id.popUpAlertLogInBtn);
+                     popUpAlertLogInBtn.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                         public void onClick(View v) {
+                                Intent intent = new Intent(cart.this, logIn.class);
+                                popUpLogInWarning.dismiss();
+                                startActivity(intent);
+                         }
+                     });
+
+                     popUpAlertSignUpBtn = popUpLogInWarning.findViewById(R.id.popUpAlertSignUpBtn);
+                     popUpAlertSignUpBtn.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                         public void onClick(View v) {
+                             Intent intent = new Intent(cart.this, signUp.class);
+                             startActivity(intent);
+                         }
+                     });
+
+                 } else if (userRole.equals("user")) {
+                     Intent intent = new Intent(cart.this, checkout.class);
+                     startActivity(intent);
+                 }
              }
          });
     }
