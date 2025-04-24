@@ -54,7 +54,7 @@
                             app:srcCompat="@drawable/emptybentobox" />
 
                         <include
-                            layout="@layout/crafted_meal_addons_layout"/>
+                            layout="@layout/meal_addons_layout"/>
                     </RelativeLayout>
 
 

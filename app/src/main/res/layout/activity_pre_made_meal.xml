@@ -55,7 +55,7 @@
                                 app:srcCompat="@drawable/chickenkaraagemeal" />
 
                             <include
-                                layout="@layout/pre_made_meal_addons_layout"/>
+                                layout="@layout/meal_addons_layout"/>
                         </RelativeLayout>
 
 

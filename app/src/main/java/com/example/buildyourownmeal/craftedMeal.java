@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -29,6 +30,8 @@ public class craftedMeal extends AppCompatActivity {
     private TextView karaagePrice, sisigPrice, veggiePrice, cornPrice, coleslawPrice, hashPrice, gravyPrice, vinegarPrice,
             soySaucePrice, mochiPrice, japFruitSandPrice, waterPrice, coffeeJellyPrice, cucumberLemonPrice;
     private int count = 1; // Initialize count to 1
+
+    private LinearLayout preMadeMealTopSec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,9 @@ public class craftedMeal extends AppCompatActivity {
         coffeeJellyPrice = findViewById(R.id.priceCoffeeJelly);
         cucumberLemonPrice = findViewById(R.id.priceCucumberLemon);
 
+        //ADDON LAYOUT
+        preMadeMealTopSec = findViewById(R.id.preMadeMealTopSec);
+        preMadeMealTopSec.setVisibility(View.GONE);
 
 
         //POP UP ALERT
