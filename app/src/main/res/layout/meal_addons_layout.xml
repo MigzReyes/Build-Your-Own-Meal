@@ -212,6 +212,14 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashChickenKaraage"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
+
                                 <TextView
                                     android:id="@+id/minusBtnChickenKaraage"
                                     android:layout_width="wrap_content"
@@ -219,12 +227,13 @@
                                     android:text="@string/minusSign"
                                     android:textSize="13sp" />
 
+
                                 <TextView
                                     android:id="@+id/quantityValueChickenKaraage"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -323,6 +332,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashTunaSisig"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnTunaSisig"
                                     android:layout_width="wrap_content"
@@ -335,7 +351,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -433,6 +449,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashVeggieBall"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnVeggieBall"
                                     android:layout_width="wrap_content"
@@ -445,7 +468,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -563,6 +586,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashCorn"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnCorn"
                                     android:layout_width="wrap_content"
@@ -575,7 +605,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -674,6 +704,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashColeslaw"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnColeslaw"
                                     android:layout_width="wrap_content"
@@ -686,7 +723,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -785,6 +822,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashHashBrown"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnHashBrown"
                                     android:layout_width="wrap_content"
@@ -797,7 +841,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -915,6 +959,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashGravy"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnGravy"
                                     android:layout_width="wrap_content"
@@ -927,7 +978,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1025,6 +1076,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashVinegar"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnVinegar"
                                     android:layout_width="wrap_content"
@@ -1037,7 +1095,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1135,6 +1193,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashSoySauce"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnSoySauce"
                                     android:layout_width="wrap_content"
@@ -1147,7 +1212,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1264,6 +1329,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashMochi"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnMochi"
                                     android:layout_width="wrap_content"
@@ -1276,7 +1348,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1374,6 +1446,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashJapFruitSand"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnJapFruitSand"
                                     android:layout_width="wrap_content"
@@ -1386,7 +1465,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1503,6 +1582,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashWater"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnWater"
                                     android:layout_width="wrap_content"
@@ -1515,7 +1601,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1613,6 +1699,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashCoffeeJelly"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnCoffeeJelly"
                                     android:layout_width="wrap_content"
@@ -1625,7 +1718,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -1723,6 +1816,13 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="3dp">
 
+                                <ImageView
+                                    android:id="@+id/trashCucumberLemon"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/trashicon"/>
+
                                 <TextView
                                     android:id="@+id/minusBtnCucumberLemon"
                                     android:layout_width="wrap_content"
@@ -1735,7 +1835,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginHorizontal="10dp"
-                                    android:text="@string/one"
+                                    android:text="@string/zero"
                                     android:textSize="13sp" />
 
                                 <TextView

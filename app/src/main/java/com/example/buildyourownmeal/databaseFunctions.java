@@ -1,31 +1,39 @@
 package com.example.buildyourownmeal;
 
-import static androidx.core.app.NotificationCompat.getColor;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import java.sql.SQLClientInfoException;
+import java.util.HashMap;
 
 public class databaseFunctions extends SQLiteOpenHelper {
 
+    //HASHMAPS
+    private static HashMap<String, Integer> addonPrice = new HashMap<String, Integer>();
+    private static HashMap<String, String> addonName = new HashMap<String, String>();
     private static final String LOG_ALERT_TAG = "database";
     private static final String DATABASE_NAME = "myDb";
     private static final String TABLE_ACCOUNT = "account";
-    private final Context context;
+    private static final String TABLE_USER_ORDER = "user_order";
+    private static final String TABLE_ORDER_ADDON = "order_addon";
+    private static final String TABLE_ADMIN_MENU = "admin_menu";
+    private static final String TABLE_RICE = "rice";
+    private static final String TABLE_MAIN_DISH = "main_dish";
+    private static final String TABLE_SIDE = "side_dish";
+    private static final String TABLE_SAUCE = "sauce";
+    private static final String TABLE_DESSERT = "dessert";
+    private static final String TABLE_DRINK = "drink";
 
 
     public databaseFunctions(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
-        this.context = context;
+        insertAddonHashPrice();
+        insertAddonHashName();
     }
 
     @Override
@@ -38,22 +46,94 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "contactNumber TEXT UNIQUE, " +
                 "role TEXT, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
+        myDb.execSQL("create Table " + TABLE_USER_ORDER + " (" +
+                "userOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "orderAddonId INTEGER, " +
+                "userId INTEGER, " +
+                "mealType TEXT, " +
+                "orderTotalPrice INTEGER, " +
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
+        myDb.execSQL("create Table " + TABLE_ORDER_ADDON + " (" +
+                "orderAddonId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userId INTEGER, " +
+                "addon TEXT, " +
+                "quantity INTEGER, " +
+                "price INTEGER, " +
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
+        myDb.execSQL("create Table " + TABLE_RICE + " (riceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "img BLOB, " +
+                "price int)");
+
+        myDb.execSQL("create Table " + TABLE_MAIN_DISH + " (mainDishId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "img BLOB, " +
+                "price int)");
+
+        myDb.execSQL("create Table " + TABLE_SIDE + " (sideDishId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "img BLOB, " +
+                "price int)");
+
+        myDb.execSQL("create Table " + TABLE_SAUCE + " (sauceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "img BLOB, " +
+                "price int)");
+
+        myDb.execSQL("create Table " + TABLE_DESSERT + " (dessertId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "img BLOB, " +
+                "price int)");
+
+        myDb.execSQL("create Table " + TABLE_DRINK + " (drinkId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "img BLOB, " +
+                "price int)");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase myDb, int oldVersion, int newVersion) {
         myDb.execSQL("drop Table if exists " + TABLE_ACCOUNT);
+        myDb.execSQL("drop Table if exists " + TABLE_USER_ORDER);
+        myDb.execSQL("drop Table if exists " + TABLE_ORDER_ADDON);
+        myDb.execSQL("drop Table if exists " + TABLE_RICE);
+        myDb.execSQL("drop Table if exists " + TABLE_MAIN_DISH);
+        myDb.execSQL("drop Table if exists " + TABLE_SIDE);
+        myDb.execSQL("drop Table if exists " + TABLE_SAUCE);
+        myDb.execSQL("drop Table if exists " + TABLE_DESSERT);
+        myDb.execSQL("drop Table if exists " + TABLE_DRINK );
     }
 
-    public Boolean deleteQuery(String tableName, int id) {
+    //DELETE QUERY
+    public Boolean deleteAccount(String tableName, int id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        //FIX THIS CUASE IT ONLY WORKS FOR ACCOUNT TABLE
         long result = myDb.delete(tableName, "userId = ?", new String[]{String.valueOf(id)});
 
         return result != 0;
     }
 
-    public Boolean insertData(String username, String email, String password, String role) {
+
+    //INSERT QUERY
+    public Boolean insertRice(String addonName, int price) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", addonName);
+        contentValues.put("price", price);
+        long result = myDb.insert(TABLE_RICE, null, contentValues);
+
+        if (result == 0) {
+            Log.d(LOG_ALERT_TAG, "Insert data failed: Addon already exist");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Boolean insertUserData(String username, String email, String password, String role) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
@@ -71,6 +151,73 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean insertOrderData(int orderAddonId, int userId, String mealType, int orderTotalPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("orderAddonId", orderAddonId);
+        contentValues.put("userId", userId);
+        contentValues.put("mealType", mealType);
+        contentValues.put("orderTotalPrice", orderTotalPrice);
+        long result = myDb.insert(TABLE_USER_ORDER, null, contentValues);
+
+        if (result == 0) {
+            Log.d(LOG_ALERT_TAG, "Insert data failed");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Boolean insertAddonData(int userId, String addon, int quantity, int price) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("addon", addon);
+        contentValues.put("quantity", quantity);
+        contentValues.put("price", price);
+        long result = myDb.insert(TABLE_ORDER_ADDON, null, contentValues);
+
+        if (result == 0) {
+            Log.d(LOG_ALERT_TAG, "Insert data failed");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void insertAddonHashPrice() {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_RICE, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    int getAddonPrice = cursor.getColumnIndexOrThrow("price");
+                    addonPrice.put(cursor.getString(cursor.getColumnIndexOrThrow("name")), cursor.getInt(getAddonPrice));
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        myDb.close();
+    }
+
+    private void insertAddonHashName() {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_RICE, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    addonName.put(cursor.getString(cursor.getColumnIndexOrThrow("name")), cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        myDb.close();
+    }
+
+
+    //UPDATE QUERY
     public Boolean updateUsername(int userId, String username) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -108,11 +255,29 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
 
+    //GET QUERY
+    public static int getAddonPrice(String addonName) {
+        Integer price = addonPrice.get(addonName);
+        return price != null ? price : 0;
+    }
+
+    public static String getAddonName(String name) {
+        String nameAddon = addonName.get(name);
+        return nameAddon != null ? nameAddon : "no addon";
+    }
+
     public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
     }
 
+    public Cursor getAddonData(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
+
+    //QUERY VALIDATION
     public Boolean checkUserId(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("SELECT userId FROM " + TABLE_ACCOUNT + " WHERE userId = ? LIMIT 1", new String[]{String.valueOf(userId)});

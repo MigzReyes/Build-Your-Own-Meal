@@ -97,7 +97,7 @@ public class account extends AppCompatActivity {
                 deleteAccBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        databaseFunctions.deleteQuery("account", getUserId);
+                        databaseFunctions.deleteAccount("account", getUserId);
                         editor.clear();
                         editor.apply();
                         Intent intent = new Intent(account.this, introduction_screen.class);
