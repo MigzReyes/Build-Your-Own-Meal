@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +42,7 @@ public class craftedMeal extends AppCompatActivity {
             addSoySauce, addMochi, addJapFruitSand, addWater, addCoffeeJelly, addCucumberLemon;
     private TextView minusKaraage, minusSisig, minusVeggie, minusCorn, minusColeslaw, minusHash, minusGravy, minusVinegar,
             minusSoySauce, minusMochi, minusJapFruitSand, minusWater, minusCoffeeJelly, minusCucumberLemon;
-    private ImageView trashKaraage, trashSisig, trashVeggie, trashCorn, trashColeslaw, trashHash, trashGravy, trashVinegar,
+    private ImageView emptyBentoBox, trashKaraage, trashSisig, trashVeggie, trashCorn, trashColeslaw, trashHash, trashGravy, trashVinegar,
             trashSoySauce, trashMochi, trashJapFruitSand, trashWater, trashCoffeeJelly, trashCucumberLemon;
     private int quantityValue = 0 , quantityKaraage = 0, quantitySisig = 0, quantityVeggie = 0, quantityCorn = 0, quantityColeslaw = 0, quantityHash = 0,
                 quantityGravy = 0, quantityVinegar = 0, quantitySoySauce = 0, quantityMochi = 0, quantityJapFruitSand = 0, quantityWater = 0,
@@ -64,6 +66,12 @@ public class craftedMeal extends AppCompatActivity {
 
         //ORDER BTN
         addBtn = findViewById(R.id.addBtn);
+
+        //MEAL IMAGE
+        emptyBentoBox = findViewById(R.id.emptyBentoBox);
+        BitmapDrawable getBitmap = (BitmapDrawable) emptyBentoBox.getDrawable();
+        Bitmap bitmap = getBitmap.getBitmap();
+
 
         //QUANTITY
         karaage = findViewById(R.id.quantityValueChickenKaraage);
@@ -226,7 +234,7 @@ public class craftedMeal extends AppCompatActivity {
                                     String quantity = getAddonData.getString(getAddonData.getColumnIndexOrThrow("quantity"));
                                     int price = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
 
-                                    boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, MEAL_TYPE, price);
+                                    boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, bitmap, MEAL_TYPE, price);
                                     if (insertOrderData) {
                                         Intent intent = new Intent(craftedMeal.this, cart.class);
                                         startActivity(intent);

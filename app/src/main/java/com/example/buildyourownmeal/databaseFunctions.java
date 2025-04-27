@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 public class databaseFunctions extends SQLiteOpenHelper {
@@ -51,6 +53,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "userOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "orderAddonId INTEGER, " +
                 "userId INTEGER, " +
+                "mealImg BLOB, " +
                 "mealType TEXT, " +
                 "orderTotalPrice INTEGER, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
@@ -127,8 +130,10 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
         if (result == 0) {
             Log.d(LOG_ALERT_TAG, "Insert data failed: Addon already exist");
+            myDb.close();
             return false;
         } else {
+            myDb.close();
             return true;
         }
     }
@@ -145,25 +150,33 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
         if (result == 1) {
             Log.d(LOG_ALERT_TAG, "Insert data failed");
+            myDb.close();
             return false;
         } else {
+            myDb.close();
             return true;
         }
     }
 
-    public Boolean insertOrderData(int orderAddonId, int userId, String mealType, int orderTotalPrice) {
+    public Boolean insertOrderData(int orderAddonId, int userId, Bitmap mealImg, String mealType, int orderTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
         contentValues.put("orderAddonId", orderAddonId);
         contentValues.put("userId", userId);
+        contentValues.put("mealImg", byteArray);
         contentValues.put("mealType", mealType);
         contentValues.put("orderTotalPrice", orderTotalPrice);
         long result = myDb.insert(TABLE_USER_ORDER, null, contentValues);
 
-        if (result == 0) {
+        if (result == -1) {
             Log.d(LOG_ALERT_TAG, "Insert data failed");
+            myDb.close();
             return false;
         } else {
+            myDb.close();
             return true;
         }
     }
@@ -177,10 +190,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
         contentValues.put("price", price);
         long result = myDb.insert(TABLE_ORDER_ADDON, null, contentValues);
 
-        if (result == 0) {
+        if (result == -1) {
             Log.d(LOG_ALERT_TAG, "Insert data failed");
+            myDb.close();
             return false;
         } else {
+            myDb.close();
             return true;
         }
     }
