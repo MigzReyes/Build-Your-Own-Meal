@@ -1,11 +1,13 @@
 package com.example.buildyourownmeal;
 
+import java.util.ArrayList;
+
 public class recyclerCartModel {
-    private int cartItemImg;
-    private String cartItemName, cartItemPrice;
+    private int cartItemImg, cartItemPrice;
+    private ArrayList<String> cartItemName;
 
 
-    public recyclerCartModel(int cartItemImg, String cartItemPrice, String cartItemName) {
+    public recyclerCartModel(int cartItemImg, int cartItemPrice, ArrayList<String> cartItemName) {
         this.cartItemImg = cartItemImg;
         this.cartItemPrice = cartItemPrice;
         this.cartItemName = cartItemName;
@@ -15,11 +17,11 @@ public class recyclerCartModel {
         return cartItemImg;
     }
 
-    public String getCartItemPrice() {
+    public int getCartItemPrice() {
         return cartItemPrice;
     }
 
-    public String getCartItemName() {
+    public ArrayList<String> getCartItemName() {
         return cartItemName;
     }
 }

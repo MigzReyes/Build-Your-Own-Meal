@@ -3,6 +3,10 @@ package com.example.buildyourownmeal;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -26,12 +32,16 @@ import java.util.ArrayList;
 
 public class cart extends AppCompatActivity {
 
+    //DATABASE
+    databaseFunctions databaseFunctions;
+
     //RECYCLER
     private ArrayList<recyclerCartModel> recyclerCartModelArrayList = new ArrayList<>();
-    private int[] cartItemImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
-            R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
-
+    private ArrayList<String> cartItemName;
+    private ArrayList<Integer> cartItemPrice;
+    private ArrayList<Bitmap> cartItemImg;
     private RecyclerView recyclerViewCart;
+
     private Dialog popUpLogInWarning;
 
     //LOCAL VARIABLE
@@ -39,6 +49,7 @@ public class cart extends AppCompatActivity {
     private TextView fragName;
     private Button checkOutBtn;
     private LinearLayout changeSchedCon;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +57,27 @@ public class cart extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
-        //REYCLER VIEW
-        recyclerViewCart = findViewById(R.id.recyclerViewCart);
-
-        setUpCartModel();
-
-        recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, recyclerCartModelArrayList);
-        recyclerViewCart.setAdapter(recyclerViewAdapterCart);
-        recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
 
         //SHARED PREFERENCE USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         String userRole = userSession.getString("role", "guest");
+        userId = userSession.getInt("userId", 0);
+
+        //RECYCLER VIEW
+        cartItemName = new ArrayList<>();
+        cartItemPrice = new ArrayList<>();
+        cartItemImg = new ArrayList<>();
+        recyclerViewCart = findViewById(R.id.recyclerViewCart);
+
+        Log.d("USERID", String.valueOf(userId));
+        setUpCartModel();
+
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, cartItemName, cartItemPrice, cartItemImg);
+        recyclerViewCart.setAdapter(recyclerViewAdapterCart);
+
 
 
         //VARIABLE REFERENCE
@@ -122,11 +142,18 @@ public class cart extends AppCompatActivity {
     }
 
     private void setUpCartModel () {
-        String[] cartItemName = getResources().getStringArray(R.array.comboMealName);
-        String[] cartItemPrice = getResources().getStringArray(R.array.cartItemPrices);
+        Cursor getUserOrder = databaseFunctions.getUserOrder(userId);
 
-        for (int i = 0; i < cartItemName.length; i++) {
-            recyclerCartModelArrayList.add(new recyclerCartModel(cartItemImg[i], cartItemPrice[i], cartItemName[i]));
+        if (getUserOrder != null && getUserOrder.moveToFirst()) {
+            do {
+                cartItemPrice.add(getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice")));
+                cartItemName.add(getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType")));
+                int dbUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
+                Bitmap getMealImgBit = databaseFunctions.getImg(dbUserId);
+                cartItemImg.add(getMealImgBit);
+            } while (getUserOrder.moveToNext());
+            getUserOrder.close();
         }
+
     }
 }

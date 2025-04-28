@@ -220,24 +220,28 @@ public class craftedMeal extends AppCompatActivity {
 
                     //PARSE PRICE INT
 
+                        boolean getRice = databaseFunctions.insertRice("rice", 20);
                         int ricePrice = databaseFunctions.getAddonPrice("rice");
                         String addonName = databaseFunctions.getAddonName("rice");
-                        if (karaageInt >= 1) {
-                            boolean insertAddonData = databaseFunctions.insertAddonData(userId, addonName, karaageInt, ricePrice);
 
-                            if (insertAddonData) {
-                                Cursor getAddonData = databaseFunctions.getAddonData(userId);
+                        if (getRice) {
+                            if (karaageInt >= 1) {
+                                boolean insertAddonData = databaseFunctions.insertAddonData(userId, addonName, karaageInt, ricePrice);
 
-                                if (getAddonData != null && getAddonData.moveToFirst()) {
-                                    int getAddonId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("orderAddonId"));
-                                    String addon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
-                                    String quantity = getAddonData.getString(getAddonData.getColumnIndexOrThrow("quantity"));
-                                    int price = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
+                                if (insertAddonData) {
+                                    Cursor getAddonData = databaseFunctions.getAddonData(userId);
 
-                                    boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, bitmap, MEAL_TYPE, price);
-                                    if (insertOrderData) {
-                                        Intent intent = new Intent(craftedMeal.this, cart.class);
-                                        startActivity(intent);
+                                    if (getAddonData != null && getAddonData.moveToFirst()) {
+                                        int getAddonId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("orderAddonId"));
+                                        String addon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
+                                        String quantity = getAddonData.getString(getAddonData.getColumnIndexOrThrow("quantity"));
+                                        int price = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
+
+                                        boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, bitmap, MEAL_TYPE, price);
+                                        if (insertOrderData) {
+                                            Intent intent = new Intent(craftedMeal.this, cart.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
                             }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -53,7 +54,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "userOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "orderAddonId INTEGER, " +
                 "userId INTEGER, " +
-                "mealImg BLOB, " +
+                "mealImg TEXT, " +
                 "mealType TEXT, " +
                 "orderTotalPrice INTEGER, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
@@ -148,7 +149,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         long result = myDb.insert(TABLE_ACCOUNT, null, contentValues);
 
 
-        if (result == 1) {
+        if (result == -1) {
             Log.d(LOG_ALERT_TAG, "Insert data failed");
             myDb.close();
             return false;
@@ -271,9 +272,14 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getUserOrder(int userId) {
+        SQLiteDatabase myDb = this.getReadableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_USER_ORDER + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
     public static int getAddonPrice(String addonName) {
         Integer price = addonPrice.get(addonName);
-        return price != null ? price : 0;
+        return price != null ? price : 10;
     }
 
     public static String getAddonName(String name) {
@@ -281,15 +287,27 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return nameAddon != null ? nameAddon : "no addon";
     }
 
-    public Cursor getUserInfo(String email) {
+    public Cursor getAddonData(int userId) {
+        SQLiteDatabase myDb = this.getReadableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
+    public Bitmap getImg(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT mealImg FROM " + TABLE_USER_ORDER + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            byte[] byteArray = cursor.getBlob(0);
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        }
+        cursor.close();
+        return null;
+    }
+
+    public Cursor getUserInfo(String email) {
+        SQLiteDatabase myDb = this.getReadableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
     }
 
-    public Cursor getAddonData(int userId) {
-        SQLiteDatabase myDb = this.getWritableDatabase();
-        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE userId = ?", new String[]{String.valueOf(userId)});
-    }
 
 
     //QUERY VALIDATION
