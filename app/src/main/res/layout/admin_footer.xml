@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="200dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView163"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/appYear"
+        android:textColor="@color/greyLetters"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/home"
+            android:textColor="@color/greyLetters"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/menu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="@string/menu"
+            android:textColor="@color/greyLetters"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/aboutUs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:text="@string/aboutUs"
+            android:textColor="@color/greyLetters"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</LinearLayout>

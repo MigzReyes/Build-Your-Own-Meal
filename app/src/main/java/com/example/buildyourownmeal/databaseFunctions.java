@@ -139,6 +139,18 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean insertAdminData() {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username", "admin");
+        contentValues.put("email", "admin@gmail.com");
+        contentValues.put("password", "AdminSamplePass");
+        contentValues.put("role", "admin");
+        long result = myDb.insert(TABLE_ACCOUNT, null, contentValues);
+
+        return result != -1;
+    }
+
     public Boolean insertUserData(String username, String email, String password, String role) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

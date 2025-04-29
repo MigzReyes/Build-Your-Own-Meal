@@ -5,6 +5,7 @@
     <color name="black">#090000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#F2F2FB</color>
+    <color name="filterGrey">#D9D9D9</color>
     <color name="greyBg">#F3F3F3</color>
     <color name="light_gray">#F5F5F5</color>
     <color name="wasabi_green">#B7CB69</color>
@@ -17,6 +18,7 @@
     <color name="egg_roll_light_yellow">#DEA848</color>
     <color name="bento_box_maroon">#8B0002</color>
     <color name="bento_box_dark_maroon">#520004</color>
+    <color name="blue">#2579D6</color>
 
     //BUTTONS
     <color name="btnColor">#090000</color>

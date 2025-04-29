@@ -1,5 +1,6 @@
 <resources>
     <string name="appName">Craft Your Feast</string>
+    <string name="appYear">\u00A9 2025</string>
     <string name="open_sidebar">open sidebar</string>
     <string name="close_sidebar">close sidebar</string>
 
@@ -33,7 +34,30 @@
     <string name="hello">Hello,</string>
     <string name="Welcome">Welcome,</string>
     <string name="user">User</string>
+    <string name="admin">Admin</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="orders">Orders</string>
+    <string name="accounts">Accounts</string>
+    <string name="meals">Meals</string>
+    <string name="customerName">Customer Name:</string>
+    <string name="adminContactNumber">Contact Number:</string>
+    <string name="customerEmail">Customer Email:</string>
+    <string name="dateTime">Date &amp; Time:</string>
+    <string name="totalPrice">Total Price:</string>
+    <string name="status">Status:</string>
+    <string name="setStatus">Set Status</string>
+    <string name="seeOrder">See Order</string>
     <string name="craftNow">CRAFT NOW</string>
+    <string name="sampleName">Migz Reyes</string>
+    <string name="sampleContact">09948751671</string>
+    <string name="sampleEmail">migz@gmail.com</string>
+    <string name="sampleDate">April 25, 2025, 12:00 AM</string>
+    <string name="samplePrice">350</string>
+    <string name="sampleStatus">Processing</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="filterPrice">Price</string>
+    <string name="filterStatus">Status</string>
     <string name="craft">Craft</string>
     <string name="saveChangesToYourAccount">Save changes to your account information?</string>
     <string name="deleteAccount">Delete account</string>

@@ -70,7 +70,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
 
         sideNavUsername = headerView.findViewById(R.id.helloUserSideNav);
 
-        //SHARED PREFERENCE CONNECTION
         //SHARED PREFERENCE FOR USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
@@ -84,8 +83,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         }
 
 
-        //BOTTOM NAVBAR
-        //HOOK
         //BOTTOM NAVBAR
         //HOOK
         ImageView navHome, navMenu, navCart, navAboutUs;

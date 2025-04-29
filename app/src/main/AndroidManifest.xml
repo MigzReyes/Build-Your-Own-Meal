@@ -11,8 +11,28 @@
         android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BuildYourOwnMeal"
+        android:theme="@style/Base.Theme.BuildYourOwnMeal"
         tools:targetApi="33">
+        <activity
+            android:name=".adminAccounts"
+            android:theme="@style/admin"
+            android:exported="false" />
+        <activity
+            android:name=".adminMenu"
+            android:theme="@style/admin"
+            android:exported="false" />
+        <activity
+            android:name=".adminMeals"
+            android:theme="@style/admin"
+            android:exported="false" />
+        <activity
+            android:name=".adminOrders"
+            android:theme="@style/admin"
+            android:exported="false" />
+        <activity
+            android:name=".admin"
+            android:theme="@style/admin"
+            android:exported="false" />
         <activity
             android:name=".preMadeMeal"
             android:exported="false" />

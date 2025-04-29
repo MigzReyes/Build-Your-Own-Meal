@@ -5,6 +5,7 @@ import static android.app.PendingIntent.getActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Layout;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 public class signUp extends AppCompatActivity {
 
@@ -44,6 +46,12 @@ public class signUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
+
+        //STATUS BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+            windowInsetsController.setAppearanceLightStatusBars(true);
+        }
 
         //DATABASE DECLARATION;
         databaseFunctions = new databaseFunctions(this);

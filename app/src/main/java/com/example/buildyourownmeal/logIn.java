@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,12 @@ public class logIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
+
+        //STATUS BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+            windowInsetsController.setAppearanceLightStatusBars(true);
+        }
 
         //DATABASE DECLARATION
         databaseFunctions = new databaseFunctions(this);
@@ -130,8 +138,10 @@ public class logIn extends AppCompatActivity {
                                     Intent intent = new Intent(logIn.this, Navbar.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
-                                } else {
-                                    popUpAlert("Debug: You Are An Admin");
+                                } else if (dbRole.equals("admin")){
+                                    Intent intent = new Intent(logIn.this, admin.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
                                 }
 
                             } else {
