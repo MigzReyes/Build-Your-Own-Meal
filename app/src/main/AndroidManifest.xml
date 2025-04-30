@@ -14,25 +14,28 @@
         android:theme="@style/Base.Theme.BuildYourOwnMeal"
         tools:targetApi="33">
         <activity
-            android:name=".adminAccounts"
-            android:theme="@style/admin"
+            android:name=".adminAddEditMeals"
             android:exported="false" />
+        <activity
+            android:name=".adminAccounts"
+            android:exported="false"
+            android:theme="@style/admin" />
         <activity
             android:name=".adminMenu"
-            android:theme="@style/admin"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/admin" />
         <activity
             android:name=".adminMeals"
-            android:theme="@style/admin"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/admin" />
         <activity
             android:name=".adminOrders"
-            android:theme="@style/admin"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/admin" />
         <activity
             android:name=".admin"
-            android:theme="@style/admin"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/admin" />
         <activity
             android:name=".preMadeMeal"
             android:exported="false" />
