@@ -71,11 +71,11 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.adminOrders) {
-            Intent intent = new Intent(this, adminOrders.class);
+        if (id == R.id.adminDashboard) {
+            Intent intent = new Intent(this, admin.class);
             startActivity(intent);
-        } else if (id == R.id.adminMeals) {
-            Intent intent = new Intent(this, adminMeals.class);
+        } else if (id == R.id.adminOrders) {
+            Intent intent = new Intent(this, adminOrders.class);
             startActivity(intent);
         } else if (id == R.id.adminMenu) {
             Intent intent = new Intent(this, adminMenu.class);

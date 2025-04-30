@@ -65,6 +65,9 @@
     <string name="create">Create</string>
     <string name="mealName">Meal Name</string>
     <string name="filterPrice">Price</string>
+    <string name="category">Category</string>
+    <string name="selectCategory">Select Category</string>
+    <string name="add">Add</string>
     <string name="filterStatus">Status</string>
     <string name="craft">Craft</string>
     <string name="saveChangesToYourAccount">Save changes to your account information?</string>
@@ -152,6 +155,7 @@
     <string name="dateDays">1</string>
     <string name="dateMonth">Jan</string>
     <string name="dash">–</string>
+    <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="year">2025</string>
     <string name="orderNo">Order#:</string>
@@ -303,6 +307,7 @@
     <string name="agreePrivacyPolicy">Privacy Policy</string>
     <string name="nameOfMeal">Name: </string>
     <string name="addOn">Add on</string>
+    <string name="rice">RICE</string>
     <string name="mainDish">MAIN DISH</string>
     <string name="sides">SIDES</string>
     <string name="sauce">SAUCES</string>
@@ -311,6 +316,7 @@
     <string name="smallMainDish">Main Dish</string>
     <string name="smallSide">Sides</string>
     <string name="smallSauce">Sauces</string>
+    <string name="addANewItem">+ Add a New Item</string>
     <string name="smallDessert">Dessert</string>
     <string name="smallDrink">Drinks</string>
     <string name="addBtn">ADD TO CART</string>
@@ -328,6 +334,7 @@
     <string name="craftedMeal">Crafted Meals</string>
     <string name="addItems">Add items</string>
     <string name="addItem"><u>Add Item</u></string>
+    <string name="addItemNoUnder">Add item</string>
     <string name="paymentMethod">Payment Method</string>
     <string name="cash">Cash</string>
     <string name="ePay">E–payment</string>
