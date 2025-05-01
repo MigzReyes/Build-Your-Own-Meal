@@ -38,6 +38,7 @@
     <string name="dashboard">Dashboard</string>
     <string name="orders">Orders</string>
     <string name="accounts">Accounts</string>
+    <string name="account">Account</string>
     <string name="meals">Meals</string>
     <string name="customerName">Customer Name:</string>
     <string name="adminContactNumber">Contact Number:</string>
@@ -68,6 +69,15 @@
     <string name="category">Category</string>
     <string name="selectCategory">Select Category</string>
     <string name="add">Add</string>
+    <string name="userList">User List</string>
+    <string name="addUser">Add User</string>
+    <string name="ban">Ban:</string>
+    <string name="banNoColon">Ban</string>
+    <string name="role">Role:</string>
+    <string name="roleNoColon">Role</string>
+    <string name="banTrue">True</string>
+    <string name="banFalse">False</string>
+
     <string name="filterStatus">Status</string>
     <string name="craft">Craft</string>
     <string name="saveChangesToYourAccount">Save changes to your account information?</string>
@@ -286,10 +296,12 @@
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="password">Password</string>
+    <string name="passwordColon">Password:</string>
     <string name="conPassword">Confirm Password</string>
     <string name="deleteMyAccount">Delete my account</string>
     <string name="passwordSample">************</string>
     <string name="email">Email</string>
+    <string name="emailColon">Email:</string>
     <string name="emailEx">user@example.com</string>
     <string name="contact">Contact</string>
     <string name="customerChoice">Customer Choice</string>

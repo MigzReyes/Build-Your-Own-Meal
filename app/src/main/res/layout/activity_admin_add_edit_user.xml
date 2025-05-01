@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:context=".adminAddEditUser">
+
+    <include
+        android:id="@+id/incToolbar"
+        layout="@layout/sidebartoolbar"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/greyBg"
+        app:layout_constraintTop_toBottomOf="@id/incToolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView234"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:text="@string/account"
+                android:textSize="20sp"
+                android:textColor="@color/blackBoldLetters"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/adminAddEditAccountText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/addUser"
+                        android:textSize="20sp"
+                        android:textColor="@color/blackBoldLetters"
+                        android:fontFamily="@font/inter_18pt_bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView238"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/name"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:textColor="@color/blackBoldLetters" />
+
+                        <EditText
+                            android:id="@+id/accountUsername"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/admin_edit_text_field_bg"
+                            android:hint="@null"
+                            android:inputType="text"
+                            android:paddingHorizontal="3dp"
+                            android:paddingVertical="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView240"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:textColor="@color/blackBoldLetters" />
+
+                        <EditText
+                            android:id="@+id/accountEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/admin_edit_text_field_bg"
+                            android:hint="@null"
+                            android:inputType="textEmailAddress"
+                            android:paddingHorizontal="3dp"
+                            android:paddingVertical="5dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView242"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/contactNumber"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:textColor="@color/blackBoldLetters" />
+
+                        <EditText
+                            android:id="@+id/accountContactNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/admin_edit_text_field_bg"
+                            android:hint="@null"
+                            android:inputType="phone"
+                            android:paddingHorizontal="3dp"
+                            android:paddingVertical="5dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView247"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/password"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:textColor="@color/blackBoldLetters" />
+
+                        <EditText
+                            android:id="@+id/accountPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/admin_edit_text_field_bg"
+                            android:hint="@null"
+                            android:inputType="textPassword"
+                            android:paddingHorizontal="3dp"
+                            android:paddingVertical="5dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView246"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/banNoColon"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:textColor="@color/blackBoldLetters" />
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/banTrue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="30dp"
+                                android:text="@string/banTrue"
+                                android:fontFamily="@font/inter_18pt_regular"
+                                android:textColor="@color/blackBoldLetters"
+                                android:buttonTint="@color/black"/>
+
+                            <RadioButton
+                                android:id="@+id/banFalse"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/banFalse"
+                                android:fontFamily="@font/inter_18pt_regular"
+                                android:textColor="@color/blackBoldLetters"
+                                android:buttonTint="@color/black" />
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView245"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/roleNoColon"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:textColor="@color/blackBoldLetters" />
+
+                        <TextView
+                            android:id="@+id/rolePicker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/admin_edit_text_field_bg"
+                            android:drawableEnd="@drawable/dropdown_resize"
+                            android:fontFamily="@font/inter_18pt_regular"
+                            android:paddingHorizontal="3dp"
+                            android:paddingVertical="5dp"
+                            android:text="@string/user"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/addUserBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/addUser"
+                        android:background="@drawable/large_btn_main_color"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include
+                layout="@layout/admin_footer"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
