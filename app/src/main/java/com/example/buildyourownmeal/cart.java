@@ -38,7 +38,6 @@ public class cart extends AppCompatActivity {
     databaseFunctions databaseFunctions;
 
     //RECYCLER
-    private ArrayList<recyclerCartModel> recyclerCartModelArrayList = new ArrayList<>();
     private ArrayList<String> cartItemName;
     private ArrayList<Integer> cartItemPrice;
     private ArrayList<Bitmap> cartItemImg;
@@ -79,7 +78,6 @@ public class cart extends AppCompatActivity {
         cartItemImg = new ArrayList<>();
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
 
-        Log.d("USERID", String.valueOf(userId));
         setUpCartModel();
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));

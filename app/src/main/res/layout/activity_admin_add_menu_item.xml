@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/greyBg"
-    tools:context=".adminAddEditMenuItem">
+    tools:context=".adminAddMenuItem">
 
     <include
         android:id="@+id/sideBarToolBar"

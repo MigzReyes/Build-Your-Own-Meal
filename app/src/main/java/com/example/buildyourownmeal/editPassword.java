@@ -24,12 +24,12 @@ import androidx.core.view.WindowInsetsControllerCompat;
 public class editPassword extends AppCompatActivity {
 
     //VARIABLE DECLARATION
-    databaseFunctions databaseFunctions;
+    private databaseFunctions databaseFunctions;
     private Dialog popUpAlert;
-    ImageView backBtn;
-    TextView sideBarActName, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber;
-    EditText currentPassword, newPassword, confirmPassword;
-    Button saveBtn;
+    private ImageView backBtn;
+    private TextView sideBarActName, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber;
+    private EditText currentPassword, newPassword, confirmPassword;
+    private Button saveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

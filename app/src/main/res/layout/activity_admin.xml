@@ -129,7 +129,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
-                                    android:id="@+id/textView42"
+                                    android:id="@+id/mealsDashboardCount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/one"
@@ -177,7 +177,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
-                                    android:id="@+id/textView68"
+                                    android:id="@+id/menuDashboardCount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/one"
@@ -226,7 +226,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
-                                    android:id="@+id/textView162"
+                                    android:id="@+id/accountDashboardCount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/one"

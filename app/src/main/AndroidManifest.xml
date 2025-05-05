@@ -14,13 +14,16 @@
         android:theme="@style/Base.Theme.BuildYourOwnMeal"
         tools:targetApi="33">
         <activity
-            android:name=".adminAddEditUser"
+            android:name=".adminEditUser"
             android:exported="false" />
         <activity
-            android:name=".adminAddEditMenuItem"
+            android:name=".adminAddUser"
             android:exported="false" />
         <activity
-            android:name=".adminAddEditMeals"
+            android:name=".adminAddMenuItem"
+            android:exported="false" />
+        <activity
+            android:name=".adminAddMeals"
             android:exported="false" />
         <activity
             android:name=".adminAccounts"

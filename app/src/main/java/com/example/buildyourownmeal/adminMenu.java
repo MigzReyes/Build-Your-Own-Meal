@@ -12,10 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -60,7 +57,7 @@ public class adminMenu extends AppCompatActivity implements NavigationView.OnNav
         addNewMealBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(adminMenu.this, adminAddEditMenuItem.class);
+                Intent intent = new Intent(adminMenu.this, adminAddMenuItem.class);
                 startActivity(intent);
             }
         });

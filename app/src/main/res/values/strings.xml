@@ -77,7 +77,7 @@
     <string name="roleNoColon">Role</string>
     <string name="banTrue">True</string>
     <string name="banFalse">False</string>
-
+    <string name="editUser">Edit User</string>
     <string name="filterStatus">Status</string>
     <string name="craft">Craft</string>
     <string name="saveChangesToYourAccount">Save changes to your account information?</string>
@@ -380,6 +380,13 @@
     <string name="thirty">30</string>
 
 
+    //DROPDOWN USER ROLE
+    <string-array name="userRole">
+        <item>User</item>
+        <item>Admin</item>
+    </string-array>
+
+
     //TEXT MENU
     <string name="whiteRice">White Rice</string>
 
@@ -458,6 +465,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="noUpdatedInfo">There is no new updated information</string>
     <string name="contactNumberIsAlreadyInUsed">Contact number is already in used</string>
     <string name="currentPasswordCannotBeTheSameAsNewPassword">Current password cannot be the same as the new password</string>
     <string name="sorryCanNotGetUserInfo">Sorry cannot get user info</string>

@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -24,13 +26,27 @@ import com.google.android.material.navigation.NavigationView;
 
 public class admin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    //DATABASE
+    private databaseFunctions databaseFunctions;
     private DrawerLayout drawerLayout;
+    private TextView ordersDashboardCount, mealsDashboardCount, menuDashboardCount, accountDashboardCount;
+
+    private int numAccount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin);
+
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
+
+        //REFERENCE
+        ordersDashboardCount = findViewById(R.id.ordersDashboardCount);
+        mealsDashboardCount = findViewById(R.id.mealsDashboardCount);
+        menuDashboardCount = findViewById(R.id.menuDashboardCount);
+        accountDashboardCount = findViewById(R.id.accountDashboardCount);
 
         //STATUS BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -52,6 +68,21 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
         toolbar.setNavigationOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+        //ACCOUNT COUNT
+        numberOfAccount();
+        accountDashboardCount.setText(String.valueOf(numAccount));
+
+    }
+
+    private void numberOfAccount() {
+        Cursor getNumUser = databaseFunctions.getAllUser();
+
+        if (getNumUser != null && getNumUser.moveToFirst()) {
+            do {
+                numAccount++;
+            } while (getNumUser.moveToNext());
+        }
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -121,6 +122,8 @@ public class logIn extends AppCompatActivity {
 
                             if (cursor != null && cursor.moveToFirst()) {
                                 //DATABASE GETTER
+                                String getDbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+                                Log.d("Check Role", getDbRole);
                                 int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
                                 String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
                                 String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
@@ -132,7 +135,7 @@ public class logIn extends AppCompatActivity {
                                     editor.putString("username", dbUsername);
                                     editor.putString("email", getEmail);
                                     editor.putString("password", getPass);
-                                    editor.putString("role", "user");
+                                    editor.putString("role", dbRole);
                                     editor.putBoolean("isUserLoggedIn", true);
                                     editor.apply();
                                     Intent intent = new Intent(logIn.this, Navbar.class);
