@@ -71,32 +71,44 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("create Table " + TABLE_RICE + " (riceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "img BLOB, " +
-                "price int)");
+                "price int, " +
+                "category TEXT, " +
+                "imgUri TEXT)");
 
         myDb.execSQL("create Table " + TABLE_MAIN_DISH + " (mainDishId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "img BLOB, " +
-                "price int)");
+                "price int, " +
+                "category TEXT, " +
+                "imgUri TEXT)");
 
         myDb.execSQL("create Table " + TABLE_SIDE + " (sideDishId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "img BLOB, " +
-                "price int)");
+                "price int, " +
+                "category TEXT, " +
+                "imgUri TEXT)");
 
         myDb.execSQL("create Table " + TABLE_SAUCE + " (sauceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "img BLOB, " +
-                "price int)");
+                "price int, " +
+                "category TEXT, " +
+                "imgUri TEXT)");
 
         myDb.execSQL("create Table " + TABLE_DESSERT + " (dessertId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "img BLOB, " +
-                "price int)");
+                "price int, " +
+                "category TEXT, " +
+                "imgUri TEXT)");
 
         myDb.execSQL("create Table " + TABLE_DRINK + " (drinkId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "img BLOB, " +
-                "price int)");
+                "price int, " +
+                "category TEXT, " +
+                "imgUri TEXT)");
 
     }
 
@@ -114,6 +126,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     //DELETE QUERY
+    public Boolean deleteAddon(String addonTable, String addonIdColName, int addonId, String category) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(addonTable, addonIdColName + " = ? AND category = ?", new String[]{String.valueOf(addonId), category});
+
+        return result != 0;
+    }
+
     public Boolean deleteAccount(String tableName, int id) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         long result = myDb.delete(tableName, "userId = ?", new String[]{String.valueOf(id)});
@@ -123,15 +142,21 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
-    public Boolean insertRice(String addonName, int price) {
+    public Boolean insertAdminAddonData(String addonTable, Bitmap addonImg, String addonName, int addonPrice, String imgUri, String category) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        addonImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("img", byteArray);
         contentValues.put("name", addonName);
-        contentValues.put("price", price);
-        long result = myDb.insert(TABLE_RICE, null, contentValues);
+        contentValues.put("price", addonPrice);
+        contentValues.put("category", category);
+        contentValues.put("imgUri", imgUri);
+        long result = myDb.insert(addonTable, null, contentValues);
 
         if (result == 0) {
-            Log.d(LOG_ALERT_TAG, "Insert data failed: Addon already exist");
+            Log.d(LOG_ALERT_TAG, "Insert data failed");
             myDb.close();
             return false;
         } else {
@@ -271,6 +296,30 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     //UPDATE QUERY
 
+    public Boolean updateAddon(String addonTable, String addonIdColName, int addonId, String category, String addonName, int addonPrice, Bitmap addonImg) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        addonImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("name", addonName);
+        contentValues.put("price", addonPrice);
+        contentValues.put("img", byteArray);
+        long result = myDb.update(addonTable, contentValues,  addonIdColName + " = ? AND category = ?", new String[]{String.valueOf(addonId), category});
+
+        return result != 0;
+    }
+
+    public Boolean updateAddonNoImg(String addonTable, String addonIdColName , int addonId, String category, String addonName, int addonPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", addonName);
+        contentValues.put("price", addonPrice);
+        long result = myDb.update(addonTable, contentValues,   addonIdColName + " = ? AND category = ?", new String[]{String.valueOf(addonId), category});
+
+        return result != 0;
+    }
+
     public Boolean updateUserInfo(int userId, String username, String email, String contactNum, String password, String ban, String role) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -322,6 +371,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getAddonTable(String addonTable) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + addonTable, null);
+    }
+
     public Cursor getUserOrder(int userId) {
         SQLiteDatabase myDb = this.getReadableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_USER_ORDER + " WHERE userId = ?", new String[]{String.valueOf(userId)});
@@ -340,6 +394,19 @@ public class databaseFunctions extends SQLiteOpenHelper {
     public Cursor getAddonData(int userId) {
         SQLiteDatabase myDb = this.getReadableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
+    public Bitmap getAddonImg(String table) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT img FROM " + table, null);
+
+        if (cursor.moveToFirst()) {
+            byte[] byteArray = cursor.getBlob(0);
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        }
+
+        cursor.close();
+        return null;
     }
 
     public Bitmap getImg(int userId) {
@@ -408,7 +475,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean checkEmailId(String email, int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ? and userId = ? LIMIT 1", new String[]{email, String.valueOf(userId)});
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ? and userId != ? LIMIT 1", new String[]{email, String.valueOf(userId)});
 
         if (cursor.getCount() > 0) {
             cursor.close();

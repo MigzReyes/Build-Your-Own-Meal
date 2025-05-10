@@ -23,7 +23,7 @@ public class forgot_password extends AppCompatActivity {
     EditText email;
     Button reqResetLink;
     TextView backBtnLogIn;
-    CardView fabBackBtn;
+    Button fabBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

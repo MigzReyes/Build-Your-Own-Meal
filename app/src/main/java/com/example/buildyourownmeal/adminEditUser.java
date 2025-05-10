@@ -134,7 +134,7 @@ public class adminEditUser extends AppCompatActivity {
 
                 if (getUsername.isBlank() || getEmail.isBlank() || getPass.isBlank() || getConPass.isBlank()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
-                } else if (!checkEmail) {
+                } else if (checkEmail) {
                     popUpAlert(getString(R.string.emailAlreadyExist));
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmail).matches()) {
                     popUpAlert(getString(R.string.invalidEmail));

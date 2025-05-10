@@ -32,7 +32,7 @@ public class signUp extends AppCompatActivity {
 
     //VARIABLES
     private Button signUpBtn;
-    private TextView logInLink, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber;
+    private TextView logInLink, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber, termsAndConLink;
 
     //SIGN UP VARIABLES
     public EditText username;
@@ -59,6 +59,8 @@ public class signUp extends AppCompatActivity {
         //SET ID
         signUpBtn = findViewById(R.id.signUpBtn);
         logInLink = findViewById(R.id.alreadyHaveAcc);
+        termsAndConLink = findViewById(R.id.termsAndConLink);
+
 
         //SIGN UP SET ID
         username = findViewById(R.id.username);
@@ -70,6 +72,15 @@ public class signUp extends AppCompatActivity {
         atLeastOneUpperCaseLetter = findViewById(R.id.atLeastOneUpperCaseLetter);
         atLeastOneLowerCaseLetter = findViewById(R.id.atLeastOneLowerCaseLetter);
         atLeastOneNumber = findViewById(R.id.atLeastOneNumber);
+
+        //TERMS AND CONDITION LINK
+        termsAndConLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(signUp.this, termsAndCondition.class);
+                startActivity(intent);
+            }
+        });
 
 
         password.addTextChangedListener(new TextWatcher() {

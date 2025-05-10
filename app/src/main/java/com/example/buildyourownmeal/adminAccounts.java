@@ -39,13 +39,7 @@ public class adminAccounts extends AppCompatActivity implements NavigationView.O
     //RECYCLER
     private RecyclerView recyclerViewAccount;
     private ArrayList<Integer> userId;
-    private ArrayList<String> username;
-    private ArrayList<String> userEmail;
-    private ArrayList<String> userContactNum;
-    private ArrayList<String> userPassword;
-    private ArrayList<String> userBan;
-    private ArrayList<String> userRole;
-
+    private ArrayList<String> username, userEmail, userContactNum, userPassword, userBan, userRole;
     //VARIABLES
     private Button addUserBtn;
 
