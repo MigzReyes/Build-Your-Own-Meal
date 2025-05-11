@@ -47,7 +47,7 @@
                     android:id="@+id/textView52"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
+                    android:layout_marginBottom="20dp"
                     android:text="@string/CreateYourAccount"
                     android:textColor="@color/whiteBoldLetters"
                     android:textSize="30sp" />
@@ -69,8 +69,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/username"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textSize="16sp" />
+                            android:textColor="@color/whiteBoldLetters" />
 
                         <EditText
                             android:id="@+id/username"
@@ -80,8 +79,8 @@
                             android:fontFamily="@font/inter_18pt_medium"
                             android:hint="@string/usernameHint"
                             android:inputType="text"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="15dp"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="11dp"
                             android:textColor="@color/blackBoldLetters"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -98,8 +97,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/email"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textSize="16sp" />
+                            android:textColor="@color/whiteBoldLetters"/>
 
                         <EditText
                             android:id="@+id/signUpEmail"
@@ -109,8 +107,8 @@
                             android:fontFamily="@font/inter_18pt_medium"
                             android:hint="@string/emailHint"
                             android:inputType="textEmailAddress"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="15dp"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="11dp"
                             android:textColor="@color/blackBoldLetters"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -127,12 +125,11 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/password"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textSize="16sp" />
+                            android:textColor="@color/whiteBoldLetters" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true"
                             app:passwordToggleDrawable="@drawable/eye_icon">
@@ -140,13 +137,13 @@
                             <EditText
                                 android:id="@+id/signUpPassword"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:paddingHorizontal="6dp"
+                                android:paddingVertical="6dp"
                                 android:background="@drawable/edit_text_background"
                                 android:fontFamily="@font/inter_18pt_medium"
                                 android:hint="@string/passwordHint"
                                 android:inputType="textPassword"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="15dp"
                                 android:textColor="@color/blackBoldLetters"
                                 android:textSize="15sp" />
 
@@ -166,13 +163,12 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_bold"
                             android:text="@string/conPassword"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textSize="16sp" />
+                            android:textColor="@color/whiteBoldLetters" />
 
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true"
                             app:passwordToggleDrawable="@drawable/eye_icon">
@@ -180,13 +176,13 @@
                             <EditText
                                 android:id="@+id/conPass"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:background="@drawable/edit_text_background"
                                 android:fontFamily="@font/inter_18pt_medium"
                                 android:hint="@string/passwordHint"
                                 android:inputType="textPassword"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="15dp"
+                                android:paddingHorizontal="6dp"
+                                android:paddingVertical="6dp"
                                 android:textColor="@color/blackBoldLetters"
                                 android:textSize="15sp" />
 
@@ -219,6 +215,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastEightCharacters"
+                                android:textSize="13sp"
                                 android:textColor="@color/whiteBoldLetters" />
 
                             <TextView
@@ -227,6 +224,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastOneUppercaseLetter"
+                                android:textSize="13sp"
                                 android:textColor="@color/whiteBoldLetters" />
 
                             <TextView
@@ -235,6 +233,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastOneLowercaseLetter"
+                                android:textSize="13sp"
                                 android:textColor="@color/whiteBoldLetters" />
 
                             <TextView
@@ -243,6 +242,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_18pt_semibold"
                                 android:text="@string/atLeastOneNumber"
+                                android:textSize="13sp"
                                 android:textColor="@color/whiteBoldLetters" />
                         </LinearLayout>
                     </LinearLayout>
@@ -262,8 +262,7 @@
                             android:buttonTint="@color/whiteBoldLetters"
                             android:fontFamily="@font/inter_18pt_medium"
                             android:text="@string/agreeToTermsAndCondition"
-                            android:textColor="@color/whiteBoldLetters"
-                            android:textSize="15sp" />
+                            android:textColor="@color/whiteBoldLetters" />
 
                         <TextView
                             android:id="@+id/termsAndConLink"
@@ -273,7 +272,6 @@
                             android:textStyle="bold"
                             android:text="@string/agreeTermAndCon"
                             android:textColor="@color/whiteBoldLetters"
-                            android:textSize="15sp"
                             android:fontFamily="@font/inter_18pt_medium"/>
 
                     </LinearLayout>
@@ -286,7 +284,7 @@
                         android:fontFamily="@font/inter_18pt_bold"
                         android:text="@string/signUp"
                         android:textColor="@color/whiteBoldLetters"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -304,8 +302,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_18pt_medium"
                     android:text="@string/alreadyHaveAccount"
-                    android:textColor="@color/whiteBoldLetters"
-                    android:textSize="16sp" />
+                    android:textColor="@color/whiteBoldLetters" />
 
                 <TextView
                     android:id="@+id/alreadyHaveAcc"
@@ -314,8 +311,7 @@
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/inter_18pt_bold"
                     android:text="@string/smallLogIn"
-                    android:textColor="@color/main_color"
-                    android:textSize="16sp" />
+                    android:textColor="@color/main_color" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

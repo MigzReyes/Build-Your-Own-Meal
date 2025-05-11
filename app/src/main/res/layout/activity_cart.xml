@@ -45,7 +45,7 @@
                     android:fontFamily="@font/inter_18pt_extrabold"
                     android:text="@string/addMoreItems"
                     android:textColor="@color/greyLetters"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

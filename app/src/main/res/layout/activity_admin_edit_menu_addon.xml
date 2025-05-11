@@ -6,16 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/greyBg"
+    android:background="@color/white"
     tools:context=".adminEditMenuAddon">
 
     <include
         android:id="@+id/sideBarToolBar"
-        layout="@layout/sidebartoolbar"/>
+        layout="@layout/sidebartoolbaradmin"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/greyBg"
         app:layout_constraintTop_toBottomOf="@id/sideBarToolBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

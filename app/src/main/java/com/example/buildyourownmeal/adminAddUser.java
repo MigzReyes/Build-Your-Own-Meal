@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ public class adminAddUser extends AppCompatActivity {
     //VARIABLES
     private Spinner userRole;
     private EditText accountUsername, accountEmail, accountContactNumber, accountPassword, accountConPassword;
+    private ImageView backBtn;
     private TextView sideBarActName, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber;
     private RadioButton banTrue, banFalse;
     private Button addUserBtn;
@@ -62,8 +64,19 @@ public class adminAddUser extends AppCompatActivity {
         banTrue = findViewById(R.id.banTrue);
         banFalse = findViewById(R.id.banFalse);
         addUserBtn = findViewById(R.id.addUserBtn);
+        backBtn = findViewById(R.id.backBtn);
+        sideBarActName = findViewById(R.id.sideActName);
 
         //TOOLBAR ACTIVITY NAME
+        sideBarActName.setText(getString(R.string.account));
+
+        //BACK BUTTON
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //DROPDOWN USER ROLE
         List<String> dropdownRole = Arrays.asList("User", "Admin");

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,11 +28,12 @@ import java.util.List;
 
 public class adminEditUser extends AppCompatActivity {
     //DATABASE
-    databaseFunctions databaseFunctions;
+    private databaseFunctions databaseFunctions;
 
     //VARIABLES
     private Spinner userRole;
     private EditText accountUsername, accountEmail, accountContactNumber, accountPassword, accountConPassword;
+    private ImageView backBtn;
     private TextView sideBarActName, atLeastEightLetter, atLeastOneUpperCaseLetter, atLeastOneLowerCaseLetter, atLeastOneNumber;
     private RadioButton banTrue, banFalse;
     private Button editUserBtn;
@@ -68,6 +70,19 @@ public class adminEditUser extends AppCompatActivity {
         banTrue = findViewById(R.id.banTrue);
         banFalse = findViewById(R.id.banFalse);
         editUserBtn = findViewById(R.id.editUserBtn);
+        backBtn = findViewById(R.id.backBtn);
+        sideBarActName = findViewById(R.id.sideActName);
+
+        //TOOLBAR ACTIVITY NAME
+        sideBarActName.setText(getString(R.string.account));
+
+        //BACK BUTTON
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //SET USER DATA
         accountUsername.setText(username);

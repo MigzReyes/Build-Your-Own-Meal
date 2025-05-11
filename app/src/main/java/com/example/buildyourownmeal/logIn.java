@@ -107,53 +107,60 @@ public class logIn extends AppCompatActivity {
                     Boolean checkUserEmail = databaseFunctions.checkEmail(getEmail);
 
                     if (checkUserEmail) {
-                        //PASSWORD VALIDATION
-                        boolean checkPassword = databaseFunctions.checkPassword(getPass);
+                        //BAN VALIDATION
+                        boolean checkUserBan = databaseFunctions.checkUserBan(getEmail);
 
-                        if (checkPassword) {
-                            if (checkBox) {
-                                editor.putString(getEmail, getPass);
-                                editor.putBoolean("rememberMe", true);
-                            } else {
-                                editor.remove(getEmail);
-                                editor.remove("rememberMe");
-                            }
-                            Cursor cursor = databaseFunctions.getUserInfo(getEmail);
-
-                            if (cursor != null && cursor.moveToFirst()) {
-                                //DATABASE GETTER
-                                String getDbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
-                                Log.d("Check Role", getDbRole);
-                                int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
-                                String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
-                                String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
-
-                                //AUTHENTICATION
-                                if (dbRole.equals("user")) {
-                                    //STORE TO USER SESSION SHARED PREFERENCE
-                                    editor.putInt("userId", dbUserId);
-                                    editor.putString("username", dbUsername);
-                                    editor.putString("email", getEmail);
-                                    editor.putString("password", getPass);
-                                    editor.putString("role", dbRole);
-                                    editor.putBoolean("isUserLoggedIn", true);
-                                    editor.apply();
-                                    Intent intent = new Intent(logIn.this, Navbar.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                } else if (dbRole.equals("admin")){
-                                    Intent intent = new Intent(logIn.this, admin.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                }
-
-                            } else {
-                                popUpAlert(getString(R.string.sorryCanNotGetUserInfo));
-                            }
+                        if (checkUserBan) {
+                            popUpAlert("You are banned please contact Admin");
                         } else {
-                            popUpAlert(getString(R.string.wrongPassworError));
-                        }
+                            //PASSWORD VALIDATION
+                            boolean checkPassword = databaseFunctions.checkPassword(getPass);
 
+                            if (checkPassword) {
+                                if (checkBox) {
+                                    editor.putString(getEmail, getPass);
+                                    editor.putBoolean("rememberMe", true);
+                                } else {
+                                    editor.remove(getEmail);
+                                    editor.remove("rememberMe");
+                                }
+                                Cursor cursor = databaseFunctions.getUserInfo(getEmail);
+
+                                if (cursor != null && cursor.moveToFirst()) {
+                                    //DATABASE GETTER
+                                    String getDbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+                                    Log.d("Check Role", getDbRole);
+                                    int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
+                                    String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+                                    String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+
+                                    //AUTHENTICATION
+                                    if (dbRole.equals("user")) {
+                                        //STORE TO USER SESSION SHARED PREFERENCE
+                                        editor.putInt("userId", dbUserId);
+                                        editor.putString("username", dbUsername);
+                                        editor.putString("email", getEmail);
+                                        editor.putString("password", getPass);
+                                        editor.putString("role", dbRole);
+                                        editor.putBoolean("isUserLoggedIn", true);
+                                        editor.apply();
+                                        Intent intent = new Intent(logIn.this, Navbar.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    } else if (dbRole.equals("admin")){
+                                        Intent intent = new Intent(logIn.this, admin.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+
+                                } else {
+                                    popUpAlert(getString(R.string.sorryCanNotGetUserInfo));
+                                }
+                            } else {
+                                popUpAlert(getString(R.string.wrongPassworError));
+                            }
+
+                        }
                     } else {
                         popUpAlert(getString(R.string.emailDoesNotExistError));
                     }

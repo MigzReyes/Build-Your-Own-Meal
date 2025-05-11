@@ -11,7 +11,7 @@
 
     <include
         android:id="@+id/incToolbar"
-        layout="@layout/sidebartoolbar"/>
+        layout="@layout/sidebartoolbaradmin"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -154,6 +154,13 @@
                             android:fontFamily="@font/inter_18pt_regular"
                             android:textColor="@color/blackBoldLetters" />
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleDrawable="@drawable/eye_icon">
+
                         <EditText
                             android:id="@+id/accountPassword"
                             android:layout_width="match_parent"
@@ -163,6 +170,8 @@
                             android:inputType="textPassword"
                             android:paddingHorizontal="3dp"
                             android:paddingVertical="5dp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -179,6 +188,13 @@
                             android:fontFamily="@font/inter_18pt_regular"
                             android:textColor="@color/blackBoldLetters" />
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleDrawable="@drawable/eye_icon">
+
                         <EditText
                             android:id="@+id/accountConPassword"
                             android:layout_width="match_parent"
@@ -188,6 +204,7 @@
                             android:inputType="textPassword"
                             android:paddingHorizontal="3dp"
                             android:paddingVertical="5dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout

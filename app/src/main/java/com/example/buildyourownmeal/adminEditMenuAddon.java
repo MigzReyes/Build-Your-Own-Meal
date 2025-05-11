@@ -8,11 +8,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,12 +41,13 @@ public class adminEditMenuAddon extends AppCompatActivity {
 
     private static final int PICK_FROM_GALLERY = 1;
     //DATABASE
-    databaseFunctions databaseFunctions;
+    private databaseFunctions databaseFunctions;
 
     //VARIABLES
     private Button cancelBtn, editBtn;
     private EditText addonName, addonPrice;
-    private TextView addonImg;
+    private ImageView backBtn;
+    private TextView addonImg, sideBarActName;
     private Bitmap bitAddonImg;
     private byte intentAddonImg;
     private String intentAddonName, intentAddonCategory, intentAddonUri;
@@ -79,6 +83,25 @@ public class adminEditMenuAddon extends AppCompatActivity {
         addonName = findViewById(R.id.addonName);
         addonPrice = findViewById(R.id.addonPrice);
         addonImg = findViewById(R.id.addonImg);
+        backBtn = findViewById(R.id.backBtn);
+        sideBarActName = findViewById(R.id.sideActName);
+
+        //TOOLBAR ACTIVITY NAME
+        sideBarActName.setText(getString(R.string.menu));
+
+        //BACK BUTTON
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //STATUS BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+            windowInsetsController.setAppearanceLightStatusBars(true);
+        }
 
         //SET ADDON DATA
         addonImg.setText(String.valueOf(intentAddonImg));

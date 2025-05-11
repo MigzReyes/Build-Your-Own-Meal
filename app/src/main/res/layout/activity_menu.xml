@@ -66,7 +66,7 @@
                                 android:fontFamily="@font/inter_18pt_extrabold"
                                 android:text="@string/craft"
                                 android:textColor="@color/whiteBoldLetters"
-                                android:textSize="30sp" />
+                                android:textSize="29sp" />
 
                             <TextView
                                 android:id="@+id/textView4"
@@ -75,25 +75,25 @@
                                 android:fontFamily="@font/inter_18pt_extrabold"
                                 android:text="@string/yourOwnMeal"
                                 android:textColor="@color/whiteBoldLetters"
-                                android:textSize="25sp" />
+                                android:textSize="24sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:gravity="end"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <LinearLayout
                                 android:id="@+id/craftNowBtn"
-                                android:layout_width="wrap_content"
+                                android:layout_width="115dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
                                 android:background="@drawable/craft_btn"
                                 android:orientation="vertical"
-                                android:paddingHorizontal="15dp"
-                                android:paddingVertical="30dp">
+                                android:paddingHorizontal="14dp"
+                                android:paddingVertical="26dp">
 
                                 <ImageView
                                     android:id="@+id/imageView8"
@@ -106,9 +106,10 @@
                                     android:id="@+id/textView23"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
                                     android:text="@string/craftNow"
                                     android:textColor="@color/main_color"
-                                    android:textSize="14sp" />
+                                    android:textSize="12sp" />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -129,8 +130,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/inter_18pt_extrabold"
                         android:text="@string/craftedMeal"
-                        android:textColor="@color/greyLetters"
-                        android:textSize="15sp" />
+                        android:textColor="@color/greyLetters"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewMenuCombos"

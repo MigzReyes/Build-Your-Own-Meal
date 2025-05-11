@@ -53,23 +53,23 @@
 
                                 <LinearLayout
                                     android:id="@+id/logInTextAlert"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="185dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="@string/youMustLogInTo"
                                         android:textColor="@color/whiteBoldLetters"
-                                        android:textSize="26sp" />
+                                        android:textSize="24sp" />
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="@string/ToCraftAMeal"
                                         android:textColor="@color/whiteBoldLetters"
-                                        android:textSize="26sp" />
+                                        android:textSize="24sp" />
 
                                 </LinearLayout>
 
@@ -85,7 +85,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="@string/Welcome"
                                         android:textColor="@color/whiteBoldLetters"
-                                        android:textSize="33sp" />
+                                        android:textSize="31sp" />
 
                                     <TextView
                                         android:id="@+id/userIntroductionName"
@@ -93,7 +93,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="@string/user"
                                         android:textColor="@color/whiteBoldLetters"
-                                        android:textSize="28sp" />
+                                        android:textSize="26sp" />
 
                                 </LinearLayout>
 
@@ -104,18 +104,18 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_weight="1"
                                 android:gravity="end"
+                                android:layout_weight="1"
                                 android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:id="@+id/craftNowBtn"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="115dp"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/craft_btn"
                                     android:orientation="vertical"
-                                    android:paddingHorizontal="15dp"
-                                    android:paddingVertical="30dp">
+                                    android:paddingHorizontal="14dp"
+                                    android:paddingVertical="26dp">
 
                                     <ImageView
                                         android:id="@+id/imageView8"
@@ -128,9 +128,10 @@
                                         android:id="@+id/textView23"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
                                         android:text="@string/craftNow"
                                         android:textColor="@color/main_color"
-                                        android:textSize="14sp" />
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
                             </LinearLayout>
@@ -159,7 +160,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/pleaseLogInSignInUpToOrder"
                             android:textColor="@color/black"
-                            android:textSize="19sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/textView24"
@@ -168,8 +169,7 @@
                             android:layout_marginVertical="10dp"
                             android:gravity="center_horizontal"
                             android:text="@string/wantToCustomizeYourMealLogInOrSignUpToGetStarted"
-                            android:textColor="@color/greyLetters"
-                            android:textSize="16sp" />
+                            android:textColor="@color/greyLetters" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -180,24 +180,22 @@
 
                             <Button
                                 android:id="@+id/signUpBtn"
-                                android:layout_width="90dp"
-                                android:layout_height="45dp"
+                                android:layout_width="85dp"
+                                android:layout_height="40dp"
                                 android:layout_marginEnd="50dp"
                                 android:background="@drawable/small_btn_main_color"
                                 android:text="@string/smallSignUp"
                                 android:textAllCaps="false"
-                                android:textColor="@color/whiteBoldLetters"
-                                android:textSize="15sp" />
+                                android:textColor="@color/whiteBoldLetters" />
 
                             <Button
                                 android:id="@+id/logInBtn"
-                                android:layout_width="90dp"
-                                android:layout_height="45dp"
+                                android:layout_width="85dp"
+                                android:layout_height="40dp"
                                 android:background="@drawable/small_btn"
                                 android:text="@string/smallLogIn"
                                 android:textAllCaps="false"
-                                android:textColor="@color/whiteBoldLetters"
-                                android:textSize="15sp" />
+                                android:textColor="@color/whiteBoldLetters" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -233,7 +231,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/priorityTime"
                                 android:textColor="@color/blackBoldLetters"
-                                android:textSize="17sp" />
+                                android:textSize="16sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -287,7 +285,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/preparingYourOder"
                                 android:textColor="@color/blackBoldLetters"
-                                android:textSize="16sp" />
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/orderProcessDescription"
@@ -305,8 +303,7 @@
                                 android:background="@drawable/small_btn_cancel"
                                 android:text="@string/cancel"
                                 android:textAllCaps="false"
-                                android:textColor="@color/whiteBoldLetters"
-                                android:textSize="14sp" />
+                                android:textColor="@color/whiteBoldLetters" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -340,7 +337,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/priorityTime"
                                 android:textColor="@color/blackBoldLetters"
-                                android:textSize="17sp" />
+                                android:textSize="16sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -397,7 +394,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/preparingYourOder"
                                 android:textColor="@color/blackBoldLetters"
-                                android:textSize="16sp" />
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/orderProcessDescription2"
@@ -441,7 +438,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/priorityTime"
                                 android:textColor="@color/blackBoldLetters"
-                                android:textSize="17sp" />
+                                android:textSize="16sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -498,7 +495,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/orderIsReady"
                                 android:textColor="@color/blackBoldLetters"
-                                android:textSize="16sp" />
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/orderProcessDescription3"
@@ -563,7 +560,7 @@
                                 android:gravity="start"
                                 android:text="@string/bestSellingCombos"
                                 android:textColor="@color/greyLetters"
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                             <!-- VIEW ALL BUTTON -->
                             <TextView
@@ -571,7 +568,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/viewAll"
-                                android:textColor="@color/greyLetters" />
+                                android:textColor="@color/greyLetters"
+                                android:textSize="13sp"/>
 
 
                         </LinearLayout>

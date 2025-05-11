@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class introduction_screen extends AppCompatActivity {
 
     //VARIABLE DECLARATION
-    Button logInBtn, signUpBtn, guestBtn;
+    private Button logInBtn, signUpBtn, guestBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

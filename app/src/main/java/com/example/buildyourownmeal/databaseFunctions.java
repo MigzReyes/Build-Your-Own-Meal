@@ -171,6 +171,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         contentValues.put("username", "admin");
         contentValues.put("email", "admin@gmail.com");
         contentValues.put("password", "AdminSamplePass");
+        contentValues.put("ban", "false");
         contentValues.put("role", "admin");
         long result = myDb.insert(TABLE_ACCOUNT, null, contentValues);
 
@@ -431,31 +432,42 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
 
-
     //QUERY VALIDATION
+    public Boolean checkUserBan(String email) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT ban FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
+        boolean isUserBanned = false;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String checkUserBan = cursor.getString(cursor.getColumnIndexOrThrow("ban"));
+            if (checkUserBan.equals("true")) {
+                cursor.close();
+                Log.d(LOG_ALERT_TAG, "User is banned");
+                isUserBanned = true;
+            } else if (checkUserBan.equals("false")){
+                cursor.close();
+                Log.d(LOG_ALERT_TAG, "Not banned");
+                isUserBanned = false;
+            }
+
+        } else {
+            cursor.close();
+            Log.d(LOG_ALERT_TAG, "No data found");
+        }
+        return isUserBanned;
+    }
+
+
     public Boolean checkUserId(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("SELECT userId FROM " + TABLE_ACCOUNT + " WHERE userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
 
         if (cursor != null && cursor.moveToFirst()) {
+            cursor.close();
             return true;
         } else {
+            cursor.close();
             Log.d(LOG_ALERT_TAG, "No id found");
-            return false;
-        }
-    }
-
-    public Boolean isUserInfoValid(String email, int userId) {
-        SQLiteDatabase myDb = this.getWritableDatabase();
-        Cursor checkEmail = myDb.rawQuery("SELECT email FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
-        Cursor checkUserId = myDb.rawQuery("SELECT userId FROM " + TABLE_ACCOUNT + " WHERE userId = ? LIMIT 1", new String[]{String.valueOf(userId)});
-
-        if (checkUserId != null && checkUserId.moveToFirst()) {
-            return true;
-        } else if (checkEmail != null && checkEmail.moveToFirst()) {
-            return true;
-        } else {
-            Log.d(LOG_ALERT_TAG, "No id");
             return false;
         }
     }
