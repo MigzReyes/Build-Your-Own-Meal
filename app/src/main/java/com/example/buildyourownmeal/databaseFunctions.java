@@ -222,7 +222,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertAddonData(int userId, String addon, int quantity, int price) {
+    public Boolean insertOrderAddonData(int userId, String addon, int quantity, int price) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);

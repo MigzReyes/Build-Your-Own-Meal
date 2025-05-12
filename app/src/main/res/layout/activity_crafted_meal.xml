@@ -54,7 +54,7 @@
                             app:srcCompat="@drawable/emptybentobox" />
 
                         <include
-                            layout="@layout/meal_addons_layout"/>
+                            layout="@layout/crafted_meal_addons_layout"/>
                     </RelativeLayout>
 
 
@@ -107,12 +107,12 @@
                         android:text="@string/pesoSign" />
 
                     <TextView
-                        android:id="@+id/price"
+                        android:id="@+id/totalPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:textColor="@color/price_green"
-                        android:text="@string/priceItem" />
+                        android:text="@string/zero" />
                 </LinearLayout>
 
             </LinearLayout>
