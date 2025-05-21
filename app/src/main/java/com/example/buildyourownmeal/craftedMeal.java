@@ -268,6 +268,8 @@ public class craftedMeal extends AppCompatActivity {
                         insertAddonData = databaseFunctions.insertOrderAddonData(userId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
                     }
 
+                    int getMealTotalPrice = recyclerViewAdapterMealAddon.getMealTotalPrice();
+
                     if (insertAddonData) {
                         Cursor getAddonData = databaseFunctions.getAddonData(userId);
 
@@ -277,7 +279,7 @@ public class craftedMeal extends AppCompatActivity {
                             String quantity = getAddonData.getString(getAddonData.getColumnIndexOrThrow("quantity"));
                             int price = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
 
-                            boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, bitmap, MEAL_TYPE, price);
+                            boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, bitmap, MEAL_TYPE, getMealTotalPrice);
                             if (insertOrderData) {
                                 Intent intent = new Intent(craftedMeal.this, cart.class);
                                 startActivity(intent);

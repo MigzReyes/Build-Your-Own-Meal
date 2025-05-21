@@ -37,7 +37,7 @@ public class recyclerViewAdapterMealAddon extends RecyclerView.Adapter<recyclerV
     private ArrayList<Integer> addonPrice, addonQuantity, addonId;
     private int addAddonPrice = 0;
     private int minusAddonPrice = 0;
-    private static int mealTotalPrice = 0;
+    public static int mealTotalPrice = 0;
     private static OnPriceUpdateListener OnPriceUpdatedListener;
 
     public static int getMealTotalPrice() {

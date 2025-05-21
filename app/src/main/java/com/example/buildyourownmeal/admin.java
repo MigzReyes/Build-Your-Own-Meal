@@ -82,6 +82,7 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
             do {
                 numAccount++;
             } while (getNumUser.moveToNext());
+            getNumUser.close();
         }
     }
 

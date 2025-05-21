@@ -84,8 +84,6 @@ public class cart extends AppCompatActivity {
         recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, cartItemName, cartItemPrice, cartItemImg);
         recyclerViewCart.setAdapter(recyclerViewAdapterCart);
 
-
-
         //VARIABLE REFERENCE
         backBtn = findViewById(R.id.backBtn);
         fragName = findViewById(R.id.sideFragName);
