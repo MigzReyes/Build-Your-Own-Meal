@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -41,6 +42,21 @@ public class editEmail extends AppCompatActivity {
             WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
+
+        //BACK PRESSED ON PHONE SYSTEM
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
+
+                Intent intent = new Intent(editEmail.this, account.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 
         //DATABASE INSTANTIATION
         databaseFunctions = new databaseFunctions(this);
@@ -95,8 +111,8 @@ public class editEmail extends AppCompatActivity {
                                 editor.putString("email", getEmail);
                                 editor.apply();
                                 Intent intent = new Intent(editEmail.this, account.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                finish();
                             }
                         });
 
@@ -116,8 +132,6 @@ public class editEmail extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(editEmail.this, account.class);
-                startActivity(intent);
                 finish();
             }
         });

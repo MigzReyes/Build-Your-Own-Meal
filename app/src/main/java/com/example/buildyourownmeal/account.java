@@ -39,6 +39,8 @@ public class account extends AppCompatActivity {
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
 
+
+
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
         sideActName = findViewById(R.id.sideFragName);

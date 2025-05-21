@@ -207,7 +207,6 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
             if (id == R.id.account) {
                 Intent intent = new Intent(this, account.class);
                 startActivity(intent);
-                finish();
             } else if (id == R.id.orderHis) {
                 Intent intent = new Intent(this, orderHistory.class);
                 startActivity(intent);

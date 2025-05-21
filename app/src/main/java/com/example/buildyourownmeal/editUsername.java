@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -39,6 +40,22 @@ public class editUsername extends AppCompatActivity {
             WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
+
+        //BACK PRESSED ON PHONE SYSTEM
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
+
+                Intent intent = new Intent(editUsername.this, account.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+
 
         //DATABASE INSTANTIATION
         databaseFunctions = new databaseFunctions(this);
@@ -88,8 +105,8 @@ public class editUsername extends AppCompatActivity {
                             editor.putString("username", getUsername);
                             editor.apply();
                             Intent intent = new Intent(editUsername.this, account.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
                         }
                     });
 
@@ -108,8 +125,6 @@ public class editUsername extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(editUsername.this, account.class);
-                startActivity(intent);
                 finish();
             }
         });
