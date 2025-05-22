@@ -20,8 +20,11 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/cartItem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:paddingHorizontal="5dp"
                 android:paddingBottom="15dp">
@@ -64,38 +67,46 @@
                             android:layout_gravity="bottom"
                             android:background="@drawable/quantity_background"
                             android:orientation="horizontal"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="3dp">
 
-                            <!-- MINUS TO TRASH -->
-                            <!--<TextView
-                            android:id="@+id/minusBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/minusSign"
-                            android:textSize="13sp" />-->
+                                <!-- MINUS TO TRASH -->
+                                <TextView
+                                    android:id="@+id/minusBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/minusSign"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:textSize="13sp" />
 
-                            <ImageView
-                                android:id="@+id/trashIcon"
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/trashicon" />
+                                <ImageView
+                                    android:id="@+id/trashBtn"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@drawable/trashicon" />
 
-                            <TextView
-                                android:id="@+id/quantityValue"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="10dp"
-                                android:text="@string/one"
-                                android:textSize="13sp" />
+                                <TextView
+                                    android:id="@+id/quantityValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="10dp"
+                                    android:text="@string/one"
+                                    android:textSize="13sp" />
 
-                            <TextView
-                                android:id="@+id/addBtn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/plusSign"
-                                android:textSize="13sp" />
+                                <TextView
+                                    android:id="@+id/addBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/plusSign"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:textSize="13sp" />
                         </LinearLayout>
 
                         <LinearLayout

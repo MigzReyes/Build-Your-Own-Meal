@@ -10,8 +10,10 @@ constraintlayout = "2.2.1"
 navigationFragment = "2.8.9"
 navigationUi = "2.8.9"
 legacySupportV4 = "1.0.0"
+gson = "2.13.1"
 
 [libraries]
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

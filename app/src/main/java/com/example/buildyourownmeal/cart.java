@@ -38,8 +38,9 @@ public class cart extends AppCompatActivity {
     databaseFunctions databaseFunctions;
 
     //RECYCLER
-    private ArrayList<String> cartItemName;
-    private ArrayList<Integer> cartItemPrice;
+    private ArrayList<String> addonGroupId;
+    private ArrayList<String> mealType, cartItemName, minusBtn, addBtn;
+    private ArrayList<Integer> cartItemPrice, mealQuantity, trashBtn, userOrderId;
     private ArrayList<Bitmap> cartItemImg;
     private RecyclerView recyclerViewCart;
 
@@ -73,15 +74,22 @@ public class cart extends AppCompatActivity {
         userId = userSession.getInt("userId", 0);
 
         //RECYCLER VIEW
+        addonGroupId = new ArrayList<>();
+        userOrderId = new ArrayList<>();
+        mealType = new ArrayList<>();
         cartItemName = new ArrayList<>();
         cartItemPrice = new ArrayList<>();
         cartItemImg = new ArrayList<>();
+        minusBtn = new ArrayList<>();
+        addBtn = new ArrayList<>();
+        mealQuantity = new ArrayList<>();
+        trashBtn = new ArrayList<>();
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
 
         setUpCartModel();
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, cartItemName, cartItemPrice, cartItemImg);
+        recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, addonGroupId, mealType, cartItemName, minusBtn, addBtn, cartItemPrice, mealQuantity, trashBtn, userOrderId, cartItemImg);
         recyclerViewCart.setAdapter(recyclerViewAdapterCart);
 
         //VARIABLE REFERENCE
@@ -150,11 +158,18 @@ public class cart extends AppCompatActivity {
 
         if (getUserOrder != null && getUserOrder.moveToFirst()) {
             do {
+                addonGroupId.add(getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderAddonId")));
+                userOrderId.add(getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userOrderId")));
+                mealType.add(getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType")));
                 cartItemPrice.add(getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice")));
                 cartItemName.add(getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType")));
                 int dbUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
                 Bitmap getMealImgBit = databaseFunctions.getImg(dbUserId);
                 cartItemImg.add(getMealImgBit);
+                minusBtn.add("-");
+                addBtn.add("+");
+                mealQuantity.add(getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity")));
+                trashBtn.add(R.drawable.trashicon);
             } while (getUserOrder.moveToNext());
             getUserOrder.close();
         }

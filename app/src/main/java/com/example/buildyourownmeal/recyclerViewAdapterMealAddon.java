@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class recyclerViewAdapterMealAddon extends RecyclerView.Adapter<recyclerViewAdapterMealAddon.MyViewHolder> {
-
     public interface OnPriceUpdateListener {
         void onPriceUpdated(int newTotalPrice);
     }
@@ -37,8 +36,8 @@ public class recyclerViewAdapterMealAddon extends RecyclerView.Adapter<recyclerV
     private ArrayList<Integer> addonPrice, addonQuantity, addonId;
     private int addAddonPrice = 0;
     private int minusAddonPrice = 0;
-    public static int mealTotalPrice = 0;
-    private static OnPriceUpdateListener OnPriceUpdatedListener;
+    public static int mealTotalPrice;
+    public static OnPriceUpdateListener OnPriceUpdatedListener;
 
     public static int getMealTotalPrice() {
         return mealTotalPrice;
@@ -77,7 +76,11 @@ public class recyclerViewAdapterMealAddon extends RecyclerView.Adapter<recyclerV
         holder.minusBtnAddon.setText(minusBtnAddon.get(position));
         holder.addBtnAddon.setText(addBtnAddon.get(position));
 
-        int[] quantityValue = {0};
+        String key = addonName.get(position);
+        int savedQuantity = hashAddonQuantity.containsKey(key) ? hashAddonQuantity.get(key) : 0;
+        int[] quantityValue = {savedQuantity};
+
+        holder.addonQuantity.setText(String.valueOf(savedQuantity));
 
         holder.minusBtnAddon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,25 +97,25 @@ public class recyclerViewAdapterMealAddon extends RecyclerView.Adapter<recyclerV
 
                 //SUBTRACTION OF TOTAL PRICE TO THE ADDON PRICE
                 if (quantityValue[0] > 0) {
-                    minusAddonPrice = hashAddonPerTotalPrice.get(addonName.get(position)) - hashAddonPrice.get(addonName.get(position));
-                    hashAddonPerTotalPrice.put(addonName.get(position), minusAddonPrice);
+                    int unitPrice = hashAddonPrice.get(addonName.get(position));
+                    int updatedTotal = unitPrice * quantityValue[0];
+                    hashAddonPerTotalPrice.put(addonName.get(position), updatedTotal);
                 }
+
 
                 //REMOVE THE ITEM FROM THE HASHMAP
                 if (quantityValue[0] == 0) {
                     hashAddonQuantity.remove(addonName.get(position));
                     hashAddonPrice.remove(addonName.get(position));
                     hashAddonPerTotalPrice.remove(addonName.get(position));
-                    mealTotalPrice = 0;
                 }
 
                 //TOTAL PRICE OF ALL ADDON
-                int result = 0;
+                mealTotalPrice = 0;
                 for (int value : hashAddonPerTotalPrice.values()) {
-                      result -= value;
-
-                      mealTotalPrice = Math.abs(result);
+                    mealTotalPrice += value;
                 }
+
 
                 if (OnPriceUpdatedListener != null) {
                     OnPriceUpdatedListener.onPriceUpdated(mealTotalPrice);
@@ -193,6 +196,10 @@ public class recyclerViewAdapterMealAddon extends RecyclerView.Adapter<recyclerV
     @Override
     public int getItemCount() {
         return addonName.size();
+    }
+
+    public static void setMealTotalPrice(int sum) {
+        mealTotalPrice = sum;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

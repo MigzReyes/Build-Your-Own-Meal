@@ -31,10 +31,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class craftedMeal extends AppCompatActivity {
 
@@ -47,6 +51,9 @@ public class craftedMeal extends AppCompatActivity {
     private Dialog popUpLogInWarning;
     private Button backBtn, addBtn;
     private ImageView emptyBentoBox;
+    private ArrayList<String> getOrderAddonName;
+    private ArrayList<Integer> getOrderAddonQuantity;
+    public ArrayList<String> getAddonTable;
     private RecyclerView riceRecyclerView, mainDishRecyclerView, sideRecyclerView, sauceRecyclerView, dessertRecyclerView, drinkRecyclerView;
     private ArrayList<String>riceCategory, riceName, riceAddBtn, riceMinusBtn,
             mainDishCategory, mainDishName, mainDishAddBtn, mainDishMinusBtn,
@@ -67,6 +74,8 @@ public class craftedMeal extends AppCompatActivity {
     private int getAddonPrice = 0;
 
     private String getAddonName;
+    private Intent addUserOrder;
+    private boolean editMeal = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,11 @@ public class craftedMeal extends AppCompatActivity {
         //DATABASE
         databaseFunctions = new databaseFunctions(this);
 
+        //ORDER ADDON GROUP ID
+        SharedPreferences getOrderAddonId = getSharedPreferences("addonGroupId", MODE_PRIVATE);
+        SharedPreferences.Editor edit = getOrderAddonId.edit();
+
+
         //SHARE PREFERENCES USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         String userRole = userSession.getString("role", "guest");
@@ -98,6 +112,49 @@ public class craftedMeal extends AppCompatActivity {
         emptyBentoBox = findViewById(R.id.emptyBentoBox);
         BitmapDrawable getBitmap = (BitmapDrawable) emptyBentoBox.getDrawable();
         Bitmap bitmap = getBitmap.getBitmap();
+
+        //getOrderAddonId();
+        //getAddon(getOrderAddonName.get());
+        String orderAddonGroupId = getOrderAddonId.getString("addonGroupId", "");
+
+        if (orderAddonGroupId.isBlank()) {
+            Log.d("may error ka", "Empty addon group id");
+            getOrderAddonQuantity = new ArrayList<>();
+            getOrderAddonName = new ArrayList<>();
+            getAddonTable = new ArrayList<>();
+            //CLEAR ARRAY LIST
+            if (!getOrderAddonQuantity.isEmpty()) {
+                getOrderAddonQuantity.clear();
+                getOrderAddonName.clear();
+                getAddonTable.clear();
+            }
+            recyclerViewAdapterMealAddon.hashAddonQuantity.clear();
+            recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.clear();
+        } else {
+            Log.d("may error ka", orderAddonGroupId);
+
+            if (getOrderAddonQuantity != null) getOrderAddonQuantity.clear();
+            else getOrderAddonQuantity = new ArrayList<>();
+
+            if (getOrderAddonName != null) getOrderAddonName.clear();
+            else getOrderAddonName = new ArrayList<>();
+
+            if (getAddonTable != null) getAddonTable.clear();
+            else getAddonTable = new ArrayList<>();
+
+            recyclerViewAdapterMealAddon.hashAddonQuantity.clear();
+            recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.clear();
+
+            getAddon(orderAddonGroupId);
+            getAddonQuantity(orderAddonGroupId);
+            getAddonTable(orderAddonGroupId);
+            Log.d("may error ka", String.valueOf(getOrderAddonName));
+            Log.d("may error ka", String.valueOf(getOrderAddonQuantity));
+            Log.d("may error ka", "Addon table: " + String.valueOf(getAddonTable));
+
+            edit.putString("addonGroupId", null);
+            edit.apply();
+        }
         
         //RICE RECYCLER VIEW
         riceRecyclerView = findViewById(R.id.riceRecyclerView);
@@ -112,6 +169,29 @@ public class craftedMeal extends AppCompatActivity {
 
         getAddonIdModel("rice", riceId);
         setUpAddonModel("rice", riceName, riceImg, ricePrice, riceQuantity, riceCategory, riceMinusBtn, riceAddBtn);
+
+        for (int i = 0; i < riceName.size(); i++) {
+            riceQuantity.add(0);
+        }
+
+        populateAddonQuantity(orderAddonGroupId, "rice", riceName, riceQuantity);
+
+        for (int i = 0; i < riceName.size(); i++) {
+            if (riceQuantity.get(i) > 0) {
+                recyclerViewAdapterMealAddon.hashAddonQuantity.put(riceName.get(i), riceQuantity.get(i));
+                recyclerViewAdapterMealAddon.hashAddonPrice.put(riceName.get(i), ricePrice.get(i));
+            }
+        }
+
+        for (int i = 0; i < riceName.size(); i++) {
+            int quantity = riceQuantity.get(i);
+            if (quantity > 0) {
+                int price = ricePrice.get(i);
+                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(riceName.get(i), price * quantity);
+            }
+        }
+
+        Log.d("may error ka", " addonName: " + String.valueOf(riceName) + " addonQuantity: " + String.valueOf(riceQuantity));
 
         riceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterMealAddon riceAdapter = new recyclerViewAdapterMealAddon(this, userId, riceName, riceMinusBtn, riceAddBtn, riceCategory, riceImg, ricePrice, riceQuantity, riceId);
@@ -132,6 +212,25 @@ public class craftedMeal extends AppCompatActivity {
         getAddonIdModel("main_dish", mainDishId);
         setUpAddonModel("main_dish", mainDishName, mainDishImg, mainDishPrice, mainDishQuantity, mainDishCategory, mainDishMinusBtn, mainDishAddBtn);
 
+        populateAddonQuantity(orderAddonGroupId, "main_dish", mainDishName, mainDishQuantity);
+
+        for (int i = 0; i < mainDishName.size(); i++) {
+            if (mainDishQuantity.get(i) > 0) {
+                recyclerViewAdapterMealAddon.hashAddonQuantity.put(mainDishName.get(i), mainDishQuantity.get(i));
+                recyclerViewAdapterMealAddon.hashAddonPrice.put(mainDishName.get(i), mainDishPrice.get(i));
+            }
+        }
+
+        for (int i = 0; i < mainDishName.size(); i++) {
+            int quantity = mainDishQuantity.get(i);
+            if (quantity > 0) {
+                int price = mainDishPrice.get(i);
+                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(mainDishName.get(i), price * quantity);
+            }
+        }
+
+        Log.d("may error ka", " addonName: " + String.valueOf(mainDishName) + " addonQuantity: " + String.valueOf(mainDishQuantity));
+
         mainDishRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterMealAddon mainDishAdapter = new recyclerViewAdapterMealAddon(this, userId, mainDishName, mainDishMinusBtn, mainDishAddBtn, mainDishCategory, mainDishImg, mainDishPrice, mainDishQuantity, mainDishId);
         mainDishRecyclerView.setAdapter(mainDishAdapter);
@@ -150,6 +249,25 @@ public class craftedMeal extends AppCompatActivity {
 
         getAddonIdModel("side_dish", sideId);
         setUpAddonModel("side_dish", sideName, sideImg, sidePrice, sideQuantity, sideCategory, sideMinusBtn, sideAddBtn);
+
+        populateAddonQuantity(orderAddonGroupId, "side_dish", sideName, sideQuantity);
+
+        for (int i = 0; i < sideName.size(); i++) {
+            if (sideQuantity.get(i) > 0) {
+                recyclerViewAdapterMealAddon.hashAddonQuantity.put(sideName.get(i), sideQuantity.get(i));
+                recyclerViewAdapterMealAddon.hashAddonPrice.put(sideName.get(i), sidePrice.get(i));
+            }
+        }
+
+        for (int i = 0; i < sideName.size(); i++) {
+            int quantity = sideQuantity.get(i);
+            if (quantity > 0) {
+                int price = sidePrice.get(i);
+                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(sideName.get(i), price * quantity);
+            }
+        }
+
+        Log.d("may error ka", " addonName: " + String.valueOf(sideName) + " addonQuantity: " + String.valueOf(sideQuantity));
 
         sideRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterMealAddon sideAdapter = new recyclerViewAdapterMealAddon(this, userId, sideName, sideMinusBtn, sideAddBtn, sideCategory, sideImg, sidePrice, sideQuantity, sideId);
@@ -170,6 +288,26 @@ public class craftedMeal extends AppCompatActivity {
         getAddonIdModel("sauce", sauceId);
         setUpAddonModel("sauce", sauceName, sauceImg, saucePrice, sauceQuantity, sauceCategory, sauceMinusBtn, sauceAddBtn);
 
+        populateAddonQuantity(orderAddonGroupId, "sauce", sauceName, sauceQuantity);
+
+        for (int i = 0; i < sauceName.size(); i++) {
+            if (sauceQuantity.get(i) > 0) {
+                recyclerViewAdapterMealAddon.hashAddonQuantity.put(sauceName.get(i), sauceQuantity.get(i));
+                recyclerViewAdapterMealAddon.hashAddonPrice.put(sauceName.get(i), saucePrice.get(i));
+            }
+        }
+
+        for (int i = 0; i < sauceName.size(); i++) {
+            int quantity = sauceQuantity.get(i);
+            if (quantity > 0) {
+                int price = saucePrice.get(i);
+                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(sauceName.get(i), price * quantity);
+            }
+        }
+
+        Log.d("may error ka", " addonName: " + String.valueOf(sauceName) + " addonQuantity: " + String.valueOf(sauceQuantity));
+
+
         sauceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterMealAddon sauceAdapter = new recyclerViewAdapterMealAddon(this, userId, sauceName, sauceMinusBtn, sauceAddBtn, sauceCategory, sauceImg, saucePrice, sauceQuantity, sauceId);
         sauceRecyclerView.setAdapter(sauceAdapter);
@@ -188,6 +326,26 @@ public class craftedMeal extends AppCompatActivity {
 
         getAddonIdModel("dessert", dessertId);
         setUpAddonModel("dessert", dessertName, dessertImg, dessertPrice, dessertQuantity, dessertCategory, dessertMinusBtn, dessertAddBtn);
+
+        populateAddonQuantity(orderAddonGroupId, "dessert", dessertName, dessertQuantity);
+
+        for (int i = 0; i < dessertName.size(); i++) {
+            if (dessertQuantity.get(i) > 0) {
+                recyclerViewAdapterMealAddon.hashAddonQuantity.put(dessertName.get(i), dessertQuantity.get(i));
+                recyclerViewAdapterMealAddon.hashAddonPrice.put(dessertName.get(i), dessertPrice.get(i));
+            }
+        }
+
+        for (int i = 0; i < dessertName.size(); i++) {
+            int quantity = dessertQuantity.get(i);
+            if (quantity > 0) {
+                int price = dessertPrice.get(i);
+                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(dessertName.get(i), price * quantity);
+            }
+        }
+
+        Log.d("may error ka", " addonName: " + String.valueOf(dessertName) + " addonQuantity: " + String.valueOf(dessertQuantity));
+
 
         dessertRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterMealAddon dessertAdapter = new recyclerViewAdapterMealAddon(this, userId, dessertName, dessertMinusBtn, dessertAddBtn, dessertCategory, dessertImg, dessertPrice, dessertQuantity, dessertId);
@@ -208,6 +366,26 @@ public class craftedMeal extends AppCompatActivity {
         getAddonIdModel("drink", drinkId);
         setUpAddonModel("drink", drinkName, drinkImg, drinkPrice, drinkQuantity, drinkCategory, drinkMinusBtn, drinkAddBtn);
 
+        populateAddonQuantity(orderAddonGroupId, "drink", drinkName, drinkQuantity);
+
+        for (int i = 0; i < drinkName.size(); i++) {
+            if (drinkQuantity.get(i) > 0) {
+                recyclerViewAdapterMealAddon.hashAddonQuantity.put(drinkName.get(i), drinkQuantity.get(i));
+                recyclerViewAdapterMealAddon.hashAddonPrice.put(drinkName.get(i), drinkPrice.get(i));
+            }
+        }
+
+        for (int i = 0; i < drinkName.size(); i++) {
+            int quantity = drinkQuantity.get(i);
+            if (quantity > 0) {
+                int price = drinkPrice.get(i);
+                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(drinkName.get(i), price * quantity);
+            }
+        }
+
+        Log.d("may error ka", " addonName: " + String.valueOf(drinkName) + " addonQuantity: " + String.valueOf(drinkQuantity));
+
+
         drinkRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterMealAddon drinkAdapter = new recyclerViewAdapterMealAddon(this, userId, drinkName, drinkMinusBtn, drinkAddBtn, drinkCategory, drinkImg, drinkPrice, drinkQuantity, drinkId);
         drinkRecyclerView.setAdapter(drinkAdapter);
@@ -219,12 +397,16 @@ public class craftedMeal extends AppCompatActivity {
         popUpLogInWarning.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
         popUpLogInWarning.setCancelable(true);
 
+
         recyclerViewAdapterMealAddon.setOnPriceUpdatedListener(new recyclerViewAdapterMealAddon.OnPriceUpdateListener() {
             @Override
             public void onPriceUpdated(int newTotalPrice) {
                 totalPrice.setText(String.valueOf(newTotalPrice));
             }
         });
+
+        int mealTotalPrice = getIntent().getIntExtra("mealTotalPrice", 0);
+        totalPrice.setText(String.valueOf(mealTotalPrice));
 
         //LOGIC STATEMENT
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -256,37 +438,75 @@ public class craftedMeal extends AppCompatActivity {
                         }
                     });
                 } else if (userRole.equals("user")) {
-                    boolean insertAddonData = false;
-                    int addonQuantity = 0;
+                    //editMeal = getIntent().getBooleanExtra("editMeal", false);
 
-                    getAddonQuantity.putAll(recyclerViewAdapterMealAddon.hashAddonQuantity);
+                    /*if (editMeal) {
+                        SharedPreferences addonGroupIdSP = getSharedPreferences("addonGroupId", MODE_PRIVATE);
+                        String existingAddonGroupId = addonGroupIdSP.getString("addonGroupId", "");
 
-                    for (Map.Entry<String, Integer> item : recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.entrySet()) {
-                        getAddonName = item.getKey();
-                        getAddonPrice = item.getValue();
+                        Cursor addonData = databaseFunctions.getOrderAddonByGroupId(userId, existingAddonGroupId);
+                        if (addonData != null && addonData.moveToFirst()) {
+                            do {
+                                String addonName = addonData.getString(addonData.getColumnIndexOrThrow("addon"));
+                                int addonQuantity = addonData.getInt(addonData.getColumnIndexOrThrow("quantity"));
+                                int addonTotalPrice = addonData.getInt(addonData.getColumnIndexOrThrow("price"));
 
-                        insertAddonData = databaseFunctions.insertOrderAddonData(userId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
-                    }
+                                // Store in hashmaps so your adapter can use them
+                                recyclerViewAdapterMealAddon.hashAddonQuantity.put(addonName, addonQuantity);
+                                recyclerViewAdapterMealAddon.hashAddonPrice.put(addonName, addonTotalPrice / addonQuantity); // unit price
+                                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(addonName, addonTotalPrice);
+                            } while (addonData.moveToNext());
+                        }
 
-                    int getMealTotalPrice = recyclerViewAdapterMealAddon.getMealTotalPrice();
+                        recyclerViewAdapterMealAddon.setMealTotalPrice(
+                                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.values().stream().mapToInt(i -> i).sum()
+                        );
 
-                    if (insertAddonData) {
-                        Cursor getAddonData = databaseFunctions.getAddonData(userId);
+                        databaseFunctions.deleteOrderAddonsByGroupId(existingAddonGroupId);
 
-                        if (getAddonData != null && getAddonData.moveToFirst()) {
-                            int getAddonId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("orderAddonId"));
-                            String addon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
-                            String quantity = getAddonData.getString(getAddonData.getColumnIndexOrThrow("quantity"));
-                            int price = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
+                        getAddonQuantity.putAll(recyclerViewAdapterMealAddon.hashAddonQuantity);
 
-                            boolean insertOrderData = databaseFunctions.insertOrderData(getAddonId, userId, bitmap, MEAL_TYPE, getMealTotalPrice);
-                            if (insertOrderData) {
-                                Intent intent = new Intent(craftedMeal.this, cart.class);
-                                startActivity(intent);
+                        for (Map.Entry<String, Integer> item : recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.entrySet()) {
+                            getAddonName = item.getKey();
+                            getAddonPrice = item.getValue();
+
+                            databaseFunctions.insertOrderAddonData(userId, existingAddonGroupId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
+                        }
+
+                        int newMealTotalPrice = recyclerViewAdapterMealAddon.getMealTotalPrice();
+                        databaseFunctions.updateOrderPrice(existingAddonGroupId, userId, newMealTotalPrice);
+
+                        addUserOrder = new Intent(craftedMeal.this, cart.class);
+                        startActivity(addUserOrder);
+                        finish();
+                    } else {*/
+                        boolean insertAddonData = false;
+
+                        getAddonQuantity.putAll(recyclerViewAdapterMealAddon.hashAddonQuantity);
+                        String addonGroupId = UUID.randomUUID().toString();
+
+                        for (Map.Entry<String, Integer> item : recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.entrySet()) {
+                            getAddonName = item.getKey();
+                            getAddonPrice = item.getValue();
+
+                            insertAddonData = databaseFunctions.insertOrderAddonData(userId, addonGroupId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
+                        }
+
+                        int getMealTotalPrice = recyclerViewAdapterMealAddon.getMealTotalPrice();
+
+                        if (insertAddonData) {
+                            Cursor getAddonData = databaseFunctions.getAddonData(userId);
+
+                            if (getAddonData != null && getAddonData.moveToFirst()) {
+                                boolean insertOrderData = databaseFunctions.insertOrderData(addonGroupId, userId, bitmap, MEAL_TYPE, 1, getMealTotalPrice);
+                                if (insertOrderData) {
+                                    addUserOrder = new Intent(craftedMeal.this, cart.class);
+                                    startActivity(addUserOrder);
+                                    finish();
+                                }
                             }
                         }
-                    }
-
+                   //}
                 }
             }
         });
@@ -299,9 +519,76 @@ public class craftedMeal extends AppCompatActivity {
                 finish();
             }
         });
-
     }
-    
+
+    public void populateAddonQuantity(String orderAddonGroup, String table, ArrayList<String> addonNames, ArrayList<Integer> addonQuantity) {
+        Cursor cursor = databaseFunctions.getOrderAddonWithQuantity(orderAddonGroup);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String addonName = cursor.getString(cursor.getColumnIndexOrThrow("addon"));
+                int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
+
+                boolean checkAddonTable = databaseFunctions.checkAddonTable(table, addonName);
+
+                if (checkAddonTable) {
+                    for (int i = 0; i < addonNames.size(); i++) {
+                        if (addonNames.get(i).equals(addonName)) {
+                            addonQuantity.set(i, quantity);
+                            break;
+                        }
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+    }
+
+    public void getAddonTable(String addonGroupId) {
+        getAddonTable = new ArrayList<>();
+        String[] tables = {"rice", "main_dish", "side_dish", "sauce", "dessert", "drink"};
+
+        Cursor cursor = databaseFunctions.getOrderAddonName(addonGroupId);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String addonName = cursor.getString(cursor.getColumnIndexOrThrow("addon"));
+
+                for (String table : tables) {
+                    if (databaseFunctions.checkAddonTable(table, addonName)) {
+                        getAddonTable.add(table);
+                        break;
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+    }
+
+    public void getAddonQuantity(String addonGroupId) {
+        Cursor getAddonQuantity = databaseFunctions.getOrderAddonQuantity(addonGroupId);
+        getOrderAddonQuantity = new ArrayList<>();
+
+        if (getAddonQuantity != null && getAddonQuantity.moveToFirst()) {
+            do {
+            getOrderAddonQuantity.add(getAddonQuantity.getInt(getAddonQuantity.getColumnIndexOrThrow("quantity")));
+            } while (getAddonQuantity.moveToNext());
+            getAddonQuantity.close();
+        }
+    }
+
+    public void getAddon(String orderAddonId) {
+        Cursor getAddon = databaseFunctions.getOrderAddonName(orderAddonId);
+        getOrderAddonName = new ArrayList<>();
+
+        if (getAddon != null && getAddon.moveToFirst()) {
+            do {
+                getOrderAddonName.add(getAddon.getString(getAddon.getColumnIndexOrThrow("addon")));
+            } while (getAddon.moveToNext());
+            getAddon.close();
+        }
+    }
+
     public void setUpAddonModel(String addonTable, ArrayList<String> addonName, ArrayList<Bitmap> addonImg, ArrayList<Integer> addonPrice, ArrayList<Integer> addonQuantity, ArrayList<String> addonCategory, ArrayList<String> minusBtnAddon, ArrayList<String> addBtnAddon) {
         Cursor getAddonData = databaseFunctions.getAddonTable(addonTable);
         
