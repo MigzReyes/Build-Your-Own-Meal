@@ -39,8 +39,6 @@ public class account extends AppCompatActivity {
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
 
-
-
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
         sideActName = findViewById(R.id.sideFragName);
@@ -67,10 +65,10 @@ public class account extends AppCompatActivity {
         String getEmail = userSession.getString("email", null);
 
         //DATABASE GETTERS
-        Cursor dbGetUserInfo  = databaseFunctions.getUserInfo(getEmail);
         boolean dbCheckUserId = databaseFunctions.checkUserId(getUserId);
 
         if (dbCheckUserId) {
+            Cursor dbGetUserInfo  = databaseFunctions.getUserInfo(getEmail);
             if (dbGetUserInfo != null && dbGetUserInfo.moveToFirst()) {
                 String dbUsername = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("username"));
                 String dbEmail = dbGetUserInfo.getString(dbGetUserInfo.getColumnIndexOrThrow("email"));
@@ -81,8 +79,10 @@ public class account extends AppCompatActivity {
 
                 if (dbContactNumber == null || dbContactNumber.trim().isEmpty()) {
                     contactNumberProfile.setText(null);
+                    dbGetUserInfo.close();
                 } else {
                     contactNumberProfile.setText(dbContactNumber);
+                    dbGetUserInfo.close();
                 }
             } else {
                 databaseFunctions.cannotRetrieveData();
