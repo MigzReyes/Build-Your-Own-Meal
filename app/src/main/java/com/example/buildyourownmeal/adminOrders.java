@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.SearchView;
 
@@ -27,6 +28,7 @@ import com.google.android.material.navigation.NavigationView;
 public class adminOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private Button seeOrderBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,18 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View v) {
                 searchbar.setIconified(false);
+            }
+        });
+
+
+        //REFERENCE
+        seeOrderBtn = findViewById(R.id.seeOrderBtn);
+
+        seeOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(adminOrders.this, adminUserOrdersList.class);
+                startActivity(intent);
             }
         });
 

@@ -46,9 +46,11 @@
     <string name="dateTime">Date &amp; Time:</string>
     <string name="totalPrice">Total Price:</string>
     <string name="status">Status:</string>
+    <string name="deleteAll">Delete all</string>
     <string name="setStatus">Set Status</string>
     <string name="seeOrder">See Order</string>
     <string name="craftNow">CRAFT NOW</string>
+    <string name="meal">Meal:</string>
     <string name="sampleName">Migz Reyes</string>
     <string name="sampleContact">09948751671</string>
     <string name="sampleEmail">migz@gmail.com</string>
