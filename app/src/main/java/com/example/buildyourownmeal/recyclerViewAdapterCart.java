@@ -24,12 +24,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAdapterCart.MyViewHolder> {
+
+    public interface OnPriceUpdateListener {
+        void OnPriceUpdate(int newTotalPrice);
+    }
+
     private databaseFunctions databaseFunctions;
     private Context context;
     private  ArrayList<String> addonGroupId;
     private ArrayList<String> mealType, cartItemName, minusBtn, addBtn;
-    private ArrayList<Integer> cartItemPrice, mealQuantity, trashBtn, userOrderId;
+    private ArrayList<Integer> cartItemPrice, mealQuantity, trashBtn, userOrderId, cartItemPerTotalPrice;
     private ArrayList<Bitmap> cartItemImg;
+    private static int cartItemTotalPrice = 0;
+    private static OnPriceUpdateListener OnPriceUpdateListener;
+
+    public static int getMealTotalPrice() {
+        return cartItemTotalPrice;
+    }
+
+    public static void setOnPriceUpdatedListener(OnPriceUpdateListener listener) {
+        OnPriceUpdateListener = listener;
+    }
+
+    public void recalculateTotalPriceAndNotify() {
+        cartItemPerTotalPrice.clear();
+        cartItemTotalPrice = 0;
+
+        for (int i = 0; i < cartItemPrice.size(); i++) {
+            int itemTotal = cartItemPrice.get(i) * mealQuantity.get(i);
+            cartItemPerTotalPrice.add(itemTotal);
+            cartItemTotalPrice += itemTotal;
+        }
+
+        if (OnPriceUpdateListener != null) {
+            OnPriceUpdateListener.OnPriceUpdate(cartItemTotalPrice);
+        }
+    }
+
 
     public recyclerViewAdapterCart(Context context, ArrayList<String> addonGroupId, ArrayList<String> mealType, ArrayList<String> cartItemName, ArrayList<String> minusBtn, ArrayList<String> addBtn, ArrayList<Integer> cartItemPrice, ArrayList<Integer> mealQuantity, ArrayList<Integer> trashBtn, ArrayList<Integer> userOrderId, ArrayList<Bitmap> cartItemImg) {
         this.context = context;
@@ -43,6 +74,18 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
         this.trashBtn = trashBtn;
         this.userOrderId = userOrderId;
         this.cartItemImg = cartItemImg;
+
+        this.cartItemPerTotalPrice = new ArrayList<>();
+
+        for (int i = 0; i < cartItemPrice.size(); i++) {
+            int itemTotal = cartItemPrice.get(i) * mealQuantity.get(i);
+            this.cartItemPerTotalPrice.add(itemTotal);
+        }
+
+        cartItemTotalPrice = 0;
+        for (int item : cartItemPerTotalPrice) {
+            cartItemTotalPrice += item;
+        }
     }
 
     @NonNull
@@ -81,6 +124,7 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
                     Intent intent = new Intent(context, craftedMeal.class);
                     edit.putString("addonGroupId", addonId);
                     edit.apply();
+                    intent.putExtra("addonGroupId", addonId);
                     intent.putExtra("mealTotalPrice", cartItemPrice.get(position));
                     intent.putExtra("editMeal", true);
                     context.startActivity(intent);
@@ -105,6 +149,21 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
                 if (pos != RecyclerView.NO_POSITION) {
                     int qty = mealQuantity.get(pos) + 1;
                     mealQuantity.set(pos, qty);
+
+                    int itemPerTotalPrice = cartItemPrice.get(pos) * qty;
+                    Log.d("may error ka", String.valueOf(cartItemTotalPrice));
+
+                    cartItemPerTotalPrice.set(pos, itemPerTotalPrice);
+
+                    cartItemTotalPrice = 0;
+                    for (int item : cartItemPerTotalPrice) {
+                        cartItemTotalPrice += item;
+                    }
+
+                    if (OnPriceUpdateListener != null) {
+                        OnPriceUpdateListener.OnPriceUpdate(cartItemTotalPrice);
+                    }
+
                     notifyItemChanged(pos);
                 }
             }
@@ -117,6 +176,20 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
                 if (pos != RecyclerView.NO_POSITION && mealQuantity.get(pos) > 1) {
                     int qty = mealQuantity.get(pos) - 1;
                     mealQuantity.set(pos, qty);
+
+                    int itemPerTotalPrice = cartItemPrice.get(pos) * qty;
+
+                    cartItemPerTotalPrice.set(pos, itemPerTotalPrice);
+
+                    cartItemTotalPrice = 0;
+                    for (int item : cartItemPerTotalPrice) {
+                        cartItemTotalPrice += item;
+                    }
+
+                    if (OnPriceUpdateListener != null) {
+                        OnPriceUpdateListener.OnPriceUpdate(cartItemTotalPrice);
+                    }
+
                     notifyItemChanged(pos);
                 }
             }
@@ -128,17 +201,28 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
                 int pos = holder.getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     boolean deleted = databaseFunctions.deleteUserOrder(userOrderId.get(pos));
-                    if (deleted) {
+                    boolean deleteOrderAddon = databaseFunctions.deleteOrderAddon(addonGroupId.get(pos));
+                    if (deleted && deleteOrderAddon) {
                         cartItemName.remove(pos);
                         cartItemImg.remove(pos);
                         cartItemPrice.remove(pos);
                         mealType.remove(pos);
                         mealQuantity.remove(pos);
+                        addonGroupId.remove(pos);
                         userOrderId.remove(pos);
                         addBtn.remove(pos);
                         minusBtn.remove(pos);
                         trashBtn.remove(pos);
+
+                        int removeItem = cartItemPerTotalPrice.get(pos);
+                        cartItemTotalPrice -= removeItem;
+
+                        if (OnPriceUpdateListener != null) {
+                            OnPriceUpdateListener.OnPriceUpdate(cartItemTotalPrice);
+                        }
+
                         notifyItemRemoved(pos);
+                        notifyItemRangeChanged(pos, getItemCount());
                     }
                 }
             }

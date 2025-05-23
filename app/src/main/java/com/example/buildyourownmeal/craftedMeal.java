@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -83,6 +84,9 @@ public class craftedMeal extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_crafted_meal);
 
+        // CHECK IF USER CLICKED FROM CART
+        editMeal = getIntent().getBooleanExtra("editMeal", false);
+
         //STATUS BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
@@ -104,6 +108,9 @@ public class craftedMeal extends AppCompatActivity {
 
         //ORDER BTN
         addBtn = findViewById(R.id.addBtn);
+        if (editMeal) {
+            addBtn.setText("Edit");
+        }
 
         //REFERENCE
         totalPrice = findViewById(R.id.totalPrice);
@@ -115,9 +122,16 @@ public class craftedMeal extends AppCompatActivity {
 
         //getOrderAddonId();
         //getAddon(getOrderAddonName.get());
-        String orderAddonGroupId = getOrderAddonId.getString("addonGroupId", "");
+        String orderAddonGroupId = "";
+        if (editMeal) {
+            orderAddonGroupId = getIntent().getStringExtra("addonGroupId");
+            Log.d("may error ka", "edit meal:true " + orderAddonGroupId);
+        } else {
+            orderAddonGroupId = getOrderAddonId.getString("addonGroupId", "");
+            Log.d("may error ka", "edit meal:false " + orderAddonGroupId);
+        }
 
-        if (orderAddonGroupId.isBlank()) {
+        if (orderAddonGroupId.isBlank() && !editMeal) {
             Log.d("may error ka", "Empty addon group id");
             getOrderAddonQuantity = new ArrayList<>();
             getOrderAddonName = new ArrayList<>();
@@ -212,6 +226,10 @@ public class craftedMeal extends AppCompatActivity {
         getAddonIdModel("main_dish", mainDishId);
         setUpAddonModel("main_dish", mainDishName, mainDishImg, mainDishPrice, mainDishQuantity, mainDishCategory, mainDishMinusBtn, mainDishAddBtn);
 
+        for (int i = 0; i < mainDishName.size(); i++) {
+            mainDishQuantity.add(0);
+        }
+
         populateAddonQuantity(orderAddonGroupId, "main_dish", mainDishName, mainDishQuantity);
 
         for (int i = 0; i < mainDishName.size(); i++) {
@@ -250,6 +268,10 @@ public class craftedMeal extends AppCompatActivity {
         getAddonIdModel("side_dish", sideId);
         setUpAddonModel("side_dish", sideName, sideImg, sidePrice, sideQuantity, sideCategory, sideMinusBtn, sideAddBtn);
 
+        for (int i = 0; i < sideName.size(); i++) {
+            sideQuantity.add(0);
+        }
+
         populateAddonQuantity(orderAddonGroupId, "side_dish", sideName, sideQuantity);
 
         for (int i = 0; i < sideName.size(); i++) {
@@ -287,6 +309,10 @@ public class craftedMeal extends AppCompatActivity {
 
         getAddonIdModel("sauce", sauceId);
         setUpAddonModel("sauce", sauceName, sauceImg, saucePrice, sauceQuantity, sauceCategory, sauceMinusBtn, sauceAddBtn);
+
+        for (int i = 0; i < sauceName.size(); i++) {
+            sauceQuantity.add(0);
+        }
 
         populateAddonQuantity(orderAddonGroupId, "sauce", sauceName, sauceQuantity);
 
@@ -327,6 +353,10 @@ public class craftedMeal extends AppCompatActivity {
         getAddonIdModel("dessert", dessertId);
         setUpAddonModel("dessert", dessertName, dessertImg, dessertPrice, dessertQuantity, dessertCategory, dessertMinusBtn, dessertAddBtn);
 
+        for (int i = 0; i < dessertName.size(); i++) {
+            dessertQuantity.add(0);
+        }
+
         populateAddonQuantity(orderAddonGroupId, "dessert", dessertName, dessertQuantity);
 
         for (int i = 0; i < dessertName.size(); i++) {
@@ -365,6 +395,10 @@ public class craftedMeal extends AppCompatActivity {
 
         getAddonIdModel("drink", drinkId);
         setUpAddonModel("drink", drinkName, drinkImg, drinkPrice, drinkQuantity, drinkCategory, drinkMinusBtn, drinkAddBtn);
+
+        for (int i = 0; i < drinkName.size(); i++) {
+            drinkQuantity.add(0);
+        }
 
         populateAddonQuantity(orderAddonGroupId, "drink", drinkName, drinkQuantity);
 
@@ -405,10 +439,13 @@ public class craftedMeal extends AppCompatActivity {
             }
         });
 
+
         int mealTotalPrice = getIntent().getIntExtra("mealTotalPrice", 0);
         totalPrice.setText(String.valueOf(mealTotalPrice));
 
+
         //LOGIC STATEMENT
+        String finalOrderAddonGroupId = orderAddonGroupId;
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -438,48 +475,43 @@ public class craftedMeal extends AppCompatActivity {
                         }
                     });
                 } else if (userRole.equals("user")) {
-                    //editMeal = getIntent().getBooleanExtra("editMeal", false);
 
-                    /*if (editMeal) {
-                        SharedPreferences addonGroupIdSP = getSharedPreferences("addonGroupId", MODE_PRIVATE);
-                        String existingAddonGroupId = addonGroupIdSP.getString("addonGroupId", "");
+                    if (editMeal) {
+                        boolean updateAddonData = false;
+                        boolean checkAddonGroup = databaseFunctions.checkAddonGroup(userId, finalOrderAddonGroupId);
 
-                        Cursor addonData = databaseFunctions.getOrderAddonByGroupId(userId, existingAddonGroupId);
-                        if (addonData != null && addonData.moveToFirst()) {
-                            do {
-                                String addonName = addonData.getString(addonData.getColumnIndexOrThrow("addon"));
-                                int addonQuantity = addonData.getInt(addonData.getColumnIndexOrThrow("quantity"));
-                                int addonTotalPrice = addonData.getInt(addonData.getColumnIndexOrThrow("price"));
+                        if (checkAddonGroup) {
+                            getAddonQuantity.putAll(recyclerViewAdapterMealAddon.hashAddonQuantity);
+                            Log.d("may error ka", "addon quanityt list: " + String.valueOf(getAddonQuantity));
 
-                                // Store in hashmaps so your adapter can use them
-                                recyclerViewAdapterMealAddon.hashAddonQuantity.put(addonName, addonQuantity);
-                                recyclerViewAdapterMealAddon.hashAddonPrice.put(addonName, addonTotalPrice / addonQuantity); // unit price
-                                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.put(addonName, addonTotalPrice);
-                            } while (addonData.moveToNext());
+                            for (Map.Entry<String, Integer> item : recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.entrySet()) {
+                                getAddonName = item.getKey();
+                                getAddonPrice = item.getValue();
+
+                                updateAddonData = databaseFunctions.updateOrderAddon(userId, finalOrderAddonGroupId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
+                                Log.d("may error ka", "addon name: " + getAddonName + " addonQuantity: "+  String.valueOf(getAddonQuantity.get(getAddonName)) + " Addon price: "+ String.valueOf(getAddonPrice));
+                            }
+
+                            int getMealTotalPrice = getMealTotalPrice();
+
+                            if (updateAddonData) {
+                                Cursor getAddonData = databaseFunctions.getAddonData(userId);
+
+                                if (getAddonData != null && getAddonData.moveToFirst()) {
+                                    boolean updateUserOrder = databaseFunctions.updateUserOrder(finalOrderAddonGroupId, userId, bitmap, MEAL_TYPE, 1, getMealTotalPrice);
+                                    if (updateUserOrder) {
+                                        addUserOrder = new Intent(craftedMeal.this, cart.class);
+                                        Log.d("may error ka", "addon group id: " + finalOrderAddonGroupId);
+                                        addUserOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(addUserOrder);
+                                        finish();
+                                    }
+                                }
+                            } else {
+                                Log.d("may error ka", "addon group id does not exists");
+                            }
                         }
-
-                        recyclerViewAdapterMealAddon.setMealTotalPrice(
-                                recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.values().stream().mapToInt(i -> i).sum()
-                        );
-
-                        databaseFunctions.deleteOrderAddonsByGroupId(existingAddonGroupId);
-
-                        getAddonQuantity.putAll(recyclerViewAdapterMealAddon.hashAddonQuantity);
-
-                        for (Map.Entry<String, Integer> item : recyclerViewAdapterMealAddon.hashAddonPerTotalPrice.entrySet()) {
-                            getAddonName = item.getKey();
-                            getAddonPrice = item.getValue();
-
-                            databaseFunctions.insertOrderAddonData(userId, existingAddonGroupId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
-                        }
-
-                        int newMealTotalPrice = recyclerViewAdapterMealAddon.getMealTotalPrice();
-                        databaseFunctions.updateOrderPrice(existingAddonGroupId, userId, newMealTotalPrice);
-
-                        addUserOrder = new Intent(craftedMeal.this, cart.class);
-                        startActivity(addUserOrder);
-                        finish();
-                    } else {*/
+                    } else {
                         boolean insertAddonData = false;
 
                         getAddonQuantity.putAll(recyclerViewAdapterMealAddon.hashAddonQuantity);
@@ -492,7 +524,7 @@ public class craftedMeal extends AppCompatActivity {
                             insertAddonData = databaseFunctions.insertOrderAddonData(userId, addonGroupId, getAddonName, getAddonQuantity.get(getAddonName), getAddonPrice);
                         }
 
-                        int getMealTotalPrice = recyclerViewAdapterMealAddon.getMealTotalPrice();
+                        int getMealTotalPrice = getMealTotalPrice();
 
                         if (insertAddonData) {
                             Cursor getAddonData = databaseFunctions.getAddonData(userId);
@@ -501,12 +533,13 @@ public class craftedMeal extends AppCompatActivity {
                                 boolean insertOrderData = databaseFunctions.insertOrderData(addonGroupId, userId, bitmap, MEAL_TYPE, 1, getMealTotalPrice);
                                 if (insertOrderData) {
                                     addUserOrder = new Intent(craftedMeal.this, cart.class);
+                                    addUserOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(addUserOrder);
                                     finish();
                                 }
                             }
                         }
-                   //}
+                   }
                 }
             }
         });
@@ -523,6 +556,8 @@ public class craftedMeal extends AppCompatActivity {
 
     public void populateAddonQuantity(String orderAddonGroup, String table, ArrayList<String> addonNames, ArrayList<Integer> addonQuantity) {
         Cursor cursor = databaseFunctions.getOrderAddonWithQuantity(orderAddonGroup);
+
+        Log.d("may error ka", "addon group id in populate addon quanityt: " + orderAddonGroup);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {

@@ -128,10 +128,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     //DELETE QUERY
-    public boolean deleteOrderAddonsByGroupId(String addonGroupId) {
+    public Boolean deleteOrderAddon(String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        int rows = myDb.delete(TABLE_ORDER_ADDON, "addonGroupId = ?", new String[]{addonGroupId});
-        return rows > 0;
+        long result = myDb.delete(TABLE_ORDER_ADDON, "addonGroupId = ?", new String[]{addonGroupId});
+
+        return result != 0;
     }
 
     public Boolean deleteUserOrder(int userOrderId) {
@@ -313,12 +314,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //UPDATE QUERY
-    public boolean updateOrderPrice(String orderAddonId, int userId, int newPrice) {
+    public boolean updateCartItem(int userOrderId, int quantity, int totalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("orderTotalPrice", newPrice);
-        int rows = myDb.update(TABLE_USER_ORDER, contentValues, "orderAddonId = ? AND userId = ?", new String[]{orderAddonId, String.valueOf(userId)});
-        return rows > 0;
+        contentValues.put("mealQuantity", quantity);
+        contentValues.put("orderTotalPrice", totalPrice);
+        int rows = myDb.update(TABLE_USER_ORDER, contentValues, "userOrderId = ?", new String[]{String.valueOf(userOrderId)});
+        return rows != 0;
     }
 
 
@@ -330,12 +332,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
         contentValues.put("addon", addon);
         contentValues.put("quantity", quantity);
         contentValues.put("price", price);
-        long result = myDb.update(TABLE_ORDER_ADDON, contentValues, null, null);
+        long result = myDb.update(TABLE_ORDER_ADDON, contentValues, "userId = ? AND addonGroupId = ? AND addon = ?", new String[]{String.valueOf(userId), addonGroupId, addon});
 
-        if (result == -1) {
-            Log.d(LOG_ALERT_TAG, "Update data failed");
+        if (result == 0) {
+            long insertNewAddon = myDb.insert(TABLE_ORDER_ADDON, null, contentValues);
             myDb.close();
-            return false;
+            return insertNewAddon != -1;
         } else {
             myDb.close();
             return true;
@@ -353,7 +355,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         contentValues.put("mealType", mealType);
         contentValues.put("mealQuantity", mealQuantity);
         contentValues.put("orderTotalPrice", orderTotalPrice);
-        long result = myDb.update(TABLE_USER_ORDER, contentValues, null,null);
+        long result = myDb.update(TABLE_USER_ORDER, contentValues, "userId = ? AND orderAddonId = ?", new String[]{String.valueOf(userId), orderAddonId});
 
         if (result == -1) {
             Log.d(LOG_ALERT_TAG, "Update data failed");
@@ -440,11 +442,6 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
-    public Cursor getOrderAddonByGroupId(int userId, String addonGroupId) {
-        SQLiteDatabase myDb = this.getReadableDatabase();
-        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), addonGroupId});
-    }
-
     public Cursor getOrderAddonWithQuantity(String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT addon, quantity FROM " + TABLE_ORDER_ADDON + " WHERE addonGroupId = ?", new String[]{addonGroupId});
@@ -526,6 +523,23 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //QUERY VALIDATION
+    public Boolean checkAddonGroup(int userId, String addonGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT addonGroupId FROM " + TABLE_ORDER_ADDON + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), addonGroupId});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.close();
+            myDb.close();
+            Log.d(LOG_ALERT_TAG, "Addon group exists");
+            return true;
+        } else {
+            cursor.close();
+            myDb.close();
+            Log.d(LOG_ALERT_TAG, "Addon group does not exists");
+            return false;
+        }
+    }
+
     public Boolean checkAddonTable(String addonTable, String addonName) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("SELECT name FROM " + addonTable + " WHERE name = ?", new String[]{addonName});

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
@@ -48,7 +49,7 @@ public class cart extends AppCompatActivity {
 
     //LOCAL VARIABLE
     private ImageView backBtn;
-    private TextView fragName;
+    private TextView fragName, addMoreItems, totalPrice;
     private Button checkOutBtn;
     private LinearLayout changeSchedCon;
     private int userId;
@@ -65,6 +66,21 @@ public class cart extends AppCompatActivity {
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
 
+        //BACK PRESSED ON PHONE SYSTEM
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
+
+                saveCartState();
+                Intent intent = new Intent(cart.this, Navbar.class);
+                startActivity(intent);
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+
         //DATABASE
         databaseFunctions = new databaseFunctions(this);
 
@@ -72,6 +88,14 @@ public class cart extends AppCompatActivity {
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         String userRole = userSession.getString("role", "guest");
         userId = userSession.getInt("userId", 0);
+
+        //VARIABLE REFERENCE
+        backBtn = findViewById(R.id.backBtn);
+        fragName = findViewById(R.id.sideFragName);
+        checkOutBtn = findViewById(R.id.checkOutBtn);
+        changeSchedCon = findViewById(R.id.changeSchedCon);
+        addMoreItems = findViewById(R.id.addMoreItems);
+        totalPrice = findViewById(R.id.totalPrice);
 
         //RECYCLER VIEW
         addonGroupId = new ArrayList<>();
@@ -88,21 +112,40 @@ public class cart extends AppCompatActivity {
 
         setUpCartModel();
 
-        recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapterCart recyclerViewAdapterCart = new recyclerViewAdapterCart(this, addonGroupId, mealType, cartItemName, minusBtn, addBtn, cartItemPrice, mealQuantity, trashBtn, userOrderId, cartItemImg);
+
+        //ON PRICE UPDATE LISTENER
+        com.example.buildyourownmeal.recyclerViewAdapterCart.setOnPriceUpdatedListener(new recyclerViewAdapterCart.OnPriceUpdateListener() {
+            @Override
+            public void OnPriceUpdate(int newTotalPrice) {
+                totalPrice.setText(String.valueOf(newTotalPrice));
+            }
+        });
+
+        recyclerViewAdapterCart.recalculateTotalPriceAndNotify();
+        recyclerViewAdapterCart.notifyDataSetChanged();
+
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCart.setAdapter(recyclerViewAdapterCart);
 
-        //VARIABLE REFERENCE
-        backBtn = findViewById(R.id.backBtn);
-        fragName = findViewById(R.id.sideFragName);
-        checkOutBtn = findViewById(R.id.checkOutBtn);
-        changeSchedCon = findViewById(R.id.changeSchedCon);
 
         //BACK BUTTON LISTENER
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveCartState();
+                Intent intent = new Intent(cart.this, Navbar.class);
+                startActivity(intent);
                 finish();
+            }
+        });
+
+        addMoreItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveCartState();
+                Intent intent = new Intent(cart.this, menu.class);
+                startActivity(intent);
             }
         });
 
@@ -173,6 +216,15 @@ public class cart extends AppCompatActivity {
             } while (getUserOrder.moveToNext());
             getUserOrder.close();
         }
+    }
 
+    private void saveCartState() {
+        for (int i = 0; i < userOrderId.size(); i++) {
+            int orderId = userOrderId.get(i);
+            int quantity = mealQuantity.get(i);
+            int price = cartItemPrice.get(i);
+
+            databaseFunctions.updateCartItem(orderId, quantity, price);
+        }
     }
 }
