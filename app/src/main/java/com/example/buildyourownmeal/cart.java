@@ -190,6 +190,7 @@ public class cart extends AppCompatActivity {
 
                  } else if (userRole.equals("user")) {
                      saveCartState();
+
                      Intent intent = new Intent(cart.this, checkout.class);
                      startActivity(intent);
                  }

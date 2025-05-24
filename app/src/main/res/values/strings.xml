@@ -39,6 +39,7 @@
     <string name="orders">Orders</string>
     <string name="accounts">Accounts</string>
     <string name="account">Account</string>
+    <string name="mealQuantity">Meal Quantity:</string>
     <string name="meals">Meals</string>
     <string name="customerName">Customer Name:</string>
     <string name="adminContactNumber">Contact Number:</string>
@@ -468,6 +469,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="pleaseSelectPickUpOption">Please select a pick up option</string>
     <string name="failedToLoadImg">Failed to load image</string>
     <string name="areyouSureYouWantToDeleteThisAddon">Are you sure you want to delete this addon?</string>
     <string name="noUpdatedInfo">There is no new updated information</string>

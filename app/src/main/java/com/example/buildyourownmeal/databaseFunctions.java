@@ -24,7 +24,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
     private static final String TABLE_ACCOUNT = "account";
     private static final String TABLE_USER_ORDER = "user_order";
     private static final String TABLE_ORDER_ADDON = "order_addon";
-    private static final String TABLE_ADMIN_MENU = "admin_menu";
+    private static final String TABLE_ADMIN_ORDER_ADDON = "admin_order_addon";
+    private static final String TABLE_ADMIN_ORDERS = "admin_orders";
     private static final String TABLE_USER_CHECKOUT = "user_checkout";
     private static final String TABLE_RICE = "rice";
     private static final String TABLE_MAIN_DISH = "main_dish";
@@ -73,14 +74,27 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
         myDb.execSQL("create Table " + TABLE_USER_CHECKOUT + " (" +
                 "userCheckoutId INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "userOrderId INTEGER," +
-                "mealImg BLOB, " +
-                "mealType TEXT, " +
-                "orderAddonId TEXT, " +
+                "userId INTEGER, " +
                 "contactNumber TEXT, " +
                 "paymentMethod TEXT, " +
                 "checkoutTotalPrice INTEGER, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
+        myDb.execSQL("create Table " + TABLE_ADMIN_ORDERS + " (" +
+                "adminOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userId INTEGER, " +
+                "totalPrice INTEGER, " +
+                "status TEXT, " +
+                "orderedDate TEXT)");
+
+        myDb.execSQL("create Table " + TABLE_ADMIN_ORDER_ADDON + " (" +
+                "adminOrderAddonId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userId INTEGER, " +
+                "addonGroupId TEXT," +
+                " addon TEXT, " +
+                "quantity INTEGER, " +
+                "price INTEGER, " +
+                "orderedDate TEXT)");
 
         myDb.execSQL("create Table " + TABLE_RICE + " (riceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
@@ -171,16 +185,34 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
-    public Boolean insertUserCheckout(String userOrderId, Bitmap mealImg, String mealType, String orderAddonId, String contactNumber, String paymentMethod, int checkoutTotalPrice) {
+    public void insertAdminOrderAddon(int userId, String addonGroupId, String addon, int quantity, int price, String orderedDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        contentValues.put("userOrderId", userOrderId);
-        contentValues.put("mealImg", byteArray);
-        contentValues.put("mealType", mealType);
-        contentValues.put("orderAddonId", orderAddonId);
+        contentValues.put("userId", userId);
+        contentValues.put("addonGroupId", addonGroupId);
+        contentValues.put("addon", addon);
+        contentValues.put("quantity", quantity);
+        contentValues.put("price", price);
+        contentValues.put("orderedDate", orderedDate);
+        myDb.insert(TABLE_ADMIN_ORDER_ADDON, null, contentValues);
+    }
+
+    public Boolean insertAdminOrders(int userId, int totalPrice, String status, String orderedDate) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("totalPrice", totalPrice);
+        contentValues.put("status", status);
+        contentValues.put("orderedDate", orderedDate);
+        long result = myDb.insert(TABLE_ADMIN_ORDERS, null, contentValues);
+
+        return result != -1;
+    }
+
+    public Boolean insertUserCheckout(int userId, String contactNumber, String paymentMethod, int checkoutTotalPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
         contentValues.put("contactNumber", contactNumber);
         contentValues.put("paymentMethod", paymentMethod);
         contentValues.put("checkoutTotalPrice", checkoutTotalPrice);
@@ -473,6 +505,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getOrderedDate(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT creationDate FROM " + TABLE_USER_CHECKOUT + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
     public Cursor getOrderAddonWithQuantity(String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT addon, quantity FROM " + TABLE_ORDER_ADDON + " WHERE addonGroupId = ?", new String[]{addonGroupId});

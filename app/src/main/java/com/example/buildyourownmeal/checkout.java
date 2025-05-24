@@ -1,5 +1,6 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -7,9 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,7 +36,7 @@ public class checkout extends AppCompatActivity {
 
 
     //DATABASE
-    databaseFunctions databaseFunctions;
+    private databaseFunctions databaseFunctions;
 
     //RECYCLER VIEW
     private RecyclerView recyclerViewCheckout;
@@ -41,10 +45,11 @@ public class checkout extends AppCompatActivity {
     private ArrayList<Integer> mealTotalPrice, mealQuantity, trashBtn, checkoutItemPerTotalPrice, userOrderId;
 
     private RadioButton priority, standard, scheduledDate;
-    private TextView sideActName, payment, totalPrice, subtotalPrice, priorityPickUpPrice, addItemBtn;
+    private TextView sideActName, payment, totalPrice, subtotalPrice, priorityPickUpPrice, addItemBtn, changeScheduleBtn;
     private Button orderBtn;
+    private EditText editTextPhone;
     private ImageView backBtn;
-    private LinearLayout paymentMethodBtn, orderCon;
+    private LinearLayout paymentMethodBtn, orderCon, changeScheduleCon;
     private int userId = 0;
 
     @Override
@@ -88,13 +93,18 @@ public class checkout extends AppCompatActivity {
         priority = findViewById(R.id.priorityFee);
         standard = findViewById(R.id.standardFee);
         scheduledDate = findViewById(R.id.scheduledDate);
+        changeScheduleCon = findViewById(R.id.changeSchedCon);
+        changeScheduleBtn = findViewById(R.id.changeSchedBtn);
         payment = findViewById(R.id.paymentMethod);
         orderBtn = findViewById(R.id.orderBtnCart);
         orderCon = findViewById(R.id.orderCon);
         totalPrice = findViewById(R.id.totalPrice);
         subtotalPrice = findViewById(R.id.subtotalPrice);
         priorityPickUpPrice = findViewById(R.id.priorityPickUpPrice);
+        editTextPhone = findViewById(R.id.editTextPhone);
         addItemBtn = findViewById(R.id.addItemBtn);
+
+        changeScheduleCon.setVisibility(View.GONE);
 
         //RECYCLER
         recyclerViewCheckout = findViewById(R.id.recyclerViewCheckout);
@@ -147,6 +157,7 @@ public class checkout extends AppCompatActivity {
                 standard.setChecked(true);
                 priority.setChecked(false);
                 scheduledDate.setChecked(false);
+                changeScheduleCon.setVisibility(View.GONE);
             }
         });
 
@@ -156,6 +167,7 @@ public class checkout extends AppCompatActivity {
                 standard.setChecked(false);
                 priority.setChecked(true);
                 scheduledDate.setChecked(false);
+                changeScheduleCon.setVisibility(View.GONE);
             }
         });
 
@@ -165,6 +177,8 @@ public class checkout extends AppCompatActivity {
                 standard.setChecked(false);
                 priority.setChecked(false);
                 scheduledDate.setChecked(true);
+
+                Button saveBtn;
 
                 BottomSheetDialog popUpSched = new BottomSheetDialog(checkout.this);
                 View popUpLayout = LayoutInflater.from(checkout.this).inflate(R.layout.pop_up_pick_up, null);
@@ -176,6 +190,44 @@ public class checkout extends AppCompatActivity {
                     bottomSheet.setBackground(null);
                 }
                 popUpSched.show();
+
+                saveBtn = popUpSched.findViewById(R.id.saveBtn);
+
+                saveBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popUpSched.dismiss();
+                        changeScheduleCon.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+
+        changeScheduleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button saveBtn;
+
+                BottomSheetDialog popUpSched = new BottomSheetDialog(checkout.this);
+                View popUpLayout = LayoutInflater.from(checkout.this).inflate(R.layout.pop_up_pick_up, null);
+                popUpSched.setContentView(popUpLayout);
+                popUpSched.setCancelable(true);
+
+                FrameLayout bottomSheet = popUpSched.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                if (bottomSheet != null) {
+                    bottomSheet.setBackground(null);
+                }
+                popUpSched.show();
+
+                saveBtn = popUpSched.findViewById(R.id.saveBtn);
+
+                saveBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popUpSched.dismiss();
+                        changeScheduleCon.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
 
@@ -184,12 +236,7 @@ public class checkout extends AppCompatActivity {
             orderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (priority.isChecked() || standard.isChecked()) {
 
-
-                    } else {
-                        Toast.makeText(checkout.this, getString(R.string.choosePickUpOption), Toast.LENGTH_SHORT).show();
-                    }
                 }
             });
         } else {
@@ -218,6 +265,103 @@ public class checkout extends AppCompatActivity {
             }
         });
 
+        //ORDER
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getContactNumber = editTextPhone.getText().toString().trim();
+                String paymentMethod = "";
+
+                boolean checkContactNum = databaseFunctions.checkContactNumber(getContactNumber);
+
+                if (getContactNumber.isBlank()) {
+                    popUpAlert(getString(R.string.pleaseFillUpTheInputField));
+                } else if (getContactNumber.length() < 11 || getContactNumber.length() > 13) {
+                    popUpAlert(getString(R.string.invalidPhoneNumber));
+                } else if (checkContactNum) {
+                    popUpAlert(getString(R.string.contactNumberIsAlreadyInUsed));
+                } else {
+                    if (standard.isChecked()) {
+                        paymentMethod = "standard";
+                    } else if (priority.isChecked()) {
+                        paymentMethod = "priority";
+                    } else if (scheduledDate.isChecked()) {
+                        paymentMethod = "scheduled";
+                    }
+
+                    if (paymentMethod.isBlank()) {
+                        popUpAlert(getString(R.string.pleaseSelectPickUpOption));
+                    } else {
+                        Dialog popUpAlert;
+                        Button cancelBtn, proceedBtn;
+
+                        popUpAlert = new Dialog(checkout.this);
+                        popUpAlert.setContentView(R.layout.pop_up_order_confirmation);
+                        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                        popUpAlert.setCancelable(true);
+                        popUpAlert.show();
+
+                        cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
+                        cancelBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                popUpAlert.dismiss();
+                            }
+                        });
+
+                        proceedBtn = popUpAlert.findViewById(R.id.proceedBtn);
+                        String finalPaymentMethod = paymentMethod;
+                        proceedBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int checkoutTotalPrice = Integer.parseInt(totalPrice.getText().toString().trim());
+
+                                boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, getContactNumber, finalPaymentMethod, checkoutTotalPrice);
+
+                                if (insertUserCheckout) {
+                                    Cursor cursor = databaseFunctions.getOrderedDate(userId);
+
+                                    String getOrderedDate = "";
+                                    if (cursor.moveToFirst() && cursor != null) {
+                                        getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
+                                    }
+
+                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, checkoutTotalPrice, "Processing", getOrderedDate);
+
+                                    if (insertAdminOrders) {
+
+                                        Cursor getAddonData = databaseFunctions.getAddonData(userId);
+
+                                        if (getAddonData != null && getAddonData.moveToFirst()) {
+                                            do {
+                                                int getUserId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("userId"));
+                                                String getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
+                                                String getAddon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
+                                                int getQuantity = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("quantity"));
+                                                int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
+                                                String getOrderedDateDb = getAddonData.getString(getAddonData.getColumnIndexOrThrow("creationDate"));
+
+                                                databaseFunctions.insertAdminOrderAddon(getUserId, getAddonGroupId, getAddon, getQuantity, getPrice, getOrderedDateDb);
+                                            } while (getAddonData.moveToNext());
+                                            getAddonData.close();
+                                        }
+
+                                        Intent intent = new Intent(checkout.this, Navbar.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Log.d("may error ka", "failed insert user order to admin");
+                                    }
+                                } else {
+                                    Log.d("may error ka", "insert user checkout failed");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
     }
 
     private void setUpCheckoutModel () {
@@ -238,5 +382,29 @@ public class checkout extends AppCompatActivity {
                 editBtn.add("Edit");
             } while (getCartData.moveToNext());
         }
+    }
+
+    public void popUpAlert(String getAlertText) {
+        Dialog popUpAlert;
+        Button closeBtn;
+        TextView alertText;
+
+        popUpAlert = new Dialog(this);
+        popUpAlert.setContentView(R.layout.pop_up_alerts);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        alertText = popUpAlert.findViewById(R.id.alertText);
+        alertText.setText(getAlertText);
+
+        closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
+            }
+        });
     }
 }

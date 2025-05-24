@@ -270,6 +270,31 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/inter_18pt_regular"
+                                    android:text="@string/mealQuantity"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/blackBoldLetters" />
+
+                                <TextView
+                                    android:id="@+id/mealQuantity"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/inter_18pt_regular"
+                                    android:text="@string/sampleQuantity"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/greyLetters" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/inter_18pt_regular"
                                     android:text="@string/totalPrice"
                                     android:textSize="13sp"
                                     android:textColor="@color/blackBoldLetters" />

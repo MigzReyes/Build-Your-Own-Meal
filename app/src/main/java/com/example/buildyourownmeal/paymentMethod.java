@@ -42,7 +42,6 @@ public class paymentMethod extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         sideActName = findViewById(R.id.sideFragName);
         cash = findViewById(R.id.cash);
-        gCash = findViewById(R.id.gCash);
 
         //BACK BUTTON
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,15 +59,6 @@ public class paymentMethod extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cash.setChecked(true);
-                gCash.setChecked(false);
-            }
-        });
-
-        gCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cash.setChecked(false);
-                gCash.setChecked(true);
             }
         });
 

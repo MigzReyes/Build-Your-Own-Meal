@@ -62,7 +62,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bot_border"
                     android:paddingBottom="5dp"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -86,38 +85,6 @@
 
                     <RadioButton
                         android:id="@+id/cash"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:buttonTint="@color/blackBoldLetters"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView23"
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/gcash" />
-
-                    <TextView
-                        android:id="@+id/textView73"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="@string/gcash"
-                        android:textColor="@color/blackBoldLetters"
-                        android:fontFamily="@font/inter_18pt_bold"
-                        android:textSize="16sp"/>
-
-                    <RadioButton
-                        android:id="@+id/gCash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
