@@ -452,7 +452,16 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //UPDATE QUERY
-    public boolean updateCartItem(int userOrderId, int quantity, int totalPrice) {
+    public Boolean updateAdminOrderTotalPrice(String orderGroupId, int newTotalPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("totalPrice", newTotalPrice);
+        long result = myDb.update(TABLE_ADMIN_ORDERS, contentValues, "orderGroupId = ?", new String[]{orderGroupId});
+
+        return result != 0;
+    }
+
+    public Boolean updateCartItem(int userOrderId, int quantity, int totalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("mealQuantity", quantity);

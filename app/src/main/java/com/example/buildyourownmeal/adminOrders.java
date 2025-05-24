@@ -145,6 +145,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
             int index = orderGroupId.indexOf(updatedOrderGroupId);
             if (index != -1) {
+                databaseFunctions.updateAdminOrderTotalPrice(updatedOrderGroupId, newTotalPrice);
                 orderTotalPrice.set(index, newTotalPrice);
                 adminOrdersAdapter.notifyItemChanged(index);
             }
