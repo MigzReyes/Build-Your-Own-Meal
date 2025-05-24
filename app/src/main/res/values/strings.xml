@@ -40,6 +40,7 @@
     <string name="accounts">Accounts</string>
     <string name="account">Account</string>
     <string name="mealQuantity">Meal Quantity:</string>
+    <string name="x">x</string>
     <string name="meals">Meals</string>
     <string name="customerName">Customer Name:</string>
     <string name="adminContactNumber">Contact Number:</string>

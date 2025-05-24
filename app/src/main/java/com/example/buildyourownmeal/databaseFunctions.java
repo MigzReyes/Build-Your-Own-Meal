@@ -106,7 +106,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "adminOrderAddonId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "userId INTEGER, " +
                 "addonGroupId TEXT," +
-                " addon TEXT, " +
+                "orderGroupId TEXT, " +
+                "addon TEXT, " +
                 "quantity INTEGER, " +
                 "price INTEGER, " +
                 "orderedDate TEXT)");
@@ -170,6 +171,30 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     //DELETE QUERY
+    public Boolean deleteAdminOrder(String orderGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(TABLE_ADMIN_USER_ORDER, "orderGroupId = ?", new String[]{orderGroupId});
+        long result1 = myDb.delete(TABLE_ADMIN_ORDER_ADDON, "orderGroupId = ?", new String[]{orderGroupId});
+        long result3 = myDb.delete(TABLE_ADMIN_ORDERS, "orderGroupId = ?", new String[]{orderGroupId});
+        long result4 = myDb.delete(TABLE_USER_CHECKOUT, "orderGroupId = ?", new String[]{orderGroupId});
+
+        return  result != 0 && result1 != 0 && result3 != 0 && result4 != 0;
+    }
+
+    public Boolean deleteAdminOrderAddon(String addonGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(TABLE_ADMIN_ORDER_ADDON, "addonGroupId = ?", new String[]{addonGroupId});
+
+        return result != 0;
+    }
+
+    public Boolean deleteAdminUserOrder(String orderGroupId, String orderAddonId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(TABLE_ADMIN_USER_ORDER, "orderGroupId = ? AND orderAddonId = ?", new String[]{orderGroupId, orderAddonId});
+
+        return result != 0;
+    }
+
     public Boolean deleteOrderUser(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         long result = myDb.delete(TABLE_USER_ORDER, "userId = ?", new String[]{String.valueOf(userId)});
@@ -231,11 +256,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.insert(TABLE_ADMIN_USER_ORDER, null, contentValues);
     }
 
-    public void insertAdminOrderAddon(int userId, String addonGroupId, String addon, int quantity, int price, String orderedDate) {
+    public void insertAdminOrderAddon(int userId, String addonGroupId, String orderGroupId, String addon, int quantity, int price, String orderedDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
         contentValues.put("addonGroupId", addonGroupId);
+        contentValues.put("orderGroupId", orderGroupId);
         contentValues.put("addon", addon);
         contentValues.put("quantity", quantity);
         contentValues.put("price", price);
@@ -257,10 +283,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public Boolean insertUserCheckout(int userId, String contactNumber, String paymentMethod, int checkoutTotalPrice) {
+    public Boolean insertUserCheckout(int userId, String orderGroupId, String contactNumber, String paymentMethod, int checkoutTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
+        contentValues.put("orderGroupId", orderGroupId);
         contentValues.put("contactNumber", contactNumber);
         contentValues.put("paymentMethod", paymentMethod);
         contentValues.put("checkoutTotalPrice", checkoutTotalPrice);
@@ -553,6 +580,16 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getAdminUserOrderAddon(int userId, String orderAddonId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDER_ADDON + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), orderAddonId});
+    }
+
+    public Cursor getAdminUserOrder(String orderGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_USER_ORDER + " WHERE orderGroupId = ?", new String[]{orderGroupId});
+    }
+
     public Cursor getAdminOrder() {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDERS, null);

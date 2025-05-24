@@ -1,5 +1,6 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,8 +21,11 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,12 +42,12 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
     //RECYCLER
     private RecyclerView adminOrdersRecycler;
-    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus;
+    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
-
+    private recyclerViewAdapterAdminOrders adminOrdersAdapter;
 
     private DrawerLayout drawerLayout;
-    private Button seeOrderBtn;
+    private boolean deletedOrder = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +88,38 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+        deletedOrder = getIntent().getBooleanExtra("deletedOrder", false);
+        if (deletedOrder) {
+            Dialog popUpAlert;
+            TextView alertText;
+            Button closeBtn;
+
+            popUpAlert = new Dialog(adminOrders.this);
+            popUpAlert.setContentView(R.layout.pop_up_alerts);
+            popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+            popUpAlert.setCancelable(true);
+            popUpAlert.show();
+
+            alertText = popUpAlert.findViewById(R.id.alertText);
+            alertText.setText("Order successfully deleted");
+
+            closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popUpAlert.dismiss();
+                }
+            });
+        }
+
 
         //REFERENCE
 
         //RECYCLER
         adminOrdersRecycler = findViewById(R.id.adminOrdersRecycler);
         userId = new ArrayList<>();
+        orderGroupId = new ArrayList<>();
         orderCount = new ArrayList<>();
         customerName = new ArrayList<>();
         customerNumber = new ArrayList<>();
@@ -100,8 +131,24 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         setUpAdminOrder();
 
         adminOrdersRecycler.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewAdapterAdminOrders adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount);
+        adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, orderGroupId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount);
         adminOrdersRecycler.setAdapter(adminOrdersAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1001 && resultCode == RESULT_OK && data != null) {
+            String updatedOrderGroupId = data.getStringExtra("orderGroupId");
+            int newTotalPrice = data.getIntExtra("newTotalPrice", 0);
+
+            int index = orderGroupId.indexOf(updatedOrderGroupId);
+            if (index != -1) {
+                orderTotalPrice.set(index, newTotalPrice);
+                adminOrdersAdapter.notifyItemChanged(index);
+            }
+        }
     }
 
     @Override
@@ -132,6 +179,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         if (getAdminUserOrder != null && getAdminUserOrder.moveToFirst()) {
             do {
                 userId.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("userId")));
+                orderGroupId.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderGroupId")));
                 customerNumber.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("contactNumber")));
                 orderCount.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("adminOrderId")));
                 orderDate.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderedDate")));

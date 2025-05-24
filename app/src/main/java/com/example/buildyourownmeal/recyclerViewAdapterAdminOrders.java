@@ -1,6 +1,11 @@
 package com.example.buildyourownmeal;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,12 +25,14 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
     private databaseFunctions databaseFunctions;
 
     private Context context;
-    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus;
+    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
 
-    public recyclerViewAdapterAdminOrders(Context context, ArrayList<Integer> userId, ArrayList<String> customerName, ArrayList<String> customerEmail, ArrayList<String> customerNumber, ArrayList<String> orderDate, ArrayList<String> orderStatus, ArrayList<Integer> orderTotalPrice, ArrayList<Integer> orderCount) {
+
+    public recyclerViewAdapterAdminOrders(Context context, ArrayList<Integer> userId, ArrayList<String> orderGroupId, ArrayList<String> customerName, ArrayList<String> customerEmail, ArrayList<String> customerNumber, ArrayList<String> orderDate, ArrayList<String> orderStatus, ArrayList<Integer> orderTotalPrice, ArrayList<Integer> orderCount) {
         this.context = context;
         this.userId = userId;
+        this.orderGroupId = orderGroupId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerNumber = customerNumber;
@@ -44,7 +52,7 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
     }
 
     @Override
-    public void onBindViewHolder(@NonNull recyclerViewAdapterAdminOrders.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull recyclerViewAdapterAdminOrders.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //DATABASE
         databaseFunctions = new databaseFunctions(context);
 
@@ -64,12 +72,17 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                 int pos = holder.getAdapterPosition();
 
                 if (pos != RecyclerView.NO_POSITION) {
-
+                    Intent intent = new Intent(context, adminUserOrdersList.class);
+                    String getOrderGroupId = orderGroupId.get(position);
+                    intent.putExtra("orderGroupId", getOrderGroupId);
+                    intent.putExtra("userId", userId.get(position));
+                    ((Activity) context).startActivityForResult(intent, 1001);
                 }
             }
         });
 
     }
+
 
     @Override
     public int getItemCount() {

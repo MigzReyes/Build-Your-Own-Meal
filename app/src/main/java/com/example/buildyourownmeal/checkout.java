@@ -317,8 +317,9 @@ public class checkout extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 int checkoutTotalPrice = Integer.parseInt(totalPrice.getText().toString().trim());
+                                String orderGroupId = UUID.randomUUID().toString();
 
-                                boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, getContactNumber, finalPaymentMethod, checkoutTotalPrice);
+                                boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, orderGroupId, getContactNumber, finalPaymentMethod, checkoutTotalPrice);
 
                                 if (insertUserCheckout) {
                                     Cursor cursor = databaseFunctions.getOrderedDate(userId);
@@ -328,7 +329,6 @@ public class checkout extends AppCompatActivity {
                                         getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
                                     }
 
-                                    String orderGroupId = UUID.randomUUID().toString();
                                     boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, checkoutTotalPrice, "Processing", getOrderedDate);
 
                                     if (insertAdminOrders) {
@@ -359,7 +359,7 @@ public class checkout extends AppCompatActivity {
                                                 int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
                                                 String getOrderedDateDb = getAddonData.getString(getAddonData.getColumnIndexOrThrow("creationDate"));
 
-                                                databaseFunctions.insertAdminOrderAddon(getUserId, getAddonGroupId, getAddon, getQuantity, getPrice, getOrderedDateDb);
+                                                databaseFunctions.insertAdminOrderAddon(getUserId, getAddonGroupId, orderGroupId, getAddon, getQuantity, getPrice, getOrderedDateDb);
                                             } while (getAddonData.moveToNext());
                                             getAddonData.close();
                                         }
