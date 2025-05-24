@@ -58,6 +58,16 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         holder.customerTotalPrice.setText(String.valueOf(orderTotalPrice.get(position)));
         holder.customerStatus.setText(orderStatus.get(position));
 
+        holder.seeOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = holder.getAdapterPosition();
+
+                if (pos != RecyclerView.NO_POSITION) {
+
+                }
+            }
+        });
 
     }
 

@@ -328,12 +328,12 @@ public class checkout extends AppCompatActivity {
                                         getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
                                     }
 
-                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, getContactNumber, checkoutTotalPrice, "Processing", getOrderedDate);
+                                    String orderGroupId = UUID.randomUUID().toString();
+                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, checkoutTotalPrice, "Processing", getOrderedDate);
 
                                     if (insertAdminOrders) {
                                         Cursor getUserOrder = databaseFunctions.getUserOrder(userId);
 
-                                        String orderGroupId = UUID.randomUUID().toString();
                                         if (getUserOrder != null && getUserOrder.moveToFirst()) {
                                             do {
                                                 String getOrderAddonId = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderAddonId"));
@@ -350,11 +350,10 @@ public class checkout extends AppCompatActivity {
 
                                         Cursor getAddonData = databaseFunctions.getAddonData(userId);
 
-                                        String getAddonGroupId = "";
                                         if (getAddonData != null && getAddonData.moveToFirst()) {
                                             do {
                                                 int getUserId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("userId"));
-                                                getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
+                                                String getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
                                                 String getAddon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
                                                 int getQuantity = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("quantity"));
                                                 int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
@@ -368,9 +367,10 @@ public class checkout extends AppCompatActivity {
                                         boolean deleteUserOrder = databaseFunctions.deleteOrderUser(userId);
 
                                         if (deleteUserOrder) {
-                                            boolean deleteUserOrderAddon = databaseFunctions.deleteOrderAddon(getAddonGroupId);
+                                            boolean deleteUserOrderAddon = databaseFunctions.deleteOrderAddonWithUserId(userId);
 
                                             if (deleteUserOrderAddon) {
+                                                popUpAlert.dismiss();
                                                 Intent intent = new Intent(checkout.this, Navbar.class);
                                                 startActivity(intent);
                                                 finish();

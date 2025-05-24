@@ -76,6 +76,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("create Table " + TABLE_USER_CHECKOUT + " (" +
                 "userCheckoutId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "userId INTEGER, " +
+                "orderGroupId TEXT, " +
                 "contactNumber TEXT, " +
                 "paymentMethod TEXT, " +
                 "checkoutTotalPrice INTEGER, " +
@@ -84,6 +85,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("create Table " + TABLE_ADMIN_ORDERS + " (" +
                 "adminOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "userId INTEGER, " +
+                "orderGroupId TEXT, " +
                 "contactNumber TEXT, " +
                 "totalPrice INTEGER, " +
                 "status TEXT, " +
@@ -175,6 +177,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return result != 0;
     }
 
+    public Boolean deleteOrderAddonWithUserId(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(TABLE_ORDER_ADDON, "userId = ?", new String[]{String.valueOf(userId)});
+
+        return result != 0;
+    }
+
     public Boolean deleteOrderAddon(String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         long result = myDb.delete(TABLE_ORDER_ADDON, "addonGroupId = ?", new String[]{addonGroupId});
@@ -234,10 +243,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.insert(TABLE_ADMIN_ORDER_ADDON, null, contentValues);
     }
 
-    public Boolean insertAdminOrders(int userId, String contactNumber , int totalPrice, String status, String orderedDate) {
+    public Boolean insertAdminOrders(int userId, String orderGroupId, String contactNumber, int totalPrice, String status, String orderedDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
+        contentValues.put("orderGroupId", orderGroupId);
         contentValues.put("contactNumber", contactNumber);
         contentValues.put("totalPrice", totalPrice);
         contentValues.put("status", status);
