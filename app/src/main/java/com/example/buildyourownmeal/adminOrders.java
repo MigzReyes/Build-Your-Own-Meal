@@ -1,6 +1,7 @@
 package com.example.buildyourownmeal;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,11 +22,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class adminOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    //DATABASE
+    private databaseFunctions databaseFunctions;
+
+    //RECYCLER
+    private RecyclerView adminOrdersRecycler;
+    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus;
+    private ArrayList<Integer> orderTotalPrice, orderCount, userId;
+
 
     private DrawerLayout drawerLayout;
     private Button seeOrderBtn;
@@ -35,6 +49,9 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_orders);
+
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
 
         //STATUS BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -68,16 +85,23 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
 
         //REFERENCE
-        seeOrderBtn = findViewById(R.id.seeOrderBtn);
 
-        seeOrderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(adminOrders.this, adminUserOrdersList.class);
-                startActivity(intent);
-            }
-        });
+        //RECYCLER
+        adminOrdersRecycler = findViewById(R.id.adminOrdersRecycler);
+        userId = new ArrayList<>();
+        orderCount = new ArrayList<>();
+        customerName = new ArrayList<>();
+        customerNumber = new ArrayList<>();
+        customerEmail = new ArrayList<>();
+        orderDate = new ArrayList<>();
+        orderTotalPrice = new ArrayList<>();
+        orderStatus = new ArrayList<>();
 
+        setUpAdminOrder();
+
+        adminOrdersRecycler.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAdapterAdminOrders adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount);
+        adminOrdersRecycler.setAdapter(adminOrdersAdapter);
     }
 
     @Override
@@ -100,5 +124,20 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setUpAdminOrder() {
+        Cursor getAdminUserOrder = databaseFunctions.getAdminOrder();
+
+        if (getAdminUserOrder != null && getAdminUserOrder.moveToFirst()) {
+            do {
+                userId.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("userId")));
+                customerNumber.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("contactNumber")));
+                orderCount.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("adminOrderId")));
+                orderDate.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderedDate")));
+                orderTotalPrice.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("totalPrice")));
+                orderStatus.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("status")));
+            } while (getAdminUserOrder.moveToNext());
+        }
     }
 }

@@ -25,6 +25,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
     private static final String TABLE_USER_ORDER = "user_order";
     private static final String TABLE_ORDER_ADDON = "order_addon";
     private static final String TABLE_ADMIN_ORDER_ADDON = "admin_order_addon";
+    private static final String TABLE_ADMIN_USER_ORDER = "admin_user_order";
     private static final String TABLE_ADMIN_ORDERS = "admin_orders";
     private static final String TABLE_USER_CHECKOUT = "user_checkout";
     private static final String TABLE_RICE = "rice";
@@ -83,9 +84,21 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("create Table " + TABLE_ADMIN_ORDERS + " (" +
                 "adminOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "userId INTEGER, " +
+                "contactNumber TEXT, " +
                 "totalPrice INTEGER, " +
                 "status TEXT, " +
                 "orderedDate TEXT)");
+
+        myDb.execSQL("create Table " + TABLE_ADMIN_USER_ORDER + " (" +
+                "userOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userId INTEGER, " +
+                "orderAddonId TEXT, " +
+                "orderGroupId TEXT, " +
+                "mealImg BLOB, " +
+                "mealType TEXT, " +
+                "mealQuantity INTEGER, " +
+                "orderTotalPrice INTEGER, " +
+                "orderedDate String)");
 
         myDb.execSQL("create Table " + TABLE_ADMIN_ORDER_ADDON + " (" +
                 "adminOrderAddonId INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -155,6 +168,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     //DELETE QUERY
+    public Boolean deleteOrderUser(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(TABLE_USER_ORDER, "userId = ?", new String[]{String.valueOf(userId)});
+
+        return result != 0;
+    }
+
     public Boolean deleteOrderAddon(String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         long result = myDb.delete(TABLE_ORDER_ADDON, "addonGroupId = ?", new String[]{addonGroupId});
@@ -185,6 +205,23 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
+    public void insertAdminUserOrder(String orderAddonId, String orderGroupId, int userId, Bitmap mealImg, String mealType, int mealQuantity, int orderTotalPrice, String orderDate) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("orderAddonId", orderAddonId);
+        contentValues.put("orderGroupId", orderGroupId);
+        contentValues.put("userId", userId);
+        contentValues.put("mealImg", byteArray);
+        contentValues.put("mealType", mealType);
+        contentValues.put("mealQuantity", mealQuantity);
+        contentValues.put("orderTotalPrice", orderTotalPrice);
+        contentValues.put("orderedDate", orderDate);
+        myDb.insert(TABLE_ADMIN_USER_ORDER, null, contentValues);
+    }
+
     public void insertAdminOrderAddon(int userId, String addonGroupId, String addon, int quantity, int price, String orderedDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -197,10 +234,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.insert(TABLE_ADMIN_ORDER_ADDON, null, contentValues);
     }
 
-    public Boolean insertAdminOrders(int userId, int totalPrice, String status, String orderedDate) {
+    public Boolean insertAdminOrders(int userId, String contactNumber , int totalPrice, String status, String orderedDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
+        contentValues.put("contactNumber", contactNumber);
         contentValues.put("totalPrice", totalPrice);
         contentValues.put("status", status);
         contentValues.put("orderedDate", orderedDate);
@@ -505,6 +543,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getAdminOrder() {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDERS, null);
+    }
+
     public Cursor getOrderedDate(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT creationDate FROM " + TABLE_USER_CHECKOUT + " WHERE userId = ?", new String[]{String.valueOf(userId)});
@@ -582,6 +625,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
     public Cursor getUserInfo(String email) {
         SQLiteDatabase myDb = this.getReadableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE email = ? LIMIT 1", new String[]{email});
+    }
+
+    public Cursor adminGetUserInfo(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT + " WHERE userId = ?", new String[]{String.valueOf(userId)});
     }
 
     public Cursor getAllUser() {

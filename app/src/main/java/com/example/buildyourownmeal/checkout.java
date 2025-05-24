@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class checkout extends AppCompatActivity {
 
@@ -327,16 +328,33 @@ public class checkout extends AppCompatActivity {
                                         getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
                                     }
 
-                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, checkoutTotalPrice, "Processing", getOrderedDate);
+                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, getContactNumber, checkoutTotalPrice, "Processing", getOrderedDate);
 
                                     if (insertAdminOrders) {
+                                        Cursor getUserOrder = databaseFunctions.getUserOrder(userId);
+
+                                        String orderGroupId = UUID.randomUUID().toString();
+                                        if (getUserOrder != null && getUserOrder.moveToFirst()) {
+                                            do {
+                                                String getOrderAddonId = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderAddonId"));
+                                                int getUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
+                                                byte[] byteArray = getUserOrder.getBlob(getUserOrder.getColumnIndexOrThrow("mealImg"));
+                                                Bitmap getMealImg = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                                                String getMealType = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType"));
+                                                int getMealQuantity = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity"));
+                                                int getOrderTotalPrice = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice"));
+                                                String getOrderDate = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("creationDate"));
+                                                databaseFunctions.insertAdminUserOrder(getOrderAddonId, orderGroupId, getUserId, getMealImg, getMealType, getMealQuantity, getOrderTotalPrice, getOrderDate);
+                                            } while (getUserOrder.moveToNext());
+                                        }
 
                                         Cursor getAddonData = databaseFunctions.getAddonData(userId);
 
+                                        String getAddonGroupId = "";
                                         if (getAddonData != null && getAddonData.moveToFirst()) {
                                             do {
                                                 int getUserId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("userId"));
-                                                String getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
+                                                getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
                                                 String getAddon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
                                                 int getQuantity = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("quantity"));
                                                 int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
@@ -347,8 +365,21 @@ public class checkout extends AppCompatActivity {
                                             getAddonData.close();
                                         }
 
-                                        Intent intent = new Intent(checkout.this, Navbar.class);
-                                        startActivity(intent);
+                                        boolean deleteUserOrder = databaseFunctions.deleteOrderUser(userId);
+
+                                        if (deleteUserOrder) {
+                                            boolean deleteUserOrderAddon = databaseFunctions.deleteOrderAddon(getAddonGroupId);
+
+                                            if (deleteUserOrderAddon) {
+                                                Intent intent = new Intent(checkout.this, Navbar.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Log.d("may error ka", "delete user order addon failed");
+                                            }
+                                        } else {
+                                            Log.d("may error ka", "delete user order failed");
+                                        }
                                     } else {
                                         Log.d("may error ka", "failed insert user order to admin");
                                     }
