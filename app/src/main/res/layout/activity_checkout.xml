@@ -404,8 +404,7 @@
                             android:layout_marginEnd="2dp"
                             android:fontFamily="@font/inter_18pt_semibold"
                             android:text="@string/pesoSign"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="12sp" />
+                            android:textColor="@color/blackBoldLetters" />
 
                         <TextView
                             android:id="@+id/totalPrice"
@@ -413,8 +412,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_18pt_semibold"
                             android:text="@string/priceItem"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="12sp" />
+                            android:textColor="@color/blackBoldLetters" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -447,7 +445,7 @@
                             android:fontFamily="@font/inter_18pt_semibold"
                             android:text="@string/pesoSign"
                             android:textColor="@color/lightGreyLetters"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/subtotalPrice"
@@ -456,7 +454,7 @@
                             android:fontFamily="@font/inter_18pt_semibold"
                             android:text="@string/priceItem"
                             android:textColor="@color/lightGreyLetters"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -489,7 +487,7 @@
                             android:fontFamily="@font/inter_18pt_semibold"
                             android:text="@string/pesoSign"
                             android:textColor="@color/lightGreyLetters"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/priorityPickUpPrice"
@@ -498,7 +496,7 @@
                             android:fontFamily="@font/inter_18pt_semibold"
                             android:text="@string/priceItem"
                             android:textColor="@color/lightGreyLetters"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
 

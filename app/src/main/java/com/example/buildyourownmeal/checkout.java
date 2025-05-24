@@ -2,6 +2,9 @@ package com.example.buildyourownmeal;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,17 +30,22 @@ import java.util.ArrayList;
 
 public class checkout extends AppCompatActivity {
 
-    //RECYCLER VIEW
-    private ArrayList<recyclerCheckoutModel> recyclerCheckoutModelArrayList = new ArrayList<>();
-    private int[] checkoutMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
 
+    //DATABASE
+    databaseFunctions databaseFunctions;
+
+    //RECYCLER VIEW
     private RecyclerView recyclerViewCheckout;
+    private ArrayList<Bitmap> mealImg;
+    private ArrayList<String> mealType, addBtn, minusBtn, editBtn, orderAddonId;
+    private ArrayList<Integer> mealTotalPrice, mealQuantity, trashBtn, checkoutItemPerTotalPrice, userOrderId;
 
     private RadioButton priority, standard, scheduledDate;
-    private TextView sideActName, itemCount, mealNameSummary, mealNameSubtotal, addOn, mealPriceSum, mealPriceSubtotal, mealPriceTotal, payment, addItemBtn;
+    private TextView sideActName, payment, totalPrice, subtotalPrice, priorityPickUpPrice, addItemBtn;
     private Button orderBtn;
     private ImageView backBtn;
     private LinearLayout paymentMethodBtn, orderCon;
+    private int userId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,31 +59,74 @@ public class checkout extends AppCompatActivity {
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
 
-        //RECYCLER
-        recyclerViewCheckout = findViewById(R.id.recyclerViewCheckout);
+        //BACK PRESSED ON PHONE SYSTEM
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
 
-        setUpCheckoutModel();
+                Intent intent = new Intent(checkout.this, cart.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 
-        recyclerViewAdapterCheckout recyclerViewAdapterCheckout = new recyclerViewAdapterCheckout(this, recyclerCheckoutModelArrayList);
-        recyclerViewCheckout.setAdapter(recyclerViewAdapterCheckout);
-        recyclerViewCheckout.setLayoutManager(new LinearLayoutManager(this));
 
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
+
+        //USER SESSION
+        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
+        userId = userSession.getInt("userId", 0);
         //SET ID
         sideActName = findViewById(R.id.sideFragName);
         backBtn = findViewById(R.id.backBtn);
         priority = findViewById(R.id.priorityFee);
         standard = findViewById(R.id.standardFee);
         scheduledDate = findViewById(R.id.scheduledDate);
-        /*itemCount = findViewById(R.id.quantityValue);
-        mealNameSummary = findViewById(R.id.mealName);
-        addOn = findViewById(R.id.addOn);
-        mealPriceSum = findViewById(R.id.price);
-        mealPriceSubtotal = findViewById(R.id.subtotalPrice);
-        mealPriceTotal = findViewById(R.id.totalPrice);*/
         payment = findViewById(R.id.paymentMethod);
         orderBtn = findViewById(R.id.orderBtnCart);
         orderCon = findViewById(R.id.orderCon);
+        totalPrice = findViewById(R.id.totalPrice);
+        subtotalPrice = findViewById(R.id.subtotalPrice);
+        priorityPickUpPrice = findViewById(R.id.priorityPickUpPrice);
         addItemBtn = findViewById(R.id.addItemBtn);
+
+        //RECYCLER
+        recyclerViewCheckout = findViewById(R.id.recyclerViewCheckout);
+        orderAddonId = new ArrayList<>();
+        userOrderId = new ArrayList<>();
+        mealImg = new ArrayList<>();
+        mealType = new ArrayList<>();
+        mealTotalPrice = new ArrayList<>();
+        mealQuantity = new ArrayList<>();
+        trashBtn = new ArrayList<>();
+        minusBtn = new ArrayList<>();
+        mealQuantity = new ArrayList<>();
+        addBtn = new ArrayList<>();
+        editBtn = new ArrayList<>();
+
+        setUpCheckoutModel();
+
+        recyclerViewAdapterCheckout recyclerViewAdapterCheckout = new recyclerViewAdapterCheckout(this, orderAddonId, userOrderId, mealImg, mealType, addBtn, minusBtn, editBtn, mealTotalPrice, mealQuantity, trashBtn);
+
+        com.example.buildyourownmeal.recyclerViewAdapterCheckout.setOnPriceUpdatedListener(new recyclerViewAdapterCart.OnPriceUpdateListener() {
+            @Override
+            public void OnPriceUpdate(int newTotalPrice) {
+                totalPrice.setText(String.valueOf(newTotalPrice));
+            }
+        });
+
+        recyclerViewAdapterCheckout.recalculateTotalPriceAndNotify();
+        recyclerViewAdapterCheckout.notifyDataSetChanged();
+
+        recyclerViewCheckout.setAdapter(recyclerViewAdapterCheckout);
+        recyclerViewCheckout.setLayoutManager(new LinearLayoutManager(this));
+
 
         //SET TOOLBAR NAME
         sideActName.setText(getString(R.string.smallCheckOut));
@@ -83,7 +135,8 @@ public class checkout extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(checkout.this, cart.class);
+                startActivity(intent);
             }
         });
 
@@ -126,21 +179,6 @@ public class checkout extends AppCompatActivity {
             }
         });
 
-        //USER SESSION
-        SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
-        boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
-
-        //SHARED PREFERENCE FOR MENU ITEM
-        SharedPreferences menuItem = getSharedPreferences("craftedMeal", MODE_PRIVATE);
-        boolean menuSession = menuItem.getBoolean("menuSession", false);
-        String selectedItems = menuItem.getString("selectedItems", "No selected items");
-        int dbItemCount = menuItem.getInt("itemCount", 0);
-        String mealName = menuItem.getString("mealName", "No meal name");
-        float totalPrice = menuItem.getFloat("totalPrice", 0);
-
-        //SHARED PREFERENCE FOR CART
-        SharedPreferences orderProcess = getSharedPreferences("orderProcess", MODE_PRIVATE);
-        SharedPreferences.Editor editor = orderProcess.edit();
 
         if (isUserLoggedIn) {
             orderBtn.setOnClickListener(new View.OnClickListener() {
@@ -148,18 +186,7 @@ public class checkout extends AppCompatActivity {
                 public void onClick(View v) {
                     if (priority.isChecked() || standard.isChecked()) {
 
-                        if (priority.isChecked()) {
-                            editor.putString("pickUpOption", "priority");
-                        } else if (standard.isChecked()) {
-                            editor.putString("pickUpOption", "standard");
-                        }
-                        String getPayment = payment.getText().toString();
-                        editor.putString("paymentMethod", getPayment);
-                        editor.putBoolean("ifUserHadOrdered", true);
-                        editor.apply();
 
-                        Intent intent = new Intent(checkout.this, Navbar.class);
-                        startActivity(intent);
                     } else {
                         Toast.makeText(checkout.this, getString(R.string.choosePickUpOption), Toast.LENGTH_SHORT).show();
                     }
@@ -169,23 +196,6 @@ public class checkout extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.logInSignUpFirst), Toast.LENGTH_SHORT).show();
         }
 
-
-        /*if (menuSession) {
-            mealNameSummary.setText(mealName);
-            mealNameSubtotal.setText(mealName);
-            addOn.setText(selectedItems);
-
-            String itemCountX = dbItemCount + "x";
-            itemCount.setText(itemCountX);
-
-            String totalPricePesos = totalPrice + "₱";
-            mealPriceTotal.setText(totalPricePesos);
-            mealPriceSubtotal.setText(totalPricePesos);
-            mealPriceSum.setText(totalPricePesos);
-
-        } else {
-            orderCon.setVisibility(View.GONE);
-        }*/
 
         //ADD ITEM BUTTON
         addItemBtn.setOnClickListener(new View.OnClickListener() {
@@ -211,15 +221,22 @@ public class checkout extends AppCompatActivity {
     }
 
     private void setUpCheckoutModel () {
-        String[] checkoutMealName = getResources().getStringArray(R.array.mainDish);
-        String[] checkoutMealMainDish = getResources().getStringArray(R.array.mainDish);
-        String[] checkoutMealSideDish = getResources().getStringArray(R.array.sideDish);
-        String[] checkoutSauces = getResources().getStringArray(R.array.sauces);
-        String[] checkoutDesserts = getResources().getStringArray(R.array.desserts);
-        String[] checkoutDrinks = getResources().getStringArray(R.array.drinks);
+        Cursor getCartData = databaseFunctions.getUserOrder(userId);
 
-        for (int i = 0; i < checkoutMealName.length; i++) {
-            recyclerCheckoutModelArrayList.add(new recyclerCheckoutModel(checkoutMealImg[i], checkoutMealName[i], checkoutMealMainDish[i], checkoutMealSideDish[i], checkoutSauces[i], checkoutDesserts[i], checkoutDrinks[i]));
+        if (getCartData != null && getCartData.moveToFirst()) {
+            do {
+                orderAddonId.add(getCartData.getString(getCartData.getColumnIndexOrThrow("orderAddonId")));
+                userOrderId.add(getCartData.getInt(getCartData.getColumnIndexOrThrow("userOrderId")));
+                byte[] byteArray = getCartData.getBlob(getCartData.getColumnIndexOrThrow("mealImg"));
+                mealImg.add(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                mealType.add(getCartData.getString(getCartData.getColumnIndexOrThrow("mealType")));
+                mealTotalPrice.add(getCartData.getInt(getCartData.getColumnIndexOrThrow("orderTotalPrice")));
+                mealQuantity.add(getCartData.getInt(getCartData.getColumnIndexOrThrow("mealQuantity")));
+                trashBtn.add(R.drawable.trashicon);
+                minusBtn.add("-");
+                addBtn.add("+");
+                editBtn.add("Edit");
+            } while (getCartData.moveToNext());
         }
     }
 }

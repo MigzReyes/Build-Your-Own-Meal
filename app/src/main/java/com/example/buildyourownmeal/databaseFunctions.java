@@ -25,6 +25,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
     private static final String TABLE_USER_ORDER = "user_order";
     private static final String TABLE_ORDER_ADDON = "order_addon";
     private static final String TABLE_ADMIN_MENU = "admin_menu";
+    private static final String TABLE_USER_CHECKOUT = "user_checkout";
     private static final String TABLE_RICE = "rice";
     private static final String TABLE_MAIN_DISH = "main_dish";
     private static final String TABLE_SIDE = "side_dish";
@@ -68,6 +69,17 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "addon TEXT, " +
                 "quantity INTEGER, " +
                 "price INTEGER, " +
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
+        myDb.execSQL("create Table " + TABLE_USER_CHECKOUT + " (" +
+                "userCheckoutId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userOrderId INTEGER," +
+                "mealImg BLOB, " +
+                "mealType TEXT, " +
+                "orderAddonId TEXT, " +
+                "contactNumber TEXT, " +
+                "paymentMethod TEXT, " +
+                "checkoutTotalPrice INTEGER, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
         myDb.execSQL("create Table " + TABLE_RICE + " (riceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -119,6 +131,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("drop Table if exists " + TABLE_ACCOUNT);
         myDb.execSQL("drop Table if exists " + TABLE_USER_ORDER);
         myDb.execSQL("drop Table if exists " + TABLE_ORDER_ADDON);
+        myDb.execSQL("drop Table if exists " + TABLE_USER_CHECKOUT);
         myDb.execSQL("drop Table if exists " + TABLE_RICE);
         myDb.execSQL("drop Table if exists " + TABLE_MAIN_DISH);
         myDb.execSQL("drop Table if exists " + TABLE_SIDE);
@@ -158,6 +171,24 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
+    public Boolean insertUserCheckout(String userOrderId, Bitmap mealImg, String mealType, String orderAddonId, String contactNumber, String paymentMethod, int checkoutTotalPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("userOrderId", userOrderId);
+        contentValues.put("mealImg", byteArray);
+        contentValues.put("mealType", mealType);
+        contentValues.put("orderAddonId", orderAddonId);
+        contentValues.put("contactNumber", contactNumber);
+        contentValues.put("paymentMethod", paymentMethod);
+        contentValues.put("checkoutTotalPrice", checkoutTotalPrice);
+        long result = myDb.insert(TABLE_USER_CHECKOUT, null, contentValues);
+
+        return result != -1;
+    }
+
     public Boolean insertAdminAddonData(String addonTable, Bitmap addonImg, String addonName, int addonPrice, String imgUri, String category) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
