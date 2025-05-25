@@ -27,6 +27,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
     private static final String TABLE_ADMIN_ORDER_ADDON = "admin_order_addon";
     private static final String TABLE_ADMIN_USER_ORDER = "admin_user_order";
     private static final String TABLE_ADMIN_ORDERS = "admin_orders";
+    private static final String TABLE_ADMIN_MEALS = "admin_meals";
     private static final String TABLE_USER_CHECKOUT = "user_checkout";
     private static final String TABLE_RICE = "rice";
     private static final String TABLE_MAIN_DISH = "main_dish";
@@ -111,6 +112,15 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "quantity INTEGER, " +
                 "price INTEGER, " +
                 "orderedDate TEXT)");
+
+        myDb.execSQL("create Table " + TABLE_ADMIN_MEALS + " (" +
+                "adminMealId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "adminAddonId TEXT, " +
+                "mealName TEXT, " +
+                "mealDescription TEXT, " +
+                "mealImg BLOB, " +
+                "mealTotalPrice INTEGER, " +
+                "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
         myDb.execSQL("create Table " + TABLE_RICE + " (riceId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
@@ -239,6 +249,22 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
+    public Boolean insertAdminMeal(String adminAddonId, String mealName, String mealDescription, Bitmap mealImg, int mealTotalPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("adminAddonId", adminAddonId);
+        contentValues.put("mealName", mealName);
+        contentValues.put("mealDescription", mealDescription);
+        contentValues.put("mealImg", byteArray);
+        contentValues.put("mealTotalPrice", mealTotalPrice);
+        long result = myDb.insert(TABLE_ADMIN_MEALS, null, contentValues);
+
+        return result != -1;
+    }
+
     public void insertAdminUserOrder(String orderAddonId, String orderGroupId, int userId, Bitmap mealImg, String mealType, int mealQuantity, int orderTotalPrice, String orderDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

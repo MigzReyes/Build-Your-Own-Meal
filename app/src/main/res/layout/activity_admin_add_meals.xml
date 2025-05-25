@@ -70,7 +70,7 @@
                             android:textColor="@color/blackBoldLetters"/>
 
                         <EditText
-                            android:id="@+id/mealNameTextField"
+                            android:id="@+id/mealName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -99,7 +99,7 @@
                                 android:textSize="16sp"/>
 
                             <TextView
-                                android:id="@+id/mealImageField"
+                                android:id="@+id/mealImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingVertical="5dp"
@@ -163,6 +163,35 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/riceSmall"
+                                android:layout_marginBottom="5dp"
+                                android:textColor="@color/blackBoldLetters"
+                                android:fontFamily="@font/inter_18pt_regular" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/riceRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/addItemBtnRice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/addItem"
+                                android:textColor="@color/blue"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/inter_18pt_regular"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
                                 android:id="@+id/textView220"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -171,68 +200,10 @@
                                 android:textColor="@color/blackBoldLetters"
                                 android:fontFamily="@font/inter_18pt_regular" />
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/mainDishRecyclerView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:orientation="horizontal"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingVertical="3dp">
-
-                                    <!-- MINUS TO TRASH -->
-                                    <TextView
-                                    android:id="@+id/minusBtnMainDish"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/minusSign"
-                                    android:textSize="13sp"/>
-
-                                    <TextView
-                                        android:id="@+id/quantityValueMainDish"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginHorizontal="10dp"
-                                        android:text="@string/one"
-                                        android:textSize="13sp"
-                                        android:textColor="@color/blackBoldLetters" />
-
-                                    <TextView
-                                        android:id="@+id/addBtnMainDish"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/plusSign"
-                                        android:textSize="13sp" />
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/mainDishPicker"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/chickenKaraage"
-                                    android:paddingVertical="3dp"
-                                    android:paddingHorizontal="4dp"
-                                    android:layout_marginHorizontal="5dp"
-                                    android:background="@drawable/admin_edit_text_field_bg"
-                                    android:textColor="@color/blackBoldLetters"
-                                    android:fontFamily="@font/inter_18pt_regular"
-                                    android:drawableEnd="@drawable/dropdown_resize"
-                                    />
-
-                                <ImageView
-                                    android:id="@+id/trashBtnMainDish"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/trashicon" />
-
-                            </LinearLayout>
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/addItemBtnMainDish"
@@ -259,68 +230,10 @@
                                 android:textColor="@color/blackBoldLetters"
                                 android:fontFamily="@font/inter_18pt_regular"/>
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/sideRecyclerView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:orientation="horizontal"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingVertical="3dp">
-
-                                    <!-- MINUS TO TRASH -->
-                                    <TextView
-                                        android:id="@+id/minusBtnSide"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/minusSign"
-                                        android:textSize="13sp"/>
-
-                                    <TextView
-                                        android:id="@+id/quantityValueSide"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginHorizontal="10dp"
-                                        android:text="@string/one"
-                                        android:textSize="13sp"
-                                        android:textColor="@color/blackBoldLetters" />
-
-                                    <TextView
-                                        android:id="@+id/addBtnSide"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/plusSign"
-                                        android:textSize="13sp" />
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/sidePicker"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/corn"
-                                    android:paddingVertical="3dp"
-                                    android:paddingHorizontal="4dp"
-                                    android:layout_marginHorizontal="5dp"
-                                    android:background="@drawable/admin_edit_text_field_bg"
-                                    android:textColor="@color/blackBoldLetters"
-                                    android:fontFamily="@font/inter_18pt_regular"
-                                    android:drawableEnd="@drawable/dropdown_resize"
-                                    />
-
-                                <ImageView
-                                    android:id="@+id/trashBtnSide"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/trashicon" />
-
-                            </LinearLayout>
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/addItemBtnSide"
@@ -347,68 +260,10 @@
                                 android:textColor="@color/blackBoldLetters"
                                 android:fontFamily="@font/inter_18pt_regular"/>
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/sauceRecyclerView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:orientation="horizontal"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingVertical="3dp">
-
-                                    <!-- MINUS TO TRASH -->
-                                    <TextView
-                                        android:id="@+id/minusBtnSauce"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/minusSign"
-                                        android:textSize="13sp"/>
-
-                                    <TextView
-                                        android:id="@+id/quantityValueSauce"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginHorizontal="10dp"
-                                        android:text="@string/one"
-                                        android:textSize="13sp"
-                                        android:textColor="@color/blackBoldLetters" />
-
-                                    <TextView
-                                        android:id="@+id/addBtnSauce"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/plusSign"
-                                        android:textSize="13sp" />
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/saucePicker"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/gravy"
-                                    android:paddingVertical="3dp"
-                                    android:paddingHorizontal="4dp"
-                                    android:layout_marginHorizontal="5dp"
-                                    android:background="@drawable/admin_edit_text_field_bg"
-                                    android:textColor="@color/blackBoldLetters"
-                                    android:fontFamily="@font/inter_18pt_regular"
-                                    android:drawableEnd="@drawable/dropdown_resize"
-                                    />
-
-                                <ImageView
-                                    android:id="@+id/trashBtnSauce"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/trashicon" />
-
-                            </LinearLayout>
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/addItemBtnSauce"
@@ -435,68 +290,10 @@
                                 android:textColor="@color/blackBoldLetters"
                                 android:fontFamily="@font/inter_18pt_regular"/>
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/dessertRecyclerView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:orientation="horizontal"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingVertical="3dp">
-
-                                    <!-- MINUS TO TRASH -->
-                                    <TextView
-                                        android:id="@+id/minusBtnDessert"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/minusSign"
-                                        android:textSize="13sp"/>
-
-                                    <TextView
-                                        android:id="@+id/quantityValueDessert"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginHorizontal="10dp"
-                                        android:text="@string/one"
-                                        android:textSize="13sp"
-                                        android:textColor="@color/blackBoldLetters" />
-
-                                    <TextView
-                                        android:id="@+id/addBtnDessert"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/plusSign"
-                                        android:textSize="13sp" />
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/dessertPicker"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/japFruitSand"
-                                    android:paddingVertical="3dp"
-                                    android:paddingHorizontal="4dp"
-                                    android:layout_marginHorizontal="5dp"
-                                    android:background="@drawable/admin_edit_text_field_bg"
-                                    android:textColor="@color/blackBoldLetters"
-                                    android:fontFamily="@font/inter_18pt_regular"
-                                    android:drawableEnd="@drawable/dropdown_resize"
-                                    />
-
-                                <ImageView
-                                    android:id="@+id/trashBtnDessert"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/trashicon" />
-
-                            </LinearLayout>
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/addItemBtnDessert"
@@ -523,68 +320,10 @@
                                 android:textColor="@color/blackBoldLetters"
                                 android:fontFamily="@font/inter_18pt_regular"/>
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/drinkRecyclerView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:orientation="horizontal"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingVertical="3dp">
-
-                                    <!-- MINUS TO TRASH -->
-                                    <TextView
-                                        android:id="@+id/minusBtnDrink"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/minusSign"
-                                        android:textSize="13sp"/>
-
-                                    <TextView
-                                        android:id="@+id/quantityValueDrink"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginHorizontal="10dp"
-                                        android:text="@string/one"
-                                        android:textSize="13sp"
-                                        android:textColor="@color/blackBoldLetters" />
-
-                                    <TextView
-                                        android:id="@+id/addBtnDrink"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/plusSign"
-                                        android:textSize="13sp" />
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/drinkPicker"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/cucumberLemon"
-                                    android:paddingVertical="3dp"
-                                    android:paddingHorizontal="4dp"
-                                    android:layout_marginHorizontal="5dp"
-                                    android:background="@drawable/admin_edit_text_field_bg"
-                                    android:textColor="@color/blackBoldLetters"
-                                    android:fontFamily="@font/inter_18pt_regular"
-                                    android:drawableEnd="@drawable/dropdown_resize"
-                                    />
-
-                                <ImageView
-                                    android:id="@+id/trashBtnDrink"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/trashicon" />
-
-                            </LinearLayout>
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/addItemBtnDrink"

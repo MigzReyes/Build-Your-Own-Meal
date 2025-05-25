@@ -331,6 +331,7 @@
     <string name="nameOfMeal">Name: </string>
     <string name="addOn">Add on</string>
     <string name="rice">RICE</string>
+    <string name="riceSmall">Rice</string>
     <string name="mainDish">MAIN DISH</string>
     <string name="sides">SIDES</string>
     <string name="sauce">SAUCES</string>
@@ -476,6 +477,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="pleaseChooseAnImage">Please choose an image</string>
     <string name="pleaseSelectPickUpOption">Please select a pick up option</string>
     <string name="failedToLoadImg">Failed to load image</string>
     <string name="areyouSureYouWantToDeleteThisAddon">Are you sure you want to delete this addon?</string>
