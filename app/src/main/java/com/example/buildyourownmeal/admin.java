@@ -32,6 +32,8 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
     private TextView ordersDashboardCount, mealsDashboardCount, menuDashboardCount, accountDashboardCount;
 
     private int numAccount = 0;
+    private int numOrder = 0;
+    private int numMenu = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +71,93 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
+        //ORDER COUNT
+        numberOfOrders();
+        ordersDashboardCount.setText(String.valueOf(numOrder));
+
+        //MENU COUNT
+        numberOfMenu();
+        menuDashboardCount.setText(String.valueOf(numMenu));
+
         //ACCOUNT COUNT
         numberOfAccount();
         accountDashboardCount.setText(String.valueOf(numAccount));
 
+    }
+
+    private void numberOfOrders() {
+        Cursor getNumOrder = databaseFunctions.getAdminOrder();
+
+        if (getNumOrder != null && getNumOrder.moveToFirst()) {
+            do {
+                numOrder++;
+            } while (getNumOrder.moveToNext());
+        }
+    }
+
+    private void numberOfMenu() {
+        int numRice = 0;
+        int numMainDish = 0;
+        int numSide = 0;
+        int numSauce = 0;
+        int numDessert = 0;
+        int numDrink = 0;
+
+        //RICE COUNT
+        Cursor getAddonRice = databaseFunctions.getAddonTable("rice");
+
+        if (getAddonRice != null && getAddonRice.moveToFirst()) {
+            do {
+                numRice++;
+            } while (getAddonRice.moveToNext());
+        }
+
+        //MAIN DISH COUNT
+        Cursor getAddonMainDish = databaseFunctions.getAddonTable("main_dish");
+
+        if (getAddonMainDish != null && getAddonMainDish.moveToFirst()) {
+            do {
+                numMainDish++;
+            } while (getAddonMainDish.moveToNext());
+        }
+
+        //SIDE DISH COUNT
+        Cursor getAddonSide = databaseFunctions.getAddonTable("side_dish");
+
+        if (getAddonSide != null && getAddonSide.moveToFirst()) {
+            do {
+                numSide++;
+            } while (getAddonSide.moveToNext());
+        }
+
+        //SAUCE COUNT
+        Cursor getAddonSauce = databaseFunctions.getAddonTable("sauce");
+
+        if (getAddonSauce != null && getAddonSauce.moveToFirst()) {
+            do {
+                numSauce++;
+            } while (getAddonSauce.moveToNext());
+        }
+
+        //DESSERT COUNT
+        Cursor getAddonDessert = databaseFunctions.getAddonTable("dessert");
+
+        if (getAddonDessert != null && getAddonDessert.moveToFirst()) {
+            do {
+                numDessert++;
+            } while (getAddonDessert.moveToNext());
+        }
+
+        //DRINK COUNT
+        Cursor getAddonDrink = databaseFunctions.getAddonTable("drink");
+
+        if (getAddonDrink != null && getAddonDrink.moveToFirst()) {
+            do {
+                numDrink++;
+            } while (getAddonDrink.moveToNext());
+        }
+
+        numMenu = numRice + numMainDish + numSide + numSauce + numDessert + numDrink;
     }
 
     private void numberOfAccount() {
