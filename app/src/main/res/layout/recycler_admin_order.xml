@@ -162,6 +162,13 @@
                         android:textColor="@color/blackBoldLetters" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_18pt_regular"
+                        android:text="@string/pesoSign"
+                        android:textColor="@color/greyLetters" />
+
+                    <TextView
                         android:id="@+id/customerTotalPrice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

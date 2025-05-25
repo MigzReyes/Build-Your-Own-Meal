@@ -131,13 +131,21 @@
 
                     <TextView
                         android:id="@+id/mealQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:fontFamily="@font/inter_18pt_regular"
+                        android:text="@string/one"
+                        android:textColor="@color/greyLetters"
+                        android:textSize="13sp" />
+
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/inter_18pt_regular"
-                        android:text="@string/sampleQuantity"
-                        android:textColor="@color/greyLetters"
-                        android:textSize="13sp" />
+                        android:text="@string/x"
+                        android:textColor="@color/greyLetters" />
                 </LinearLayout>
 
                 <LinearLayout
