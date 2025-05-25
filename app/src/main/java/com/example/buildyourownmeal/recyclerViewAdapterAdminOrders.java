@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recyclerViewAdapterAdminOrders.MyViewHolder> {
 
@@ -65,6 +69,56 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         holder.customerDate.setText(orderDate.get(position));
         holder.customerTotalPrice.setText(String.valueOf(orderTotalPrice.get(position)));
         holder.customerStatus.setText(orderStatus.get(position));
+
+        holder.setStatusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = holder.getAdapterPosition();
+
+                if (pos != RecyclerView.NO_POSITION) {
+                    Dialog popUpAlert;
+                    Button cancelBtn, saveBtn;
+                    Spinner setStatusSpinner;
+
+                    popUpAlert = new Dialog(context);
+                    popUpAlert.setContentView(R.layout.pop_up_set_status);
+                    popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                    popUpAlert.setCancelable(true);
+                    popUpAlert.show();
+
+                    setStatusSpinner = popUpAlert.findViewById(R.id.setStatusSpinner);
+                    List<String> statusDropdown = Arrays.asList("Processing", "Meal in progress", "Order is ready", "Completed");
+                    dropdownAdapter statusAdapter = new dropdownAdapter(context, R.layout.custom_spinner_bg, statusDropdown);
+                    statusAdapter.setDropDownViewResource(R.layout.custom_dropdown_bg);
+                    setStatusSpinner.setAdapter(statusAdapter);
+
+                    cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
+                    cancelBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popUpAlert.dismiss();
+                        }
+                    });
+
+                    saveBtn = popUpAlert.findViewById(R.id.saveBtn);
+                    saveBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String getStatus = setStatusSpinner.getSelectedItem().toString().trim();
+
+                            boolean updateAdminOrderStatus = databaseFunctions.updateAdminOrderStatus(userId.get(position), orderGroupId.get(position), getStatus);
+                            if (updateAdminOrderStatus) {
+                                orderStatus.set(position, getStatus);
+                                holder.customerStatus.setText(orderStatus.get(position));
+                                notifyItemChanged(position);
+                                popUpAlert.dismiss();
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         holder.seeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override

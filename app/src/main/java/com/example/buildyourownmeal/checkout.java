@@ -84,6 +84,10 @@ public class checkout extends AppCompatActivity {
         //DATABASE
         databaseFunctions = new databaseFunctions(this);
 
+        //ORDER SESSION
+        SharedPreferences orderSession = getSharedPreferences("orderSession", MODE_PRIVATE);
+        SharedPreferences.Editor orderSessionEdit = orderSession.edit();
+
         //USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
@@ -371,6 +375,10 @@ public class checkout extends AppCompatActivity {
 
                                             if (deleteUserOrderAddon) {
                                                 popUpAlert.dismiss();
+                                                orderSessionEdit.putBoolean("checkIfUserOrdered", true);
+                                                orderSessionEdit.putInt("userId", userId);
+                                                orderSessionEdit.putString("orderGroupId", orderGroupId);
+                                                orderSessionEdit.apply();
                                                 Intent intent = new Intent(checkout.this, Navbar.class);
                                                 startActivity(intent);
                                                 finish();

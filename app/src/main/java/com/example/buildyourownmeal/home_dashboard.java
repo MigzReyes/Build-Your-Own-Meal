@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -40,6 +41,10 @@ import java.util.ArrayList;
 
 public class home_dashboard extends Fragment {
 
+    //DATABASE
+    private databaseFunctions databaseFunctions;
+
+
     //FOR RECYCLER VIEW
     private ArrayList<recyclerHomeCombosModel> recyclerHomeCombosModelArrayList = new ArrayList<>();
     private int[] comboMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
@@ -52,20 +57,81 @@ public class home_dashboard extends Fragment {
 
     //LOGIN WARNING
     private Dialog popUpLogInWarning;
-    private LinearLayout logInWarning, craftNowBtn, logInTextAlert, userIntroduction, orderProcessCon, orderProcessCon2, orderProcessCon3;
+    private LinearLayout logInWarning, craftNowBtn, logInTextAlert, userIntroduction, preparingYourOrderCon, mealInProgressCon, orderIsReadyCon;
 
     //USER INTRODUCTION/WELCOME
     private TextView userIntroductionName;
 
+    //CHECK IF USER HAD ALREADY CHECKOUT/ORDERED
+    private boolean checkIfUserOrdered = false;
+    private int userId = 0;
+    private String orderGroupId = "";
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+
+        //DATABASE
+        databaseFunctions = new databaseFunctions(getActivity());
 
         //SET CONNECTION TO SHARED PREFERENCE/USER SESSION
         SharedPreferences userSession = getActivity().getSharedPreferences("userSession", MODE_PRIVATE);
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
         String userRole = userSession.getString("role", "guest");
         String loggedInUsername = userSession.getString("username", null);
+        int getUserId = userSession.getInt("userId", 0);
+
+        boolean checkIfUserHadOrdered = databaseFunctions.checkIfUserHadOrdered(getUserId);
+
+        //ORDER PROCESS CONTAINER
+        preparingYourOrderCon = view.findViewById(R.id.preparingYourOrderCon);
+        mealInProgressCon = view.findViewById(R.id.mealInProgressCon);
+        orderIsReadyCon = view.findViewById(R.id.orderIsReadyCon);
+
+
+        //GET ORDER SESSION
+        SharedPreferences getOrderSession = getActivity().getSharedPreferences("orderSession", MODE_PRIVATE);
+        checkIfUserOrdered = getOrderSession.getBoolean("checkIfUserOrdered", false);
+        userId = getOrderSession.getInt("userId", 0);
+        orderGroupId = getOrderSession.getString("orderGroupId", null);
+
+        preparingYourOrderCon.setVisibility(View.GONE);
+        mealInProgressCon.setVisibility(View.GONE);
+        orderIsReadyCon.setVisibility(View.GONE);
+
+        if (checkIfUserOrdered && checkIfUserHadOrdered) {
+            Cursor getAdminOrderStatus = databaseFunctions.getAdminOrderStatus(userId, orderGroupId);
+
+            String getStatus = null;
+            if (getAdminOrderStatus != null && getAdminOrderStatus.moveToFirst()) {
+                getStatus = getAdminOrderStatus.getString(getAdminOrderStatus.getColumnIndexOrThrow("status"));
+            }
+
+            switch (getStatus) {
+                case "Processing":
+                    preparingYourOrderCon.setVisibility(View.VISIBLE);
+                    mealInProgressCon.setVisibility(View.GONE);
+                    orderIsReadyCon.setVisibility(View.GONE);
+                    break;
+                case "Meal in progress":
+                    preparingYourOrderCon.setVisibility(View.GONE);
+                    mealInProgressCon.setVisibility(View.VISIBLE);
+                    orderIsReadyCon.setVisibility(View.GONE);
+                    break;
+                case "Order is ready":
+                    preparingYourOrderCon.setVisibility(View.GONE);
+                    mealInProgressCon.setVisibility(View.GONE);
+                    orderIsReadyCon.setVisibility(View.VISIBLE);
+                    break;
+                case "Completed":
+                    preparingYourOrderCon.setVisibility(View.GONE);
+                    mealInProgressCon.setVisibility(View.GONE);
+                    orderIsReadyCon.setVisibility(View.GONE);
+                    break;
+            }
+        }
+        checkIfUserOrdered = false;
+
 
         //RECYCLER VIEW
         recyclerViewHomeCombos = view.findViewById(R.id.recyclerViewHomeCombo);
@@ -75,15 +141,6 @@ public class home_dashboard extends Fragment {
         recyclerViewAdapterHomeCombos recyclerViewAdapterHomeCombos = new recyclerViewAdapterHomeCombos(requireContext(), recyclerHomeCombosModelArrayList);
         recyclerViewHomeCombos.setAdapter(recyclerViewAdapterHomeCombos);
         recyclerViewHomeCombos.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        //ORDER PROCESS CONTAINER
-        orderProcessCon = view.findViewById(R.id.orderProcessCon);
-        orderProcessCon2 = view.findViewById(R.id.orderProcessCon2);
-        orderProcessCon3 = view.findViewById(R.id.orderProcessCon3);
-
-        orderProcessCon.setVisibility(View.GONE);
-        orderProcessCon2.setVisibility(View.GONE);
-        orderProcessCon3.setVisibility(View.GONE);
 
         //IF USER IS ALREADY LOGGED IN / ALERT IF USER HAD NOT LOGGED IN
         //SET ID

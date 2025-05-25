@@ -202,7 +202,7 @@
                     <!-- ORDER PROCESS -->
 
                     <LinearLayout
-                        android:id="@+id/orderProcessCon"
+                        android:id="@+id/preparingYourOrderCon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -308,7 +308,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/orderProcessCon2"
+                        android:id="@+id/mealInProgressCon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -335,7 +335,7 @@
                                 android:id="@+id/textView213"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/priorityTime"
+                                android:text="@string/mealInProgressTime"
                                 android:textColor="@color/blackBoldLetters"
                                 android:textSize="16sp" />
 
@@ -392,7 +392,7 @@
                                 android:id="@+id/orderProcess2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/preparingYourOder"
+                                android:text="@string/mealInProgress"
                                 android:textColor="@color/blackBoldLetters"
                                 android:textSize="15sp" />
 
@@ -409,7 +409,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/orderProcessCon3"
+                        android:id="@+id/orderIsReadyCon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -436,7 +436,7 @@
                                 android:id="@+id/textView215"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/priorityTime"
+                                android:text="@string/ready"
                                 android:textColor="@color/blackBoldLetters"
                                 android:textSize="16sp" />
 

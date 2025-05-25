@@ -452,6 +452,15 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //UPDATE QUERY
+    public Boolean updateAdminOrderStatus(int userId, String orderGroupId, String status) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", status);
+        long result = myDb.update(TABLE_ADMIN_ORDERS, contentValues, "userId = ? AND orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});
+
+        return result != 0;
+    }
+
     public Boolean updateAdminOrderTotalPrice(String orderGroupId, int newTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -589,6 +598,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getAdminOrderStatus(int userId, String orderGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT status FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ? AND orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});
+    }
+
     public Cursor getAdminUserOrderAddon(int userId, String orderAddonId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDER_ADDON + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), orderAddonId});
@@ -695,6 +709,21 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //QUERY VALIDATION
+    public Boolean checkIfUserHadOrdered(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT userId FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.close();
+            Log.d(LOG_ALERT_TAG, "user had ordered");
+            return true;
+        } else {
+            cursor.close();
+            Log.d(LOG_ALERT_TAG, "user had not ordered");
+            return false;
+        }
+    }
+
     public Boolean checkAddonGroup(int userId, String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("SELECT addonGroupId FROM " + TABLE_ORDER_ADDON + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), addonGroupId});

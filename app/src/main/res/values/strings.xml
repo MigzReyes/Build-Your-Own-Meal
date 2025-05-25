@@ -49,7 +49,6 @@
     <string name="totalPrice">Total Price:</string>
     <string name="status">Status:</string>
     <string name="deleteAll">Delete all</string>
-    <string name="setStatus">Set Status</string>
     <string name="seeOrder">See Order</string>
     <string name="craftNow">CRAFT NOW</string>
     <string name="meal">Meal:</string>
@@ -110,6 +109,8 @@
     <string name="contactNumberIsRequired">Contact number is required</string>
     <string name="standardTime">25–35 mins</string>
     <string name="priorityTime">10–15 mins</string>
+    <string name="mealInProgressTime">10–5 mins</string>
+    <string name="mealInProgress">Meal in progress</string>
     <string name="generalMealTime">15 mins</string>
     <string name="zero">0</string>
     <string name="scheduled">Scheduled</string>
@@ -117,6 +118,10 @@
     <string name="yourOrderIsCurrently">Your order is currently being processed and will be ready for pick–up once completed</string>
     <string name="orderIsReady">Order is ready</string>
     <string name="yourOrderIsReady">Your order is ready for pick–up</string>
+    <string name="ready">Ready!</string>
+    <string name="setStatus">Set Status</string>
+    <string name="capsStatus">Status</string>
+
     <string name="sampleDay">1</string>
     <string name="sampleMonth">Jan</string>
     <string name="today">Today</string>
