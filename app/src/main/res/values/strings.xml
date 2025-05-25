@@ -121,7 +121,8 @@
     <string name="ready">Ready!</string>
     <string name="setStatus">Set Status</string>
     <string name="capsStatus">Status</string>
-
+    <string name="yourCartIsEmpty">Your cart is empty :( Order Now!</string>
+    <string name="pleaseChooseAnAddon">Please choose an addon</string>
     <string name="sampleDay">1</string>
     <string name="sampleMonth">Jan</string>
     <string name="today">Today</string>

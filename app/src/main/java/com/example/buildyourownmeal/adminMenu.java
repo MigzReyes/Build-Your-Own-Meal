@@ -1,5 +1,6 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -222,6 +224,34 @@ public class adminMenu extends AppCompatActivity implements NavigationView.OnNav
         } else if (id == R.id.adminAccount) {
             Intent intent = new Intent(this, adminAccounts.class);
             startActivity(intent);
+        } else if (id == R.id.logOut) {
+            Dialog popUpAlert;
+            Button cancelBtn, logOutBtn;
+
+            popUpAlert = new Dialog(this);
+            popUpAlert.setContentView(R.layout.pop_up_logout);
+            popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+            popUpAlert.setCancelable(true);
+            popUpAlert.show();
+
+            cancelBtn = popUpAlert.findViewById(R.id.cancelLogOutBtn);
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popUpAlert.dismiss();
+                }
+            });
+
+            logOutBtn = popUpAlert.findViewById(R.id.logOutBtn);
+            logOutBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(adminMenu.this, introduction_screen.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

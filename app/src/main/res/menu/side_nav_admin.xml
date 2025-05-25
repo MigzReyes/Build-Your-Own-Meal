@@ -24,6 +24,10 @@
             android:id="@+id/adminAccount"
             android:title="@string/accounts"/>
 
+        <item
+            android:id="@+id/logOut"
+            android:title="@string/logOut"/>
+
     </group>
 
 </menu>

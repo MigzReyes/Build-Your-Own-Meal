@@ -3,6 +3,7 @@ package com.example.buildyourownmeal;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -143,100 +145,125 @@ public class adminEditMenuAddon extends AppCompatActivity {
             public void onClick(View v) {
                 String getAddonName = addonName.getText().toString().trim();
                 String getAddonPrice = addonPrice.getText().toString().trim();
-                int intPrice = Integer.parseInt(getAddonPrice);
 
-                switch (intentAddonCategory) {
-                    case "rice":
-                        if (!addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddonNoImg("rice", "riceId" , intentAddonId, "rice", getAddonName, intPrice);
+                if (getAddonName.isBlank() || getAddonPrice.isBlank()) {
+                    Dialog popUpAlert;
+                    Button closeBtn;
+                    TextView alertText;
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
-                        } else if (addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddon("rice", "riceId", intentAddonId, "rice", getAddonName, intPrice, bitAddonImg);
+                    popUpAlert = new Dialog(adminEditMenuAddon.this);
+                    popUpAlert.setContentView(R.layout.pop_up_alerts);
+                    popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                    popUpAlert.setCancelable(true);
+                    popUpAlert.show();
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
+                    alertText = popUpAlert.findViewById(R.id.alertText);
+                    alertText.setText(getString(R.string.pleaseFillUpTheInputField));
+
+                    closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+                    closeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popUpAlert.dismiss();
                         }
+                    });
+                } else {
+                    int intPrice = Integer.parseInt(getAddonPrice);
 
-                        break;
-                    case "main dish":
-                        if (!addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddonNoImg("main_dish", "mainDishId" , intentAddonId, "main dish", getAddonName, intPrice);
+                    switch (intentAddonCategory) {
+                        case "rice":
+                            if (!addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddonNoImg("rice", "riceId" , intentAddonId, "rice", getAddonName, intPrice);
 
-                            if (insertAddon) {
-                                intentMenu();
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            } else if (addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddon("rice", "riceId", intentAddonId, "rice", getAddonName, intPrice, bitAddonImg);
+
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
                             }
-                        } else if (addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddon("main_dish", "mainDishId", intentAddonId, "main dish", getAddonName, intPrice, bitAddonImg);
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
-                        }
-                        break;
-                    case "sides":
-                        if (!addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddonNoImg("side_dish", "sideDishId" , intentAddonId, "sides", getAddonName, intPrice);
+                            break;
+                        case "main dish":
+                            if (!addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddonNoImg("main_dish", "mainDishId" , intentAddonId, "main dish", getAddonName, intPrice);
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
-                        } else if (addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddon("side_dish", "sideDishId", intentAddonId, "sides", getAddonName, intPrice, bitAddonImg);
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            } else if (addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddon("main_dish", "mainDishId", intentAddonId, "main dish", getAddonName, intPrice, bitAddonImg);
 
-                            if (insertAddon) {
-                                intentMenu();
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
                             }
-                        }
-                        break;
-                    case "sauces":
-                        if (!addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddonNoImg("sauce", "sauceId" , intentAddonId, "sauces", getAddonName, intPrice);
+                            break;
+                        case "sides":
+                            if (!addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddonNoImg("side_dish", "sideDishId" , intentAddonId, "sides", getAddonName, intPrice);
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
-                        } else if (addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddon("sauce", "sauceId", intentAddonId, "sauces", getAddonName, intPrice, bitAddonImg);
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            } else if (addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddon("side_dish", "sideDishId", intentAddonId, "sides", getAddonName, intPrice, bitAddonImg);
 
-                            if (insertAddon) {
-                                intentMenu();
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
                             }
-                        }
-                        break;
-                    case "desserts":
-                        if (!addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddonNoImg("dessert", "dessertId" , intentAddonId, "desserts", getAddonName, intPrice);
+                            break;
+                        case "sauces":
+                            if (!addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddonNoImg("sauce", "sauceId" , intentAddonId, "sauces", getAddonName, intPrice);
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
-                        } else if (addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddon("dessert", "dessertId", intentAddonId, "desserts", getAddonName, intPrice, bitAddonImg);
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            } else if (addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddon("sauce", "sauceId", intentAddonId, "sauces", getAddonName, intPrice, bitAddonImg);
 
-                            if (insertAddon) {
-                                intentMenu();
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
                             }
-                        }
-                        break;
-                    case "drinks":
-                        if (!addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddonNoImg("drink", "drinkId" , intentAddonId, "drinks", getAddonName, intPrice);
+                            break;
+                        case "desserts":
+                            if (!addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddonNoImg("dessert", "dessertId" , intentAddonId, "desserts", getAddonName, intPrice);
 
-                            if (insertAddon) {
-                                intentMenu();
-                            }
-                        } else if (addonImg.getText().toString().trim().contains("content")) {
-                            boolean insertAddon = databaseFunctions.updateAddon("drink", "drinkId", intentAddonId, "main dish", getAddonName, intPrice, bitAddonImg);
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            } else if (addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddon("dessert", "dessertId", intentAddonId, "desserts", getAddonName, intPrice, bitAddonImg);
 
-                            if (insertAddon) {
-                                intentMenu();
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
                             }
-                        }
-                        break;
+                            break;
+                        case "drinks":
+                            if (!addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddonNoImg("drink", "drinkId" , intentAddonId, "drinks", getAddonName, intPrice);
+
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            } else if (addonImg.getText().toString().trim().contains("content")) {
+                                boolean insertAddon = databaseFunctions.updateAddon("drink", "drinkId", intentAddonId, "main dish", getAddonName, intPrice, bitAddonImg);
+
+                                if (insertAddon) {
+                                    intentMenu();
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         });

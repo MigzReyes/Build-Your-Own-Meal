@@ -156,7 +156,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="38dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true"
                             app:passwordToggleDrawable="@drawable/eye_icon">
@@ -190,7 +190,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="38dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true"
                             app:passwordToggleDrawable="@drawable/eye_icon">
@@ -204,6 +204,7 @@
                             android:inputType="textPassword"
                             android:paddingHorizontal="3dp"
                             android:paddingVertical="5dp"/>
+
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 

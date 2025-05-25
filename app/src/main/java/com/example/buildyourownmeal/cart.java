@@ -189,10 +189,34 @@ public class cart extends AppCompatActivity {
                      });
 
                  } else if (userRole.equals("user")) {
-                     saveCartState();
+                     if (recyclerViewAdapterCart.getItemCount() == 0) {
+                         Dialog popUpAlert;
+                         Button closeBtn;
+                         TextView alertText;
 
-                     Intent intent = new Intent(cart.this, checkout.class);
-                     startActivity(intent);
+                         popUpAlert = new Dialog(cart.this);
+                         popUpAlert.setContentView(R.layout.pop_up_alerts);
+                         popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                         popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                         popUpAlert.setCancelable(true);
+                         popUpAlert.show();
+
+                         alertText = popUpAlert.findViewById(R.id.alertText);
+                         alertText.setText(getString(R.string.yourCartIsEmpty));
+
+                         closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+                         closeBtn.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 popUpAlert.dismiss();
+                             }
+                         });
+                     } else {
+                         saveCartState();
+
+                         Intent intent = new Intent(cart.this, checkout.class);
+                         startActivity(intent);
+                     }
                  }
              }
          });

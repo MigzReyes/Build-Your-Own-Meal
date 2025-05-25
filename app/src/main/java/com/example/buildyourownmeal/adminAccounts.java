@@ -128,6 +128,34 @@ public class adminAccounts extends AppCompatActivity implements NavigationView.O
         } else if (id == R.id.adminMenu) {
             Intent intent = new Intent(this, adminMenu.class);
             startActivity(intent);
+        }else if (id == R.id.logOut) {
+            Dialog popUpAlert;
+            Button cancelBtn, logOutBtn;
+
+            popUpAlert = new Dialog(this);
+            popUpAlert.setContentView(R.layout.pop_up_logout);
+            popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+            popUpAlert.setCancelable(true);
+            popUpAlert.show();
+
+            cancelBtn = popUpAlert.findViewById(R.id.cancelLogOutBtn);
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popUpAlert.dismiss();
+                }
+            });
+
+            logOutBtn = popUpAlert.findViewById(R.id.logOutBtn);
+            logOutBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(adminAccounts.this, introduction_screen.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
