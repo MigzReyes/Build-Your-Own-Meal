@@ -42,6 +42,7 @@
                     android:id="@+id/addMoreItems"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_18pt_extrabold"
                     android:text="@string/addMoreItems"
                     android:textColor="@color/greyLetters"

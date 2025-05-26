@@ -22,7 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -511,29 +510,11 @@
 
 
                     <!-- ADVERTISEMENT  -->
-                    <HorizontalScrollView
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/carousel"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="15dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/imageView9"
-                                android:layout_width="300dp"
-                                android:layout_height="200dp"
-                                android:src="@drawable/advertisement1" />
-
-                            <ImageView
-                                android:id="@+id/imageView10"
-                                android:layout_width="300dp"
-                                android:layout_height="200dp"
-                                android:src="@drawable/advertisement2" />
-                        </LinearLayout>
-                    </HorizontalScrollView>
+                        android:layout_height="200dp"
+                        android:layout_marginVertical="15dp" />
 
 
                     <!-- HOTTEST DEALS Section (Vertical Layout) -->

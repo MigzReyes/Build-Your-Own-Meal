@@ -26,7 +26,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -55,6 +57,9 @@ public class home_dashboard extends Fragment {
 
 
     //VARIABLE DECLARATION
+    private ViewPager carousel;
+    private Handler handler = new Handler();
+    private Runnable runnable;
     private Button logInBtn, signUpBtn, cancelOrderBtn;
 
     //LOGIN WARNING
@@ -91,6 +96,14 @@ public class home_dashboard extends Fragment {
         logInWarning = view.findViewById(R.id.login_warning);
         userIntroductionName = view.findViewById(R.id.userIntroductionName);
         viewAllBtn = view.findViewById(R.id.viewAllBtn);
+
+
+        //CAROUSEL
+        carousel = view.findViewById(R.id.carousel);
+        int[] images = {R.drawable.advertisement1, R.drawable.advertisement2};
+        CarouselAdapter carouselAdapter = new CarouselAdapter(getActivity(), images);
+        carousel.setAdapter(carouselAdapter);
+        autoCarousel();
 
         //VIEW ALL BUTTON
         viewAllBtn.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +282,20 @@ public class home_dashboard extends Fragment {
 
         return view;
     }
+
+    private void autoCarousel() {
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = carousel.getCurrentItem();
+                int nextItem = (currentItem + 1) % carousel.getAdapter().getCount();
+                carousel.setCurrentItem(nextItem, true);
+                handler.postDelayed(this, 3000);
+            }
+        };
+        handler.postDelayed(runnable, 3000);
+    }
+
 
     private void setUpHomeCombosModel () {
         Cursor getAdminMeal = databaseFunctions.getAdminMeal();
