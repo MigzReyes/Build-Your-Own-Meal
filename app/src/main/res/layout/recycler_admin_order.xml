@@ -151,6 +151,56 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/inter_18pt_regular"
+                        android:gravity="end"
+                        android:text="@string/pickup"
+                        android:textColor="@color/blackBoldLetters" />
+
+                    <TextView
+                        android:id="@+id/pickUp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/inter_18pt_regular"
+                        android:text="@string/standard"
+                        android:textColor="@color/greyLetters" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/inter_18pt_regular"
+                        android:gravity="end"
+                        android:text="@string/paymentmethod"
+                        android:textColor="@color/blackBoldLetters" />
+
+                    <TextView
+                        android:id="@+id/paymentMethod"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/inter_18pt_regular"
+                        android:text="@string/cash"
+                        android:textColor="@color/greyLetters" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
                         android:id="@+id/textView178"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

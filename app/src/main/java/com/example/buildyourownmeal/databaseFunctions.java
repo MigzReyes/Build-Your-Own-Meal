@@ -79,6 +79,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "userId INTEGER, " +
                 "orderGroupId TEXT, " +
                 "contactNumber TEXT, " +
+                "pickUp TEXT, " +
                 "paymentMethod TEXT, " +
                 "checkoutTotalPrice INTEGER, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
@@ -88,6 +89,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "userId INTEGER, " +
                 "orderGroupId TEXT, " +
                 "contactNumber TEXT, " +
+                "pickUp TEXT, " +
+                "paymentMethod TEXT, " +
                 "totalPrice INTEGER, " +
                 "status TEXT, " +
                 "orderedDate TEXT)");
@@ -181,6 +184,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     //DELETE QUERY
+    public Boolean deleteAdminMeal(int adminMealId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        long result = myDb.delete(TABLE_ADMIN_MEALS, "adminMealId = ?", new String[]{String.valueOf(adminMealId)});
+
+        return result != 0;
+    }
+
     public Boolean deleteAdminOrder(String orderGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         long result = myDb.delete(TABLE_ADMIN_USER_ORDER, "orderGroupId = ?", new String[]{orderGroupId});
@@ -295,12 +305,14 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.insert(TABLE_ADMIN_ORDER_ADDON, null, contentValues);
     }
 
-    public Boolean insertAdminOrders(int userId, String orderGroupId, String contactNumber, int totalPrice, String status, String orderedDate) {
+    public Boolean insertAdminOrders(int userId, String orderGroupId, String contactNumber, String pickUp, String paymentMethod, int totalPrice, String status, String orderedDate) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
         contentValues.put("orderGroupId", orderGroupId);
         contentValues.put("contactNumber", contactNumber);
+        contentValues.put("pickUp", pickUp);
+        contentValues.put("paymentMethod", paymentMethod);
         contentValues.put("totalPrice", totalPrice);
         contentValues.put("status", status);
         contentValues.put("orderedDate", orderedDate);
@@ -309,12 +321,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public Boolean insertUserCheckout(int userId, String orderGroupId, String contactNumber, String paymentMethod, int checkoutTotalPrice) {
+    public Boolean insertUserCheckout(int userId, String orderGroupId, String contactNumber, String pickUp, String paymentMethod, int checkoutTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
         contentValues.put("orderGroupId", orderGroupId);
         contentValues.put("contactNumber", contactNumber);
+        contentValues.put("pickUp", pickUp);
         contentValues.put("paymentMethod", paymentMethod);
         contentValues.put("checkoutTotalPrice", checkoutTotalPrice);
         long result = myDb.insert(TABLE_USER_CHECKOUT, null, contentValues);
@@ -624,6 +637,16 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getOrderAddon(String addonGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE addonGroupId = ?", new String[]{addonGroupId});
+    }
+
+    public Cursor getAdminMeal() {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_MEALS, null);
+    }
+
     public Cursor getAdminOrderStatus(int userId, String orderGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT status FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ? AND orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});

@@ -2,8 +2,12 @@ package com.example.buildyourownmeal;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +21,35 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class adminMeals extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    //DATABASE
+    private databaseFunctions databaseFunctions;
 
     private DrawerLayout drawerLayout;
     private Button addNewMealBtn;
+
+    //RECYCLER
+    private RecyclerView adminMealsRecycler;
+    private ArrayList<String> mealName, mealDescription, adminAddonId;
+    private ArrayList<Bitmap> mealImg;
+    private ArrayList<Integer> mealPrice, adminMealId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_meals);
+
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
 
         //REFERENCE
         addNewMealBtn = findViewById(R.id.addNewMealBtn);
@@ -63,6 +83,22 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
                 startActivity(intent);
             }
         });
+
+
+        //RECYCLER
+        adminMealsRecycler = findViewById(R.id.adminMealsRecycler);
+        adminMealId = new ArrayList<>();
+        adminAddonId = new ArrayList<>();
+        mealName = new ArrayList<>();
+        mealDescription = new ArrayList<>();
+        mealImg = new ArrayList<>();
+        mealPrice = new ArrayList<>();
+
+        setUpAdminMeal();
+
+        recyclerViewAdapterAdminMeals adminMealAdapter = new recyclerViewAdapterAdminMeals(this, adminAddonId, mealName, mealDescription, mealImg, mealPrice, adminMealId);
+        adminMealsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        adminMealsRecycler.setAdapter(adminMealAdapter);
 
     }
 
@@ -114,5 +150,22 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setUpAdminMeal() {
+        Cursor getAdminMeal = databaseFunctions.getAdminMeal();
+
+        if (getAdminMeal != null && getAdminMeal.moveToFirst()) {
+            do {
+                adminMealId.add(getAdminMeal.getInt(getAdminMeal.getColumnIndexOrThrow("adminMealId")));
+                adminAddonId.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("adminAddonId")));
+                Log.d("may erro ka", String.valueOf(adminAddonId));
+                mealName.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealName")));
+                mealDescription.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealDescription")));
+                byte[] byteArray = getAdminMeal.getBlob(getAdminMeal.getColumnIndexOrThrow("mealImg"));
+                mealImg.add(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                mealPrice.add(getAdminMeal.getInt(getAdminMeal.getColumnIndexOrThrow("mealTotalPrice")));
+            } while (getAdminMeal.moveToNext());
+        }
     }
 }

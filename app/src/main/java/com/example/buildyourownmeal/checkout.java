@@ -275,7 +275,7 @@ public class checkout extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String getContactNumber = editTextPhone.getText().toString().trim();
-                String paymentMethod = "";
+                String pickUp = "";
 
                 boolean checkContactNum = databaseFunctions.checkContactNumber(getContactNumber);
 
@@ -287,14 +287,14 @@ public class checkout extends AppCompatActivity {
                     popUpAlert(getString(R.string.contactNumberIsAlreadyInUsed));
                 } else {
                     if (standard.isChecked()) {
-                        paymentMethod = "standard";
+                        pickUp = "standard";
                     } else if (priority.isChecked()) {
-                        paymentMethod = "priority";
+                        pickUp = "priority";
                     } else if (scheduledDate.isChecked()) {
-                        paymentMethod = "scheduled";
+                        pickUp = "scheduled";
                     }
 
-                    if (paymentMethod.isBlank()) {
+                    if (pickUp.isBlank()) {
                         popUpAlert(getString(R.string.pleaseSelectPickUpOption));
                     } else {
                         Dialog popUpAlert;
@@ -316,14 +316,14 @@ public class checkout extends AppCompatActivity {
                         });
 
                         proceedBtn = popUpAlert.findViewById(R.id.proceedBtn);
-                        String finalPaymentMethod = paymentMethod;
+                        String finalPickUp = pickUp;
                         proceedBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 int checkoutTotalPrice = Integer.parseInt(totalPrice.getText().toString().trim());
                                 String orderGroupId = UUID.randomUUID().toString();
 
-                                boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, orderGroupId, getContactNumber, finalPaymentMethod, checkoutTotalPrice);
+                                boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, orderGroupId, getContactNumber, finalPickUp, "Cash", checkoutTotalPrice);
 
                                 if (insertUserCheckout) {
                                     Cursor cursor = databaseFunctions.getOrderedDate(userId);
@@ -333,7 +333,7 @@ public class checkout extends AppCompatActivity {
                                         getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
                                     }
 
-                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, checkoutTotalPrice, "Processing", getOrderedDate);
+                                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, finalPickUp, "Cash", checkoutTotalPrice, "Processing", getOrderedDate);
 
                                     if (insertAdminOrders) {
                                         Cursor getUserOrder = databaseFunctions.getUserOrder(userId);

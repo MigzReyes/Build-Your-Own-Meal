@@ -29,11 +29,11 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
     private databaseFunctions databaseFunctions;
 
     private Context context;
-    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId;
+    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId, pickUp, paymentMethod;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
 
 
-    public recyclerViewAdapterAdminOrders(Context context, ArrayList<Integer> userId, ArrayList<String> orderGroupId, ArrayList<String> customerName, ArrayList<String> customerEmail, ArrayList<String> customerNumber, ArrayList<String> orderDate, ArrayList<String> orderStatus, ArrayList<Integer> orderTotalPrice, ArrayList<Integer> orderCount) {
+    public recyclerViewAdapterAdminOrders(Context context, ArrayList<Integer> userId, ArrayList<String> orderGroupId, ArrayList<String> customerName, ArrayList<String> customerEmail, ArrayList<String> customerNumber, ArrayList<String> orderDate, ArrayList<String> orderStatus, ArrayList<Integer> orderTotalPrice, ArrayList<Integer> orderCount, ArrayList<String> pickUp, ArrayList<String> paymentMethod) {
         this.context = context;
         this.userId = userId;
         this.orderGroupId = orderGroupId;
@@ -44,6 +44,8 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         this.orderStatus = orderStatus;
         this.orderTotalPrice = orderTotalPrice;
         this.orderCount = orderCount;
+        this.pickUp = pickUp;
+        this.paymentMethod = paymentMethod;
     }
 
 
@@ -67,6 +69,8 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         holder.customerContact.setText(customerNumber.get(position));
         holder.customerEmail.setText(customerEmail.get(position));
         holder.customerDate.setText(orderDate.get(position));
+        holder.pickUp.setText(pickUp.get(position));
+        holder.paymentMethod.setText(paymentMethod.get(position));
         holder.customerTotalPrice.setText(String.valueOf(orderTotalPrice.get(position)));
         holder.customerStatus.setText(orderStatus.get(position));
 
@@ -156,7 +160,7 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orderId, customerName, customerContact, customerEmail, customerDate, customerTotalPrice, customerStatus, setStatusBtn;
+        TextView orderId, customerName, customerContact, customerEmail, customerDate, customerTotalPrice, customerStatus, setStatusBtn, pickUp, paymentMethod;
         Button seeOrderBtn;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -171,6 +175,8 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
             customerStatus = itemView.findViewById(R.id.customerStatus);
             setStatusBtn = itemView.findViewById(R.id.setStatusBtn);
             seeOrderBtn = itemView.findViewById(R.id.seeOrderBtn);
+            pickUp = itemView.findViewById(R.id.pickUp);
+            paymentMethod = itemView.findViewById(R.id.paymentMethod);
         }
     }
 }

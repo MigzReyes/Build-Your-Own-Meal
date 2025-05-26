@@ -42,7 +42,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
     //RECYCLER
     private RecyclerView adminOrdersRecycler;
-    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId;
+    private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId, pickUp, paymentMethod;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
     private recyclerViewAdapterAdminOrders adminOrdersAdapter;
 
@@ -127,11 +127,13 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         orderDate = new ArrayList<>();
         orderTotalPrice = new ArrayList<>();
         orderStatus = new ArrayList<>();
+        pickUp = new ArrayList<>();
+        paymentMethod = new ArrayList<>();
 
         setUpAdminOrder();
 
         adminOrdersRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, orderGroupId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount);
+        adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, orderGroupId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount, pickUp, paymentMethod);
         adminOrdersRecycler.setAdapter(adminOrdersAdapter);
     }
 
@@ -207,6 +209,8 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
         if (getAdminUserOrder != null && getAdminUserOrder.moveToFirst()) {
             do {
+                pickUp.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("pickUp")));
+                paymentMethod.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("paymentMethod")));
                 userId.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("userId")));
                 orderGroupId.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderGroupId")));
                 customerNumber.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("contactNumber")));
