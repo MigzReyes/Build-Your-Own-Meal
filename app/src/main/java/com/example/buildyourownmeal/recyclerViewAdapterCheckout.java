@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import android.content.Context;
 import android.widget.ImageView;
@@ -133,6 +134,26 @@ public class recyclerViewAdapterCheckout extends RecyclerView.Adapter<recyclerVi
                     Intent intent = new Intent(context, craftedMeal.class);
                     edit.putString("addonGroupId", addonId);
                     edit.apply();
+                    intent.putExtra("addonGroupId", addonId);
+                    intent.putExtra("mealTotalPrice", mealTotalPrice.get(position));
+                    intent.putExtra("editMeal", true);
+                    context.startActivity(intent);
+                } else {
+                    String addonId = orderAddonId.get(position);
+                    Intent intent = new Intent(context, preMadeMeal.class);
+                    edit.putString("addonGroupId", addonId);
+                    edit.apply();
+                    intent.putExtra("comboMealName", mealType.get(position));
+                    Cursor getComboMealDescription = databaseFunctions.getPreMadeMealDescription(mealType.get(position));
+                    if (getComboMealDescription != null && getComboMealDescription.moveToFirst()) {
+                        String comboMealDescription = getComboMealDescription.getString(getComboMealDescription.getColumnIndexOrThrow("mealDescription"));
+                        intent.putExtra("comboMealDescription", comboMealDescription);
+                    }
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    Bitmap getComboMealImg = mealImg.get(position);
+                    getComboMealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    intent.putExtra("comboMealImg", byteArray);
                     intent.putExtra("addonGroupId", addonId);
                     intent.putExtra("mealTotalPrice", mealTotalPrice.get(position));
                     intent.putExtra("editMeal", true);
