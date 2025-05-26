@@ -177,7 +177,7 @@
 
                             <TextView
                                 android:id="@+id/addItemBtnRice"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/addItem"
                                 android:textColor="@color/blue"
@@ -207,7 +207,7 @@
 
                             <TextView
                                 android:id="@+id/addItemBtnMainDish"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/addItem"
                                 android:textColor="@color/blue"
@@ -237,7 +237,7 @@
 
                             <TextView
                                 android:id="@+id/addItemBtnSide"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/addItem"
                                 android:textColor="@color/blue"
@@ -267,7 +267,7 @@
 
                             <TextView
                                 android:id="@+id/addItemBtnSauce"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/addItem"
                                 android:textColor="@color/blue"
@@ -297,7 +297,7 @@
 
                             <TextView
                                 android:id="@+id/addItemBtnDessert"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/addItem"
                                 android:textColor="@color/blue"
@@ -327,7 +327,7 @@
 
                             <TextView
                                 android:id="@+id/addItemBtnDrink"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/addItem"
                                 android:textColor="@color/blue"

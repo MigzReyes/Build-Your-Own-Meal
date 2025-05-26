@@ -35,11 +35,37 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
         this.addonQuantity = addonQuantity;
         this.addonPrice = addonPrice;
 
+        totalPrices = new ArrayList<>();
+        for (int i = 0; i < addonName.size(); i++) {
+            totalPrices.add(0);
+        }
+
         selectedIndexOnSpinner = new ArrayList<>();
         for (int i = 0; i < addonName.size(); i++) {
             selectedIndexOnSpinner.add(0);
         }
+    }
 
+    public void addItem(String name, int quantity) {
+        addonName.add(name);
+        addonQuantity.add(quantity);
+        selectedIndexOnSpinner.add(0);
+        totalPrices.add(0);
+        notifyItemInserted(addonName.size() - 1);
+    }
+
+
+    public ArrayList<String> getAddonNames() {
+        return new ArrayList<>(addonName);
+    }
+
+    public ArrayList<Integer> getAddonQuantities() {
+        return new ArrayList<>(addonQuantity);
+    }
+
+    public ArrayList<Integer> getTotalPrices() {
+        getEachAddonTotalPrice();
+        return new ArrayList<>(totalPrices);
     }
 
     public void syncStaticList() {
@@ -50,8 +76,18 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
         totalPricesStatic = getEachAddonTotalPrice();
     }
 
+    private void updateTotalPriceAt(int index) {
+        if (index >= 0 && index < addonQuantity.size()) {
+            int spinnerIndex = selectedIndexOnSpinner.get(index);
+            int unitPrice = addonPrice.get(spinnerIndex);
+            int qty = addonQuantity.get(index);
+            totalPrices.set(index, unitPrice * qty);
+        }
+    }
+
+
     public ArrayList<Integer> getEachAddonTotalPrice() {
-        ArrayList<Integer> totalPrices = new ArrayList<>();
+        totalPrices = new ArrayList<>();
         for (int i = 0; i < addonQuantity.size(); i++) {
             int selectedIndex = selectedIndexOnSpinner.get(i);
             int unitPrice = addonPrice.get(selectedIndex);
@@ -60,16 +96,6 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
         }
         return totalPrices;
     }
-
-    public static int getTotalAddonPrice() {
-        int total = 0;
-        for (int price : totalPricesStatic) {
-            total += price;
-        }
-        return total;
-    }
-
-
 
 
     @NonNull
@@ -92,7 +118,6 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
         int selectedIndex = addonNameSpinner.indexOf(selectedName);
         if (selectedIndex != -1) {
             holder.addonSpinner.setSelection(selectedIndex);
-            selectedIndexOnSpinner.add(selectedIndex);
         }
 
         holder.addonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,6 +127,7 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
                 if (adapterPos != RecyclerView.NO_POSITION) {
                     addonName.set(adapterPos, addonNameSpinner.get(spinnerPosition));
                     selectedIndexOnSpinner.set(adapterPos, spinnerPosition);
+                    updateTotalPriceAt(adapterPos);
                 }
             }
 
@@ -121,6 +147,7 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
                     if (currentQty > 0) {
                         addonQuantity.set(pos, currentQty - 1);
                         holder.addonQuantity.setText(String.valueOf(addonQuantity.get(pos)));
+                        updateTotalPriceAt(pos);
                         notifyItemChanged(pos);
                         Log.d("may error ka", "addonName: " + addonName.get(pos) + " addonQuantity: " + String.valueOf(addonQuantity.get(pos)));
                     }
@@ -135,6 +162,7 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
                 if (pos != RecyclerView.NO_POSITION) {
                     int currentQty = addonQuantity.get(pos);
                     addonQuantity.set(pos, currentQty + 1);
+                    updateTotalPriceAt(pos);
                     holder.addonQuantity.setText(String.valueOf(addonQuantity.get(pos)));
                     notifyItemChanged(pos);
                 }
@@ -149,6 +177,8 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
                 if (pos != RecyclerView.NO_POSITION) {
                     addonName.remove(pos);
                     addonQuantity.remove(pos);
+                    totalPrices.remove(pos);
+                    selectedIndexOnSpinner.remove(pos);
                     notifyItemRemoved(pos);
                     Log.d("may error ka", addonName + " quantity: " + String.valueOf(addonQuantity) + " spinner: " + addonNameSpinner);
                 }

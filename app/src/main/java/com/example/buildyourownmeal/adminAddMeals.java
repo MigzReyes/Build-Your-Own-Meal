@@ -73,7 +73,7 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnSide = findViewById(R.id.addItemBtnSide);
         addItemBtnSauce = findViewById(R.id.addItemBtnSauce);
         addItemBtnDessert = findViewById(R.id.addItemBtnDessert);
-        addItemBtnDrink = findViewById(R.id.addItemBtnDessert);
+        addItemBtnDrink = findViewById(R.id.addItemBtnDrink);
         cancelBtn = findViewById(R.id.cancelBtn);
         createBtn = findViewById(R.id.createBtn);
 
@@ -134,10 +134,12 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnRice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                riceQuantity.add(1);
-                riceName.add(riceSpinner.get(0));
-                riceAdapter.notifyItemInserted(riceQuantity.size() - 1);
-                Log.d("may error ka", riceName + " " + String.valueOf(riceQuantity));
+                if (riceSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                } else {
+                    riceAdapter.addItem(riceSpinner.get(0), 1);
+                    Log.d("may error ka", riceName + " " + String.valueOf(riceQuantity));
+                }
             }
         });
 
@@ -157,10 +159,12 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnMainDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainDishQuantity.add(1);
-                mainDishName.add(mainDishSpinner.get(0));
-                mainAdapter.notifyItemInserted(mainDishQuantity.size() - 1);
-                Log.d("may error ka", mainDishName + " " + String.valueOf(mainDishQuantity));
+                if (mainDishSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                } else {
+                    mainAdapter.addItem(mainDishSpinner.get(0), 1);
+                    Log.d("may error ka", mainDishName + " " + String.valueOf(mainDishQuantity));
+                }
             }
         });
 
@@ -180,10 +184,12 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnSide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sideQuantity.add(1);
-                sideName.add(sideSpinner.get(0));
-                sideAdapter.notifyItemInserted(sideQuantity.size() - 1);
-                Log.d("may error ka", sideName + " " + String.valueOf(sideQuantity));
+                if (sideSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                } else {
+                    sideAdapter.addItem(sideSpinner.get(0), 1);
+                    Log.d("may error ka", sideName + " " + String.valueOf(sideQuantity));
+                }
             }
         });
 
@@ -203,10 +209,12 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnSauce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sauceQuantity.add(1);
-                sauceName.add(sauceSpinner.get(0));
-                sauceAdapter.notifyItemInserted(sauceQuantity.size() - 1);
-                Log.d("may error ka", sauceName + " " + String.valueOf(sauceQuantity));
+                if (sauceSpinner.isEmpty()) {
+                popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                } else {
+                    sauceAdapter.addItem(dessertSpinner.get(0), 1);
+                    Log.d("may error ka", sauceName + " " + String.valueOf(sauceQuantity));
+                }
             }
         });
 
@@ -226,10 +234,12 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnDessert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dessertQuantity.add(1);
-                dessertName.add(dessertSpinner.get(0));
-                dessertAdapter.notifyItemInserted(dessertQuantity.size() - 1);
-                Log.d("may error ka", dessertName + " " + String.valueOf(dessertQuantity));
+                if (dessertSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                } else {
+                    dessertAdapter.addItem(dessertSpinner.get(0), 1);
+                    Log.d("may error ka", dessertName + " " + String.valueOf(dessertQuantity));
+                }
             }
         });
 
@@ -249,54 +259,64 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnDrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drinkQuantity.add(1);
-                drinkName.add(drinkSpinner.get(0));
-                drinkAdapter.notifyItemInserted(drinkQuantity.size() - 1);
-                Log.d("may error ka", drinkName + " " + String.valueOf(drinkQuantity));
+                if (drinkSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                } else {
+                    drinkAdapter.addItem(drinkSpinner.get(0), 1);
+                    Log.d("may error ka", drinkName + " " + String.valueOf(drinkQuantity));
+                }
+            }
+        });
+
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
 
         //CREATE MEAL
-
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                riceAdapter.syncStaticList();
-                mainAdapter.syncStaticList();
-                sideAdapter.syncStaticList();
-                sauceAdapter.syncStaticList();
-                dessertAdapter.syncStaticList();
-                drinkAdapter.syncStaticList();
                 Log.d("may error ka", "addon name static: " + recyclerViewAdapterAdminAddAddonMeals.addonNameStatic + " addonQuantity: " + String.valueOf(recyclerViewAdapterAdminAddAddonMeals.addonQuantityStatic));
                 String adminAddonId = UUID.randomUUID().toString();
                 String getMealName = mealName.getText().toString().trim();
                 String getMealText = mealImg.getText().toString().trim();
                 String getMealDescription = mealDescription.getText().toString().trim();
 
+                ArrayList<String> allNames = new ArrayList<>();
+                ArrayList<Integer> allQuantities = new ArrayList<>();
+                ArrayList<Integer> allPrices = new ArrayList<>();
+
+                addFromAdapter(riceAdapter, allNames, allQuantities, allPrices);
+                addFromAdapter(mainAdapter, allNames, allQuantities, allPrices);
+                addFromAdapter(sideAdapter, allNames, allQuantities, allPrices);
+                addFromAdapter(sauceAdapter, allNames, allQuantities, allPrices);
+                addFromAdapter(dessertAdapter, allNames, allQuantities, allPrices);
+                addFromAdapter(drinkAdapter, allNames, allQuantities, allPrices);
+
 
                 if (getMealName.isBlank() || getMealDescription.isBlank()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
                 } else if (getMealText.equals("Choose File")) {
                     popUpAlert(getString(R.string.pleaseChooseAnImage));
-                } else if (recyclerViewAdapterAdminAddAddonMeals.addonNameStatic.isEmpty()) {
+                } else if (allNames.isEmpty()) {
                     popUpAlert(getString(R.string.pleaseChooseAnAddon));
                 } else {
-                    ArrayList<String> names = recyclerViewAdapterAdminAddAddonMeals.addonNameStatic;
-                    ArrayList<Integer> quantities = recyclerViewAdapterAdminAddAddonMeals.addonQuantityStatic;
-                    ArrayList<Integer> prices = recyclerViewAdapterAdminAddAddonMeals.totalPricesStatic;
-
-                    for (int i = 0; i < names.size(); i++) {
-                        String addonName = names.get(i);
-                        int addonQuantity = quantities.get(i);
-                        int addonTotalPrice = prices.get(i);
-
-                        databaseFunctions.insertOrderAddonData(1, adminAddonId, addonName, addonQuantity, addonTotalPrice);
+                    for (int i = 0; i < allNames.size(); i++) {
+                        databaseFunctions.insertOrderAddonData(1, adminAddonId, allNames.get(i), allQuantities.get(i), allPrices.get(i));
                     }
 
-                    int mealTotalPrice = recyclerViewAdapterAdminAddAddonMeals.getTotalAddonPrice();
+                    int mealTotalPrice = 0;
+                    for (int price : allPrices) {
+                        mealTotalPrice += price;
+                    }
 
                     boolean insertAdminMealData = databaseFunctions.insertAdminMeal(adminAddonId, getMealName, getMealDescription, bitMealImg, mealTotalPrice);
+
                     if (insertAdminMealData) {
                         Intent intent = new Intent(adminAddMeals.this, adminMeals.class);
                         startActivity(intent);
@@ -308,6 +328,12 @@ public class adminAddMeals extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addFromAdapter(recyclerViewAdapterAdminAddAddonMeals adapter, ArrayList<String> names, ArrayList<Integer> quantities, ArrayList<Integer> prices) {
+        names.addAll(adapter.getAddonNames());
+        quantities.addAll(adapter.getAddonQuantities());
+        prices.addAll(adapter.getTotalPrices());
     }
 
     private void popUpAlert(String setAlertText) {

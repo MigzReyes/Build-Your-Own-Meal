@@ -477,6 +477,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="thereIsCurrentlyNoAddon">There is currently no addon</string>
     <string name="pleaseChooseAnImage">Please choose an image</string>
     <string name="pleaseSelectPickUpOption">Please select a pick up option</string>
     <string name="failedToLoadImg">Failed to load image</string>
