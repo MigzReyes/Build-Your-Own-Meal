@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,14 +91,14 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
 
     @NonNull
     @Override
-    public recyclerViewAdapterCart.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.recycler_cart, parent, false);
-        return new recyclerViewAdapterCart.MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull recyclerViewAdapterCart.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.cartItemName.setText(cartItemName.get(position));
         holder.cartItemPrice.setText(String.valueOf(cartItemPrice.get(position)));
         holder.cartItemImg.setImageBitmap(cartItemImg.get(position));
@@ -124,6 +125,26 @@ public class recyclerViewAdapterCart extends RecyclerView.Adapter<recyclerViewAd
                     Intent intent = new Intent(context, craftedMeal.class);
                     edit.putString("addonGroupId", addonId);
                     edit.apply();
+                    intent.putExtra("addonGroupId", addonId);
+                    intent.putExtra("mealTotalPrice", cartItemPrice.get(position));
+                    intent.putExtra("editMeal", true);
+                    context.startActivity(intent);
+                } else {
+                    String addonId = addonGroupId.get(position);
+                    Intent intent = new Intent(context, preMadeMeal.class);
+                    edit.putString("addonGroupId", addonId);
+                    edit.apply();
+                    intent.putExtra("comboMealName", cartItemName.get(position));
+                    Cursor getComboMealDescription = databaseFunctions.getPreMadeMealDescription(cartItemName.get(position));
+                    if (getComboMealDescription != null && getComboMealDescription.moveToFirst()) {
+                        String comboMealDescription = getComboMealDescription.getString(getComboMealDescription.getColumnIndexOrThrow("mealDescription"));
+                        intent.putExtra("comboMealDescription", comboMealDescription);
+                    }
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    Bitmap getComboMealImg = cartItemImg.get(position);
+                    getComboMealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    intent.putExtra("comboMealImg", byteArray);
                     intent.putExtra("addonGroupId", addonId);
                     intent.putExtra("mealTotalPrice", cartItemPrice.get(position));
                     intent.putExtra("editMeal", true);

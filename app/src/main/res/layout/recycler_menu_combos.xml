@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
@@ -22,6 +23,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/comboMealLink"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
@@ -80,18 +82,35 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/menuItemPrice2"
-                        android:layout_width="40dp"
+
+                    <LinearLayout
+                        android:layout_width="50dp"
                         android:layout_height="20dp"
+                        android:orientation="horizontal"
                         android:gravity="center"
                         android:background="@drawable/price_tag_background"
                         android:paddingHorizontal="4dp"
-                        android:paddingVertical="3dp"
-                        android:text="@string/priceItem"
-                        android:textColor="@color/whiteBoldLetters"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp" />
+                        android:paddingVertical="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="1dp"
+                            android:text="@string/pesoSign"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/comboMealPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/priceItem"
+                            android:textColor="@color/whiteBoldLetters"
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

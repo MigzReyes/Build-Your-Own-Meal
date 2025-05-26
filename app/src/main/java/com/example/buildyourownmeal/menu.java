@@ -2,6 +2,9 @@ package com.example.buildyourownmeal;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,12 +31,18 @@ import java.util.ArrayList;
 
 public class menu extends AppCompatActivity {
 
-    //FOR RECYCLER VIEW
-    private ArrayList<recyclerMenuCombosModel> recyclerMenuCombosModelArrayList = new ArrayList<>();
-    private int[] comboMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
-            R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+    //DATABASE
+    private databaseFunctions databaseFunctions;
 
+    //RECYCLER VIEW
     private RecyclerView recyclerViewMenuCombos;
+    private ArrayList<String> comboMealName, comboMealDescription, addonGroupId;
+    private ArrayList<Bitmap> comboMealImg;
+    private ArrayList<Integer> comboMealPrice, comboMealId;
+
+
+
+    private LinearLayout craftNowBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +50,47 @@ public class menu extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu);
 
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
+
         //STATUS BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             WindowInsetsControllerCompat windowInsetsController = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
             windowInsetsController.setAppearanceLightStatusBars(true);
         }
 
+        //REFERENCE
+        craftNowBtn = findViewById(R.id.craftNowBtn);
+
+        craftNowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(menu.this, craftedMeal.class);
+                startActivity(intent);
+            }
+        });
+
         //RECYCLER VIEW
         recyclerViewMenuCombos = findViewById(R.id.recyclerViewMenuCombos);
-
+        comboMealId = new ArrayList<>();
+        addonGroupId = new ArrayList<>();
+        comboMealImg = new ArrayList<>();
+        comboMealName = new ArrayList<>();
+        comboMealDescription = new ArrayList<>();
+        comboMealPrice = new ArrayList<>();
 
         setUpMenuCombosModel();
 
-        recyclerViewAdapterMenuCombos recyclerViewAdapterMenuCombos = new recyclerViewAdapterMenuCombos(this, recyclerMenuCombosModelArrayList);
-        recyclerViewMenuCombos.setAdapter(recyclerViewAdapterMenuCombos);
         recyclerViewMenuCombos.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewMenuCombos.setNestedScrollingEnabled(false);
+        recyclerViewAdapterMenuCombos recyclerViewAdapterMenuCombos = new recyclerViewAdapterMenuCombos(this, comboMealName, comboMealDescription, addonGroupId, comboMealImg, comboMealPrice, comboMealId);
+        recyclerViewMenuCombos.setAdapter(recyclerViewAdapterMenuCombos);
+
+
+
+
+
+
+
 
 
         //BOTTOM NAVBAR
@@ -92,61 +127,22 @@ public class menu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setAnimation(null);
-        bottomNav.setItemRippleColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        if (navHostFragment != null) {
-            NavController navCon = navHostFragment.getNavController();
-            NavigationUI.setupWithNavController(bottomNav, navCon);
-        } else {
-            Log.e("Navbar", "NavHostFragment is empty, Check your layout xml");
-        }
-
-        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.home_dashboard) {
-                    Intent intent = new Intent(menu.this, Navbar.class);
-                    startActivity(intent);
-                    return true;
-                } else if (itemId == R.id.cart) {
-                    Intent intent = new Intent(menu.this, cart.class);
-                    startActivity(intent);
-                    return true;
-                } else if (itemId == R.id.aboutUs) {
-                    Intent intent = new Intent(menu.this, aboutUs.class);
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
-            }
-        });*/
-
-        int[] menuBtn = {R.id.craftNowBtn};
-
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(menu.this, craftedMeal.class);
-                startActivity(intent);
-            }
-        };
-
-        for (int id : menuBtn) {
-            findViewById(id).setOnClickListener(clickListener);
-        }
-
     }
 
     private void setUpMenuCombosModel() {
-        String[] comboMealNames = getResources().getStringArray(R.array.comboMealName);
-        String[] comboMealDescription = getResources().getStringArray(R.array.comboMealDescription);
+        Cursor getAdminMeal = databaseFunctions.getAdminMeal();
 
-        for (int i = 0; i < comboMealNames.length; i++) {
-            recyclerMenuCombosModelArrayList.add(new recyclerMenuCombosModel(comboMealNames[i], comboMealDescription[i], comboMealImg[i]));
+        if (getAdminMeal != null && getAdminMeal.moveToFirst()) {
+            do {
+                byte[] byteArray = getAdminMeal.getBlob(getAdminMeal.getColumnIndexOrThrow("mealImg"));
+                comboMealImg.add(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                comboMealId.add(getAdminMeal.getInt(getAdminMeal.getColumnIndexOrThrow("adminMealId")));
+                addonGroupId.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("adminAddonId")));
+                comboMealName.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealName")));
+                comboMealDescription.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealDescription")));
+                comboMealPrice.add(getAdminMeal.getInt(getAdminMeal.getColumnIndexOrThrow("mealTotalPrice")));
+            } while (getAdminMeal.moveToNext());
+            getAdminMeal.close();
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -233,8 +234,8 @@ public class cart extends AppCompatActivity {
                 cartItemPrice.add(getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice")));
                 cartItemName.add(getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType")));
                 int dbUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
-                Bitmap getMealImgBit = databaseFunctions.getImg(dbUserId);
-                cartItemImg.add(getMealImgBit);
+                byte[] byteArray = getUserOrder.getBlob(getUserOrder.getColumnIndexOrThrow("mealImg"));
+                cartItemImg.add(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
                 minusBtn.add("-");
                 addBtn.add("+");
                 mealQuantity.add(getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity")));

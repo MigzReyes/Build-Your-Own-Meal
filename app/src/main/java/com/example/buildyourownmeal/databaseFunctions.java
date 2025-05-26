@@ -655,6 +655,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getPreMadeMealDescription(String mealName) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT mealDescription FROM " + TABLE_ADMIN_MEALS + " WHERE mealName = ?", new String[]{mealName});
+    }
+
     public Cursor getOrderAddon(String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON + " WHERE addonGroupId = ?", new String[]{addonGroupId});
