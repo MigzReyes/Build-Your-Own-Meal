@@ -3,6 +3,7 @@ package com.example.buildyourownmeal;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -17,7 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class recyclerViewAdapterAdminMeals extends RecyclerView.Adapter<recyclerViewAdapterAdminMeals.MyViewHolder> {
 
@@ -25,18 +28,24 @@ public class recyclerViewAdapterAdminMeals extends RecyclerView.Adapter<recycler
     private databaseFunctions databaseFunctions;
 
     private Context context;
-    private ArrayList<String> mealName, mealDescription, adminAddonId, addonName;
+    private ArrayList<String> mealName, mealDescription, adminAddonId, addonName, mealImgUri;
     private ArrayList<Bitmap> mealImg;
     private ArrayList<Integer> mealPrice, addonQuantity, adminMealId;
+    private HashMap<Integer, ArrayList<String>> hashAddonName;
+    private HashMap<Integer, ArrayList<Integer>> hashAddonQuantity;
 
-    public recyclerViewAdapterAdminMeals(Context context,ArrayList<String> adminAddonId,  ArrayList<String> mealName, ArrayList<String> mealDescription, ArrayList<Bitmap> mealImg, ArrayList<Integer> mealPrice, ArrayList<Integer> adminMealId) {
+    public recyclerViewAdapterAdminMeals(Context context,ArrayList<String> adminAddonId,  ArrayList<String> mealName, ArrayList<String> mealDescription, ArrayList<Bitmap> mealImg, ArrayList<String> mealImgUri, ArrayList<Integer> mealPrice, ArrayList<Integer> adminMealId) {
         this.context = context;
         this.adminAddonId = adminAddonId;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.mealImg = mealImg;
+        this.mealImgUri = mealImgUri;
         this.mealPrice = mealPrice;
         this.adminMealId = adminMealId;
+
+        hashAddonName = new HashMap<>();
+        hashAddonQuantity = new HashMap<>();
     }
 
     @NonNull
@@ -65,6 +74,34 @@ public class recyclerViewAdapterAdminMeals extends RecyclerView.Adapter<recycler
         recyclerViewAdapterAdminUserOrderAddon addonAdapter = new recyclerViewAdapterAdminUserOrderAddon(context, addonName, addonQuantity);
         holder.adminMealAddonRecycler.setLayoutManager(new LinearLayoutManager(context));
         holder.adminMealAddonRecycler.setAdapter(addonAdapter);
+
+        hashAddonName.put(position, new ArrayList<>(addonName));
+        hashAddonQuantity.put(position, new ArrayList<>(addonQuantity));
+
+
+        holder.editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = holder.getAdapterPosition();
+
+                if (pos != RecyclerView.NO_POSITION) {
+                    Intent intent = new Intent(context, adminEditMeals.class);
+                    intent.putExtra("addonGroupId", adminAddonId.get(position));
+                    intent.putExtra("editMeal", true);
+                    intent.putExtra("mealName", mealName.get(position));
+                    intent.putExtra("mealDescription", mealDescription.get(position));
+                    Bitmap getMealImg = mealImg.get(position);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    getMealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    intent.putExtra("mealImg", byteArray);
+                    intent.putExtra("mealImgUri", mealImgUri.get(position));
+                    intent.putStringArrayListExtra("addonName", hashAddonName.get(position));
+                    intent.putIntegerArrayListExtra("addonQuantity", hashAddonQuantity.get(position));
+                    context.startActivity(intent);
+                }
+            }
+        });
 
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {

@@ -121,7 +121,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "adminAddonId TEXT, " +
                 "mealName TEXT, " +
                 "mealDescription TEXT, " +
-                "mealImg BLOB, " +
+                "mealImg BLOB," +
+                "mealImgUri TEXT,  " +
                 "mealTotalPrice INTEGER, " +
                 "creationDate DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
@@ -259,7 +260,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
-    public Boolean insertAdminMeal(String adminAddonId, String mealName, String mealDescription, Bitmap mealImg, int mealTotalPrice) {
+    public Boolean insertAdminMeal(String adminAddonId, String mealName, String mealDescription, Bitmap mealImg, String mealImgUri, int mealTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -269,6 +270,7 @@ public class databaseFunctions extends SQLiteOpenHelper {
         contentValues.put("mealName", mealName);
         contentValues.put("mealDescription", mealDescription);
         contentValues.put("mealImg", byteArray);
+        contentValues.put("mealImgUri", mealImgUri);
         contentValues.put("mealTotalPrice", mealTotalPrice);
         long result = myDb.insert(TABLE_ADMIN_MEALS, null, contentValues);
 
@@ -491,6 +493,22 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //UPDATE QUERY
+    public boolean updateAdminMeal(String addonGroupId, String addonName, String addonDescription, Bitmap mealImg, String mealImgUri, int mealTotalPrice) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mealName", addonName);
+        contentValues.put("mealDescription", addonDescription);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("mealImg", byteArray);
+        contentValues.put("mealImgUri", mealImgUri);
+        contentValues.put("mealTotalPrice", mealTotalPrice);
+        long result = myDb.update(TABLE_ADMIN_MEALS, contentValues, "adminAddonId = ?", new String[]{addonGroupId});
+
+        return result != 0;
+    }
+
     public Boolean updateAdminOrderStatus(int userId, String orderGroupId, String status) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

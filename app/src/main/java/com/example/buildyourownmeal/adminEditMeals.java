@@ -27,15 +27,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
-public class adminAddMeals extends AppCompatActivity {
+public class adminEditMeals extends AppCompatActivity {
 
     //DATABASE
     private databaseFunctions databaseFunctions;
 
     private ImageView backBtn;
-    private TextView activityName, mealImg, addItemBtnRice, addItemBtnMainDish, addItemBtnSide, addItemBtnSauce, addItemBtnDessert, addItemBtnDrink;
+    private TextView activityName, adminAddEditMealText, mealImg, addItemBtnRice, addItemBtnMainDish, addItemBtnSide, addItemBtnSauce, addItemBtnDessert, addItemBtnDrink;
     private EditText mealName, mealDescription;
     private Button cancelBtn, createBtn;
     private Bitmap bitMealImg;
@@ -46,7 +48,25 @@ public class adminAddMeals extends AppCompatActivity {
     private ArrayList<String> riceSpinner, mainDishSpinner, sideSpinner, sauceSpinner, dessertSpinner, drinkSpinner;
     private ArrayList<String> riceName, mainDishName, sideName, sauceName, dessertName, drinkName;
     private ArrayList<Integer> riceQuantity, mainDishQuantity, sideQuantity, sauceQuantity, dessertQuantity, drinkQuantity,
-                                ricePrice, mainDishPrice, sidePrice, saucePrice, dessertPrice, drinkPrice;
+            ricePrice, mainDishPrice, sidePrice, saucePrice, dessertPrice, drinkPrice;
+
+    //ADMIN ARRAYLIST ADDON
+    private ArrayList<String> allNames;
+    private ArrayList<Integer> allQuantities;
+    private ArrayList<Integer> allPrices;
+    private ArrayList<Integer> selectedIndexOnSpinner;
+
+
+
+    //EDIT ARRAYLIST
+    private ArrayList<String> getAddonName;
+    private ArrayList<Integer> getAddonQuantity;
+
+    private boolean editMeal = false;
+    private String addonGroupId = null;
+    private Bitmap getMealImg;
+    private String getMealImgUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +86,7 @@ public class adminAddMeals extends AppCompatActivity {
         //REFERENCE
         backBtn = findViewById(R.id.backBtn);
         activityName = findViewById(R.id.sideFragName);
+        adminAddEditMealText = findViewById(R.id.adminAddEditMealText);
         mealName = findViewById(R.id.mealName);
         mealImg = findViewById(R.id.mealImage);
         mealDescription = findViewById(R.id.mealDescription);
@@ -86,6 +107,8 @@ public class adminAddMeals extends AppCompatActivity {
                 finish();
             }
         });
+
+        adminAddEditMealText.setText(getString(R.string.editMeal));
 
         //GET IMAGE
         ActivityResultLauncher<String> getImage = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -128,7 +151,7 @@ public class adminAddMeals extends AppCompatActivity {
 
         Log.d("may error ka", riceName + " " + String.valueOf(riceQuantity));
 
-        recyclerViewAdapterAdminAddAddonMeals riceAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminAddMeals.this, riceName, riceSpinner, riceQuantity, ricePrice);
+        recyclerViewAdapterAdminAddAddonMeals riceAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminEditMeals.this, riceName, riceSpinner, riceQuantity, ricePrice);
         riceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         riceRecyclerView.setAdapter(riceAdapter);
 
@@ -151,7 +174,7 @@ public class adminAddMeals extends AppCompatActivity {
 
         setUpAdminMealAddons("main_dish", mainDishName, mainDishQuantity, mainDishSpinner, mainDishPrice);
 
-        recyclerViewAdapterAdminAddAddonMeals mainAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminAddMeals.this, mainDishName, mainDishSpinner, mainDishQuantity, mainDishPrice);
+        recyclerViewAdapterAdminAddAddonMeals mainAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminEditMeals.this, mainDishName, mainDishSpinner, mainDishQuantity, mainDishPrice);
         mainDishRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainDishRecyclerView.setAdapter(mainAdapter);
 
@@ -174,7 +197,7 @@ public class adminAddMeals extends AppCompatActivity {
 
         setUpAdminMealAddons("side_dish", sideName, sideQuantity, sideSpinner, sidePrice);
 
-        recyclerViewAdapterAdminAddAddonMeals sideAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminAddMeals.this, sideName, sideSpinner, sideQuantity, sidePrice);
+        recyclerViewAdapterAdminAddAddonMeals sideAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminEditMeals.this, sideName, sideSpinner, sideQuantity, sidePrice);
         sideRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         sideRecyclerView.setAdapter(sideAdapter);
 
@@ -197,7 +220,7 @@ public class adminAddMeals extends AppCompatActivity {
 
         setUpAdminMealAddons("sauce", sauceName, sauceQuantity, sauceSpinner, saucePrice);
 
-        recyclerViewAdapterAdminAddAddonMeals sauceAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminAddMeals.this, sauceName, sauceSpinner, sauceQuantity, saucePrice);
+        recyclerViewAdapterAdminAddAddonMeals sauceAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminEditMeals.this, sauceName, sauceSpinner, sauceQuantity, saucePrice);
         sauceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         sauceRecyclerView.setAdapter(sauceAdapter);
 
@@ -220,7 +243,7 @@ public class adminAddMeals extends AppCompatActivity {
 
         setUpAdminMealAddons("dessert", dessertName, dessertQuantity, dessertSpinner, dessertPrice);
 
-        recyclerViewAdapterAdminAddAddonMeals dessertAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminAddMeals.this, dessertName, dessertSpinner, dessertQuantity, dessertPrice);
+        recyclerViewAdapterAdminAddAddonMeals dessertAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminEditMeals.this, dessertName, dessertSpinner, dessertQuantity, dessertPrice);
         dessertRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dessertRecyclerView.setAdapter(dessertAdapter);
 
@@ -243,7 +266,7 @@ public class adminAddMeals extends AppCompatActivity {
 
         setUpAdminMealAddons("drink", drinkName, drinkQuantity, drinkSpinner, drinkPrice);
 
-        recyclerViewAdapterAdminAddAddonMeals drinkAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminAddMeals.this, drinkName, drinkSpinner, drinkQuantity, drinkPrice);
+        recyclerViewAdapterAdminAddAddonMeals drinkAdapter = new recyclerViewAdapterAdminAddAddonMeals(adminEditMeals.this, drinkName, drinkSpinner, drinkQuantity, drinkPrice);
         drinkRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         drinkRecyclerView.setAdapter(drinkAdapter);
 
@@ -258,6 +281,7 @@ public class adminAddMeals extends AppCompatActivity {
         });
 
 
+
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,20 +289,87 @@ public class adminAddMeals extends AppCompatActivity {
             }
         });
 
+        //INITIALIZATION FOR THE LIST THAT IS GOING TO BE INSERTED IN THE DATABASE
+        allNames = new ArrayList<>();
+        allQuantities = new ArrayList<>();
+        allPrices = new ArrayList<>();
+        selectedIndexOnSpinner = new ArrayList<>();
+
+        //GET INTENT EXTRA FROM EDIT BUTTON
+        editMeal = getIntent().getBooleanExtra("editMeal", false);
+        addonGroupId = getIntent().getStringExtra("addonGroupId");
+
+        if (editMeal && addonGroupId != null) {
+            createBtn.setText(getString(R.string.edit));
+            String getMealName = getIntent().getStringExtra("mealName");
+            String getMealDescription = getIntent().getStringExtra("mealDescription");
+            getMealImgUri = getIntent().getStringExtra("mealImgUri");
+            imageUri = getMealImgUri;
+            byte[] byteArray = getIntent().getByteArrayExtra("mealImg");
+            getMealImg = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            Log.d("may error ka", "imageuri: " + getMealImgUri);
+
+            mealName.setText(getMealName);
+            mealDescription.setText(getMealDescription);
+            mealImg.setText(getMealImgUri);
+
+            Cursor getAddon = databaseFunctions.getOrderAddon(addonGroupId);
+
+            riceAdapter.clearAll();
+            mainAdapter.clearAll();
+            sideAdapter.clearAll();
+            sauceAdapter.clearAll();
+            dessertAdapter.clearAll();
+            drinkAdapter.clearAll();
+
+            if (getAddon != null && getAddon.moveToFirst()) {
+                do {
+                    String addonName = getAddon.getString(getAddon.getColumnIndexOrThrow("addon"));
+                    int addonQty = getAddon.getInt(getAddon.getColumnIndexOrThrow("quantity"));
+
+                    allNames.add(addonName);
+                    allQuantities.add(addonQty);
+
+                    if (riceSpinner.contains(addonName)) {
+                        riceAdapter.updateQuantity(addonName, addonQty);
+                        riceAdapter.notifyDataSetChanged();
+                    } else if (mainDishSpinner.contains(addonName)) {
+                        mainAdapter.updateQuantity(addonName, addonQty);
+                        mainAdapter.notifyDataSetChanged();
+                    } else if (sideSpinner.contains(addonName)) {
+                        sideAdapter.updateQuantity(addonName, addonQty);
+                        sideAdapter.notifyDataSetChanged();
+                    } else if (sauceSpinner.contains(addonName)) {
+                        sauceAdapter.updateQuantity(addonName, addonQty);
+                        sauceAdapter.notifyDataSetChanged();
+                    } else if (dessertSpinner.contains(addonName)) {
+                        dessertAdapter.updateQuantity(addonName, addonQty);
+                        dessertAdapter.notifyDataSetChanged();
+                    } else if (drinkSpinner.contains(addonName)) {
+                        drinkAdapter.updateQuantity(addonName, addonQty);
+                        drinkAdapter.notifyDataSetChanged();
+                    }
+                } while (getAddon.moveToNext());
+                getAddon.close();
+            }
+        }
+
 
         //CREATE MEAL
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("may error ka", "addon name static: " + recyclerViewAdapterAdminAddAddonMeals.addonNameStatic + " addonQuantity: " + String.valueOf(recyclerViewAdapterAdminAddAddonMeals.addonQuantityStatic));
-                String adminAddonId = UUID.randomUUID().toString();
                 String getMealName = mealName.getText().toString().trim();
                 String getMealText = mealImg.getText().toString().trim();
                 String getMealDescription = mealDescription.getText().toString().trim();
 
-                ArrayList<String> allNames = new ArrayList<>();
-                ArrayList<Integer> allQuantities = new ArrayList<>();
-                ArrayList<Integer> allPrices = new ArrayList<>();
+                if (!editMeal || addonGroupId == null) {
+                    addonGroupId = UUID.randomUUID().toString();
+                }
+
+                allNames.clear();
+                allQuantities.clear();
+                allPrices.clear();
 
                 addFromAdapter(riceAdapter, allNames, allQuantities, allPrices);
                 addFromAdapter(mainAdapter, allNames, allQuantities, allPrices);
@@ -287,7 +378,6 @@ public class adminAddMeals extends AppCompatActivity {
                 addFromAdapter(dessertAdapter, allNames, allQuantities, allPrices);
                 addFromAdapter(drinkAdapter, allNames, allQuantities, allPrices);
 
-
                 if (getMealName.isBlank() || getMealDescription.isBlank()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
                 } else if (getMealText.equals("Choose File")) {
@@ -295,24 +385,47 @@ public class adminAddMeals extends AppCompatActivity {
                 } else if (allNames.isEmpty()) {
                     popUpAlert(getString(R.string.pleaseChooseAnAddon));
                 } else {
-                    for (int i = 0; i < allNames.size(); i++) {
-                        databaseFunctions.insertOrderAddonData(1, adminAddonId, allNames.get(i), allQuantities.get(i), allPrices.get(i));
-                    }
+                    if (editMeal) {
+                        databaseFunctions.deleteOrderAddon(addonGroupId);
 
-                    int mealTotalPrice = 0;
-                    for (int price : allPrices) {
-                        mealTotalPrice += price;
-                    }
+                        for (int i = 0; i < allNames.size(); i++) {
+                            databaseFunctions.updateOrderAddon(1, addonGroupId, allNames.get(i), allQuantities.get(i), allPrices.get(i));
+                        }
 
-                    boolean insertAdminMealData = databaseFunctions.insertAdminMeal(adminAddonId, getMealName, getMealDescription, bitMealImg, imageUri, mealTotalPrice);
+                        int mealTotalPrice = 0;
+                        for (int price : allPrices) mealTotalPrice += price;
 
-                    if (insertAdminMealData) {
-                        Intent intent = new Intent(adminAddMeals.this, adminMeals.class);
-                        intent.putExtra("successAdd", true);
-                        startActivity(intent);
-                        finish();
+                        boolean updated;
+                        if (imageUri.equals(getMealImgUri)) {
+                            updated = databaseFunctions.updateAdminMeal(addonGroupId, getMealName, getMealDescription, getMealImg, imageUri, mealTotalPrice);
+                        } else {
+                            updated = databaseFunctions.updateAdminMeal(addonGroupId, getMealName, getMealDescription, bitMealImg, imageUri, mealTotalPrice);
+                        }
+                        if (updated) {
+                            Intent intent = new Intent(adminEditMeals.this, adminMeals.class);
+                            intent.putExtra("successEdit", true);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            popUpAlert("Failed to update meal.");
+                        }
+
+
                     } else {
-                        Log.d("may error ka", "insert admin meal failed");
+                        for (int i = 0; i < allNames.size(); i++) {
+                            databaseFunctions.insertOrderAddonData(1, addonGroupId, allNames.get(i), allQuantities.get(i), allPrices.get(i));
+                        }
+
+                        int mealTotalPrice = 0;
+                        for (int price : allPrices) mealTotalPrice += price;
+
+                        boolean inserted = databaseFunctions.insertAdminMeal(addonGroupId, getMealName, getMealDescription, bitMealImg, getMealText, mealTotalPrice);
+                        if (inserted) {
+                            startActivity(new Intent(adminEditMeals.this, adminMeals.class));
+                            finish();
+                        } else {
+                            popUpAlert("Failed to create meal.");
+                        }
                     }
                 }
             }
@@ -321,9 +434,20 @@ public class adminAddMeals extends AppCompatActivity {
     }
 
     private void addFromAdapter(recyclerViewAdapterAdminAddAddonMeals adapter, ArrayList<String> names, ArrayList<Integer> quantities, ArrayList<Integer> prices) {
-        names.addAll(adapter.getAddonNames());
-        quantities.addAll(adapter.getAddonQuantities());
-        prices.addAll(adapter.getTotalPrices());
+        List<String> newNames = adapter.getAddonNames();
+        List<Integer> newQuantities = adapter.getAddonQuantities();
+        List<Integer> newPrices = adapter.getTotalPrices();
+
+        if (newNames.size() != newQuantities.size() || newQuantities.size() != newPrices.size()) {
+            Log.e("may error ka", "Mismatched adapter data: " +
+                    "names=" + newNames.size() +
+                    ", quantities=" + newQuantities.size() +
+                    ", prices=" + newPrices.size());
+        }
+
+        names.addAll(newNames);
+        quantities.addAll(newQuantities);
+        prices.addAll(newPrices);
     }
 
     private void popUpAlert(String setAlertText) {

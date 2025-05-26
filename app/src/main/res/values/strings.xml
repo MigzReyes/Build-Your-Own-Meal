@@ -35,6 +35,7 @@
     <string name="Welcome">Welcome,</string>
     <string name="user">User</string>
     <string name="pickup">Pick Up:</string>
+    <string name="editMeal">Edit Meal</string>
     <string name="admin">Admin</string>
     <string name="dashboard">Dashboard</string>
     <string name="orders">Orders</string>

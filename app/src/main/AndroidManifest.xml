@@ -26,6 +26,9 @@
             android:name=".adminEditUser"
             android:exported="false" />
         <activity
+            android:name=".adminEditMeals"
+            android:exported="false" />
+        <activity
             android:name=".adminAddUser"
             android:exported="false" />
         <activity

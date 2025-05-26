@@ -1,12 +1,14 @@
 package com.example.buildyourownmeal;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,14 +48,85 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
         }
     }
 
-    public void addItem(String name, int quantity) {
-        addonName.add(name);
-        addonQuantity.add(quantity);
-        selectedIndexOnSpinner.add(0);
-        totalPrices.add(0);
-        notifyItemInserted(addonName.size() - 1);
+    public void clearAll() {
+        addonName.clear();
+        addonQuantity.clear();
+        totalPrices.clear();
+        selectedIndexOnSpinner.clear();
+        notifyDataSetChanged();
     }
 
+
+    public void updateQuantity(String name, int quantity) {
+        int index = addonName.indexOf(name);
+        if (index != -1) {
+            addonQuantity.set(index, quantity);
+
+            // Recalculate total price
+            int spinnerIndex = selectedIndexOnSpinner.get(index);
+            int unitPrice = addonPrice.get(spinnerIndex);
+            totalPrices.set(index, unitPrice * quantity);
+
+            notifyItemChanged(index);
+        } else {
+            addonName.add(name);
+            addonQuantity.add(quantity);
+
+            int spinnerIndex = addonNameSpinner.indexOf(name);
+            if (spinnerIndex == -1) spinnerIndex = 0;
+            selectedIndexOnSpinner.add(spinnerIndex);
+
+            int unitPrice = addonPrice.get(spinnerIndex);
+            totalPrices.add(unitPrice * quantity);
+
+            notifyItemInserted(addonName.size() - 1);
+        }
+    }
+
+
+    private int getPriceForName(String name) {
+        int index = addonNameSpinner.indexOf(name);
+        if (index != -1 && index < addonPrice.size()) {
+            return addonPrice.get(index);
+        }
+        return 0;
+    }
+
+    public boolean addItem(String name, int quantity) {
+        if (!addonName.contains(name)) {
+            int spinnerIndex = addonNameSpinner.indexOf(name);
+            if (spinnerIndex == -1) spinnerIndex = 0;
+
+            addonName.add(name);
+            addonQuantity.add(quantity);
+            selectedIndexOnSpinner.add(spinnerIndex);
+
+            int unitPrice = addonPrice.get(spinnerIndex);
+            totalPrices.add(unitPrice * quantity);
+
+            notifyItemInserted(addonName.size() - 1);
+            return true;
+        }
+
+        for (int i = 0; i < addonNameSpinner.size(); i++) {
+            String candidate = addonNameSpinner.get(i);
+            if (!addonName.contains(candidate)) {
+                int spinnerIndex = i;
+
+                addonName.add(candidate);
+                addonQuantity.add(quantity);
+                selectedIndexOnSpinner.add(spinnerIndex);
+
+                int unitPrice = addonPrice.get(spinnerIndex);
+                totalPrices.add(unitPrice * quantity);
+
+                notifyItemInserted(addonName.size() - 1);
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public ArrayList<String> getAddonNames() {
         return new ArrayList<>(addonName);
@@ -64,7 +137,14 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
     }
 
     public ArrayList<Integer> getTotalPrices() {
-        getEachAddonTotalPrice();
+        // Always recalculate to ensure accuracy
+        totalPrices = new ArrayList<>();
+        for (int i = 0; i < addonQuantity.size(); i++) {
+            int spinnerIndex = selectedIndexOnSpinner.get(i);
+            int unitPrice = addonPrice.get(spinnerIndex);
+            int qty = addonQuantity.get(i);
+            totalPrices.add(unitPrice * qty);
+        }
         return new ArrayList<>(totalPrices);
     }
 
@@ -125,9 +205,48 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
             public void onItemSelected(AdapterView<?> parent, View view, int spinnerPosition, long id) {
                 int adapterPos = holder.getAdapterPosition();
                 if (adapterPos != RecyclerView.NO_POSITION) {
-                    addonName.set(adapterPos, addonNameSpinner.get(spinnerPosition));
-                    selectedIndexOnSpinner.set(adapterPos, spinnerPosition);
-                    updateTotalPriceAt(adapterPos);
+                    String selectedAddon = addonNameSpinner.get(spinnerPosition);
+
+                    boolean isDuplicate = false;
+                    for (int i = 0; i < addonName.size(); i++) {
+                        if (i != adapterPos && addonName.get(i).equals(selectedAddon)) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+
+                    if (isDuplicate) {
+                        int previousIndex = selectedIndexOnSpinner.get(adapterPos);
+                        holder.addonSpinner.setSelection(previousIndex);
+
+                        Dialog popUpAlert;
+                        Button closeBtn;
+                        TextView alertText;
+
+                        popUpAlert = new Dialog(context);
+                        popUpAlert.setContentView(R.layout.pop_up_alerts);
+                        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                        popUpAlert.setCancelable(true);
+                        popUpAlert.show();
+
+                        alertText = popUpAlert.findViewById(R.id.alertText);
+                        alertText.setText("Addon has already been chosen");
+
+                        closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+                        closeBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                popUpAlert.dismiss();
+                            }
+                        });
+
+                    } else {
+                        addonName.set(adapterPos, selectedAddon);
+                        selectedIndexOnSpinner.set(adapterPos, spinnerPosition);
+                        updateTotalPriceAt(adapterPos);
+                    }
+
                 }
             }
 

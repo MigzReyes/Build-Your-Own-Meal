@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -38,9 +39,11 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
 
     //RECYCLER
     private RecyclerView adminMealsRecycler;
-    private ArrayList<String> mealName, mealDescription, adminAddonId;
+    private ArrayList<String> mealName, mealDescription, adminAddonId, mealImgUri;
     private ArrayList<Bitmap> mealImg;
     private ArrayList<Integer> mealPrice, adminMealId;
+    private boolean successEdit = false;
+    private boolean successAdd = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,60 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
             }
         });
 
+        successEdit = getIntent().getBooleanExtra("successEdit", false);
+        if (successEdit) {
+            Dialog popUpSucess;
+            Button closeBtn;
+            TextView alertText;
+
+            popUpSucess = new Dialog(this);
+            popUpSucess.setContentView(R.layout.pop_up_alerts);
+            popUpSucess.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popUpSucess.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+            popUpSucess.setCancelable(true);
+            popUpSucess.show();
+
+            alertText = popUpSucess.findViewById(R.id.alertText);
+            alertText.setText("Successfully edited meal");
+
+            closeBtn = popUpSucess.findViewById(R.id.closeBtn);
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popUpSucess.dismiss();
+                }
+            });
+
+            successEdit = false;
+        }
+
+        successAdd = getIntent().getBooleanExtra("successAdd", false);
+        if (successAdd) {
+            Dialog popUpSucess;
+            Button closeBtn;
+            TextView alertText;
+
+            popUpSucess = new Dialog(this);
+            popUpSucess.setContentView(R.layout.pop_up_alerts);
+            popUpSucess.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            popUpSucess.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+            popUpSucess.setCancelable(true);
+            popUpSucess.show();
+
+            alertText = popUpSucess.findViewById(R.id.alertText);
+            alertText.setText("Successfully added meal");
+
+            closeBtn = popUpSucess.findViewById(R.id.closeBtn);
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popUpSucess.dismiss();
+                }
+            });
+
+            successAdd = false;
+        }
+
 
         //RECYCLER
         adminMealsRecycler = findViewById(R.id.adminMealsRecycler);
@@ -92,11 +149,12 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
         mealName = new ArrayList<>();
         mealDescription = new ArrayList<>();
         mealImg = new ArrayList<>();
+        mealImgUri = new ArrayList<>();
         mealPrice = new ArrayList<>();
 
         setUpAdminMeal();
 
-        recyclerViewAdapterAdminMeals adminMealAdapter = new recyclerViewAdapterAdminMeals(this, adminAddonId, mealName, mealDescription, mealImg, mealPrice, adminMealId);
+        recyclerViewAdapterAdminMeals adminMealAdapter = new recyclerViewAdapterAdminMeals(this, adminAddonId, mealName, mealDescription, mealImg, mealImgUri, mealPrice, adminMealId);
         adminMealsRecycler.setLayoutManager(new LinearLayoutManager(this));
         adminMealsRecycler.setAdapter(adminMealAdapter);
 
@@ -164,6 +222,7 @@ public class adminMeals extends AppCompatActivity implements NavigationView.OnNa
                 mealDescription.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealDescription")));
                 byte[] byteArray = getAdminMeal.getBlob(getAdminMeal.getColumnIndexOrThrow("mealImg"));
                 mealImg.add(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                mealImgUri.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealImgUri")));
                 mealPrice.add(getAdminMeal.getInt(getAdminMeal.getColumnIndexOrThrow("mealTotalPrice")));
             } while (getAdminMeal.moveToNext());
         }
