@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -45,12 +46,13 @@ public class home_dashboard extends Fragment {
     private databaseFunctions databaseFunctions;
 
 
-    //FOR RECYCLER VIEW
-    private ArrayList<recyclerHomeCombosModel> recyclerHomeCombosModelArrayList = new ArrayList<>();
-    private int[] comboMealImg = {R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal,
-                        R.drawable.chickenkaraagemeal, R.drawable.tunasisigmeal, R.drawable.veggieballsmeal};
+    //RECYCLER VIEW
+    private RecyclerView recyclerViewHomeCombos;
+    private ArrayList<String> comboMealName, comboMealDescription, addonGroupId;
+    private ArrayList<Bitmap> comboMealImg;
+    private ArrayList<Integer> comboMealId;
 
-    RecyclerView recyclerViewHomeCombos;
+
 
     //VARIABLE DECLARATION
     private Button logInBtn, signUpBtn, cancelOrderBtn;
@@ -60,7 +62,7 @@ public class home_dashboard extends Fragment {
     private LinearLayout logInWarning, craftNowBtn, logInTextAlert, userIntroduction, preparingYourOrderCon, mealInProgressCon, orderIsReadyCon;
 
     //USER INTRODUCTION/WELCOME
-    private TextView userIntroductionName;
+    private TextView userIntroductionName, viewAllBtn;
 
     //CHECK IF USER HAD ALREADY CHECKOUT/ORDERED
     private boolean checkIfUserOrdered = false;
@@ -82,6 +84,22 @@ public class home_dashboard extends Fragment {
         int getUserId = userSession.getInt("userId", 0);
 
         boolean checkIfUserHadOrdered = databaseFunctions.checkIfUserHadOrdered(getUserId);
+
+        //SET ID
+        logInTextAlert = view.findViewById(R.id.logInTextAlert);
+        userIntroduction = view.findViewById(R.id.userIntroduction);
+        logInWarning = view.findViewById(R.id.login_warning);
+        userIntroductionName = view.findViewById(R.id.userIntroductionName);
+        viewAllBtn = view.findViewById(R.id.viewAllBtn);
+
+        //VIEW ALL BUTTON
+        viewAllBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), menu.class);
+                startActivity(intent);
+            }
+        });
 
         //ORDER PROCESS CONTAINER
         preparingYourOrderCon = view.findViewById(R.id.preparingYourOrderCon);
@@ -184,19 +202,21 @@ public class home_dashboard extends Fragment {
 
         //RECYCLER VIEW
         recyclerViewHomeCombos = view.findViewById(R.id.recyclerViewHomeCombo);
+        comboMealName = new ArrayList<>();
+        comboMealDescription = new ArrayList<>();
+        comboMealImg = new ArrayList<>();
+        addonGroupId = new ArrayList<>();
+        comboMealId = new ArrayList<>();
 
         setUpHomeCombosModel();
 
-        recyclerViewAdapterHomeCombos recyclerViewAdapterHomeCombos = new recyclerViewAdapterHomeCombos(requireContext(), recyclerHomeCombosModelArrayList);
-        recyclerViewHomeCombos.setAdapter(recyclerViewAdapterHomeCombos);
         recyclerViewHomeCombos.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerViewAdapterHomeCombos recyclerViewAdapterHomeCombos = new recyclerViewAdapterHomeCombos(requireContext(), comboMealName, comboMealDescription, addonGroupId, comboMealImg, comboMealId);
+        recyclerViewHomeCombos.setAdapter(recyclerViewAdapterHomeCombos);
+
+
 
         //IF USER IS ALREADY LOGGED IN / ALERT IF USER HAD NOT LOGGED IN
-        //SET ID
-        logInTextAlert = view.findViewById(R.id.logInTextAlert);
-        userIntroduction = view.findViewById(R.id.userIntroduction);
-        logInWarning = view.findViewById(R.id.login_warning);
-        userIntroductionName = view.findViewById(R.id.userIntroductionName);
 
         craftNowBtn = view.findViewById(R.id.craftNowBtn);
         craftNowBtn.setClickable(true);
@@ -251,12 +271,18 @@ public class home_dashboard extends Fragment {
     }
 
     private void setUpHomeCombosModel () {
-        String[] comboMealNames = getResources().getStringArray(R.array.comboMealName);
-        String[] comboMealDescriptions = getResources().getStringArray(R.array.comboMealDescription);
+        Cursor getAdminMeal = databaseFunctions.getAdminMeal();
 
-
-        for (int i = 0; i < comboMealNames.length; i++) {
-            recyclerHomeCombosModelArrayList.add(new recyclerHomeCombosModel(comboMealNames[i], comboMealDescriptions[i], comboMealImg[i]));
+        if (getAdminMeal != null && getAdminMeal.moveToFirst()) {
+            do {
+                byte[] byteArray = getAdminMeal.getBlob(getAdminMeal.getColumnIndexOrThrow("mealImg"));
+                comboMealImg.add(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                comboMealId.add(getAdminMeal.getInt(getAdminMeal.getColumnIndexOrThrow("adminMealId")));
+                addonGroupId.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("adminAddonId")));
+                comboMealName.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealName")));
+                comboMealDescription.add(getAdminMeal.getString(getAdminMeal.getColumnIndexOrThrow("mealDescription")));
+            } while (getAdminMeal.moveToNext());
+            getAdminMeal.close();
         }
     }
 }
