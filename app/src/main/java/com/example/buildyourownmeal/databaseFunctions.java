@@ -469,6 +469,13 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.close();
     }
 
+    public void insertUserPhoneNumber(int userId, String contactNumber) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("contactNumber", contactNumber);
+        myDb.insert(TABLE_ACCOUNT, null, contentValues);
+    }
+
     public Boolean insertAdminUserData(String username, String email, String contactNumber, String password, String ban, String role) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

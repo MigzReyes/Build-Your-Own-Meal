@@ -135,6 +135,11 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnRice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (riceSpinner == null || riceSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                    return;
+                }
+
                 boolean success = riceAdapter.addItem(riceSpinner.get(0), 1);
                 if (!success) {
                     popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
@@ -158,6 +163,11 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnMainDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mainDishSpinner == null || mainDishSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                    return;
+                }
+
                 boolean success = mainAdapter.addItem(mainDishSpinner.get(0), 1);
                 if (!success) {
                     popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
@@ -181,6 +191,11 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnSide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (sideSpinner == null || sideSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                    return;
+                }
+
                 boolean success = sideAdapter.addItem(sideSpinner.get(0), 1);
                 if (!success) {
                     popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
@@ -204,6 +219,11 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnSauce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (sauceSpinner == null || sauceSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                    return;
+                }
+
                 boolean success = sauceAdapter.addItem(sauceSpinner.get(0), 1);
                 if (!success) {
                     popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
@@ -227,6 +247,11 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnDessert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (dessertSpinner == null || dessertSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                    return;
+                }
+
                 boolean success = dessertAdapter.addItem(dessertSpinner.get(0), 1);
                 if (!success) {
                     popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
@@ -250,6 +275,11 @@ public class adminAddMeals extends AppCompatActivity {
         addItemBtnDrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (drinkSpinner == null || drinkSpinner.isEmpty()) {
+                    popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));
+                    return;
+                }
+
                 boolean success = drinkAdapter.addItem(drinkSpinner.get(0), 1);
                 if (!success) {
                     popUpAlert(getString(R.string.thereIsCurrentlyNoAddon));

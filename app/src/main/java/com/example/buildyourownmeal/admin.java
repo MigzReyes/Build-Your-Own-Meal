@@ -37,6 +37,7 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
     private int numAccount = 0;
     private int numOrder = 0;
     private int numMenu = 0;
+    private int numMeals = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,21 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
         numberOfAccount();
         accountDashboardCount.setText(String.valueOf(numAccount));
 
+        //MEAL COUNT
+        numberOfMeals();
+        mealsDashboardCount.setText(String.valueOf(numMeals));
+
+    }
+
+    private void numberOfMeals() {
+        Cursor getNumberOfMeals = databaseFunctions.getAdminMeal();
+
+        if (getNumberOfMeals != null && getNumberOfMeals.moveToFirst()) {
+            do {
+                numMeals++;
+            } while (getNumberOfMeals.moveToNext());
+
+        }
     }
 
     private void numberOfOrders() {

@@ -93,27 +93,18 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
     }
 
     public boolean addItem(String name, int quantity) {
-        if (!addonName.contains(name)) {
-            int spinnerIndex = addonNameSpinner.indexOf(name);
-            if (spinnerIndex == -1) spinnerIndex = 0;
-
-            addonName.add(name);
-            addonQuantity.add(quantity);
-            selectedIndexOnSpinner.add(spinnerIndex);
-
-            int unitPrice = addonPrice.get(spinnerIndex);
-            totalPrices.add(unitPrice * quantity);
-
-            notifyItemInserted(addonName.size() - 1);
-            return true;
+        if (addonNameSpinner == null || addonNameSpinner.isEmpty()
+            || addonPrice == null || addonPrice.isEmpty() || addonPrice.size() <= 0) {
+            popUpAlert("There is currently no available addons");
+            return false;
         }
 
-        for (int i = 0; i < addonNameSpinner.size(); i++) {
-            String candidate = addonNameSpinner.get(i);
-            if (!addonName.contains(candidate)) {
-                int spinnerIndex = i;
+        try {
+            if (!addonName.contains(name)) {
+                int spinnerIndex = addonNameSpinner.indexOf(name);
+                if (spinnerIndex == -1) spinnerIndex = 0;
 
-                addonName.add(candidate);
+                addonName.add(name);
                 addonQuantity.add(quantity);
                 selectedIndexOnSpinner.add(spinnerIndex);
 
@@ -123,9 +114,55 @@ public class recyclerViewAdapterAdminAddAddonMeals extends RecyclerView.Adapter<
                 notifyItemInserted(addonName.size() - 1);
                 return true;
             }
+
+
+            for (int i = 0; i < addonNameSpinner.size(); i++) {
+                String candidate = addonNameSpinner.get(i);
+                if (!addonName.contains(candidate)) {
+                    int spinnerIndex = i;
+
+                    addonName.add(candidate);
+                    addonQuantity.add(quantity);
+                    selectedIndexOnSpinner.add(spinnerIndex);
+
+                    int unitPrice = addonPrice.get(spinnerIndex);
+                    totalPrices.add(unitPrice * quantity);
+
+                    notifyItemInserted(addonName.size() - 1);
+                    return true;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            popUpAlert("There is currently no available addons");
+
+            return false;
         }
 
         return false;
+    }
+
+    private void popUpAlert(String getText) {
+        Dialog popUpAlert;
+        Button closeBtn;
+        TextView alertText;
+
+        popUpAlert = new Dialog(context);
+        popUpAlert.setContentView(R.layout.pop_up_alerts);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        alertText = popUpAlert.findViewById(R.id.alertText);
+        alertText.setText(getText);
+
+        closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
+            }
+        });
     }
 
     public ArrayList<String> getAddonNames() {

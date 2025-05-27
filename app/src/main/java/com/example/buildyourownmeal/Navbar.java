@@ -242,6 +242,8 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                        editor.remove("email");
                        editor.remove("password");
                        editor.remove("isUserLoggedIn");
+                       editor.remove("userContactNumber");
+                       editor.remove("saveContactNumber");
                        editor.apply();
                        Intent intent = new Intent(Navbar.this, introduction_screen.class);
                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
