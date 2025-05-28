@@ -53,8 +53,12 @@ public class checkout extends AppCompatActivity {
     private ImageView backBtn;
     private LinearLayout paymentMethodBtn, orderCon, changeScheduleCon;
     private int userId = 0;
+    private SharedPreferences orderSession;
+    private SharedPreferences.Editor orderSessionEdit;
     private boolean saveContactNumber = false;
     private String pickUp, paymentMethod;
+    private String getContactNumber;
+    private String getContactNumberSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +92,8 @@ public class checkout extends AppCompatActivity {
         databaseFunctions = new databaseFunctions(this);
 
         //ORDER SESSION
-        SharedPreferences orderSession = getSharedPreferences("orderSession", MODE_PRIVATE);
-        SharedPreferences.Editor orderSessionEdit = orderSession.edit();
+        orderSession = getSharedPreferences("orderSession", MODE_PRIVATE);
+        orderSessionEdit = orderSession.edit();
 
         //USER SESSION
         SharedPreferences userSession = getSharedPreferences("userSession", MODE_PRIVATE);
@@ -117,9 +121,18 @@ public class checkout extends AppCompatActivity {
 
         //DISPLAY CONTACT NUMBER IF SAVED
         if (saveContactNumber) {
-            String getContactNumber = userSession.getString("userContactNumber", " ");
-            editTextPhone.setText(getContactNumber);
-            saveContactNumber = false;
+            getContactNumberSP = userSession.getString("userContactNumber", " ");
+            editTextPhone.setText(getContactNumberSP);
+        }
+
+        //DISPLAY CONTACT NUMBER IF USER HAVE ONE
+        String getNum = databaseFunctions.getContactNumber(userId);
+        try {
+            if (!saveContactNumber) {
+                editTextPhone.setText(getNum);
+            }
+        } catch (NullPointerException e) {
+            Log.d("may error ka", "No saved contact number");
         }
 
         changeScheduleCon.setVisibility(View.GONE);
@@ -287,16 +300,15 @@ public class checkout extends AppCompatActivity {
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String getContactNumber = editTextPhone.getText().toString().trim();
+                getContactNumber = editTextPhone.getText().toString().trim();
 
-                boolean checkContactNum = databaseFunctions.checkContactNumber(getContactNumber);
+                boolean checkContactNum = databaseFunctions.checkContactNumberId(getContactNumber, userId);
+                boolean checkContactNumAdminOrder = databaseFunctions.checkContactNumberAdminOrder(userId, getContactNumber);
 
                 if (getContactNumber.isBlank()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
                 } else if (getContactNumber.length() < 11 || getContactNumber.length() > 13) {
                     popUpAlert(getString(R.string.invalidPhoneNumber));
-                } else if (checkContactNum) {
-                    popUpAlert(getString(R.string.contactNumberIsAlreadyInUsed));
                 } else {
                     pickUp = " ";
                     if (standard.isChecked()) {
@@ -310,247 +322,209 @@ public class checkout extends AppCompatActivity {
                     if (pickUp.isBlank()) {
                         popUpAlert(getString(R.string.pleaseSelectPickUpOption));
                     } else {
-                        Dialog popUpAlertNum;
-                        Button cancelBtnNum, yesBtn;
-                        TextView alertText;
+                        if (editTextPhone.getText().toString().trim().equals(getContactNumberSP)) {
+                            Log.d("may error ka", getContactNumber);
+                            Dialog popUpAlertNum;
+                            Button cancelBtnNum, yesBtn;
+                            TextView alertText;
 
-                        popUpAlertNum = new Dialog(checkout.this);
-                        popUpAlertNum.setContentView(R.layout.pop_up_cancel_order);
-                        popUpAlertNum.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        popUpAlertNum.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
-                        popUpAlertNum.setCancelable(true);
-                        popUpAlertNum.show();
+                            popUpAlertNum = new Dialog(checkout.this);
+                            popUpAlertNum.setContentView(R.layout.pop_up_cancel_order);
+                            popUpAlertNum.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popUpAlertNum.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                            popUpAlertNum.setCancelable(true);
+                            popUpAlertNum.show();
 
-                        alertText = popUpAlertNum.findViewById(R.id.alertText);
-                        alertText.setText(getString(R.string.doYouWantToSaveThePhoneNumber));
+                            alertText = popUpAlertNum.findViewById(R.id.alertText);
+                            alertText.setText(getString(R.string.doYouWantToSaveThePhoneNumber));
 
-                        cancelBtnNum = popUpAlertNum.findViewById(R.id.cancelBtn);
-                        cancelBtnNum.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                popUpAlertNum.dismiss();
+                            cancelBtnNum = popUpAlertNum.findViewById(R.id.cancelBtn);
+                            cancelBtnNum.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    popUpAlertNum.dismiss();
+                                    orderSessionEdit.remove("userContactNumber");
+                                    checkout();
+                                }
+                            });
 
-                                Dialog popUpAlert;
-                                Button cancelBtn, proceedBtn;
+                            yesBtn = popUpAlertNum.findViewById(R.id.proceedBtn);
+                            yesBtn.setText("Yes");
+                            yesBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                                popUpAlert = new Dialog(checkout.this);
-                                popUpAlert.setContentView(R.layout.pop_up_order_confirmation);
-                                popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
-                                popUpAlert.setCancelable(true);
-                                popUpAlert.show();
+                                    edit.putString("userContactNumber", getContactNumber);
+                                    edit.putBoolean("saveContactNumber", true);
+                                    edit.apply();
+                                    popUpAlertNum.dismiss();
+                                    saveContactNumber = false;
+                                    checkout();
+                                }
+                            });
 
-                                cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
-                                cancelBtn.setOnClickListener(new View.OnClickListener() {
+                        } else {
+                            if (checkContactNum || checkContactNumAdminOrder) {
+                                popUpAlert(getString(R.string.contactNumberIsAlreadyInUsed));
+                            } else {
+                                Dialog popUpAlertNum;
+                                Button cancelBtnNum, yesBtn;
+                                TextView alertText;
+
+                                popUpAlertNum = new Dialog(checkout.this);
+                                popUpAlertNum.setContentView(R.layout.pop_up_cancel_order);
+                                popUpAlertNum.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                popUpAlertNum.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                                popUpAlertNum.setCancelable(true);
+                                popUpAlertNum.show();
+
+                                alertText = popUpAlertNum.findViewById(R.id.alertText);
+                                alertText.setText(getString(R.string.doYouWantToSaveThePhoneNumber));
+
+                                cancelBtnNum = popUpAlertNum.findViewById(R.id.cancelBtn);
+                                cancelBtnNum.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        popUpAlert.dismiss();
+                                        popUpAlertNum.dismiss();
+                                        orderSessionEdit.remove("userContactNumber");
+                                        checkout();
                                     }
                                 });
 
-                                proceedBtn = popUpAlert.findViewById(R.id.proceedBtn);
-                                proceedBtn.setOnClickListener(new View.OnClickListener() {
+                                yesBtn = popUpAlertNum.findViewById(R.id.proceedBtn);
+                                yesBtn.setText("Yes");
+                                yesBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        int checkoutTotalPrice = Integer.parseInt(totalPrice.getText().toString().trim());
-                                        String orderGroupId = UUID.randomUUID().toString();
 
-                                        boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, orderGroupId, getContactNumber, pickUp, "Cash", checkoutTotalPrice);
-
-                                        if (insertUserCheckout) {
-                                            Cursor cursor = databaseFunctions.getOrderedDate(userId);
-
-                                            String getOrderedDate = "";
-                                            if (cursor.moveToFirst() && cursor != null) {
-                                                getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
-                                            }
-
-                                            boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, pickUp, "Cash", checkoutTotalPrice, "Processing", getOrderedDate);
-
-                                            if (insertAdminOrders) {
-                                                Cursor getUserOrder = databaseFunctions.getUserOrder(userId);
-
-                                                if (getUserOrder != null && getUserOrder.moveToFirst()) {
-                                                    do {
-                                                        String getOrderAddonId = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderAddonId"));
-                                                        int getUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
-                                                        byte[] byteArray = getUserOrder.getBlob(getUserOrder.getColumnIndexOrThrow("mealImg"));
-                                                        Bitmap getMealImg = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                                                        String getMealType = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType"));
-                                                        int getMealQuantity = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity"));
-                                                        int getOrderTotalPrice = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice"));
-                                                        String getOrderDate = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("creationDate"));
-                                                        databaseFunctions.insertAdminUserOrder(getOrderAddonId, orderGroupId, getUserId, getMealImg, getMealType, getMealQuantity, getOrderTotalPrice, getOrderDate);
-                                                    } while (getUserOrder.moveToNext());
-                                                }
-
-                                                Cursor getAddonData = databaseFunctions.getAddonData(userId);
-
-                                                if (getAddonData != null && getAddonData.moveToFirst()) {
-                                                    do {
-                                                        int getUserId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("userId"));
-                                                        String getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
-                                                        String getAddon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
-                                                        int getQuantity = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("quantity"));
-                                                        int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
-                                                        String getOrderedDateDb = getAddonData.getString(getAddonData.getColumnIndexOrThrow("creationDate"));
-
-                                                        databaseFunctions.insertAdminOrderAddon(getUserId, getAddonGroupId, orderGroupId, getAddon, getQuantity, getPrice, getOrderedDateDb);
-                                                    } while (getAddonData.moveToNext());
-                                                    getAddonData.close();
-                                                }
-
-                                                boolean deleteUserOrder = databaseFunctions.deleteOrderUser(userId);
-
-                                                if (deleteUserOrder) {
-                                                    boolean deleteUserOrderAddon = databaseFunctions.deleteOrderAddonWithUserId(userId);
-
-                                                    if (deleteUserOrderAddon) {
-                                                        popUpAlert.dismiss();
-                                                        orderSessionEdit.putBoolean("checkIfUserOrdered", true);
-                                                        orderSessionEdit.putInt("userId", userId);
-                                                        orderSessionEdit.putString("orderGroupId", orderGroupId);
-                                                        orderSessionEdit.apply();
-                                                        Intent intent = new Intent(checkout.this, Navbar.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        Log.d("may error ka", "delete user order addon failed");
-                                                    }
-                                                } else {
-                                                    Log.d("may error ka", "delete user order failed");
-                                                }
-                                            } else {
-                                                Log.d("may error ka", "failed insert user order to admin");
-                                            }
+                                        if (editTextPhone.getText().toString().trim().equals(getContactNumber)) {
+                                            edit.putString("userContactNumber", getContactNumber);
+                                            edit.putBoolean("saveContactNumber", true);
+                                            edit.apply();
+                                            popUpAlertNum.dismiss();
+                                            saveContactNumber = false;
+                                            checkout();
                                         } else {
-                                            Log.d("may error ka", "insert user checkout failed");
+                                            databaseFunctions.updateContactNumber(userId, getContactNumber);
+                                            edit.putString("userContactNumber", getContactNumber);
+                                            edit.putBoolean("saveContactNumber", true);
+                                            edit.apply();
+                                            popUpAlertNum.dismiss();
+                                            saveContactNumber = false;
+                                            checkout();
                                         }
                                     }
                                 });
                             }
-                        });
-
-                        yesBtn = popUpAlertNum.findViewById(R.id.proceedBtn);
-                        yesBtn.setText("Yes");
-                        yesBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                //AYUSIN MO TOOOOOOOOOO UPDATE DPAATA
-                                databaseFunctions.insertUserPhoneNumber(userId, getContactNumber);
-                                edit.putString("userContactNumber", getContactNumber);
-                                edit.putBoolean("saveContactNumber", true);
-                                edit.apply();
-                                popUpAlertNum.dismiss();
-
-                                Dialog popUpAlert;
-                                Button cancelBtn, proceedBtn;
-
-                                popUpAlert = new Dialog(checkout.this);
-                                popUpAlert.setContentView(R.layout.pop_up_order_confirmation);
-                                popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
-                                popUpAlert.setCancelable(true);
-                                popUpAlert.show();
-
-                                cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
-                                cancelBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        popUpAlert.dismiss();
-                                    }
-                                });
-
-                                proceedBtn = popUpAlert.findViewById(R.id.proceedBtn);
-                                proceedBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        int checkoutTotalPrice = Integer.parseInt(totalPrice.getText().toString().trim());
-                                        String orderGroupId = UUID.randomUUID().toString();
-
-                                        boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, orderGroupId, getContactNumber, pickUp, "Cash", checkoutTotalPrice);
-
-                                        if (insertUserCheckout) {
-                                            Cursor cursor = databaseFunctions.getOrderedDate(userId);
-
-                                            String getOrderedDate = "";
-                                            if (cursor.moveToFirst() && cursor != null) {
-                                                getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
-                                            }
-
-                                            boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, pickUp, "Cash", checkoutTotalPrice, "Processing", getOrderedDate);
-
-                                            if (insertAdminOrders) {
-                                                Cursor getUserOrder = databaseFunctions.getUserOrder(userId);
-
-                                                if (getUserOrder != null && getUserOrder.moveToFirst()) {
-                                                    do {
-                                                        String getOrderAddonId = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderAddonId"));
-                                                        int getUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
-                                                        byte[] byteArray = getUserOrder.getBlob(getUserOrder.getColumnIndexOrThrow("mealImg"));
-                                                        Bitmap getMealImg = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                                                        String getMealType = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType"));
-                                                        int getMealQuantity = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity"));
-                                                        int getOrderTotalPrice = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice"));
-                                                        String getOrderDate = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("creationDate"));
-                                                        databaseFunctions.insertAdminUserOrder(getOrderAddonId, orderGroupId, getUserId, getMealImg, getMealType, getMealQuantity, getOrderTotalPrice, getOrderDate);
-                                                    } while (getUserOrder.moveToNext());
-                                                }
-
-                                                Cursor getAddonData = databaseFunctions.getAddonData(userId);
-
-                                                if (getAddonData != null && getAddonData.moveToFirst()) {
-                                                    do {
-                                                        int getUserId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("userId"));
-                                                        String getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
-                                                        String getAddon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
-                                                        int getQuantity = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("quantity"));
-                                                        int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
-                                                        String getOrderedDateDb = getAddonData.getString(getAddonData.getColumnIndexOrThrow("creationDate"));
-
-                                                        databaseFunctions.insertAdminOrderAddon(getUserId, getAddonGroupId, orderGroupId, getAddon, getQuantity, getPrice, getOrderedDateDb);
-                                                    } while (getAddonData.moveToNext());
-                                                    getAddonData.close();
-                                                }
-
-                                                boolean deleteUserOrder = databaseFunctions.deleteOrderUser(userId);
-
-                                                if (deleteUserOrder) {
-                                                    boolean deleteUserOrderAddon = databaseFunctions.deleteOrderAddonWithUserId(userId);
-
-                                                    if (deleteUserOrderAddon) {
-                                                        popUpAlert.dismiss();
-                                                        orderSessionEdit.putBoolean("checkIfUserOrdered", true);
-                                                        orderSessionEdit.putInt("userId", userId);
-                                                        orderSessionEdit.putString("orderGroupId", orderGroupId);
-                                                        orderSessionEdit.apply();
-                                                        Intent intent = new Intent(checkout.this, Navbar.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        Log.d("may error ka", "delete user order addon failed");
-                                                    }
-                                                } else {
-                                                    Log.d("may error ka", "delete user order failed");
-                                                }
-                                            } else {
-                                                Log.d("may error ka", "failed insert user order to admin");
-                                            }
-                                        } else {
-                                            Log.d("may error ka", "insert user checkout failed");
-                                        }
-                                    }
-                                });
-                            }
-                        });
-
+                        }
                     }
                 }
             }
         });
 
     }
+
+    private void checkout() {
+        Dialog popUpAlert;
+        Button cancelBtn, proceedBtn;
+
+        popUpAlert = new Dialog(checkout.this);
+        popUpAlert.setContentView(R.layout.pop_up_order_confirmation);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
+            }
+        });
+
+        proceedBtn = popUpAlert.findViewById(R.id.proceedBtn);
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int checkoutTotalPrice = Integer.parseInt(totalPrice.getText().toString().trim());
+                String orderGroupId = UUID.randomUUID().toString();
+
+                boolean insertUserCheckout = databaseFunctions.insertUserCheckout(userId, orderGroupId, getContactNumber, pickUp, "Cash", checkoutTotalPrice);
+
+                if (insertUserCheckout) {
+                    Cursor cursor = databaseFunctions.getOrderedDate(userId);
+
+                    String getOrderedDate = "";
+                    if (cursor.moveToFirst() && cursor != null) {
+                        getOrderedDate = cursor.getString(cursor.getColumnIndexOrThrow("creationDate"));
+                    }
+
+                    boolean insertAdminOrders = databaseFunctions.insertAdminOrders(userId, orderGroupId, getContactNumber, pickUp, "Cash", checkoutTotalPrice, "Processing", getOrderedDate);
+
+                    if (insertAdminOrders) {
+                        Cursor getUserOrder = databaseFunctions.getUserOrder(userId);
+
+                        if (getUserOrder != null && getUserOrder.moveToFirst()) {
+                            do {
+                                String getOrderAddonId = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderAddonId"));
+                                int getUserId = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("userId"));
+                                byte[] byteArray = getUserOrder.getBlob(getUserOrder.getColumnIndexOrThrow("mealImg"));
+                                Bitmap getMealImg = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                                String getMealType = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("mealType"));
+                                int getMealQuantity = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity"));
+                                int getOrderTotalPrice = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice"));
+                                String getOrderDate = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("creationDate"));
+                                databaseFunctions.insertAdminUserOrder(getOrderAddonId, orderGroupId, getUserId, getMealImg, getMealType, getMealQuantity, getOrderTotalPrice, getOrderDate);
+                            } while (getUserOrder.moveToNext());
+                        }
+
+                        Cursor getAddonData = databaseFunctions.getAddonData(userId);
+
+                        if (getAddonData != null && getAddonData.moveToFirst()) {
+                            do {
+                                int getUserId = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("userId"));
+                                String getAddonGroupId = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addonGroupId"));
+                                String getAddon = getAddonData.getString(getAddonData.getColumnIndexOrThrow("addon"));
+                                int getQuantity = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("quantity"));
+                                int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
+                                String getOrderedDateDb = getAddonData.getString(getAddonData.getColumnIndexOrThrow("creationDate"));
+
+                                databaseFunctions.insertAdminOrderAddon(getUserId, getAddonGroupId, orderGroupId, getAddon, getQuantity, getPrice, getOrderedDateDb);
+                            } while (getAddonData.moveToNext());
+                            getAddonData.close();
+                        }
+
+                        boolean deleteUserOrder = databaseFunctions.deleteOrderUser(userId);
+
+                        if (deleteUserOrder) {
+                            boolean deleteUserOrderAddon = databaseFunctions.deleteOrderAddonWithUserId(userId);
+
+                            if (deleteUserOrderAddon) {
+                                popUpAlert.dismiss();
+                                orderSessionEdit.putBoolean("checkIfUserOrdered", true);
+                                orderSessionEdit.putInt("userId", userId);
+                                orderSessionEdit.putString("orderGroupId", orderGroupId);
+                                orderSessionEdit.apply();
+                                Intent intent = new Intent(checkout.this, Navbar.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Log.d("may error ka", "delete user order addon failed");
+                            }
+                        } else {
+                            Log.d("may error ka", "delete user order failed");
+                        }
+                    } else {
+                        Log.d("may error ka", "failed insert user order to admin");
+                    }
+                } else {
+                    Log.d("may error ka", "insert user checkout failed");
+                }
+            }
+        });
+    }
+
 
     private void setUpCheckoutModel () {
         Cursor getCartData = databaseFunctions.getUserOrder(userId);

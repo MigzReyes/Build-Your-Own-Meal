@@ -29,6 +29,8 @@ public class databaseFunctions extends SQLiteOpenHelper {
     private static final String TABLE_ADMIN_ORDERS = "admin_orders";
     private static final String TABLE_ADMIN_MEALS = "admin_meals";
     private static final String TABLE_USER_CHECKOUT = "user_checkout";
+    private static final String TABLE_ORDER_HISTORY = "order_history";
+    private static final String TABLE_ORDER_ADDON_HISTORY = "order_addon_history";
     private static final String TABLE_RICE = "rice";
     private static final String TABLE_MAIN_DISH = "main_dish";
     private static final String TABLE_SIDE = "side_dish";
@@ -106,7 +108,30 @@ public class databaseFunctions extends SQLiteOpenHelper {
                 "orderTotalPrice INTEGER, " +
                 "orderedDate String)");
 
+        myDb.execSQL("create Table " + TABLE_ORDER_HISTORY + " (" +
+                "userOrderId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userId INTEGER, " +
+                "orderAddonId TEXT, " +
+                "orderGroupId TEXT," +
+                "pickUp TEXT, " +
+                "paymentMethod TEXT,  " +
+                "mealImg BLOB, " +
+                "mealType TEXT, " +
+                "mealQuantity INTEGER, " +
+                "orderTotalPrice INTEGER, " +
+                "orderedDate String)");
+
         myDb.execSQL("create Table " + TABLE_ADMIN_ORDER_ADDON + " (" +
+                "adminOrderAddonId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userId INTEGER, " +
+                "addonGroupId TEXT," +
+                "orderGroupId TEXT, " +
+                "addon TEXT, " +
+                "quantity INTEGER, " +
+                "price INTEGER, " +
+                "orderedDate TEXT)");
+
+        myDb.execSQL("create Table " + TABLE_ORDER_ADDON_HISTORY + " (" +
                 "adminOrderAddonId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "userId INTEGER, " +
                 "addonGroupId TEXT," +
@@ -176,6 +201,12 @@ public class databaseFunctions extends SQLiteOpenHelper {
         myDb.execSQL("drop Table if exists " + TABLE_USER_ORDER);
         myDb.execSQL("drop Table if exists " + TABLE_ORDER_ADDON);
         myDb.execSQL("drop Table if exists " + TABLE_USER_CHECKOUT);
+        myDb.execSQL("drop Table if exists " + TABLE_ADMIN_ORDER_ADDON);
+        myDb.execSQL("drop Table if exists " + TABLE_ADMIN_USER_ORDER);
+        myDb.execSQL("drop Table if exists " + TABLE_ADMIN_ORDERS);
+        myDb.execSQL("drop Table if exists " + TABLE_ADMIN_MEALS);
+        myDb.execSQL("drop Table if exists " + TABLE_ORDER_HISTORY);
+        myDb.execSQL("drop Table if exists " + TABLE_ORDER_ADDON_HISTORY);
         myDb.execSQL("drop Table if exists " + TABLE_RICE);
         myDb.execSQL("drop Table if exists " + TABLE_MAIN_DISH);
         myDb.execSQL("drop Table if exists " + TABLE_SIDE);
@@ -260,6 +291,36 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //INSERT QUERY
+    public void insertOrderHistory(String orderAddonId, String orderGroupId, int userId, Bitmap mealImg, String mealType, int mealQuantity, int orderTotalPrice, String orderDate) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mealImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        contentValues.put("orderAddonId", orderAddonId);
+        contentValues.put("orderGroupId", orderGroupId);
+        contentValues.put("userId", userId);
+        contentValues.put("mealImg", byteArray);
+        contentValues.put("mealType", mealType);
+        contentValues.put("mealQuantity", mealQuantity);
+        contentValues.put("orderTotalPrice", orderTotalPrice);
+        contentValues.put("orderedDate", orderDate);
+        myDb.insert(TABLE_ORDER_HISTORY, null, contentValues);
+    }
+
+    public void insertOrderAddonHistory(int userId, String addonGroupId, String orderGroupId, String addon, int quantity, int price, String orderedDate) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("addonGroupId", addonGroupId);
+        contentValues.put("orderGroupId", orderGroupId);
+        contentValues.put("addon", addon);
+        contentValues.put("quantity", quantity);
+        contentValues.put("price", price);
+        contentValues.put("orderedDate", orderedDate);
+        myDb.insert(TABLE_ORDER_ADDON_HISTORY, null, contentValues);
+    }
+
     public Boolean insertAdminMeal(String adminAddonId, String mealName, String mealDescription, Bitmap mealImg, String mealImgUri, int mealTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -500,7 +561,16 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //UPDATE QUERY
-    public boolean updateAdminMeal(String addonGroupId, String addonName, String addonDescription, Bitmap mealImg, String mealImgUri, int mealTotalPrice) {
+    public void updateOrderHistoryInfo(int userId, String orderGroupId, String pickUp, String paymentMethod, String orderedDate) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("pickUp", pickUp);
+        contentValues.put("paymentMethod", paymentMethod);
+        contentValues.put("orderedDate", orderedDate);
+        myDb.update(TABLE_ORDER_HISTORY, contentValues, "userId = ? AND orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});
+    }
+
+    public Boolean updateAdminMeal(String addonGroupId, String addonName, String addonDescription, Bitmap mealImg, String mealImgUri, int mealTotalPrice) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("mealName", addonName);
@@ -662,6 +732,21 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getOrderAddonHistory(int userId, String addonGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON_HISTORY + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), addonGroupId});
+    }
+
+    public Cursor getAdminUserOrderHistory(int userId, String orderGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_USER_ORDER + " WHERE userId = ? and orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});
+    }
+
+    public Cursor getOrderHistory(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_HISTORY + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
     public Cursor getPreMadeMealDescription(String mealName) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT mealDescription FROM " + TABLE_ADMIN_MEALS + " WHERE mealName = ?", new String[]{mealName});
@@ -682,14 +767,24 @@ public class databaseFunctions extends SQLiteOpenHelper {
         return myDb.rawQuery("SELECT status FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ? AND orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});
     }
 
-    public Cursor getAdminUserOrderAddon(int userId, String orderAddonId) {
+    public Cursor getAdminUserOrderAddon(int userId, String orderGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
-        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDER_ADDON + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), orderAddonId});
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDER_ADDON + " WHERE userId = ? AND orderGroupId = ?", new String[]{String.valueOf(userId), orderGroupId});
     }
 
     public Cursor getAdminUserOrder(String orderGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_USER_ORDER + " WHERE orderGroupId = ?", new String[]{orderGroupId});
+    }
+
+    public Cursor getAdminUserOrder(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_USER_ORDER + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+    }
+
+    public Cursor getAdminOrder(String orderGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDERS + " WHERE orderGroupId = ?", new String[]{orderGroupId});
     }
 
     public Cursor getAdminOrder() {
@@ -786,6 +881,16 @@ public class databaseFunctions extends SQLiteOpenHelper {
       return myDb.rawQuery("SELECT * FROM " + TABLE_ACCOUNT, null);
     }
 
+    public String getContactNumber(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor getNum = myDb.rawQuery("SELECT contactNumber FROM " + TABLE_ACCOUNT + " WHERE userId = ?", new String[]{String.valueOf(userId)});
+        String number = "";
+
+        if (getNum != null && getNum.moveToFirst()) {
+            number = getNum.getString(getNum.getColumnIndexOrThrow("contactNumber"));
+        }
+        return number;
+    }
 
     //QUERY VALIDATION
     public Boolean checkIfUserHadOrdered(int userId) {
@@ -953,6 +1058,19 @@ public class databaseFunctions extends SQLiteOpenHelper {
             cursor.close();
             myDb.close();
             Log.d("Cursor Error", String.valueOf(cursor.getCount()));
+            return false;
+        }
+    }
+
+    public Boolean checkContactNumberAdminOrder(int userId, String contactNumber) {
+        SQLiteDatabase mYDb = this.getWritableDatabase();
+        Cursor cursor = mYDb.rawQuery("SELECT contactNumber FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ? AND contactNumber = ?", new String[]{String.valueOf(userId), contactNumber});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();;
             return false;
         }
     }

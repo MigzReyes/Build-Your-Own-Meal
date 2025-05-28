@@ -128,8 +128,6 @@ public class logIn extends AppCompatActivity {
 
                                 if (cursor != null && cursor.moveToFirst()) {
                                     //DATABASE GETTER
-                                    String getDbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));
-                                    Log.d("Check Role", getDbRole);
                                     int dbUserId = cursor.getInt(cursor.getColumnIndexOrThrow("userId"));
                                     String dbUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
                                     String dbRole = cursor.getString(cursor.getColumnIndexOrThrow("role"));

@@ -229,6 +229,7 @@ public class admin extends AppCompatActivity implements NavigationView.OnNavigat
             logOutBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    popUpAlert.dismiss();
                     Intent intent = new Intent(admin.this, introduction_screen.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

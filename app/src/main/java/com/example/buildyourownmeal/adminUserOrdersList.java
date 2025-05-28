@@ -104,6 +104,7 @@ public class adminUserOrdersList extends AppCompatActivity {
                         boolean deleteAllOrders = databaseFunctions.deleteAdminOrder(intentOrderGroupId);
 
                         if (deleteAllOrders) {
+                            popUpAlert.dismiss();
                             Intent intent = new Intent(adminUserOrdersList.this, adminOrders.class);
                             intent.putExtra("deletedAllOrders", true);
                             intent.putExtra("orderGroupId", intentOrderGroupId);

@@ -141,7 +141,7 @@ public class adminEditUser extends AppCompatActivity {
                 String getContactNum = accountContactNumber.getText().toString().trim();
                 String getPass = accountPassword.getText().toString().trim();
                 String getConPass = accountConPassword.getText().toString().trim();
-                String getRole = userRole.getSelectedItem().toString().trim();
+                String getRole = userRole.getSelectedItem().toString().trim().toLowerCase();
 
                 boolean checkEmail = databaseFunctions.checkEmailId(getEmail, userId);
                 boolean checkContactNum = databaseFunctions.checkContactNumberId(getContactNum, userId);

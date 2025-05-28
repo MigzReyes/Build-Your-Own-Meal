@@ -237,6 +237,7 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                 logOutBtn.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
+                       popUpLogInWarning.dismiss();
                        editor.remove("userId");
                        editor.remove("username");
                        editor.remove("email");
