@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="@string/yourResponseIsImportantToUs"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/lightGreyLetters"
             android:fontFamily="@font/inriasans_regular"/>
 
@@ -50,7 +50,7 @@
                 android:text="@string/contactSupport"
                 android:fontFamily="@font/inriasans_regular"
                 android:textColor="@color/lightGreyLetters"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,8 +68,8 @@
 
                     <ImageView
                         android:id="@+id/imageView13"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/phoneicon" />
 
@@ -86,8 +86,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/contact"
                             android:fontFamily="@font/inriasans_regular"
-                            android:textColor="@color/lightGreyLetters"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/lightGreyLetters"/>
 
                         <TextView
                             android:id="@+id/textView141"
@@ -95,8 +94,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/phoneNumberCYF"
                             android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/blackBoldLetters"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -107,8 +105,8 @@
 
                     <ImageView
                         android:id="@+id/imageView14"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/emailicon" />
 
@@ -124,7 +122,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/emailAddress"
-                            android:textSize="16sp"
                             android:fontFamily="@font/inriasans_regular"
                             android:textColor="@color/lightGreyLetters"/>
 
@@ -134,8 +131,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/emailCYF"
                             android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/blackBoldLetters"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -155,7 +151,7 @@
                 android:text="@string/socialMedia"
                 android:fontFamily="@font/inriasans_regular"
                 android:textColor="@color/lightGreyLetters"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -173,8 +169,8 @@
 
                     <ImageView
                         android:id="@+id/imageView15"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/facebookicon" />
 
@@ -191,8 +187,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/facebook"
                             android:fontFamily="@font/inriasans_regular"
-                            android:textColor="@color/lightGreyLetters"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/lightGreyLetters"/>
 
                         <TextView
                             android:id="@+id/textView146"
@@ -200,8 +195,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/facebookCYF"
                             android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/blackBoldLetters"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -212,8 +206,8 @@
 
                     <ImageView
                         android:id="@+id/imageView16"
-                        android:layout_width="31dp"
-                        android:layout_height="42dp"
+                        android:layout_width="21dp"
+                        android:layout_height="32dp"
                         android:scaleType="centerCrop"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/instagramicon" />
@@ -230,7 +224,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/instagram"
-                            android:textSize="16sp"
                             android:fontFamily="@font/inriasans_regular"
                             android:textColor="@color/lightGreyLetters"/>
 
@@ -240,8 +233,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/instagramCYF"
                             android:fontFamily="@font/inter_18pt_medium"
-                            android:textColor="@color/blackBoldLetters"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/blackBoldLetters"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

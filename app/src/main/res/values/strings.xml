@@ -206,8 +206,8 @@
     <string name="makeSureWeCanReachYouAtYourNewEmail">Make sure we can reach you at your new email</string>
     <string name="ifYouChangeYourPhoneNumber">If you change your phone number, we will take you through a verification process at checkout the next time you order.</string>
 
-    <string name="termsAndConDescription1">These Terms and Conditions shall apply to all orders of Craft Your Feast products (“Products”) of a customer through this Craft Your Feast Pick–up Mobile application. </string>
-    <string name="termsAndConDescription2">By placing an order for Products through this Mobile application, you understand, agree with, and accept: (i) these Terms and Conditions and any corresponding changes there to which we may implement from time to time; and (ii) our Privacy Policy in connection with how we process your personal information collected from this Site </string>
+    <string name="termsAndConDescription1">These Terms and Conditions shall apply to all orders of Craft Your Feast products of a customer through this Craft Your Feast Pick–up Mobile application. </string>
+    <string name="termsAndConDescription2">By placing an order for Products through this Mobile application, you understand, agree with, and accept: (i) these Terms and Conditions and any corresponding changes there to which we may implement from time to time; and (ii) our Privacy Policy in connection with how we process your personal information collected from this Mobile Application </string>
     <string name="termsAndConDescription3">  For purposes of these Terms and Conditions, “Craft Your Feast”, “our” or “we” shall refer to Craft Your Feast Corporation, while “customer” or “you” shall refer to the customer who intends to purchase the Products from this Mobile application. </string>
 
     <string name="territoriesCovered">I. Territories Covered</string>
