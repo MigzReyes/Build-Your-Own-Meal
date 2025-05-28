@@ -1,6 +1,8 @@
 package com.example.buildyourownmeal;
 
 import com.example.buildyourownmeal.R;
+
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -59,6 +61,8 @@ public class checkout extends AppCompatActivity {
     private String pickUp, paymentMethod;
     private String getContactNumber;
     private String getContactNumberSP;
+
+    private int getPriorityFeePrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,56 +123,6 @@ public class checkout extends AppCompatActivity {
         editTextPhone = findViewById(R.id.editTextPhone);
         addItemBtn = findViewById(R.id.addItemBtn);
 
-        //DISPLAY CONTACT NUMBER IF SAVED
-        if (saveContactNumber) {
-            getContactNumberSP = userSession.getString("userContactNumber", " ");
-            editTextPhone.setText(getContactNumberSP);
-        }
-
-        //DISPLAY CONTACT NUMBER IF USER HAVE ONE
-        String getNum = databaseFunctions.getContactNumber(userId);
-        try {
-            if (!saveContactNumber) {
-                editTextPhone.setText(getNum);
-            }
-        } catch (NullPointerException e) {
-            Log.d("may error ka", "No saved contact number");
-        }
-
-        changeScheduleCon.setVisibility(View.GONE);
-
-        //RECYCLER
-        recyclerViewCheckout = findViewById(R.id.recyclerViewCheckout);
-        orderAddonId = new ArrayList<>();
-        userOrderId = new ArrayList<>();
-        mealImg = new ArrayList<>();
-        mealType = new ArrayList<>();
-        mealTotalPrice = new ArrayList<>();
-        mealQuantity = new ArrayList<>();
-        trashBtn = new ArrayList<>();
-        minusBtn = new ArrayList<>();
-        mealQuantity = new ArrayList<>();
-        addBtn = new ArrayList<>();
-        editBtn = new ArrayList<>();
-
-        setUpCheckoutModel();
-
-        recyclerViewAdapterCheckout recyclerViewAdapterCheckout = new recyclerViewAdapterCheckout(this, orderAddonId, userOrderId, mealImg, mealType, addBtn, minusBtn, editBtn, mealTotalPrice, mealQuantity, trashBtn);
-
-        com.example.buildyourownmeal.recyclerViewAdapterCheckout.setOnPriceUpdatedListener(new recyclerViewAdapterCart.OnPriceUpdateListener() {
-            @Override
-            public void OnPriceUpdate(int newTotalPrice) {
-                totalPrice.setText(String.valueOf(newTotalPrice));
-            }
-        });
-
-        recyclerViewAdapterCheckout.recalculateTotalPriceAndNotify();
-        recyclerViewAdapterCheckout.notifyDataSetChanged();
-
-        recyclerViewCheckout.setAdapter(recyclerViewAdapterCheckout);
-        recyclerViewCheckout.setLayoutManager(new LinearLayoutManager(this));
-
-
         //SET TOOLBAR NAME
         sideActName.setText(getString(R.string.smallCheckOut));
 
@@ -189,6 +143,9 @@ public class checkout extends AppCompatActivity {
                 priority.setChecked(false);
                 scheduledDate.setChecked(false);
                 changeScheduleCon.setVisibility(View.GONE);
+                priorityPickUpPrice.setText(getString(R.string.priceItem));
+
+                setUpPriorityFee();
             }
         });
 
@@ -199,6 +156,9 @@ public class checkout extends AppCompatActivity {
                 priority.setChecked(true);
                 scheduledDate.setChecked(false);
                 changeScheduleCon.setVisibility(View.GONE);
+                priorityPickUpPrice.setText(getString(R.string.kinse));
+
+                setUpPriorityFee();
             }
         });
 
@@ -234,6 +194,7 @@ public class checkout extends AppCompatActivity {
             }
         });
 
+        changeScheduleBtn.setVisibility(View.GONE);
         changeScheduleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,6 +244,57 @@ public class checkout extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //DISPLAY CONTACT NUMBER IF SAVED
+        if (saveContactNumber) {
+            getContactNumberSP = userSession.getString("userContactNumber", " ");
+            editTextPhone.setText(getContactNumberSP);
+        }
+
+        //DISPLAY CONTACT NUMBER IF USER HAVE ONE
+        String getNum = databaseFunctions.getContactNumber(userId);
+        try {
+            if (!saveContactNumber) {
+                editTextPhone.setText(getNum);
+            }
+        } catch (NullPointerException e) {
+            Log.d("may error ka", "No saved contact number");
+        }
+
+        changeScheduleCon.setVisibility(View.GONE);
+
+        //RECYCLER
+        recyclerViewCheckout = findViewById(R.id.recyclerViewCheckout);
+        orderAddonId = new ArrayList<>();
+        userOrderId = new ArrayList<>();
+        mealImg = new ArrayList<>();
+        mealType = new ArrayList<>();
+        mealTotalPrice = new ArrayList<>();
+        mealQuantity = new ArrayList<>();
+        trashBtn = new ArrayList<>();
+        minusBtn = new ArrayList<>();
+        mealQuantity = new ArrayList<>();
+        addBtn = new ArrayList<>();
+        editBtn = new ArrayList<>();
+
+        setUpCheckoutModel();
+
+        recyclerViewAdapterCheckout recyclerViewAdapterCheckout = new recyclerViewAdapterCheckout(this, orderAddonId, userOrderId, mealImg, mealType, addBtn, minusBtn, editBtn, mealTotalPrice, mealQuantity, trashBtn);
+
+        com.example.buildyourownmeal.recyclerViewAdapterCheckout.setOnPriceUpdatedListener(new recyclerViewAdapterCart.OnPriceUpdateListener() {
+            @Override
+            public void OnPriceUpdate(int newTotalPrice) {
+                getPriorityFeePrice = newTotalPrice;
+                setUpPriorityFee();
+            }
+        });
+
+        recyclerViewAdapterCheckout.recalculateTotalPriceAndNotify();
+        recyclerViewAdapterCheckout.notifyDataSetChanged();
+
+        recyclerViewCheckout.setAdapter(recyclerViewAdapterCheckout);
+        recyclerViewCheckout.setLayoutManager(new LinearLayoutManager(this));
+
 
         //SET ID
         paymentMethodBtn = findViewById(R.id.paymentCon);
@@ -523,6 +535,11 @@ public class checkout extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setUpPriorityFee() {
+        int finalPrice = priority.isChecked() ? getPriorityFeePrice + 15 : getPriorityFeePrice;
+        totalPrice.setText(String.valueOf(finalPrice));
     }
 
 
