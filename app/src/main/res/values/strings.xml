@@ -481,6 +481,7 @@
     <string name="annSale">Anniversary Sale</string>
 
     //ERRORS/ALERT
+    <string name="weHaveSendYouAnEmail">We have send you an email</string>
     <string name="doYouWantToSaveThePhoneNumber">Do you want to save the phone number?</string>
     <string name="thereIsCurrentlyNoAddon">There is currently no addon</string>
     <string name="pleaseChooseAnImage">Please choose an image</string>

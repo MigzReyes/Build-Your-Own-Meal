@@ -11,7 +11,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +52,7 @@ public class checkout extends AppCompatActivity {
     private ArrayList<Integer> mealTotalPrice, mealQuantity, trashBtn, checkoutItemPerTotalPrice, userOrderId;
 
     private RadioButton priority, standard, scheduledDate;
-    private TextView sideActName, payment, totalPrice, subtotalPrice, priorityPickUpPrice, addItemBtn, changeScheduleBtn;
+    private TextView sideActName, payment, totalPrice, subtotalPrice, priorityPickUpPrice, addItemBtn, changeScheduleBtn, contactNumberIsRequired;
     private Button orderBtn;
     private EditText editTextPhone;
     private ImageView backBtn;
@@ -122,6 +125,7 @@ public class checkout extends AppCompatActivity {
         priorityPickUpPrice = findViewById(R.id.priorityPickUpPrice);
         editTextPhone = findViewById(R.id.editTextPhone);
         addItemBtn = findViewById(R.id.addItemBtn);
+        contactNumberIsRequired = findViewById(R.id.contactNumberIsRequired);
 
         //SET TOOLBAR NAME
         sideActName.setText(getString(R.string.smallCheckOut));
@@ -249,17 +253,48 @@ public class checkout extends AppCompatActivity {
         if (saveContactNumber) {
             getContactNumberSP = userSession.getString("userContactNumber", " ");
             editTextPhone.setText(getContactNumberSP);
+            saveContactNumber = false;
+        } else {
+            //DISPLAY CONTACT NUMBER IF USER HAVE ONE
+            String getNum = databaseFunctions.getContactNumber(userId);
+            try {
+                if (!saveContactNumber) {
+                    editTextPhone.setText(getNum);
+                    orderSessionEdit.remove("userContactNumber");
+                    orderSessionEdit.remove("saveContactNumber");
+                    orderSessionEdit.apply();
+                }
+            } catch (NullPointerException e) {
+                Log.d("may error ka", "No saved contact number");
+            }
         }
 
-        //DISPLAY CONTACT NUMBER IF USER HAVE ONE
-        String getNum = databaseFunctions.getContactNumber(userId);
-        try {
-            if (!saveContactNumber) {
-                editTextPhone.setText(getNum);
-            }
-        } catch (NullPointerException e) {
-            Log.d("may error ka", "No saved contact number");
+        if (!editTextPhone.getText().toString().trim().isEmpty()) {
+            contactNumberIsRequired.setVisibility(View.GONE);
+        } else {
+            contactNumberIsRequired.setVisibility(View.VISIBLE);
         }
+
+        editTextPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().isEmpty()) {
+                    contactNumberIsRequired.setVisibility(View.VISIBLE);
+                } else {
+                    contactNumberIsRequired.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         changeScheduleCon.setVisibility(View.GONE);
 
@@ -356,6 +391,9 @@ public class checkout extends AppCompatActivity {
                                 public void onClick(View v) {
                                     popUpAlertNum.dismiss();
                                     orderSessionEdit.remove("userContactNumber");
+                                    orderSessionEdit.remove("saveContactNumber");
+                                    orderSessionEdit.apply();
+                                    saveContactNumber = false;
                                     checkout();
                                 }
                             });
@@ -376,8 +414,10 @@ public class checkout extends AppCompatActivity {
                             });
 
                         } else {
-                            if (checkContactNum || checkContactNumAdminOrder) {
+                            if (checkContactNum) {
                                 popUpAlert(getString(R.string.contactNumberIsAlreadyInUsed));
+                            } else if (checkContactNumAdminOrder) {
+                                popUpAlert("Gamit na to sa admin order");
                             } else {
                                 Dialog popUpAlertNum;
                                 Button cancelBtnNum, yesBtn;
@@ -399,6 +439,9 @@ public class checkout extends AppCompatActivity {
                                     public void onClick(View v) {
                                         popUpAlertNum.dismiss();
                                         orderSessionEdit.remove("userContactNumber");
+                                        orderSessionEdit.remove("saveContactNumber");
+                                        orderSessionEdit.apply();
+                                        saveContactNumber = false;
                                         checkout();
                                     }
                                 });
@@ -409,22 +452,13 @@ public class checkout extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
 
-                                        if (editTextPhone.getText().toString().trim().equals(getContactNumber)) {
-                                            edit.putString("userContactNumber", getContactNumber);
-                                            edit.putBoolean("saveContactNumber", true);
-                                            edit.apply();
-                                            popUpAlertNum.dismiss();
-                                            saveContactNumber = false;
-                                            checkout();
-                                        } else {
-                                            databaseFunctions.updateContactNumber(userId, getContactNumber);
-                                            edit.putString("userContactNumber", getContactNumber);
-                                            edit.putBoolean("saveContactNumber", true);
-                                            edit.apply();
-                                            popUpAlertNum.dismiss();
-                                            saveContactNumber = false;
-                                            checkout();
-                                        }
+                                        databaseFunctions.updateContactNumber(userId, getContactNumber);
+                                        edit.putString("userContactNumber", getContactNumber);
+                                        edit.putBoolean("saveContactNumber", true);
+                                        edit.apply();
+                                        popUpAlertNum.dismiss();
+                                        saveContactNumber = false;
+                                        checkout();
                                     }
                                 });
                             }

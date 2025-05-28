@@ -130,7 +130,7 @@ public class home_dashboard extends Fragment {
         mealInProgressCon.setVisibility(View.GONE);
         orderIsReadyCon.setVisibility(View.GONE);
 
-        if (checkIfUserOrdered && checkIfUserHadOrdered) {
+        if (checkIfUserOrdered) {
             Cursor getAdminOrderStatus = databaseFunctions.getAdminOrderStatus(userId, orderGroupId);
 
             String getStatus = null;
@@ -151,6 +151,7 @@ public class home_dashboard extends Fragment {
                             public void onClick(View v) {
                                 Dialog popUpAlert;
                                 Button yesBtn, noBtn;
+                                TextView alertText;
 
                                 popUpAlert = new Dialog(getActivity());
                                 popUpAlert.setContentView(R.layout.pop_up_delete_addon);
@@ -158,6 +159,9 @@ public class home_dashboard extends Fragment {
                                 popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
                                 popUpAlert.setCancelable(true);
                                 popUpAlert.show();
+
+                                alertText = popUpAlert.findViewById(R.id.alertText);
+                                alertText.setText(getString(R.string.areYouSureYouWantToCancelTheOrder));
 
                                 noBtn = popUpAlert.findViewById(R.id.cancelBtn);
                                 noBtn.setText("No");
@@ -180,6 +184,7 @@ public class home_dashboard extends Fragment {
                                             Intent intent = new Intent(getActivity(), Navbar.class);
                                             startActivity(intent);
                                             getActivity().finish();
+
                                         } else {
                                             Log.d("may error ka", "Delete order failed");
                                         }
@@ -209,6 +214,96 @@ public class home_dashboard extends Fragment {
             } else {
                 Log.d("may error ka", "Status is empty");
             }
+        } else if (checkIfUserHadOrdered) {
+            Cursor getUserOrder = databaseFunctions.getAdminUserOrder(userId);
+
+            String getStatus = null;
+            if (getUserOrder.moveToFirst() && getUserOrder != null) {
+                getStatus = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("status"));
+            }
+
+            if (getStatus != null) {
+                switch (getStatus) {
+                    case "Processing":
+                        preparingYourOrderCon.setVisibility(View.VISIBLE);
+                        mealInProgressCon.setVisibility(View.GONE);
+                        orderIsReadyCon.setVisibility(View.GONE);
+
+                        cancelOrderBtn = view.findViewById(R.id.cancelOrder);
+                        cancelOrderBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Dialog popUpAlert;
+                                Button yesBtn, noBtn;
+                                TextView alertText;
+
+                                popUpAlert = new Dialog(getActivity());
+                                popUpAlert.setContentView(R.layout.pop_up_delete_addon);
+                                popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+                                popUpAlert.setCancelable(true);
+                                popUpAlert.show();
+
+                                alertText = popUpAlert.findViewById(R.id.alertText);
+                                alertText.setText(getString(R.string.areYouSureYouWantToCancelTheOrder));
+
+                                noBtn = popUpAlert.findViewById(R.id.cancelBtn);
+                                noBtn.setText("No");
+                                noBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        popUpAlert.dismiss();
+                                    }
+                                });
+
+                                yesBtn = popUpAlert.findViewById(R.id.deleteAddonBtn);
+                                yesBtn.setText("Yes");
+                                yesBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        boolean deleteAdminOrder = databaseFunctions.deleteAdminOrder(orderGroupId);
+
+                                        if (deleteAdminOrder) {
+                                            if (checkIfUserHadOrdered) {
+                                                Intent intent = new Intent(getActivity(), Navbar.class);
+                                                startActivity(intent);
+                                                getActivity().finish();
+                                            } else {
+                                                checkIfUserOrdered = false;
+                                                Intent intent = new Intent(getActivity(), Navbar.class);
+                                                startActivity(intent);
+                                                getActivity().finish();
+                                            }
+                                        } else {
+                                            Log.d("may error ka", "Delete order failed");
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+
+                        break;
+                    case "Meal in progress":
+                        preparingYourOrderCon.setVisibility(View.GONE);
+                        mealInProgressCon.setVisibility(View.VISIBLE);
+                        orderIsReadyCon.setVisibility(View.GONE);
+                        break;
+                    case "Order is ready":
+                        preparingYourOrderCon.setVisibility(View.GONE);
+                        mealInProgressCon.setVisibility(View.GONE);
+                        orderIsReadyCon.setVisibility(View.VISIBLE);
+                        break;
+                    case "Completed":
+                        preparingYourOrderCon.setVisibility(View.GONE);
+                        mealInProgressCon.setVisibility(View.GONE);
+                        orderIsReadyCon.setVisibility(View.GONE);
+                        break;
+                }
+            } else {
+                Log.d("may error ka", "Status is empty");
+            }
+
         }
         checkIfUserOrdered = false;
 

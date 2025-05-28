@@ -1064,13 +1064,20 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
     public Boolean checkContactNumberAdminOrder(int userId, String contactNumber) {
         SQLiteDatabase mYDb = this.getWritableDatabase();
-        Cursor cursor = mYDb.rawQuery("SELECT contactNumber FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ? AND contactNumber = ?", new String[]{String.valueOf(userId), contactNumber});
+        Cursor cursor = mYDb.rawQuery("SELECT contactNumber FROM " + TABLE_ADMIN_ORDERS + " WHERE contactNumber = ?", new String[]{contactNumber});
+        Cursor cursor1 = mYDb.rawQuery("SELECT contactNumber FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ? AND contactNumber = ?", new String[]{String.valueOf(userId), contactNumber});
 
-        if (cursor != null && cursor.moveToFirst()) {
+        if (cursor1.moveToFirst()) {
             cursor.close();
+            cursor1.close();
+            return false;
+        } else if (cursor.moveToFirst()) {
+            cursor.close();
+            cursor1.close();
             return true;
         } else {
-            cursor.close();;
+            cursor.close();
+            cursor1.close();
             return false;
         }
     }

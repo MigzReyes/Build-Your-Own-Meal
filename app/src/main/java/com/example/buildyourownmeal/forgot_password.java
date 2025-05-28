@@ -1,9 +1,12 @@
 package com.example.buildyourownmeal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,18 +46,19 @@ public class forgot_password extends AppCompatActivity {
         backBtnLogIn = findViewById(R.id.backBtnLogIn);
         fabBackBtn = findViewById(R.id.fabBackBtn);
 
-        //GET TEXT
-        String emailText = email.getText().toString().trim();
-
         //EMAIL
         reqResetLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (emailText.isEmpty()) {
-                    Toast.makeText(forgot_password.this, getString(R.string.enterEmailAddress), Toast.LENGTH_LONG).show();
-                } /* else {
-                    //DATABASE INSERT
-                } */
+                String emailText = email.getText().toString().trim();
+
+                if (emailText.isBlank()) {
+                    popUpAlert(getString(R.string.pleaseFillUpTheInputField));
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+                    popUpAlert(getString(R.string.invalidEmail));
+                } else {
+                    popUpAlert(getString(R.string.weHaveSendYouAnEmail));
+                }
             }
         });
 
@@ -73,6 +77,29 @@ public class forgot_password extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    public void popUpAlert(String getAlertText) {
+        Dialog popUpAlert;
+        Button closeBtn;
+        TextView alertText;
+
+        popUpAlert = new Dialog(this);
+        popUpAlert.setContentView(R.layout.pop_up_alerts);
+        popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpAlert.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_bg);
+        popUpAlert.setCancelable(true);
+        popUpAlert.show();
+
+        alertText = popUpAlert.findViewById(R.id.alertText);
+        alertText.setText(getAlertText);
+
+        closeBtn = popUpAlert.findViewById(R.id.closeBtn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpAlert.dismiss();
+            }
+        });
     }
 }

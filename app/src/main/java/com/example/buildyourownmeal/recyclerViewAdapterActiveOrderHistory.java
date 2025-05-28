@@ -65,7 +65,7 @@ public class recyclerViewAdapterActiveOrderHistory extends RecyclerView.Adapter<
         addonName = new ArrayList<>();
         addonQuantity = new ArrayList<>();
 
-        setUpAddonModel(userId, orderAddonId.get(position));
+        setUpAddonModel(userId, orderGroupId.get(position));
 
         recyclerViewAdapterAdminUserOrderAddon addonAdapter = new recyclerViewAdapterAdminUserOrderAddon(context, addonName, addonQuantity);
         holder.addonRecycler.setLayoutManager(new LinearLayoutManager(context));
@@ -90,8 +90,8 @@ public class recyclerViewAdapterActiveOrderHistory extends RecyclerView.Adapter<
         }
     }
 
-    private void setUpAddonModel(int userId, String orderAddonId) {
-        Cursor getOrderAddon = databaseFunctions.getAdminUserOrderAddon(userId, orderAddonId);
+    private void setUpAddonModel(int userId, String orderGroupId) {
+        Cursor getOrderAddon = databaseFunctions.getAdminUserOrderAddon(userId, orderGroupId);
 
         if (getOrderAddon != null && getOrderAddon.moveToFirst()) {
             do {

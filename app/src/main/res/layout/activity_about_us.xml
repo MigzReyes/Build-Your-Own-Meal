@@ -31,7 +31,7 @@
             <!-- INTRODUCTION -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="215dp"
+                android:layout_height="225dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/aboutusbackground"
                 android:orientation="vertical"
@@ -48,7 +48,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
@@ -63,9 +63,9 @@
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="172dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:background="@color/black"
                         android:fontFamily="@font/instrumentsans_regular"
                         android:paddingHorizontal="5dp"
@@ -73,7 +73,7 @@
                         android:paddingBottom="8dp"
                         android:text="@string/aboutUsIntro1"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:textSize="9.5sp"
                         tools:ignore="SmallSp" />
                 </LinearLayout>
 
@@ -151,6 +151,7 @@
                         android:id="@+id/textView36"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:layout_marginBottom="15dp"
                         android:fontFamily="@font/inter_18pt_extrabold"
                         android:text="@string/findUs"
