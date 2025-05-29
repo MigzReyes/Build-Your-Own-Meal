@@ -1,10 +1,14 @@
 package com.example.buildyourownmeal;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -20,8 +25,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +48,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
     private databaseFunctions databaseFunctions;
 
     //RECYCLER
+    private ArrayList<orderModel> orderModelsList;
     private RecyclerView adminOrdersRecycler;
     private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId, pickUp, paymentMethod;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
@@ -49,6 +57,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
     private DrawerLayout drawerLayout;
     private boolean deletedOrder = false;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +97,29 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+        //COLLAPSE SEARCHVIEW WHEN CLICK OUTSIDE OF THE SEARCHVIEW
+        drawerLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (!searchbar.isShown()) {
+                    return false;
+                }
+
+                float x = event.getRawX();
+                float y = event.getRawY();
+
+                Rect rect = new Rect();
+                searchbar.getGlobalVisibleRect(rect);
+                if (!rect.contains((int) x, (int) y)) {
+                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(searchbar.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    searchbar.onActionViewCollapsed();
+                }
+                return false;
+            }
+        });
+
         deletedOrder = getIntent().getBooleanExtra("deletedOrder", false);
         if (deletedOrder) {
             Dialog popUpAlert;
@@ -118,6 +150,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
         //RECYCLER
         adminOrdersRecycler = findViewById(R.id.adminOrdersRecycler);
+        orderModelsList = new ArrayList<>();
         userId = new ArrayList<>();
         orderGroupId = new ArrayList<>();
         orderCount = new ArrayList<>();
@@ -133,8 +166,22 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         setUpAdminOrder();
 
         adminOrdersRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, orderGroupId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount, pickUp, paymentMethod);
+        adminOrdersAdapter = new recyclerViewAdapterAdminOrders(this, userId, orderGroupId, customerName, customerEmail, customerNumber, orderDate, orderStatus, orderTotalPrice, orderCount, pickUp, paymentMethod, orderModelsList);
         adminOrdersRecycler.setAdapter(adminOrdersAdapter);
+
+        searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterOrder(newText);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -209,7 +256,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
         if (getAdminUserOrder != null && getAdminUserOrder.moveToFirst()) {
             do {
-                pickUp.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("pickUp")));
+                /*pickUp.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("pickUp")));
                 paymentMethod.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("paymentMethod")));
                 userId.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("userId")));
                 orderGroupId.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderGroupId")));
@@ -217,8 +264,39 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
                 orderCount.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("adminOrderId")));
                 orderDate.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderedDate")));
                 orderTotalPrice.add(getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("totalPrice")));
-                orderStatus.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("status")));
+                orderStatus.add(getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("status")));*/
+
+                String modelPickUp = getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("pickUp"));
+                String modelPaymentMethod = getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("paymentMethod"));
+                int modelUserId = getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("userId"));
+                String modelOrderGroupId = getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderGroupId"));
+                String modelCustomerNumber = getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("contactNumber"));
+                int modelOrderCount = getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("adminOrderId"));
+                String modelOrderDate = getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("orderedDate"));
+                int modelOrderTotalPrice = getAdminUserOrder.getInt(getAdminUserOrder.getColumnIndexOrThrow("totalPrice"));
+                String modelOrderStatus = getAdminUserOrder.getString(getAdminUserOrder.getColumnIndexOrThrow("status"));
+
+                orderModelsList.add(new orderModel(modelCustomerNumber, modelOrderDate, modelOrderStatus, modelOrderGroupId, modelPickUp, modelPaymentMethod, modelOrderTotalPrice, modelOrderCount, modelUserId));
             } while (getAdminUserOrder.moveToNext());
+        }
+    }
+
+    private void filterOrder(String searchBarInputText) {
+        recyclerViewAdapterAdminOrders recyclerViewAdapterAdminOrders = new recyclerViewAdapterAdminOrders();
+
+        ArrayList<orderModel> filteredList = new ArrayList<>();
+
+
+        for (orderModel item : orderModelsList) {
+            if (item.getOrderStatus().toLowerCase().contains(searchBarInputText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            Log.d("Search View", "Search is empty");
+        } else {
+            recyclerViewAdapterAdminOrders.filterList(filteredList);
         }
     }
 }

@@ -732,6 +732,11 @@ public class databaseFunctions extends SQLiteOpenHelper {
 
 
     //GET QUERY
+    public Cursor getLatestOrder(int userId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        return myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDERS +" WHERE userId = ? AND status NOT IN ('Completed', 'Cancelled') ORDER BY orderedDate DESC LIMIT 1", new String[]{String.valueOf(userId)});
+    }
+
     public Cursor getOrderAddonHistory(int userId, String addonGroupId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         return myDb.rawQuery("SELECT * FROM " + TABLE_ORDER_ADDON_HISTORY + " WHERE userId = ? AND addonGroupId = ?", new String[]{String.valueOf(userId), addonGroupId});

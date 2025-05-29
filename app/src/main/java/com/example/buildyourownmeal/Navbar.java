@@ -202,6 +202,10 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
         SharedPreferences.Editor editor = userSession.edit();
         boolean isUserLoggedIn = userSession.getBoolean("isUserLoggedIn", false);
 
+
+        SharedPreferences getOrderSession = getSharedPreferences("orderSession", MODE_PRIVATE);
+        SharedPreferences.Editor removeOrderSession = getOrderSession.edit();
+
         int id = item.getItemId();
         if (isUserLoggedIn) {
             if (id == R.id.account) {
@@ -245,7 +249,11 @@ public class Navbar extends AppCompatActivity implements NavigationView.OnNaviga
                        editor.remove("isUserLoggedIn");
                        editor.remove("userContactNumber");
                        editor.remove("saveContactNumber");
+                       removeOrderSession.remove("userId");
+                       removeOrderSession.remove("checkIfUserOrdered");
+                       removeOrderSession.remove("orderGroupId");
                        editor.apply();
+                       removeOrderSession.apply();
                        Intent intent = new Intent(Navbar.this, introduction_screen.class);
                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                        startActivity(intent);

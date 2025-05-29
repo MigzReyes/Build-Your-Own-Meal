@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class recyclerViewAdapterAdminUserOrder extends RecyclerView.Adapter<recy
         addonName = new ArrayList<>();
         addonQuantity = new ArrayList<>();
 
-        setUpMealAddon(userId.get(position), orderAddonId.get(position));
+        setUpMealAddon(userId.get(position), orderGroupId.get(position));
 
         recyclerViewAdapterAdminUserOrderAddon orderAddonAdapter = new recyclerViewAdapterAdminUserOrderAddon(context, addonName, addonQuantity);
         holder.mealAddonRecycler.setLayoutManager(new LinearLayoutManager(context));
@@ -98,6 +99,7 @@ public class recyclerViewAdapterAdminUserOrder extends RecyclerView.Adapter<recy
                         @Override
                         public void onClick(View v) {
                             popUpAlert1.dismiss();
+                            Log.d("may error ka", "order group id sa user order: " + orderGroupId.get(position));
                         }
                     });
 
@@ -199,8 +201,8 @@ public class recyclerViewAdapterAdminUserOrder extends RecyclerView.Adapter<recy
         }
     }
 
-    private void setUpMealAddon(int userId, String orderAddonId) {
-        Cursor getMealAddon = databaseFunctions.getAdminUserOrderAddon(userId, orderAddonId);
+    private void setUpMealAddon(int userId, String orderGroupId) {
+        Cursor getMealAddon = databaseFunctions.getAdminUserOrderAddon(userId, orderGroupId);
 
         if (getMealAddon != null && getMealAddon.moveToFirst()) {
             do {

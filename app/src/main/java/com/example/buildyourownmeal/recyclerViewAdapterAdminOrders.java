@@ -35,9 +35,10 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
     private Context context;
     private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId, pickUp, paymentMethod;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
+    private ArrayList<orderModel> orderModelsList;
 
 
-    public recyclerViewAdapterAdminOrders(Context context, ArrayList<Integer> userId, ArrayList<String> orderGroupId, ArrayList<String> customerName, ArrayList<String> customerEmail, ArrayList<String> customerNumber, ArrayList<String> orderDate, ArrayList<String> orderStatus, ArrayList<Integer> orderTotalPrice, ArrayList<Integer> orderCount, ArrayList<String> pickUp, ArrayList<String> paymentMethod) {
+    public recyclerViewAdapterAdminOrders(Context context, ArrayList<Integer> userId, ArrayList<String> orderGroupId, ArrayList<String> customerName, ArrayList<String> customerEmail, ArrayList<String> customerNumber, ArrayList<String> orderDate, ArrayList<String> orderStatus, ArrayList<Integer> orderTotalPrice, ArrayList<Integer> orderCount, ArrayList<String> pickUp, ArrayList<String> paymentMethod, ArrayList<orderModel> orderModelsList) {
         this.context = context;
         this.userId = userId;
         this.orderGroupId = orderGroupId;
@@ -50,8 +51,19 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         this.orderCount = orderCount;
         this.pickUp = pickUp;
         this.paymentMethod = paymentMethod;
+        this.orderModelsList = orderModelsList;
     }
 
+    public recyclerViewAdapterAdminOrders() {
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(ArrayList<orderModel> filterList) {
+
+        orderModelsList = filterList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -66,9 +78,7 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         //DATABASE
         databaseFunctions = new databaseFunctions(context);
 
-        setUpAdminOrderUserInfo(userId.get(position));
-
-        holder.orderId.setText(String.valueOf(orderCount.get(position)));
+        /*holder.orderId.setText(String.valueOf(orderCount.get(position)));
         holder.customerName.setText(customerName.get(position));
         holder.customerContact.setText(customerNumber.get(position));
         holder.customerEmail.setText(customerEmail.get(position));
@@ -76,7 +86,22 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         holder.pickUp.setText(pickUp.get(position));
         holder.paymentMethod.setText(paymentMethod.get(position));
         holder.customerTotalPrice.setText(String.valueOf(orderTotalPrice.get(position)));
-        holder.customerStatus.setText(orderStatus.get(position));
+        holder.customerStatus.setText(orderStatus.get(position));*/
+
+        orderModel model = orderModelsList.get(position);
+
+        setUpAdminOrderUserInfo(model.getUserId());
+
+        holder.orderId.setText(String.valueOf(model.getOrderCount()));
+        holder.customerName.setText(customerName.get(position));
+        holder.customerContact.setText(model.getContactNumber());
+        holder.customerEmail.setText(customerEmail.get(position));
+        holder.customerDate.setText(model.getOrderDate());
+        holder.pickUp.setText(model.getPickUp());
+        holder.paymentMethod.setText(model.getPaymentMethod());
+        holder.customerTotalPrice.setText(String.valueOf(model.getOrderTotalPrice()));
+        holder.customerStatus.setText(model.getOrderStatus());
+
 
         holder.setStatusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +125,8 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                     dropdownAdapter statusAdapter = new dropdownAdapter(context, R.layout.custom_spinner_bg, statusDropdown);
                     statusAdapter.setDropDownViewResource(R.layout.custom_dropdown_bg);
                     setStatusSpinner.setAdapter(statusAdapter);
+
+                    setStatusSpinner.setTag(model.getOrderStatus());
 
                     cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
                     cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +170,7 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                                 yesBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Cursor getUserOrder = databaseFunctions.getAdminUserOrderHistory(userId.get(position), orderGroupId.get(position));
+                                        Cursor getUserOrder = databaseFunctions.getAdminUserOrderHistory(model.getUserId(), model.getOrderGroupId());
 
                                         if (getUserOrder != null && getUserOrder.moveToFirst()) {
                                             do {
@@ -155,25 +182,25 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                                                 int getMealQuantity = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("mealQuantity"));
                                                 int getOrderTotalPrice = getUserOrder.getInt(getUserOrder.getColumnIndexOrThrow("orderTotalPrice"));
                                                 String getOrderDate = getUserOrder.getString(getUserOrder.getColumnIndexOrThrow("orderedDate"));
-                                                databaseFunctions.insertOrderHistory(getOrderAddonId, orderGroupId.get(position), getUserId, getMealImg, getMealType, getMealQuantity, getOrderTotalPrice, getOrderDate);
+                                                databaseFunctions.insertOrderHistory(getOrderAddonId, model.getOrderGroupId(), getUserId, getMealImg, getMealType, getMealQuantity, getOrderTotalPrice, getOrderDate);
                                             } while (getUserOrder.moveToNext());
                                         }
 
-                                        Cursor getUserOrderInfo = databaseFunctions.getAdminOrder(orderGroupId.get(position));
+                                        Cursor getUserOrderInfo = databaseFunctions.getAdminOrder(model.getOrderGroupId());
 
                                         if (getUserOrderInfo != null && getUserOrderInfo.moveToFirst()) {
                                             do {
                                                 String pickUp = getUserOrderInfo.getString(getUserOrderInfo.getColumnIndexOrThrow("pickUp"));
                                                 String paymentMethod = getUserOrderInfo.getString(getUserOrderInfo.getColumnIndexOrThrow("paymentMethod"));
                                                 String orderedDate = getUserOrderInfo.getString(getUserOrderInfo.getColumnIndexOrThrow("orderedDate"));
-                                                databaseFunctions.updateOrderHistoryInfo(userId.get(position), orderGroupId.get(position), pickUp, paymentMethod, orderedDate);
+                                                databaseFunctions.updateOrderHistoryInfo(model.getUserId(), model.getOrderGroupId(), pickUp, paymentMethod, orderedDate);
                                             } while (getUserOrderInfo.moveToNext());
                                         } else {
                                             Log.d("may error ka", "Admin order info insert into order history failed");
                                         }
 
-                                        Log.d("may error ka", "user id: " + String.valueOf(userId.get(position)) + " addon group id: " + orderGroupId.get(position));
-                                        Cursor getAddonData = databaseFunctions.getAdminUserOrderAddon(userId.get(position), orderGroupId.get(position));
+                                        Log.d("may error ka", "user id: " + String.valueOf(model.getUserId()) + " addon group id: " + model.getOrderGroupId());
+                                        Cursor getAddonData = databaseFunctions.getAdminUserOrderAddon(model.getUserId(), model.getOrderGroupId());
 
                                         if (getAddonData != null && getAddonData.moveToFirst()) {
                                             do {
@@ -184,27 +211,28 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                                                 int getPrice = getAddonData.getInt(getAddonData.getColumnIndexOrThrow("price"));
                                                 String getOrderedDateDb = getAddonData.getString(getAddonData.getColumnIndexOrThrow("orderedDate"));
 
-                                                databaseFunctions.insertOrderAddonHistory(getUserId, getAddonGroupId, orderGroupId.get(position), getAddon, getQuantity, getPrice, getOrderedDateDb);
+                                                databaseFunctions.insertOrderAddonHistory(getUserId, getAddonGroupId, model.getOrderGroupId(), getAddon, getQuantity, getPrice, getOrderedDateDb);
                                             } while (getAddonData.moveToNext());
                                             getAddonData.close();
                                         } else {
                                             Log.d("may error ka", "Addon transfer to order addon history failed");
                                         }
 
-                                        boolean deleteAdminOrder = databaseFunctions.deleteAdminOrder(orderGroupId.get(position));
+                                        boolean deleteAdminOrder = databaseFunctions.deleteAdminOrder(model.getOrderGroupId());
 
                                         if (deleteAdminOrder) {
                                             customerName.remove(position);
                                             customerEmail.remove(position);
                                             customerNumber.remove(position);
-                                            orderDate.remove(position);
+                                            orderModelsList.remove(position);
+                                            /*orderDate.remove(position);
                                             orderStatus.remove(position);
                                             orderGroupId.remove(position);
                                             pickUp.remove(position);
                                             paymentMethod.remove(position);
                                             orderTotalPrice.remove(position);
                                             orderCount.remove(position);
-                                            userId.remove(position);
+                                            userId.remove(position);*/
                                             notifyItemRemoved(position);
                                             popUpAlert1.dismiss();
                                             popUpAlert.dismiss();
@@ -212,10 +240,10 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                                     }
                                 });
                             } else {
-                                boolean updateAdminOrderStatus = databaseFunctions.updateAdminOrderStatus(userId.get(position), orderGroupId.get(position), getStatus);
+                                boolean updateAdminOrderStatus = databaseFunctions.updateAdminOrderStatus(model.getUserId(), model.getOrderGroupId(), getStatus);
                                 if (updateAdminOrderStatus) {
-                                    orderStatus.set(position, getStatus);
-                                    holder.customerStatus.setText(orderStatus.get(position));
+                                    model.setOrderStatus(getStatus);
+                                    holder.customerStatus.setText(model.getOrderStatus());
                                     notifyItemChanged(position);
                                     popUpAlert.dismiss();
                                 }
@@ -232,10 +260,11 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                 int pos = holder.getAdapterPosition();
 
                 if (pos != RecyclerView.NO_POSITION) {
+                    Log.d("may error ka", model.getOrderGroupId() + " userId: " + model.getUserId());
                     Intent intent = new Intent(context, adminUserOrdersList.class);
-                    String getOrderGroupId = orderGroupId.get(position);
+                    String getOrderGroupId = model.getOrderGroupId();
                     intent.putExtra("orderGroupId", getOrderGroupId);
-                    intent.putExtra("userId", userId.get(position));
+                    intent.putExtra("userId", model.getUserId());
                     ((Activity) context).startActivityForResult(intent, 1001);
                 }
             }
@@ -246,7 +275,7 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
 
     @Override
     public int getItemCount() {
-        return orderCount.size();
+        return orderModelsList.size();
     }
 
     private void setUpAdminOrderUserInfo(int userId) {
@@ -281,4 +310,22 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
             paymentMethod = itemView.findViewById(R.id.paymentMethod);
         }
     }
+
+    /*public void filter(String query) {
+        filteredCustomerName.clear();
+        filteredUserId.clear();
+
+        if (query.isEmpty()) {
+            filteredCustomerName.addAll(customerName);
+            filteredUserId.addAll(userId);
+        } else {
+            for (int i = 0; i < customerName.size(); i++) {
+                if (customerName.get(i).toLowerCase().contains(query.toLowerCase())) {
+                    filteredCustomerName.add(customerName.get(i));
+                    filteredUserId.add(userId.get(i));
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }*/
 }
