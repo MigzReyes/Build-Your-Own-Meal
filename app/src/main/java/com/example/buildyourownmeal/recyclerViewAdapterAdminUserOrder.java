@@ -114,16 +114,6 @@ public class recyclerViewAdapterAdminUserOrder extends RecyclerView.Adapter<recy
                             if (deleteAdminUserOrderAddon && deleteAdminUserOrder) {
                                 popUpAlert1.dismiss();
 
-                                mealImg.remove(position);
-                                customerName.remove(position);
-                                mealName.remove(position);
-                                mealQuantity.remove(position);
-                                mealTotalPrice.remove(position);
-                                orderGroupId.remove(position);
-                                orderAddonId.remove(position);
-                                userId.remove(position);
-                                notifyItemRemoved(position);
-
                                 Dialog popUpAlert = new Dialog(context);
                                 popUpAlert.setContentView(R.layout.pop_up_alerts);
                                 popUpAlert.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -138,10 +128,21 @@ public class recyclerViewAdapterAdminUserOrder extends RecyclerView.Adapter<recy
                                     boolean deleteAdminOrder = databaseFunctions.deleteAdminOrder(orderGroupId.get(position));
 
                                     if (deleteAdminOrder) {
-                                        Intent intent = new Intent(context, adminOrders.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        Activity activity = (Activity) context;
+                                        Intent intent = new Intent(activity, adminOrders.class);
                                         intent.putExtra("deletedOrder", true);
-                                        context.startActivity(intent);
+                                        intent.putExtra("deletedOrderGroupId", orderGroupId.get(position));
+                                        activity.startActivity(intent);
+                                        activity.finish();
+                                        mealImg.remove(position);
+                                        customerName.remove(position);
+                                        mealName.remove(position);
+                                        mealQuantity.remove(position);
+                                        mealTotalPrice.remove(position);
+                                        orderGroupId.remove(position);
+                                        orderAddonId.remove(position);
+                                        userId.remove(position);
+                                        notifyItemRemoved(position);
                                     }
                                 }
 

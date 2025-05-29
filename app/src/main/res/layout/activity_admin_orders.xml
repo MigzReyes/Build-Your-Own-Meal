@@ -106,31 +106,25 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/filterPrice"
                                 android:fontFamily="@font/inter_18pt_medium"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/filterStatus"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:layout_weight="1"
-                            android:paddingVertical="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/filterStatus"
-                                android:fontFamily="@font/inter_18pt_medium"/>
 
                             <ImageView
-                                android:id="@+id/imageView29"
+                                android:id="@+id/arrowup"
                                 android:layout_width="18dp"
                                 android:layout_height="12dp"
                                 android:layout_marginTop="2dp"
                                 android:layout_gravity="center_vertical"
-                                app:srcCompat="@drawable/dropdown" />
+                                app:srcCompat="@drawable/arrowup" />
                         </LinearLayout>
+
+                        <Spinner
+                            android:id="@+id/filterStatus"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:background="@android:color/transparent"
+                            android:overlapAnchor="false"
+                            android:spinnerMode="dropdown" />
 
                     </LinearLayout>
                 </LinearLayout>

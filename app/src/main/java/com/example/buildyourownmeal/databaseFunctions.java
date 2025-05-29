@@ -898,6 +898,19 @@ public class databaseFunctions extends SQLiteOpenHelper {
     }
 
     //QUERY VALIDATION
+    public Boolean checkAdminUserOrder(String orderGroupId) {
+        SQLiteDatabase myDb = this.getWritableDatabase();
+        Cursor cursor = myDb.rawQuery("SELECT * FROM " + TABLE_ADMIN_ORDERS + " WHERE orderGroupId = ?", new String[]{String.valueOf(orderGroupId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
     public Boolean checkIfUserHadOrdered(int userId) {
         SQLiteDatabase myDb = this.getWritableDatabase();
         Cursor cursor = myDb.rawQuery("SELECT userId FROM " + TABLE_ADMIN_ORDERS + " WHERE userId = ?", new String[]{String.valueOf(userId)});

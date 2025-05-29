@@ -60,7 +60,6 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
 
     @SuppressLint("NotifyDataSetChanged")
     public void filterList(ArrayList<orderModel> filterList) {
-
         orderModelsList = filterList;
         notifyDataSetChanged();
     }
@@ -75,9 +74,6 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
 
     @Override
     public void onBindViewHolder(@NonNull recyclerViewAdapterAdminOrders.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        //DATABASE
-        databaseFunctions = new databaseFunctions(context);
-
         /*holder.orderId.setText(String.valueOf(orderCount.get(position)));
         holder.customerName.setText(customerName.get(position));
         holder.customerContact.setText(customerNumber.get(position));
@@ -87,6 +83,9 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
         holder.paymentMethod.setText(paymentMethod.get(position));
         holder.customerTotalPrice.setText(String.valueOf(orderTotalPrice.get(position)));
         holder.customerStatus.setText(orderStatus.get(position));*/
+
+        //DATABASE
+        databaseFunctions = new databaseFunctions(context);
 
         orderModel model = orderModelsList.get(position);
 
@@ -126,7 +125,13 @@ public class recyclerViewAdapterAdminOrders extends RecyclerView.Adapter<recycle
                     statusAdapter.setDropDownViewResource(R.layout.custom_dropdown_bg);
                     setStatusSpinner.setAdapter(statusAdapter);
 
-                    setStatusSpinner.setTag(model.getOrderStatus());
+                    String currentStatus = model.getOrderStatus();
+
+                    int selectedIndex = statusDropdown.indexOf(currentStatus);
+
+                    if (selectedIndex != -1) {
+                        setStatusSpinner.setSelection(selectedIndex);
+                    }
 
                     cancelBtn = popUpAlert.findViewById(R.id.cancelBtn);
                     cancelBtn.setOnClickListener(new View.OnClickListener() {

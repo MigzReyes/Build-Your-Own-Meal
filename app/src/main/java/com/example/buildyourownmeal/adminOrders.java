@@ -29,8 +29,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
@@ -40,12 +42,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class adminOrders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //DATABASE
     private databaseFunctions databaseFunctions;
+    private recyclerViewAdapterAdminOrders recyclerViewAdapterAdminOrders;
+
 
     //RECYCLER
     private ArrayList<orderModel> orderModelsList;
@@ -53,6 +65,12 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
     private ArrayList<String> customerName, customerEmail, customerNumber, orderDate, orderStatus, orderGroupId, pickUp, paymentMethod;
     private ArrayList<Integer> orderTotalPrice, orderCount, userId;
     private recyclerViewAdapterAdminOrders adminOrdersAdapter;
+
+
+
+    private TextView filterNewest, filterOldest;
+    private Spinner filterStatus;
+    private SearchView searchbar;
 
     private DrawerLayout drawerLayout;
     private boolean deletedOrder = false;
@@ -66,6 +84,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
 
         //DATABASE
         databaseFunctions = new databaseFunctions(this);
+        recyclerViewAdapterAdminOrders = new recyclerViewAdapterAdminOrders();
 
         //STATUS BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -88,8 +107,13 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
+        //REFERENCE
+        filterNewest = findViewById(R.id.filterNewest);
+        filterOldest = findViewById(R.id.filterOldest);
+        filterStatus = findViewById(R.id.filterStatus);
+
         //SEARCH BAR
-        SearchView searchbar = findViewById(R.id.searchbar);
+        searchbar = findViewById(R.id.searchbar);
         searchbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +144,13 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+        //STATUS FILTER
+        List<String> status = Arrays.asList("Processing", "Meal in progress", "Order is ready");
+        dropdownAdapter dropdownAdapter = new dropdownAdapter(this, R.layout.custom_spinner_bg, status);
+        dropdownAdapter.setDropDownViewResource(R.layout.custom_dropdown_bg);
+        filterStatus.setAdapter(dropdownAdapter);
+
+        //ALERT
         deletedOrder = getIntent().getBooleanExtra("deletedOrder", false);
         if (deletedOrder) {
             Dialog popUpAlert;
@@ -146,7 +177,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         }
 
 
-        //REFERENCE
+
 
         //RECYCLER
         adminOrdersRecycler = findViewById(R.id.adminOrdersRecycler);
@@ -182,7 +213,79 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
                 return false;
             }
         });
+
+        filterNewest.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View v) {
+                filterNewest.setTextColor(getColor(R.color.blackBoldLetters));
+                filterOldest.setTextColor(getColor(R.color.greyLetters));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                orderModelsList.sort(new Comparator<orderModel>() {
+                    @Override
+                    public int compare(orderModel o1, orderModel o2) {
+                        try {
+                            Date date1 = sdf.parse(o1.getOrderDate());
+                            Date date2 = sdf.parse(o2.getOrderDate());
+                            return date2.compareTo(date1);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    }
+                });
+
+                adminOrdersAdapter.notifyDataSetChanged();
+            }
+        });
+
+        filterOldest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterNewest.setTextColor(getColor(R.color.greyLetters));
+                filterOldest.setTextColor(getColor(R.color.blackBoldLetters));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                orderModelsList.sort(new Comparator<orderModel>() {
+                    @Override
+                    public int compare(orderModel o1, orderModel o2) {
+                        try {
+                            Date date1 = sdf.parse(o1.getOrderDate());
+                            Date date2 = sdf.parse(o2.getOrderDate());
+                            return date1.compareTo(date2);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    }
+                });
+
+                adminOrdersAdapter.notifyDataSetChanged();
+            }
+        });
+
+        filterStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedFilter = parent.getItemAtPosition(position).toString();
+
+                ArrayList<orderModel> filteredList = new ArrayList<>();
+                for (orderModel item : orderModelsList) {
+                    if (item.getOrderStatus().equalsIgnoreCase(selectedFilter)) {
+                        filteredList.add(item);
+                    }
+                }
+                adminOrdersAdapter.filterList(filteredList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -198,6 +301,15 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
                 orderTotalPrice.set(index, newTotalPrice);
                 adminOrdersAdapter.notifyItemChanged(index);
             }
+        }
+    }
+
+    public void deleteOrder(String orderGroupIdDelete) {
+        int index = orderGroupId.indexOf(orderGroupIdDelete);
+
+        if (index != -1) {
+            orderModelsList.remove(index);
+            adminOrdersAdapter.notifyItemRemoved(index);
         }
     }
 
@@ -282,8 +394,6 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void filterOrder(String searchBarInputText) {
-        recyclerViewAdapterAdminOrders recyclerViewAdapterAdminOrders = new recyclerViewAdapterAdminOrders();
-
         ArrayList<orderModel> filteredList = new ArrayList<>();
 
 
@@ -296,7 +406,7 @@ public class adminOrders extends AppCompatActivity implements NavigationView.OnN
         if (filteredList.isEmpty()) {
             Log.d("Search View", "Search is empty");
         } else {
-            recyclerViewAdapterAdminOrders.filterList(filteredList);
+            adminOrdersAdapter.filterList(filteredList);
         }
     }
 }
