@@ -22,17 +22,23 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 public class forgot_password extends AppCompatActivity {
 
+    //DATABASE
+    private databaseFunctions databaseFunctions;
+
     //VARIABLE DECLARATION
-    EditText email;
-    Button reqResetLink;
-    TextView backBtnLogIn;
-    Button fabBackBtn;
+    private EditText email;
+    private Button reqResetLink;
+    private TextView backBtnLogIn;
+    private Button fabBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forgot_password);
+
+        //DATABASE
+        databaseFunctions = new databaseFunctions(this);
 
         //STATUS BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -52,10 +58,14 @@ public class forgot_password extends AppCompatActivity {
             public void onClick(View v) {
                 String emailText = email.getText().toString().trim();
 
+                boolean checkEmail = databaseFunctions.checkEmail(emailText);
+
                 if (emailText.isBlank()) {
                     popUpAlert(getString(R.string.pleaseFillUpTheInputField));
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
                     popUpAlert(getString(R.string.invalidEmail));
+                } else if (!checkEmail) {
+                    popUpAlert(getString(R.string.emailDoesNotExistError));
                 } else {
                     popUpAlert(getString(R.string.weHaveSendYouAnEmail));
                 }
